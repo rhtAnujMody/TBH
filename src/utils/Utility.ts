@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {Dimensions} from 'react-native';
-import reactotron from 'reactotron-react-native';
+import Toast from 'react-native-simple-toast';
 
 const {width: deviceWidth, height: deviceHeight} = Dimensions.get('window');
 
@@ -18,6 +18,10 @@ class Utility {
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       );
+  };
+
+  static showToast = (msg: string, duration: number = 2) => {
+    Toast.show(msg, duration);
   };
 }
 export default Utility;

@@ -10,7 +10,7 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  style: ViewStyle;
+  style?: ViewStyle;
 };
 
 const AppContainer = ({children, style}: Props) => {

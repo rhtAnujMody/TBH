@@ -85,7 +85,9 @@ const styles = StyleSheet.create({
     color: colors.black,
   },
   buildings: {
+    width: 20,
     position: 'absolute',
     bottom: 0,
+    left: -10,
   },
 });

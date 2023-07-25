@@ -1,14 +1,14 @@
-import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import {useRef} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
-import useKeyboard from '../custom_hooks/useKeyboard';
+import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import useLoginStore from '../stores/useLoginStore';
+import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
+import React = require('react');
 
 const LoginScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -60,7 +60,6 @@ const LoginScreen = () => {
           placeHolder="Email Id"
           returnKeyType="next"
           inputRef={emailRef}
-          value="anuj@yahoo.com"
           onChangeText={loginStore.setEmail}
           onSubmitEditing={handleOnSubmitEditing}
         />
@@ -68,7 +67,6 @@ const LoginScreen = () => {
           icon={AppSVGs.lock}
           placeHolder="Password"
           returnKeyType="done"
-          value="12345"
           inputRef={passwordRef}
           onChangeText={loginStore.setPassword}
         />

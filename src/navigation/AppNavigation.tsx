@@ -2,12 +2,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
+
 import Dashboard from '../screens/Dashboard';
 import SplashScreen from '../screens/SplashScreen';
-import authStore from '../stores/authStore';
+import {authStore} from '../stores';
 import AuthStack, {AuthStackParamList} from './AuthStack';
-import Toast from 'react-native-toast-message';
 
 type RootStackParamList = {
   Splash: undefined;
@@ -20,14 +20,7 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 export type AuthStackProps = NativeStackNavigationProp<AuthStackParamList>;
 
 const AppNavigation = observer(() => {
-  const {isLoggedIn} = authStore;
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowSplash(false);
-    }, 1000);
-  }, []);
+  const {isLoggedIn, showSplash} = authStore;
 
   return (
     <>
@@ -43,7 +36,6 @@ const AppNavigation = observer(() => {
           )}
         </RootStack.Navigator>
       </NavigationContainer>
-      <Toast />
     </>
   );
 });

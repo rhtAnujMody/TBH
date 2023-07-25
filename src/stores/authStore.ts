@@ -1,22 +1,22 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 const authStore = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   isLoading: false,
+  showSplash: true,
   isButtonEnables: false,
 
-  setIsLogin(value: boolean) {
+  setIsLogin(value: boolean, cb?: () => void) {
     this.isLoggedIn = value;
+    if (cb) {
+      cb();
+    }
+  },
+  toggleSplash(value: boolean) {
+    this.showSplash = value;
   },
 
-  logout() {
-    // Simulate logout process
-    setTimeout(() => {
-      runInAction(() => {
-        this.isLoggedIn = false;
-      });
-    }, 1000);
-  },
+  logout() {},
 };
 
 makeAutoObservable(authStore);
