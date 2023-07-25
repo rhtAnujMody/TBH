@@ -58,7 +58,6 @@ const useLoginStore = () => {
           Utility.showToast(response.msg);
         }
       } catch (err) {
-        console.tron.log(err);
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
