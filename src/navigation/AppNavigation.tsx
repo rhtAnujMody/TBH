@@ -4,20 +4,22 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {observer} from 'mobx-react-lite';
 import React from 'react';
 
-import Dashboard from '../screens/Dashboard';
 import SplashScreen from '../screens/SplashScreen';
 import {authStore} from '../stores';
 import AuthStack, {AuthStackParamList} from './AuthStack';
+import DashboardStack, {DashboardStackRootParamList} from './DashboardStack';
 
 type RootStackParamList = {
   Splash: undefined;
   Auth: undefined;
-  Home: undefined;
+  Dashboard: undefined;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export type AuthStackProps = NativeStackNavigationProp<AuthStackParamList>;
+export type DashboardStackProps =
+  NativeStackNavigationProp<DashboardStackRootParamList>;
 
 const AppNavigation = observer(() => {
   const {isLoggedIn, showSplash} = authStore;
@@ -30,7 +32,7 @@ const AppNavigation = observer(() => {
           {showSplash ? (
             <RootStack.Screen name="Splash" component={SplashScreen} />
           ) : isLoggedIn ? (
-            <RootStack.Screen name="Home" component={Dashboard} />
+            <RootStack.Screen name="Dashboard" component={DashboardStack} />
           ) : (
             <RootStack.Screen name="Auth" component={AuthStack} />
           )}

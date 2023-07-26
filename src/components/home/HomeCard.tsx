@@ -1,6 +1,8 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, typography} from '../../theme';
+import {useNavigation} from '@react-navigation/native';
+import {DashboardStackProps} from '../../navigation/AppNavigation';
 
 type Props = {
   icon: JSX.ElementType;
@@ -10,14 +12,23 @@ type Props = {
 
 const HomeCard = ({title, icon: Icon, marginRight}: Props) => {
   const styles = homeCardStyles(marginRight);
+  const navigation = useNavigation<DashboardStackProps>();
+
+  const navigateToCard = (item: string) => {
+    item === 'Capture Details'
+      ? navigation.navigate('CaptureDetails', {title: title})
+      : navigation.navigate('GenerateReports', {title: title});
+  };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigateToCard(title)}>
       <View style={styles.imageContainer}>
         <Icon />
       </View>
       <Text style={styles.text}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
