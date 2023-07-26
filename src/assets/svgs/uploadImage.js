@@ -1,0 +1,37 @@
+import * as React from 'react';
+import Svg, {Path, Defs, Pattern, Use, Image} from 'react-native-svg';
+
+function SvgComponent(props) {
+  return (
+    <Svg
+      width={16}
+      height={12}
+      viewBox="0 0 16 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      {...props}>
+      <Path fill="url(#pattern0)" d="M0 0H16V12H0z" />
+      <Defs>
+        <Pattern
+          id="pattern0"
+          patternContentUnits="objectBoundingBox"
+          width={1}
+          height={1}>
+          <Use
+            xlinkHref="#image0_121_49"
+            transform="matrix(.0238 0 0 .03175 0 -.04)"
+          />
+        </Pattern>
+        <Image
+          id="image0_121_49"
+          width={42}
+          height={34}
+          xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAiCAYAAAApkEs2AAAACXBIWXMAAC4jAAAuIwF4pT92AAAGs2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNi4wLWMwMDMgNzkuMTY0NTI3LCAyMDIwLzEwLzE1LTE3OjQ4OjMyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdEV2dD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlRXZlbnQjIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjIuMSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIzLTA3LTA3VDIyOjMxOjI0KzA1OjMwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDIzLTA3LTA3VDIyOjMxOjI0KzA1OjMwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMy0wNy0wN1QyMjozMToyNCswNTozMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpkM2FhODIyMi0wYTM3LTY1NGUtYTkwMy05NzJkMWNiZDBhMDYiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDphOWVmMDIwMC1mYmU2LTMzNDAtYjFiYS1jNDExNjdjMzI3ZTYiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo4MGRkYWY2ZC1mOTJiLWFmNGUtOTQxNi1lNzVhOGQzMDk3MDgiIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjgwZGRhZjZkLWY5MmItYWY0ZS05NDE2LWU3NWE4ZDMwOTcwOCIgc3RFdnQ6d2hlbj0iMjAyMy0wNy0wN1QyMjozMToyNCswNTozMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDIyLjEgKFdpbmRvd3MpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDpkM2FhODIyMi0wYTM3LTY1NGUtYTkwMy05NzJkMWNiZDBhMDYiIHN0RXZ0OndoZW49IjIwMjMtMDctMDdUMjI6MzE6MjQrMDU6MzAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyMi4xIChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPHBob3Rvc2hvcDpEb2N1bWVudEFuY2VzdG9ycz4gPHJkZjpCYWc+IDxyZGY6bGk+M0VEQzlEMEMxMUQyOUIyMEUwNDk1OUJFRkFDREMxNUQ8L3JkZjpsaT4gPHJkZjpsaT54bXAuZGlkOmE1YTFkZGVhLWQ0NzUtYTQ0YS04NTU0LTI2NjhmY2NlNTE3NjwvcmRmOmxpPiA8L3JkZjpCYWc+IDwvcGhvdG9zaG9wOkRvY3VtZW50QW5jZXN0b3JzPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PhamCWcAAAKdSURBVFiFxddPiE5RGMfxz2veZIwi5M9GYiXk70aUhY0UUVZSdoZssCWjWLBgmpKysJhQFmb8qbEhhLKirGwnmrISifJvxuLcaa47575z73tf7/zq7b3nOc8553tvz3mec2p9fX2mWRfxAVcaOdXbw5KrSziZPI/gbp7jjLbgxHXWBCQMYlee83SBnkJPxD4kB3Y6QE/jfIP+IezOGtsNehbnCvg9wL60YXwzLcXGpD1WEeY3HuFXxp7eOEU0iP0YkIBtSSbuqgiY1gJ8SrV7lIMc1x3sxf26QNxKyB8YTZ5noRdHKsx3D911LK7GNUm/U88deJkslraPCaGwPjP2srCZainbHIzW8T1ptEpdCSB8w60cvxGTQZ/iScw5tnmGcb0ZwmS+7wngVJodsS1pNHFW7zTOc9OiWB5ttLE6/Rs/bVOZhN8rnHKGcbgFa5fK10VBj+K4kB+X4Ro2lcKqqKKgOyO2sqCVynXRwb2Z9qiQ74rqBQ5kbCsjfgvyJih6cH4m1N1DQuq5IOTBIjqMbQnEzZS9BytMxGpNKOWVQAmldiBjm4vHeIPuyJjVQjzDKuFF+5N2f8Q/V1XiZr5QHjcLX+1ypr8TDzO2M0L9L61mQRcKX3FNynYCN1Lt20KGSGuFcForrWYud4vwVrzcHcQXvMeeFq5ZetAyvNKgJuPYFHP8SP6vYiv+JO0OITTuxwaVAV2N50JsVtH4Lt+GtZm+5XmDisboBiEmq0IycVb4GOn7mjeoCOh2AXJmE1DNrll60CEh2bdSTb1wLEbTp5oR4Y79uZnJM6olv9eRdaZUDDR9zX3cJFQR/SzjHAPdLAD+zwPymLBBC6tuMtA87GgRUFnlfpwZWnsDrarOvI66cLBY1z6WhnqX1/EXlV5rjlQcYCEAAAAASUVORK5CYII="
+        />
+      </Defs>
+    </Svg>
+  );
+}
+
+export default SvgComponent;

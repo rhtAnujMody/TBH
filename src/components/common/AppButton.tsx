@@ -7,7 +7,6 @@ import {
   Text,
   TextStyle,
   TouchableOpacity,
-  View,
   ViewStyle,
 } from 'react-native';
 import {colors, typography} from '../../theme';
