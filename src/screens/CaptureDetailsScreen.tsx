@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import {Observer} from 'mobx-react-lite';
+import React from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,59 +8,31 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import Header from '../components/common/Header';
-import {RouteProp, useRoute} from '@react-navigation/native';
-import {DashboardStackRootParamList} from '../navigation/DashboardStack';
-import {AppButton, AppTextInput} from '../components';
-import {AppSVGs} from '../assets';
 import DatePicker from 'react-native-date-picker';
-import Utility from '../utils/Utility';
-import AppRadioInput from '../components/common/AppRadioInput';
-import {colors} from '../theme';
+import {AppSVGs} from '../assets';
+import {AppButton, AppTextInput} from '../components';
 import AppImageUploadInput from '../components/common/AppImageUploadInput';
-// import AppDropdownInput from '../components/common/AppDropdownInput';
+import AppRadioInput from '../components/common/AppRadioInput';
+import Header from '../components/common/Header';
+import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
+import {colors} from '../theme';
+import Utility from '../utils/Utility';
 
-type Props = {};
-
-type RouteParams = RouteProp<DashboardStackRootParamList, 'CaptureDetails'>;
-
-const CaptureDetailsScreen = ({}: Props) => {
-  const route = useRoute<RouteParams>();
-  const [dob, setDOB] = useState<string | undefined>(undefined);
-  const [openDatePicker, setOpenDatePicker] = useState(false);
-
-  const {title} = route?.params;
+const CaptureDetailsScreen = () => {
+  const cdStore = useCaptureDetailsStore();
 
   const onDOBPress = () => {
-    setOpenDatePicker(true);
+    cdStore.toggleDOBPicker();
   };
 
   const onConfirmDate = (date: Date) => {
-    setDOB(Utility.formatDate(date));
-    setOpenDatePicker(false);
+    cdStore.setDOB(Utility.formatDate(date));
+    cdStore.toggleDOBPicker();
   };
 
   const onCancelDate = () => {
-    setOpenDatePicker(false);
+    cdStore.toggleDOBPicker();
   };
-
-  const options = [
-    {
-      label: 'Male',
-      value: 'male',
-      iconUri: AppSVGs.male,
-    },
-    {
-      label: 'Female',
-      value: 'female',
-      iconUri: AppSVGs.female,
-    },
-    {
-      label: 'Other',
-      value: 'other',
-      iconUri: AppSVGs.female,
-    },
-  ];
 
   const handleOptionSelect = (selectedValue: string) => {
     console.log('Selected:', selectedValue);
@@ -75,7 +48,7 @@ const CaptureDetailsScreen = ({}: Props) => {
 
   return (
     <SafeAreaView style={styles.containerWidth}>
-      <Header title={title} />
+      <Header title={'Capture Details'} />
       <KeyboardAvoidingView
         behavior={Platform.select({ios: 'padding'})}
         style={styles.containerWidth}>
@@ -97,15 +70,20 @@ const CaptureDetailsScreen = ({}: Props) => {
                 textHeader="CHILD'S NAME"
                 placeHolder="Name"
               />
-              <AppTextInput
-                parentStyle={styles.dobInputStyle}
-                textHeader="DATE OF BIRTH"
-                rightIcon={AppSVGs.dob}
-                placeHolder="Date Of Birth"
-                hideInput={true}
-                onPress={onDOBPress}
-                otherText={dob}
-              />
+              <Observer>
+                {() => (
+                  <AppTextInput
+                    parentStyle={styles.dobInputStyle}
+                    textHeader="DATE OF BIRTH"
+                    rightIcon={AppSVGs.dob}
+                    placeHolder="Date Of Birth"
+                    hideInput={true}
+                    onPress={onDOBPress}
+                    otherText={cdStore.dob}
+                  />
+                )}
+              </Observer>
+
               <AppTextInput
                 parentStyle={styles.textInputStyle}
                 textHeader="CONTACT NAME"
@@ -117,7 +95,10 @@ const CaptureDetailsScreen = ({}: Props) => {
               options={options2}
               onSelect={handleSelect}
             /> */}
-              <AppRadioInput options={options} onSelect={handleOptionSelect} />
+              <AppRadioInput
+                options={cdStore.options}
+                onSelect={handleOptionSelect}
+              />
               <AppImageUploadInput />
               <AppTextInput
                 parentStyle={styles.textInputStyle}
@@ -152,14 +133,18 @@ const CaptureDetailsScreen = ({}: Props) => {
           </ScrollView>
         </View>
       </KeyboardAvoidingView>
-      <DatePicker
-        modal
-        date={new Date()}
-        open={openDatePicker}
-        mode="date"
-        onConfirm={onConfirmDate}
-        onCancel={onCancelDate}
-      />
+      <Observer>
+        {() => (
+          <DatePicker
+            modal
+            date={new Date()}
+            open={cdStore.openDOBPicker}
+            mode="date"
+            onConfirm={onConfirmDate}
+            onCancel={onCancelDate}
+          />
+        )}
+      </Observer>
     </SafeAreaView>
   );
 };

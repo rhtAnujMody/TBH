@@ -6,8 +6,8 @@ import GenerateReportsScreen from '../screens/GenerateReportsScreen';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
-  CaptureDetails: {title?: string};
-  GenerateReports: {title?: string};
+  CaptureDetails: undefined;
+  GenerateReports: undefined;
 };
 
 const DashboardStackRoot =

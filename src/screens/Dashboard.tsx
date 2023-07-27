@@ -4,8 +4,11 @@ import AppContainer from '../components/common/AppContainer';
 import {colors, typography} from '../theme';
 import {HomeCard} from '../components';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {DashboardStackProps} from '../navigation/AppNavigation';
 
 const Dashboard = () => {
+  const navigation = useNavigation<DashboardStackProps>();
   const homeCards = [
     {
       title: 'Capture Details',
@@ -16,6 +19,14 @@ const Dashboard = () => {
       icon: AppSVGs.report,
     },
   ];
+
+  const navigateToCard = (index: number) => {
+    if (index === 0) {
+      navigation.navigate('CaptureDetails');
+    } else if (index === 1) {
+      navigation.navigate('GenerateReports');
+    }
+  };
 
   return (
     <AppContainer style={styles.container}>
@@ -39,6 +50,9 @@ const Dashboard = () => {
                 icon={data.icon}
                 key={data.title}
                 marginRight={index === 0 ? 10 : 0}
+                onPress={() => {
+                  navigateToCard(index);
+                }}
               />
             );
           })}

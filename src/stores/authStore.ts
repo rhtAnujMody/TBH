@@ -13,10 +13,12 @@ const authStore = {
     }
   },
   toggleSplash(value: boolean) {
-    this.showSplash = value;
+    authStore.showSplash = value;
   },
 
-  logout() {},
+  logout() {
+    authStore.isLoggedIn = false;
+  },
 };
 
 makeAutoObservable(authStore);

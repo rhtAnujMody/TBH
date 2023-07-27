@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {colors, typography} from '../../theme';
 
 type Option = {
@@ -25,29 +25,22 @@ const AppRadioInput = ({options, onSelect}: RadioButtonProps) => {
     <View style={styles.containerWidth}>
       <Text style={styles.textHeader}>GENDER</Text>
       <View style={styles.container}>
-        {options.map(option => (
+        {options.map(({value, iconUri: Icon, label}) => (
           <TouchableOpacity
-            key={option.value}
+            key={value}
             style={[
               styles.radioButton,
-              {
-                borderColor:
-                  selectedOption === option.value
-                    ? colors.palette.primary
-                    : colors.gray,
-              },
+              styles.selectedOption(selectedOption === value),
             ]}
-            onPress={() => handleSelect(option.value)}>
-            <option.iconUri
+            onPress={() => handleSelect(value)}>
+            <Icon
               width={30}
               height={30}
               fill={
-                selectedOption === option.value
-                  ? colors.palette.primary
-                  : colors.gray
+                selectedOption === value ? colors.palette.primary : colors.gray
               }
             />
-            <Text style={styles.radioButtonLabel}>{option.label}</Text>
+            <Text style={styles.radioButtonLabel}>{label}</Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -86,6 +79,9 @@ const styles = StyleSheet.create({
     ...typography.medium(10),
     marginBottom: 6,
   },
+  selectedOption: (isSelected: boolean) => ({
+    borderColor: isSelected ? colors.palette.primary : colors.gray,
+  }),
 });
 
 export default AppRadioInput;

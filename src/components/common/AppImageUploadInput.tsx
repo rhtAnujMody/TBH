@@ -7,7 +7,7 @@ import {colors, typography} from '../../theme';
 type Props = {};
 
 const AppImageUploadInput = ({}: Props) => {
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
   //   console.log(selectedImages, 'selectedImages');
   const selectImagesHandler = () => {
     ImagePicker.openPicker({
@@ -25,7 +25,7 @@ const AppImageUploadInput = ({}: Props) => {
       });
   };
 
-  const removeImage = index => {
+  const removeImage = (index: number) => {
     const updatedImages = [...selectedImages];
     updatedImages.splice(index, 1);
     setSelectedImages(updatedImages);
