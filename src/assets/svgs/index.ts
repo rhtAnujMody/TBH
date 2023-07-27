@@ -6,6 +6,7 @@ import home from './home';
 import male from './male';
 import female from './female';
 import dropdown from './dropdown';
+import close from './close';
 import uploadImage from './uploadImage';
 
 export default {
@@ -14,6 +15,7 @@ export default {
   buildings,
   male,
   female,
+  close,
   dropdown,
   uploadImage,
   ...login,
