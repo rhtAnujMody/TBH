@@ -11,6 +11,8 @@ import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {AuthStackProps} from '../navigation/AppNavigation';
+import useSignUpStore from '../stores/useSignUpStore';
+import {observer} from 'mobx-react-lite';
 
 const SignUpScreen = () => {
   const keyboard = useKeyboard();
@@ -18,9 +20,10 @@ const SignUpScreen = () => {
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [dob, setDOB] = useState<string | undefined>(undefined);
+
+  const signUpStore = useSignUpStore();
 
   const navigation = useNavigation<AuthStackProps>();
 
@@ -48,6 +51,7 @@ const SignUpScreen = () => {
 
   const onConfirmDate = (date: Date) => {
     setDOB(Utility.formatDate(date));
+    signUpStore.setDOB(Utility.formatDate(date, 'yyyy-MM-DD'));
     setOpenDatePicker(false);
   };
   const onCancelDate = () => {
@@ -56,6 +60,17 @@ const SignUpScreen = () => {
   const navigateToSignIn = () => {
     navigation.navigate('Login');
   };
+
+  const ShowButton = observer(() => {
+    return (
+      <AppButton
+        title="Sign Up"
+        isLoading={signUpStore.isLoading}
+        onPress={signUpStore.signUp}
+        enabled={signUpStore.isButtonEnabled}
+      />
+    );
+  });
 
   return (
     <AppContainer style={styles.container}>
@@ -78,12 +93,14 @@ const SignUpScreen = () => {
           icon={AppSVGs.name}
           placeHolder="Name"
           returnKeyType="next"
+          onChangeText={signUpStore.setName}
           onSubmitEditing={() => handleOnSubmitEditing(1)}
         />
         <AppTextInput
           icon={AppSVGs.email}
           placeHolder="Email"
           returnKeyType="next"
+          onChangeText={signUpStore.setEmail}
           inputRef={emailRef}
           onSubmitEditing={() => handleOnSubmitEditing(2)}
         />
@@ -100,6 +117,7 @@ const SignUpScreen = () => {
           icon={AppSVGs.lock}
           secureTextEntry
           placeHolder="Password"
+          onChangeText={signUpStore.setPassword}
           returnKeyType="done"
           inputRef={passwordRef}
         />
@@ -110,16 +128,7 @@ const SignUpScreen = () => {
               {' Sign In'}
             </Text>
           </Text>
-          <AppButton
-            title="Sign Up"
-            isLoading={isLoading}
-            onPress={() => {
-              setIsLoading(true);
-              setTimeout(() => {
-                setIsLoading(false);
-              }, 2000);
-            }}
-          />
+          <ShowButton />
         </View>
       </View>
       <DatePicker

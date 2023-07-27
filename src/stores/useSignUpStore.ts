@@ -1,50 +1,69 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {useAsyncStorage} from '../custom_hooks';
-import {UserModal} from '../models/UserModal';
+import {LoginModel, UserModal} from '../models/UserModal';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
 import authStore from './authStore';
 
-const useLoginStore = () => {
+const useSignUpStore = () => {
   const auth = authStore;
   const {request} = useApiService();
   const {setData} = useAsyncStorage();
 
-  const loginStore = useLocalObservable(() => ({
+  const signUpStore = useLocalObservable(() => ({
     isLoading: false,
     isButtonEnabled: false,
+    name: '',
+    dob: '',
     userEmail: '',
     password: '',
 
     setEmail(value: string) {
-      loginStore.userEmail = value;
-      loginStore.validateCredentials();
+      signUpStore.userEmail = value;
+      signUpStore.validateCredentials();
+    },
+
+    setName(value: string) {
+      signUpStore.name = value;
+      signUpStore.validateCredentials();
+    },
+
+    setDOB(value: string) {
+      signUpStore.dob = value;
+      signUpStore.validateCredentials();
     },
 
     setPassword(value: string) {
-      loginStore.password = value;
-      loginStore.validateCredentials();
+      signUpStore.password = value;
+      signUpStore.validateCredentials();
     },
 
     validateCredentials() {
-      loginStore.isButtonEnabled = false;
-      if (!Utility.validateEmail(loginStore.userEmail)) {
+      signUpStore.isButtonEnabled = false;
+
+      if (signUpStore.name.length === 0 || signUpStore.dob.length === 0) {
         return;
       }
-      if (loginStore.password.length < 4) {
+
+      if (!Utility.validateEmail(signUpStore.userEmail)) {
         return;
       }
-      loginStore.isButtonEnabled = true;
+      if (signUpStore.password.length < 4) {
+        return;
+      }
+      signUpStore.isButtonEnabled = true;
     },
 
-    async login() {
+    async signUp() {
       runInAction(() => {
-        loginStore.isLoading = true;
+        signUpStore.isLoading = true;
       });
       try {
-        const response = await request<UserModal>('post', AppStrings.login, {
+        const response = await request<UserModal>('post', AppStrings.signUp, {
+          name: this.name,
+          dob: this.dob,
           email: this.userEmail,
           password: this.password,
         });
@@ -55,7 +74,7 @@ const useLoginStore = () => {
             auth.setUserData(response.data);
           }
           auth.setIsLogin(true, () => {
-            Utility.showToast('Login Success');
+            Utility.showToast('SignUp Success');
           });
         } else {
           Utility.showToast(response.msg);
@@ -64,13 +83,13 @@ const useLoginStore = () => {
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
-          loginStore.isLoading = false;
+          signUpStore.isLoading = false;
         });
       }
     },
   }));
 
-  return loginStore;
+  return signUpStore;
 };
 
-export default useLoginStore;
+export default useSignUpStore;

@@ -1,9 +1,12 @@
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
-import AppContainer from '../components/common/AppContainer';
-import {colors, typography} from '../theme';
 import {HomeCard} from '../components';
-import React from 'react';
+import AppContainer from '../components/common/AppContainer';
+import ObservableChild from '../components/common/ObservableChild';
+import {authStore} from '../stores';
+import {colors, typography} from '../theme';
+import Utility from '../utils/Utility';
 
 const Dashboard = () => {
   const homeCards = [
@@ -17,16 +20,30 @@ const Dashboard = () => {
     },
   ];
 
+  const auth = authStore;
+
   return (
     <AppContainer style={styles.container}>
       <View style={styles.topContainer}>
         <AppSVGs.logo style={styles.logo} />
-
+        <Text
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            padding: 20,
+            zIndex: 10,
+          }}
+          onPress={auth.logout}>
+          Logout
+        </Text>
         <View style={styles.profileContainer}>
           <AppSVGs.profile style={styles.userLogo} />
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcome}>Welcome,</Text>
-            <Text style={styles.userName}>Mr. Anuj Mody</Text>
+            <ObservableChild>
+              <Text style={styles.userName}>{auth.userData.name}</Text>
+            </ObservableChild>
           </View>
         </View>
       </View>
