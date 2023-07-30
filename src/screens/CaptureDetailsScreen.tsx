@@ -12,7 +12,6 @@ import DatePicker from 'react-native-date-picker';
 import {AppSVGs} from '../assets';
 import {AppButton, AppTextInput} from '../components';
 import AppImageUploadInput from '../components/common/AppImageUploadInput';
-import AppRadioInput from '../components/common/AppRadioInput';
 import Header from '../components/common/Header';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors} from '../theme';
@@ -21,21 +20,17 @@ import Utility from '../utils/Utility';
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
 
-  const onDOBPress = () => {
-    cdStore.toggleDOBPicker();
+  const onDOVPress = () => {
+    cdStore.toggleDOVPicker();
   };
 
   const onConfirmDate = (date: Date) => {
-    cdStore.setDOB(Utility.formatDate(date));
-    cdStore.toggleDOBPicker();
+    cdStore.setDOV(Utility.formatDate(date));
+    cdStore.toggleDOVPicker();
   };
 
   const onCancelDate = () => {
-    cdStore.toggleDOBPicker();
-  };
-
-  const handleOptionSelect = (selectedValue: string) => {
-    console.log('Selected:', selectedValue);
+    cdStore.toggleDOVPicker();
   };
 
   // const [selectedValue, setSelectedValue] = useState('Option 1');
@@ -55,73 +50,55 @@ const CaptureDetailsScreen = () => {
         <View style={styles.backgroundStyle}>
           <ScrollView contentContainerStyle={styles.contentContainerStyle}>
             <View style={styles.container}>
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="PARTNER NAME"
-                placeHolder="Partner name"
-              />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="CENTER NAME"
-                placeHolder="Center name"
-              />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="CHILD'S NAME"
-                placeHolder="Name"
-              />
               <Observer>
                 {() => (
                   <AppTextInput
-                    parentStyle={styles.dobInputStyle}
-                    textHeader="DATE OF BIRTH"
+                    parentStyle={styles.dovInputStyle}
+                    textHeader="DATE OF VISIT"
                     rightIcon={AppSVGs.dob}
-                    placeHolder="Date Of Birth"
+                    placeHolder="Date Of Visit"
                     hideInput={true}
-                    onPress={onDOBPress}
-                    otherText={cdStore.dob}
+                    onPress={onDOVPress}
+                    otherText={cdStore.dov}
                   />
                 )}
               </Observer>
-
               <AppTextInput
                 parentStyle={styles.textInputStyle}
-                textHeader="CONTACT NAME"
-                placeHolder="+91 123456789"
-                keyboardType="numeric"
+                textHeader="TOTAl NUMBER OF PARTICIPANTS"
+                placeHolder="Total number of participants"
+                onChangeText={cdStore.setTotalNoOfParticipants}
+              />
+              <AppTextInput
+                parentStyle={styles.textInputStyle}
+                textHeader="METHOD USED"
+                placeHolder="Method used"
+                onChangeText={cdStore.setMethodUsed}
+              />
+              <AppTextInput
+                parentStyle={styles.textInputStyle}
+                textHeader="TOPICS COVERED"
+                placeHolder="Topics covered"
+                onChangeText={cdStore.setTopicsCovered}
+              />
+              <AppTextInput
+                parentStyle={styles.textInputStyle}
+                textHeader="SESSION CONDUCTED BY"
+                placeHolder="Session conducted by"
+                onChangeText={cdStore.setSessionCoveredBy}
               />
               {/* <AppDropdownInput
               selectedValue={selectedValue}
               options={options2}
               onSelect={handleSelect}
             /> */}
-              <AppRadioInput
-                options={cdStore.options}
-                onSelect={handleOptionSelect}
+              <AppTextInput
+                parentStyle={styles.textInputStyle}
+                textHeader="FEEDBACK FROM PARTICIPANTS"
+                placeHolder="Feedback from participants"
+                onChangeText={cdStore.setFeedbackFromParticipants}
               />
               <AppImageUploadInput />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="LOCATION"
-                placeHolder="location"
-              />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="HEIGHT"
-                placeHolder="Enter Height"
-                keyboardType="numeric"
-              />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="WEIGHT"
-                placeHolder="Enter Weight"
-                keyboardType="numeric"
-              />
-              <AppTextInput
-                parentStyle={styles.textInputStyle}
-                textHeader="TARGET BENEFICIARY"
-                placeHolder="Target Beneficiary"
-              />
               <AppButton
                 title="Reset"
                 style={styles.buttonStyle}
@@ -138,7 +115,7 @@ const CaptureDetailsScreen = () => {
           <DatePicker
             modal
             date={new Date()}
-            open={cdStore.openDOBPicker}
+            open={cdStore.openDOVPicker}
             mode="date"
             onConfirm={onConfirmDate}
             onCancel={onCancelDate}
@@ -177,7 +154,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     marginTop: 10,
   },
-  dobInputStyle: {
+  dovInputStyle: {
     backgroundColor: '#F7F7F7',
     borderColor: colors.gray,
     borderWidth: 1,

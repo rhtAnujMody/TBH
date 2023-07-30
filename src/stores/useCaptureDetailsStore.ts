@@ -3,9 +3,14 @@ import {AppSVGs} from '../assets';
 
 const useCaptureDetailsStore = () => {
   const cdStore = useLocalObservable(() => ({
-    partnerName: '',
-    dob: '',
-    openDOBPicker: false,
+    dov: '',
+    openDOVPicker: false,
+    totalNoOfParticipants: '',
+    methodUsed: '',
+    topicsCovered: '',
+    sessionConductedBy: '',
+    feedbackFromParticipants: '',
+    selectedImages: [],
     options: [
       {
         label: 'Male',
@@ -24,12 +29,36 @@ const useCaptureDetailsStore = () => {
       },
     ],
 
-    toggleDOBPicker() {
-      cdStore.openDOBPicker = !cdStore.openDOBPicker;
+    toggleDOVPicker() {
+      cdStore.openDOVPicker = !cdStore.openDOVPicker;
     },
-    setDOB(value: string) {
-      cdStore.dob = value;
+    setDOV(value: string) {
+      cdStore.dov = value;
     },
+
+    setTotalNoOfParticipants(value: string) {
+      cdStore.totalNoOfParticipants = value;
+    },
+
+    setMethodUsed(value: string) {
+      cdStore.methodUsed = value;
+    },
+
+    setTopicsCovered(value: string) {
+      cdStore.topicsCovered = value;
+    },
+
+    setSessionCoveredBy(value: string) {
+      cdStore.sessionConductedBy = value;
+    },
+
+    setFeedbackFromParticipants(value: string) {
+      cdStore.feedbackFromParticipants = value;
+    },
+
+    // setSelectedImages(value: Image[]) {
+    //   cdStore.selectedImages = value;
+    // },
   }));
 
   return cdStore;

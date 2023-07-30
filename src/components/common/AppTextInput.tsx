@@ -65,7 +65,7 @@ const AppTextInput = ({
             <Text
               style={[
                 styles.otherTextValue(otherText ? false : true),
-                {marginLeft: LeftIcon ? 20 : 0},
+                styles.leftIconStyle(LeftIcon ? true : false),
               ]}>
               {otherText ? otherText : placeHolder}
             </Text>
@@ -76,7 +76,10 @@ const AppTextInput = ({
             placeholderTextColor={'#B1B1B1'}
             selectionColor={colors.palette.primary}
             placeholder={placeHolder}
-            style={[styles.textInput, {marginLeft: LeftIcon ? 20 : 0}]}
+            style={[
+              styles.textInput,
+              styles.leftIconStyle(LeftIcon ? true : false),
+            ]}
             keyboardType={keyboardType}
             onFocus={customOnFocus}
             onBlur={customOnBlur}
@@ -149,6 +152,9 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
+  leftIconStyle: (isLeftIcon: boolean) => ({
+    marginLeft: isLeftIcon ? 20 : 0,
+  }),
   otherTextValue: (isPlaceHolder: boolean): TextStyle => ({
     marginLeft: 22,
     ...typography.regular(14),
