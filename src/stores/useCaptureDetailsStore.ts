@@ -5,12 +5,18 @@ const useCaptureDetailsStore = () => {
   const cdStore = useLocalObservable(() => ({
     dov: '',
     openDOVPicker: false,
+    openPartner: false,
+    valuePartner: '',
     totalNoOfParticipants: '',
     methodUsed: '',
     topicsCovered: '',
     sessionConductedBy: '',
     feedbackFromParticipants: '',
     selectedImages: [],
+    partnerOptions: [
+      {label: 'New', value: 'new'},
+      {label: 'Existing', value: 'existing'},
+    ],
     options: [
       {
         label: 'Male',

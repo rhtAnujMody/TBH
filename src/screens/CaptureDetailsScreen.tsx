@@ -1,5 +1,5 @@
 import {Observer} from 'mobx-react-lite';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -16,6 +16,7 @@ import Header from '../components/common/Header';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors} from '../theme';
 import Utility from '../utils/Utility';
+import AppDropdownInput from '../components/common/AppDropdownInput';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
@@ -33,13 +34,29 @@ const CaptureDetailsScreen = () => {
     cdStore.toggleDOVPicker();
   };
 
-  // const [selectedValue, setSelectedValue] = useState('Option 1');
-  // console.log(selectedValue, 'selected value');
-  // const options2 = ['Option 1', 'Option 2', 'Option 3'];
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState(cdStore.partnerOptions);
 
-  // const handleSelect = option => {
-  //   setSelectedValue(option);
-  // };
+  // Hour options from 1 to 12
+  const hourOptions = Array.from({length: 12}, (_, index) => ({
+    label: (index + 1).toString(),
+    value: (index + 1).toString(),
+  }));
+
+  // Minute options from 0 to 59
+  const minuteOptions = Array.from({length: 60}, (_, index) => ({
+    label: index.toString().padStart(2, '0'),
+    value: index.toString(),
+  }));
+
+  const [openH, setOpenH] = useState(false);
+  const [valueH, setValueH] = useState(null);
+  const [itemsH, setItemsH] = useState(hourOptions);
+
+  const [openM, setOpenM] = useState(false);
+  const [valueM, setValueM] = useState(null);
+  const [itemsM, setItemsM] = useState(minuteOptions);
 
   return (
     <SafeAreaView style={styles.containerWidth}>
@@ -63,12 +80,59 @@ const CaptureDetailsScreen = () => {
                   />
                 )}
               </Observer>
+              <AppDropdownInput
+                textHeader="Is this a New/ Existing Partner"
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+              />
               <AppTextInput
                 parentStyle={styles.textInputStyle}
                 textHeader="TOTAl NUMBER OF PARTICIPANTS"
                 placeHolder="Total number of participants"
                 onChangeText={cdStore.setTotalNoOfParticipants}
               />
+              <AppDropdownInput
+                textHeader="TARGET BENEFICIARIES"
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+              />
+              <AppDropdownInput
+                textHeader="AGE"
+                open={open}
+                value={value}
+                items={items}
+                setOpen={setOpen}
+                setValue={setValue}
+                setItems={setItems}
+              />
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <AppDropdownInput
+                  textHeader="HOUR"
+                  open={openH}
+                  value={valueH}
+                  items={itemsH}
+                  setOpen={setOpenH}
+                  setValue={setValueH}
+                  setItems={setItemsH}
+                />
+                <AppDropdownInput
+                  textHeader="MINUTE"
+                  open={openM}
+                  value={valueM}
+                  items={itemsM}
+                  setOpen={setOpenM}
+                  setValue={setValueM}
+                  setItems={setItemsM}
+                />
+              </View>
               <AppTextInput
                 parentStyle={styles.textInputStyle}
                 textHeader="METHOD USED"
@@ -87,11 +151,6 @@ const CaptureDetailsScreen = () => {
                 placeHolder="Session conducted by"
                 onChangeText={cdStore.setSessionCoveredBy}
               />
-              {/* <AppDropdownInput
-              selectedValue={selectedValue}
-              options={options2}
-              onSelect={handleSelect}
-            /> */}
               <AppTextInput
                 parentStyle={styles.textInputStyle}
                 textHeader="FEEDBACK FROM PARTICIPANTS"

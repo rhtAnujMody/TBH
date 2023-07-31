@@ -1,45 +1,52 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Modal, StyleSheet} from 'react-native';
+import React, {Dispatch} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import {AppSVGs} from '../../assets';
+import DropDownPicker from 'react-native-dropdown-picker';
+import {colors, typography} from '../../theme';
 
-type Option = {
-  option: string;
-};
+type SetStateValue<S> = (prevState: S) => S;
+type SetStateCallback<S> = (prevState: S) => S;
 
 type Props = {
-  selectedValue: string;
-  options: Option[];
-  onSelect: (selectedValue: string) => void;
+  open: boolean;
+  value: string | null;
+  textHeader: string;
+  items: Array<{label: string; value: string}>;
+  setOpen: Dispatch<SetStateValue<boolean>>;
+  setValue: Dispatch<SetStateCallback<string | null | any>>;
+  setItems: Dispatch<SetStateCallback<any[]>>;
 };
 
-const AppDropdownInput = ({selectedValue, options, onSelect}: Props) => {
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleSelect = option => {
-    setModalVisible(false);
-    onSelect(option);
-  };
-
+const AppDropdownInput = ({
+  open,
+  value,
+  items,
+  setOpen,
+  setValue,
+  setItems,
+  textHeader,
+}: Props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => setModalVisible(true)}
-        style={styles.inputContainer}>
-        <Text style={styles.selectedValue}>{selectedValue}</Text>
-        <AppSVGs.dropdown size={16} style={styles.arrowIcon} />
-      </TouchableOpacity>
-      <Modal visible={modalVisible} animationType="slide" transparent={false}>
-        <View style={styles.modalContainer}>
-          {options.map((option, index) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => handleSelect(option)}
-              style={styles.optionItem}>
-              <Text style={styles.optionText}>{option}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </Modal>
+    <View style={styles.containerWidth}>
+      <Text style={styles.textHeader}>{textHeader}</Text>
+      <View style={styles.container}>
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          ArrowDownIconComponent={() => (
+            <AppSVGs.dropdown style={styles.arrowDownIcon} />
+          )}
+          listMode="SCROLLVIEW"
+          dropDownContainerStyle={styles.dropDownContainerStyle}
+          style={styles.dropdownStyle}
+          textStyle={styles.textStyle}
+          placeholderStyle={styles.placeholderStyle}
+        />
+      </View>
     </View>
   );
 };
@@ -50,40 +57,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
-  modal: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginHorizontal: 'auto',
-    marginVertical: 'auto',
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#333',
-    padding: 10,
-    borderRadius: 8,
-  },
-  selectedValue: {
+  containerWidth: {
     flex: 1,
   },
-  arrowIcon: {
-    marginLeft: 8,
+  textHeader: {
+    ...typography.medium(10),
+    marginBottom: 6,
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  arrowDownIcon: {
+    marginRight: 4,
   },
-  optionItem: {
-    padding: 10,
+  dropDownContainerStyle: {
+    position: 'relative',
+    backgroundColor: '#F7F7F7',
+    borderColor: colors.gray,
+    borderRadius: 30,
+    top: 0,
   },
-  optionText: {
-    fontSize: 16,
-    color: '#333',
+  placeholderStyle: {
+    color: '#B1B1B1',
+    marginLeft: 10,
+  },
+  dropdownStyle: {
+    borderRadius: 30,
+    borderColor: colors.gray,
+    backgroundColor: '#F7F7F7',
+  },
+  textStyle: {
+    paddingLeft: 10,
   },
 });
 
