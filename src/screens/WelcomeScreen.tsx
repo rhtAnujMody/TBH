@@ -1,18 +1,14 @@
-import {BottomSheetMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {useNavigation} from '@react-navigation/native';
-import React, {useRef} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
-import AppBottomSheet from '../components/common/AppBottomSheet';
 import AppButton from '../components/common/AppButton';
 import AppContainer from '../components/common/AppContainer';
 import {AuthStackProps} from '../navigation/AppNavigation';
 import {colors, typography} from '../theme';
-import BottomSheet from '@gorhom/bottom-sheet/';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<AuthStackProps>();
-  const bottomSheetRef = useRef<BottomSheet | null>(null);
 
   const navigateToLogin = () => {
     navigation.navigate('Login');
@@ -47,7 +43,6 @@ const WelcomeScreen = () => {
         </View>
         <AppSVGs.buildings style={styles.buildings} />
       </View>
-      <AppBottomSheet ref={bottomSheetRef} />
     </AppContainer>
   );
 };
