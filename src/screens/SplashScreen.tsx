@@ -1,21 +1,24 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {AppSVGs} from '../assets';
-import {colors} from '../theme';
-import {useAsyncStorage} from '../custom_hooks';
-import AppStrings from '../utils/AppStrings';
-import {authStore} from '../stores';
 import {AppContainer} from '../components';
+import {useAsyncStorage} from '../custom_hooks';
+import {UserModal} from '../models/UserModal';
+import {authStore} from '../stores';
+import {colors} from '../theme';
+import AppStrings from '../utils/AppStrings';
 
-type Props = {};
-
-function SplashScreen({}: Props) {
+function SplashScreen() {
   const {getData} = useAsyncStorage();
   const auth = authStore;
 
   useEffect(() => {
     const checkUserAuth = async () => {
       const isLoggedIn = await getData(AppStrings.isLogin, false);
+      if (isLoggedIn) {
+        const userData = await getData<UserModal>(AppStrings.userData, null);
+        auth.setUserData(userData!!);
+      }
       auth.setIsLogin(isLoggedIn!!);
       setTimeout(() => {
         auth.toggleSplash(false);

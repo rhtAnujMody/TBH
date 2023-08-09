@@ -68,6 +68,7 @@ const LoginScreen = () => {
           placeHolder="Password"
           returnKeyType="done"
           inputRef={passwordRef}
+          secureTextEntry
           onChangeText={loginStore.setPassword}
         />
         <View style={styles.bottomContainer}>

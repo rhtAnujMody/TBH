@@ -23,5 +23,9 @@ class Utility {
   static showToast = (msg: string, duration: number = 2) => {
     Toast.show(msg, duration);
   };
+
+  static logData = (msg: any) => {
+    console.tron.log(msg);
+  };
 }
 export default Utility;
