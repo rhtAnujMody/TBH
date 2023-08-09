@@ -1,21 +1,20 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {HomeCard} from '../components';
 import AppContainer from '../components/common/AppContainer';
 import ObservableChild from '../components/common/ObservableChild';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
-import Utility from '../utils/Utility';
 
 const Dashboard = () => {
   const homeCards = [
     {
-      title: 'Capture Details',
+      title: 'Proceed For Data Capture',
       icon: AppSVGs.capture_details,
     },
     {
-      title: 'Generate Reports',
+      title: 'View Calculated Field Values',
       icon: AppSVGs.report,
     },
   ];
@@ -48,20 +47,39 @@ const Dashboard = () => {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <View style={styles.cardsContainer}>
-          {homeCards.map((data, index) => {
-            return (
-              <HomeCard
-                title={data.title}
-                icon={data.icon}
-                key={data.title}
-                marginRight={index === 0 ? 10 : 0}
-              />
-            );
-          })}
-        </View>
-        <AppSVGs.buildings style={styles.buildingLogo} />
+        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+          <Text style={styles.title}>Health Camp</Text>
+          <View style={styles.cardsContainer}>
+            {homeCards.map((data, index) => {
+              return (
+                <HomeCard
+                  title={data.title}
+                  icon={data.icon}
+                  key={data.title}
+                  marginRight={index === 0 ? 10 : 0}
+                />
+              );
+            })}
+          </View>
+          <Text style={styles.title}>Nutrition Education</Text>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={homeCards[0].title}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+            />
+          </View>
+          <Text style={styles.title}>Program Monitoring</Text>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={homeCards[0].title}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+            />
+          </View>
+        </ScrollView>
       </View>
+      <AppSVGs.buildings style={styles.buildingLogo} />
     </AppContainer>
   );
 };
@@ -79,7 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   topContainer: {
-    flex: 1.6,
+    flex: 1.3,
     backgroundColor: colors.palette.primary,
     borderBottomRightRadius: 60,
     borderBottomLeftRadius: 60,
@@ -109,13 +127,17 @@ const styles = StyleSheet.create({
   },
   cardsContainer: {
     marginHorizontal: 20,
-    marginTop: 40,
-    flexDirection: 'row',
+    marginTop: 10,
   },
   buildingLogo: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  title: {
+    ...typography.bold(18),
+    marginLeft: 20,
+    marginTop: 10,
   },
 });

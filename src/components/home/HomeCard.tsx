@@ -1,15 +1,15 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {colors, typography} from '../../theme';
+import {StyleSheet, Text, View} from 'react-native';
+import {typography} from '../../theme';
 
 type Props = {
   icon: JSX.ElementType;
   title: string;
-  marginRight: number;
+  marginRight?: number;
 };
 
-const HomeCard = ({title, icon: Icon, marginRight}: Props) => {
-  const styles = homeCardStyles(marginRight);
+const HomeCard = ({title, icon: Icon}: Props) => {
+  const styles = homeCardStyles();
 
   return (
     <View style={styles.container}>
@@ -23,17 +23,15 @@ const HomeCard = ({title, icon: Icon, marginRight}: Props) => {
 
 export default HomeCard;
 
-const homeCardStyles = (marginRight: number) => {
+const homeCardStyles = () => {
   return StyleSheet.create({
     container: {
-      flex: 1,
-      height: 120,
+      height: 50,
       borderRadius: 10,
-      backgroundColor: colors.palette.primary,
+      backgroundColor: 'white',
       shadowColor: '#000',
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'center',
       paddingHorizontal: 20,
       paddingVertical: 10,
       shadowOffset: {width: 0, height: 2},
@@ -41,7 +39,6 @@ const homeCardStyles = (marginRight: number) => {
       shadowRadius: 2,
       elevation: 2,
       marginBottom: 10,
-      marginRight: marginRight,
     },
     text: {
       textAlign: 'center',
@@ -50,12 +47,8 @@ const homeCardStyles = (marginRight: number) => {
     imageContainer: {
       width: 60,
       height: 60,
-      backgroundColor: 'white',
-      borderRadius: 30,
       justifyContent: 'center',
       alignItems: 'center',
-      position: 'absolute',
-      top: -30,
     },
   });
 };

@@ -14,12 +14,12 @@ function SplashScreen() {
 
   useEffect(() => {
     const checkUserAuth = async () => {
-      const isLoggedIn = await getData(AppStrings.isLogin, false);
-      if (isLoggedIn) {
-        const userData = await getData<UserModal>(AppStrings.userData, null);
-        auth.setUserData(userData!!);
-      }
-      auth.setIsLogin(isLoggedIn!!);
+      // const isLoggedIn = await getData(AppStrings.isLogin, false);
+      // if (isLoggedIn) {
+      //   const userData = await getData<UserModal>(AppStrings.userData, null);
+      //   auth.setUserData(userData!!);
+      // }
+      // auth.setIsLogin(isLoggedIn!!);
       setTimeout(() => {
         auth.toggleSplash(false);
       }, 1000);
