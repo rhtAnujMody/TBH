@@ -1,36 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
 import {AppSVGs} from '../../assets';
 import {colors, typography} from '../../theme';
 
-type Props = {};
+type ImageProps = {
+  path: string;
+};
 
-const AppImageUploadInput = ({}: Props) => {
-  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
-  //   console.log(selectedImages, 'selectedImages');
-  const selectImagesHandler = () => {
-    ImagePicker.openPicker({
-      multiple: true,
-      mediaType: 'photo',
-      maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-    })
-      .then(images =>
-        setSelectedImages(prevSelectedImages =>
-          prevSelectedImages.concat(images),
-        ),
-      )
-      .catch(error => {
-        console.log('Error selecting images:', error);
-      });
-  };
+type Props = {
+  selectedImages: ImageProps[];
+  onPress: () => void;
+  removeImage: (index: number) => void;
+};
 
-  const removeImage = (index: number) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-
+const AppImageUploadInput = ({onPress, selectedImages, removeImage}: Props) => {
   const showUploadInput = selectedImages.length < 5;
 
   return (
@@ -38,9 +21,7 @@ const AppImageUploadInput = ({}: Props) => {
       <Text style={styles.textHeader}>UPLOAD PHOTO</Text>
       {showUploadInput && (
         <View style={styles.inputContainer}>
-          <Pressable
-            style={styles.innerContainer}
-            onPress={selectImagesHandler}>
+          <Pressable style={styles.innerContainer} onPress={onPress}>
             <AppSVGs.uploadImage style={styles.icon} />
             <Text style={styles.iconText}>Upload Photo</Text>
           </Pressable>
