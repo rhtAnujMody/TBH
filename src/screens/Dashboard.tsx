@@ -51,7 +51,7 @@ const Dashboard = () => {
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcome}>Welcome,</Text>
             <ObservableChild>
-              <Text style={styles.userName}>{auth.userData.name}</Text>
+              <Text style={styles.userName}>Sumit</Text>
             </ObservableChild>
           </View>
         </View>

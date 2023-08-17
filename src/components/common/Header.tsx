@@ -26,6 +26,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.palette.primary,
   },
   header: {
-    ...typography.bold(14),
+    ...typography.bold(16),
   },
 });

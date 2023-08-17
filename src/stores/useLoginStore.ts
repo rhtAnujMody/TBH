@@ -43,30 +43,35 @@ const useLoginStore = () => {
       runInAction(() => {
         loginStore.isLoading = true;
       });
-      try {
-        const response = await request<UserModal>('post', AppStrings.login, {
-          email: this.userEmail,
-          password: this.password,
-        });
-        if (response.success) {
-          setData(AppStrings.isLogin, true);
-          setData(AppStrings.userData, response.data);
-          if (response.data) {
-            auth.setUserData(response.data);
-          }
-          auth.setIsLogin(true, () => {
-            Utility.showToast('Login Success');
-          });
-        } else {
-          Utility.showToast(response.msg);
-        }
-      } catch (err) {
-        Utility.showToast('Something went wrong');
-      } finally {
-        runInAction(() => {
-          loginStore.isLoading = false;
-        });
-      }
+      loginStore.isLoading = true;
+      setTimeout(() => {
+        loginStore.isLoading = !loginStore.isLoading
+      },5000)
+      auth.setIsLogin(true);
+      // try {
+      //   const response = await request<UserModal>('post', AppStrings.login, {
+      //     email: this.userEmail,
+      //     password: this.password,
+      //   });
+      //   if (response.success) {
+      //     setData(AppStrings.isLogin, true);
+      //     setData(AppStrings.userData, response.data);
+      //     if (response.data) {
+      //       auth.setUserData(response.data);
+      //     }
+      //     auth.setIsLogin(true, () => {
+      //       Utility.showToast('Login Success');
+      //     });
+      //   } else {
+      //     Utility.showToast(response.msg);
+      //   }
+      // } catch (err) {
+      //   Utility.showToast('Something went wrong');
+      // } finally {
+      //   runInAction(() => {
+      //     loginStore.isLoading = false;
+      //   });
+      // }
     },
   }));
 

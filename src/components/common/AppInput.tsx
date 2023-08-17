@@ -7,10 +7,12 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
+  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
 import {colors, typography} from '../../theme';
+import { TouchableOpacity } from 'react-native';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
@@ -50,20 +52,17 @@ const AppInput = ({
     props?.onBlur;
     setBorder(colors.gray);
   };
-
-  return textHeader ? (
+console.log(onPress,'onpresss')
+  return (
     <View style={{flex: 1}}>
       <Text style={styles.textHeader}>{textHeader}</Text>
       <View style={[styles.container, parentStyle, {borderColor: border}]}>
         {LeftIcon && <LeftIcon />}
         {hideInput ? (
-          <Pressable
+          <TouchableWithoutFeedback
             style={styles.textContainer}
-            onPress={() => {
-              if (onPress) {
-                onPress();
-              }
-            }}>
+            //onPress={onPress}
+            >
             <Text
               style={[
                 styles.otherTextValue(otherText ? false : true),
@@ -71,14 +70,15 @@ const AppInput = ({
               ]}>
               {otherText ? otherText : placeHolder}
             </Text>
-          </Pressable>
+          </TouchableWithoutFeedback>
         ) : (
+          <TouchableOpacity onPress={onPress} style={styles.touchableInputContainer}>
+            <View pointerEvents='none' >
           <TextInput
             ref={inputRef}
             placeholderTextColor={'#B1B1B1'}
             value={value}
             editable={false}
-            onPressIn={onPress}
             selectionColor={colors.palette.primary}
             placeholder={placeHolder}
             style={[
@@ -90,6 +90,8 @@ const AppInput = ({
             onBlur={customOnBlur}
             {...props}
           />
+          </View>
+          </TouchableOpacity>
         )}
         {RightIcon && (
           <View>
@@ -97,36 +99,7 @@ const AppInput = ({
           </View>
         )}
       </View>
-    </View>
-  ) : (
-    <View style={[styles.container, parentStyle]}>
-      {LeftIcon && <LeftIcon />}
-      {hideInput ? (
-        <Pressable
-          style={styles.textContainer}
-          onPress={() => {
-            if (onPress) {
-              onPress();
-            }
-          }}>
-          <Text style={styles.otherTextValue(otherText ? false : true)}>
-            {otherText ? otherText : placeHolder}
-          </Text>
-        </Pressable>
-      ) : (
-        <TextInput
-          ref={inputRef}
-          placeholderTextColor={'#B1B1B1'}
-          editable={false}
-          value={value}
-          selectionColor={colors.palette.primary}
-          placeholder={placeHolder}
-          style={styles.textInput}
-          {...props}
-        />
-      )}
-    </View>
-  );
+    </View>);
 };
 
 export default AppInput;
@@ -158,6 +131,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'center',
+  },
+  touchableInputContainer:{
+    flex:1
   },
   leftIconStyle: (isLeftIcon: boolean) => ({
     marginLeft: isLeftIcon ? 20 : 0,

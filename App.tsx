@@ -5,11 +5,12 @@
  * @format
  */
 
-import React from 'react';
-import {SafeAreaView} from 'react-native';
+import React, { useEffect } from 'react';
+import {PermissionsAndroid, SafeAreaView} from 'react-native';
 import AppNavigation from './src/navigation/AppNavigation';
 
 function App(): JSX.Element {
+
   return (
     <SafeAreaView>
       <AppNavigation />

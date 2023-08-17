@@ -1,36 +1,39 @@
+import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
 import {
-  Image,
   KeyboardAvoidingView,
   Platform,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import AppBottomSheet from '../components/common/AppBottomSheet';
-import AppImageUploadInput from '../components/common/AppImageUploadInput';
-import BottomSheet from '@gorhom/bottom-sheet/';
+import DashedLine from 'react-native-dashed-line';
 import DatePicker from 'react-native-date-picker';
-import Header from '../components/common/Header';
-import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
-import Utility from '../utils/Utility';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {AppSVGs} from '../assets';
-import {AppButton, AppTextInput} from '../components';
+import {AppButton, AppContainer, AppTextInput} from '../components';
+import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
-import {colors} from '../theme';
+import AppImageUploadInput from '../components/common/AppImageUploadInput';
 import AppInput from '../components/common/AppInput';
-import ImageCropPicker from 'react-native-image-crop-picker';
+import AppToggle from '../components/common/AppToggle';
+import Header from '../components/common/Header';
+import useCamera from '../custom_hooks/useCamera';
+import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
+import {colors, typography} from '../theme';
+import Utility from '../utils/Utility';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
 
-  const onDOVPress = () => {
-    cdStore.toggleDOVPicker();
-  };
+  const bottomSheetRef = useRef<BottomSheet | null>(null);
+  const [showCalender, setShowCalender] = useState(false);
+
+  const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
+    useCamera();
 
   const onConfirmDate = (date: Date) => {
     cdStore.setDOV(Utility.formatDate(date));
@@ -39,45 +42,6 @@ const CaptureDetailsScreen = () => {
 
   const onCancelDate = () => {
     cdStore.toggleDOVPicker();
-  };
-
-  const bottomSheetRef = useRef<BottomSheet | null>(null);
-  const bottomSheetPhotoRef = useRef<BottomSheet | null>(null);
-
-  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
-
-  const selectImagesHandler = () => {
-    ImageCropPicker.openPicker({
-      multiple: true,
-      mediaType: 'photo',
-      maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-    })
-      .then(images =>
-        setSelectedImages(prevSelectedImages =>
-          prevSelectedImages.concat(images),
-        ),
-      )
-      .catch(error => {
-        console.log('Error selecting images:', error);
-      });
-    cdStore.togglePhotoBottomSheet();
-  };
-
-  const removeImage = (index: number) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-
-  const takePhotoFromCamera = () => {
-    ImageCropPicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-    });
-    cdStore.togglePhotoBottomSheet();
   };
 
   const handleBottomSheetClick = (from: string) => {
@@ -96,16 +60,34 @@ const CaptureDetailsScreen = () => {
     cdStore.toggleLoader();
   };
 
+  const showDatePicker = () => {
+    setShowCalender(true);
+  };
+
+  const hideDatePicker = () => {
+    setShowCalender(false);
+  };
+
+  const handleConfirm = (date: Date) => {
+    //console.warn('A date has been picked: ', date);
+    cdStore.setDOV(Utility.formatDate(date));
+    cdStore.validateSubmit();
+    hideDatePicker();
+  };
+
   return (
     <>
-      <SafeAreaView style={styles.containerWidth}>
+      <AppContainer>
         <Header title={'Capture Details'} />
         <KeyboardAvoidingView
           behavior={Platform.select({ios: 'padding'})}
-          style={styles.containerWidth}>
+          style={{flex: 1}}>
           <View style={styles.backgroundStyle}>
             <ScrollView contentContainerStyle={styles.contentContainerStyle}>
               <View style={styles.container}>
+                <Text style={styles.headingText}>
+                  Enter details related to the Nutrition Education event
+                </Text>
                 <Observer>
                   {() => (
                     <AppTextInput
@@ -114,131 +96,238 @@ const CaptureDetailsScreen = () => {
                       rightIcon={AppSVGs.dob}
                       placeHolder="Date Of Visit"
                       hideInput={true}
-                      onPress={onDOVPress}
+                      onPress={showDatePicker}
                       otherText={cdStore.dov}
                     />
                   )}
                 </Observer>
-                <Observer>
-                  {() => (
-                    <AppInput
-                      onPress={() => {
-                        handleBottomSheetClick('partner');
-                        handleIndex(1);
-                      }}
-                      parentStyle={styles.textInputStyle}
-                      value={cdStore.partner}
-                      textHeader="Is this a New/ Existing Partner"
-                      placeHolder="Is this a New/ Existing Partner"
-                    />
-                  )}
-                </Observer>
-                <AppTextInput
-                  parentStyle={styles.textInputStyle}
-                  textHeader="TOTAl NUMBER OF PARTICIPANTS"
-                  placeHolder="Total number of participants"
-                  onChangeText={cdStore.setTotalNoOfParticipants}
+
+                <AppToggle
+                  title={'Partner Details'}
+                  children={
+                    <>
+                      <Observer>
+                        {() => (
+                          <AppInput
+                            onPress={() => {
+                              handleBottomSheetClick('partner');
+                              handleIndex(1);
+                            }}
+                            parentStyle={styles.textInputStyle}
+                            value={cdStore.partner}
+                            textHeader="IS THIS A NEW / EXISTING PARTNER"
+                            placeHolder="Is this a New / Existing Partner"
+                          />
+                        )}
+                      </Observer>
+
+                      <Observer>
+                        {() =>
+                          cdStore.partner == 'New' ? (
+                            <>
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="NAME OF THE PARTNER"
+                                placeHolder="Name of the partner"
+                                //onChangeText={cdStore.setTotalNoOfParticipants}
+                              />
+
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="LOCATION"
+                                placeHolder="Location"
+                                //onChangeText={cdStore.setTotalNoOfParticipants}
+                              />
+                            </>
+                          ) : cdStore.partner == 'Existing' ? (
+                            <>
+                              <Observer>
+                                {() => (
+                                  <AppInput
+                                    onPress={() => {
+                                      handleBottomSheetClick('partnerName');
+                                      handleIndex(1);
+                                    }}
+                                    parentStyle={styles.textInputStyle}
+                                    value={cdStore.partnerName}
+                                    textHeader="NAME OF THE PARTNER"
+                                    placeHolder="Name of the partner"
+                                  />
+                                )}
+                              </Observer>
+                              <Observer>
+                                {() => (
+                                  <AppInput
+                                    onPress={() => {
+                                      handleBottomSheetClick('location');
+                                      handleIndex(1);
+                                    }}
+                                    parentStyle={styles.textInputStyle}
+                                    value={cdStore.location}
+                                    textHeader="LOCATION"
+                                    placeHolder="location"
+                                  />
+                                )}
+                              </Observer>
+                            </>
+                          ) : (
+                            <Observer>
+                              {() => (
+                                <>
+                                  <AppTextInput
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="NAME OF THE PARTNER"
+                                    placeHolder="Name of the partner"
+                                    onChangeText={cdStore.setPartnerName}
+                                    editable={false}
+                                  />
+
+                                  <AppTextInput
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="LOCATION"
+                                    placeHolder="Location"
+                                    onChangeText={cdStore.setLocation}
+                                    editable={false}
+                                  />
+                                </>
+                              )}
+                            </Observer>
+                          )
+                        }
+                      </Observer>
+                    </>
+                  }
                 />
-                <Observer>
-                  {() => (
-                    <AppInput
-                      onPress={() => {
-                        handleBottomSheetClick('beneficiaries');
-                        handleIndex(3);
-                      }}
-                      parentStyle={styles.textInputStyle}
-                      value={cdStore.targetBeneficiaries}
-                      textHeader="TARGET BENEFICIARIES"
-                      placeHolder="Target beneficiaries"
-                    />
-                  )}
-                </Observer>
-                <Observer>
-                  {() => (
-                    <AppInput
-                      onPress={() => {
-                        handleBottomSheetClick('age');
-                        handleIndex(3);
-                      }}
-                      parentStyle={styles.textInputStyle}
-                      value={cdStore.age}
-                      textHeader="AGE"
-                      placeHolder="Age"
-                    />
-                  )}
-                </Observer>
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                  <Observer>
-                    {() => (
-                      <AppInput
-                        textHeader="HOUR"
-                        placeHolder="hour"
-                        value={cdStore.hour}
+
+                <DashedLine
+                  dashLength={5}
+                  dashThickness={0.7}
+                  dashColor={colors.gray}
+                />
+
+                <AppToggle
+                  title={'Program Details'}
+                  children={
+                    <>
+                      <AppTextInput
                         parentStyle={styles.textInputStyle}
-                        onPress={() => {
-                          handleBottomSheetClick('hour');
-                          handleIndex(2);
-                        }}
+                        textHeader="TOTAL NUMBER OF PARTICIPANTS"
+                        placeHolder="Total number of participants"
+                        onChangeText={cdStore.setTotalNoOfParticipants}
                       />
-                    )}
-                  </Observer>
-                  <Observer>
-                    {() => (
-                      <AppInput
-                        textHeader="MINUTE"
-                        placeHolder="minute"
-                        value={cdStore.minute}
+                      <Observer>
+                        {() => (
+                          <AppInput
+                            onPress={() => {
+                              handleBottomSheetClick('beneficiaries');
+                              handleIndex(3);
+                            }}
+                            parentStyle={styles.textInputStyle}
+                            value={cdStore.targetBeneficiaries}
+                            textHeader="TARGET BENEFICIARIES"
+                            placeHolder="Target beneficiaries"
+                          />
+                        )}
+                      </Observer>
+                      <Observer>
+                        {() => (
+                          <AppInput
+                            onPress={() => {
+                              handleBottomSheetClick('age');
+                              handleIndex(3);
+                            }}
+                            parentStyle={styles.textInputStyle}
+                            value={cdStore.age}
+                            textHeader="AGE"
+                            placeHolder="Age"
+                          />
+                        )}
+                      </Observer>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                        }}>
+                        <View style={{flex: 1, paddingRight: 10}}>
+                          <Observer>
+                            {() => (
+                              <AppInput
+                                textHeader="PROGRAM DURATION"
+                                placeHolder="Hour"
+                                value={cdStore.hour}
+                                parentStyle={styles.textInputStyle}
+                                onPress={() => {
+                                  handleBottomSheetClick('hour');
+                                  handleIndex(2);
+                                }}
+                              />
+                            )}
+                          </Observer>
+                        </View>
+                        <View style={{flex: 1, paddingLeft: 10}}>
+                          <Observer>
+                            {() => (
+                              <AppInput
+                                textHeader=" "
+                                placeHolder="Minute"
+                                value={cdStore.minute}
+                                parentStyle={styles.textInputStyle}
+                                onPress={() => {
+                                  handleBottomSheetClick('minute');
+                                  handleIndex(3);
+                                }}
+                              />
+                            )}
+                          </Observer>
+                        </View>
+                      </View>
+                      <AppTextInput
                         parentStyle={styles.textInputStyle}
-                        onPress={() => {
-                          handleBottomSheetClick('minute');
-                          handleIndex(3);
-                        }}
+                        textHeader="METHOD USED"
+                        placeHolder="Method used"
+                        onChangeText={cdStore.setMethodUsed}
                       />
-                    )}
-                  </Observer>
-                </View>
-                <AppTextInput
-                  parentStyle={styles.textInputStyle}
-                  textHeader="METHOD USED"
-                  placeHolder="Method used"
-                  onChangeText={cdStore.setMethodUsed}
+                      <AppTextInput
+                        parentStyle={styles.textInputStyle}
+                        textHeader="TOPICS COVERED"
+                        placeHolder="Topics covered"
+                        onChangeText={cdStore.setTopicsCovered}
+                      />
+
+                      <AppTextInput
+                        parentStyle={styles.textInputStyle}
+                        textHeader="SESSION CONDUCTED BY"
+                        placeHolder="Session conducted by"
+                        onChangeText={cdStore.setSessionCoveredBy}
+                      />
+                      <AppTextInput
+                        parentStyle={styles.textInputStyle}
+                        textHeader="FEEDBACK FROM PARTICIPANTS"
+                        placeHolder="Feedback from participants"
+                        onChangeText={cdStore.setFeedbackFromParticipants}
+                      />
+                      <AppImageUploadInput
+                        selectedImages={selectedImages}
+                        onPress={cdStore.togglePhotoBottomSheet}
+                        removeImage={removeImage}
+                      />
+                    </>
+                  }
                 />
-                <AppTextInput
-                  parentStyle={styles.textInputStyle}
-                  textHeader="TOPICS COVERED"
-                  placeHolder="Topics covered"
-                  onChangeText={cdStore.setTopicsCovered}
-                />
-                <AppTextInput
-                  parentStyle={styles.textInputStyle}
-                  textHeader="SESSION CONDUCTED BY"
-                  placeHolder="Session conducted by"
-                  onChangeText={cdStore.setSessionCoveredBy}
-                />
-                <AppTextInput
-                  parentStyle={styles.textInputStyle}
-                  textHeader="FEEDBACK FROM PARTICIPANTS"
-                  placeHolder="Feedback from participants"
-                  onChangeText={cdStore.setFeedbackFromParticipants}
-                />
-                <AppImageUploadInput
-                  selectedImages={selectedImages}
-                  onPress={cdStore.togglePhotoBottomSheet}
-                  removeImage={removeImage}
-                />
-                <Observer>
-                  {() => (
-                    <AppButton
-                      title="Save"
-                      style={styles.buttonStyle}
-                      isLoading={cdStore.isLoading}
-                      onPress={toggleLoader}
-                      // enabled={loginStore.isButtonEnabled}
-                    />
-                  )}
-                </Observer>
               </View>
             </ScrollView>
+
+            <Observer>
+              {() => (
+                <AppButton
+                  title="Save"
+                  style={styles.buttonStyle}
+                  width={'90%'}
+                  isLoading={cdStore.isLoading}
+                  onPress={toggleLoader}
+                  enabled={cdStore.enableSubmit}
+                />
+              )}
+            </Observer>
           </View>
         </KeyboardAvoidingView>
         <Observer>
@@ -253,7 +342,7 @@ const CaptureDetailsScreen = () => {
             />
           )}
         </Observer>
-      </SafeAreaView>
+      </AppContainer>
       <Observer>
         {() => (
           <AppBottomSheet
@@ -270,10 +359,19 @@ const CaptureDetailsScreen = () => {
               }}
               onItemSelect={cdStore.setValue}
               onPress={cdStore.toggleBottomSheet}
+              setValue={() => {}}
             />
           </AppBottomSheet>
         )}
       </Observer>
+
+      <DateTimePickerModal
+        isVisible={showCalender}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+        maximumDate={new Date()}
+      />
 
       <Observer>
         {() => (
@@ -281,7 +379,7 @@ const CaptureDetailsScreen = () => {
             isVisible={cdStore.openPhotoBottomSheet}
             onClose={cdStore.togglePhotoBottomSheet}
             index={cdStore.index}
-            ref={bottomSheetPhotoRef}>
+            ref={bottomSheetRef}>
             <View>
               <View style={styles.headerContainer}>
                 <Text style={styles.headerStyle}>Upload Photo</Text>
@@ -296,7 +394,7 @@ const CaptureDetailsScreen = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={selectImagesHandler}>
+                onPress={openGallery}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>
@@ -311,20 +409,20 @@ export default CaptureDetailsScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 20,
   },
   contentContainerStyle: {
     paddingBottom: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: '#FCFCFC',
   },
   containerWidth: {
     flex: 1,
+    backgroundColor: 'white',
   },
   backgroundStyle: {
-    backgroundColor: colors.palette.primary,
+    flex: 1,
+    backgroundColor: colors.white,
   },
   textInputStyle: {
     backgroundColor: '#F7F7F7',
@@ -333,7 +431,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   buttonStyle: {
-    marginTop: 10,
+    marginBottom: 10,
   },
   dovInputStyle: {
     backgroundColor: '#F7F7F7',
@@ -355,5 +453,9 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     fontWeight: 'bold',
+  },
+  headingText: {
+    ...typography.bold(16),
+    marginBottom: 20,
   },
 });

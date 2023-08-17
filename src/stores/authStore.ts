@@ -3,7 +3,7 @@ import {UserModal} from '../models/UserModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authStore = {
-  isLoggedIn: true,
+  isLoggedIn: false,
   showSplash: true,
   userData: {} as UserModal,
 

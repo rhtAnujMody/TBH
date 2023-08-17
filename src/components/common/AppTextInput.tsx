@@ -50,7 +50,7 @@ const AppTextInput = ({
   };
 
   return textHeader ? (
-    <View>
+    <View style={{flex: 1}}>
       <Text style={styles.textHeader}>{textHeader}</Text>
       <View style={[styles.container, parentStyle, {borderColor: border}]}>
         {LeftIcon && <LeftIcon />}

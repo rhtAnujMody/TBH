@@ -58,6 +58,7 @@ const appButtonStyle = (width: DimensionValue = '100%', enabled: boolean) => {
       backgroundColor: enabled ? colors.black : 'grey',
       height: 50,
       borderRadius: 30,
+      alignSelf: 'center',
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 0,

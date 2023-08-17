@@ -1,5 +1,12 @@
-import React from 'react';
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
+import {
+  Image,
+  PermissionsAndroid,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {AppSVGs} from '../../assets';
 import {colors, typography} from '../../theme';
 
@@ -19,6 +26,10 @@ const AppImageUploadInput = ({onPress, selectedImages, removeImage}: Props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>UPLOAD PHOTO</Text>
+      <Text style={styles.textHeader}>
+        (User can upload up to maximum 5 photos and in .jpg / .jpeg / .png
+        formats)
+      </Text>
       {showUploadInput && (
         <View style={styles.inputContainer}>
           <Pressable style={styles.innerContainer} onPress={onPress}>
