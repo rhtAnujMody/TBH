@@ -12,7 +12,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {colors, typography} from '../../theme';
-import { TouchableOpacity } from 'react-native';
+import {TouchableOpacity} from 'react-native';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
@@ -52,7 +52,6 @@ const AppInput = ({
     props?.onBlur;
     setBorder(colors.gray);
   };
-console.log(onPress,'onpresss')
   return (
     <View style={{flex: 1}}>
       <Text style={styles.textHeader}>{textHeader}</Text>
@@ -62,7 +61,7 @@ console.log(onPress,'onpresss')
           <TouchableWithoutFeedback
             style={styles.textContainer}
             //onPress={onPress}
-            >
+          >
             <Text
               style={[
                 styles.otherTextValue(otherText ? false : true),
@@ -72,25 +71,27 @@ console.log(onPress,'onpresss')
             </Text>
           </TouchableWithoutFeedback>
         ) : (
-          <TouchableOpacity onPress={onPress} style={styles.touchableInputContainer}>
-            <View pointerEvents='none' >
-          <TextInput
-            ref={inputRef}
-            placeholderTextColor={'#B1B1B1'}
-            value={value}
-            editable={false}
-            selectionColor={colors.palette.primary}
-            placeholder={placeHolder}
-            style={[
-              styles.textInput,
-              styles.leftIconStyle(LeftIcon ? true : false),
-            ]}
-            keyboardType={keyboardType}
-            onFocus={customOnFocus}
-            onBlur={customOnBlur}
-            {...props}
-          />
-          </View>
+          <TouchableOpacity
+            onPress={onPress}
+            style={styles.touchableInputContainer}>
+            <View pointerEvents="none">
+              <TextInput
+                ref={inputRef}
+                placeholderTextColor={'#B1B1B1'}
+                value={value}
+                editable={false}
+                selectionColor={colors.palette.primary}
+                placeholder={placeHolder}
+                style={[
+                  styles.textInput,
+                  styles.leftIconStyle(LeftIcon ? true : false),
+                ]}
+                keyboardType={keyboardType}
+                onFocus={customOnFocus}
+                onBlur={customOnBlur}
+                {...props}
+              />
+            </View>
           </TouchableOpacity>
         )}
         {RightIcon && (
@@ -99,7 +100,8 @@ console.log(onPress,'onpresss')
           </View>
         )}
       </View>
-    </View>);
+    </View>
+  );
 };
 
 export default AppInput;
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
-  touchableInputContainer:{
-    flex:1
+  touchableInputContainer: {
+    flex: 1,
   },
   leftIconStyle: (isLeftIcon: boolean) => ({
     marginLeft: isLeftIcon ? 20 : 0,

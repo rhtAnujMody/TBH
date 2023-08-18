@@ -37,6 +37,7 @@ const CaptureDetailsScreen = () => {
 
   const onConfirmDate = (date: Date) => {
     cdStore.setDOV(Utility.formatDate(date));
+
     cdStore.toggleDOVPicker();
   };
 
@@ -69,7 +70,6 @@ const CaptureDetailsScreen = () => {
   };
 
   const handleConfirm = (date: Date) => {
-    //console.warn('A date has been picked: ', date);
     cdStore.setDOV(Utility.formatDate(date));
     cdStore.validateSubmit();
     hideDatePicker();
@@ -81,7 +81,7 @@ const CaptureDetailsScreen = () => {
         <Header title={'Capture Details'} />
         <KeyboardAvoidingView
           behavior={Platform.select({ios: 'padding'})}
-          style={{flex: 1}}>
+          style={{flex: 1, backgroundColor: colors.palette.primary}}>
           <View style={styles.backgroundStyle}>
             <ScrollView contentContainerStyle={styles.contentContainerStyle}>
               <View style={styles.container}>
@@ -129,14 +129,14 @@ const CaptureDetailsScreen = () => {
                                 parentStyle={styles.textInputStyle}
                                 textHeader="NAME OF THE PARTNER"
                                 placeHolder="Name of the partner"
-                                //onChangeText={cdStore.setTotalNoOfParticipants}
+                                onChangeText={cdStore.setPartnerName}
                               />
 
                               <AppTextInput
                                 parentStyle={styles.textInputStyle}
                                 textHeader="LOCATION"
                                 placeHolder="Location"
-                                //onChangeText={cdStore.setTotalNoOfParticipants}
+                                onChangeText={cdStore.setLocation}
                               />
                             </>
                           ) : cdStore.partner == 'Existing' ? (
@@ -152,6 +152,7 @@ const CaptureDetailsScreen = () => {
                                     value={cdStore.partnerName}
                                     textHeader="NAME OF THE PARTNER"
                                     placeHolder="Name of the partner"
+                                    rightIcon={AppSVGs.dropdown}
                                   />
                                 )}
                               </Observer>
@@ -166,6 +167,7 @@ const CaptureDetailsScreen = () => {
                                     value={cdStore.location}
                                     textHeader="LOCATION"
                                     placeHolder="location"
+                                    rightIcon={AppSVGs.dropdown}
                                   />
                                 )}
                               </Observer>
@@ -226,6 +228,7 @@ const CaptureDetailsScreen = () => {
                             value={cdStore.targetBeneficiaries}
                             textHeader="TARGET BENEFICIARIES"
                             placeHolder="Target beneficiaries"
+                            rightIcon={AppSVGs.dropdown}
                           />
                         )}
                       </Observer>
@@ -240,6 +243,7 @@ const CaptureDetailsScreen = () => {
                             value={cdStore.age}
                             textHeader="AGE"
                             placeHolder="Age"
+                            rightIcon={AppSVGs.dropdown}
                           />
                         )}
                       </Observer>
@@ -259,6 +263,7 @@ const CaptureDetailsScreen = () => {
                                   handleBottomSheetClick('hour');
                                   handleIndex(2);
                                 }}
+                                rightIcon={AppSVGs.dropdown}
                               />
                             )}
                           </Observer>
@@ -275,6 +280,7 @@ const CaptureDetailsScreen = () => {
                                   handleBottomSheetClick('minute');
                                   handleIndex(3);
                                 }}
+                                rightIcon={AppSVGs.dropdown}
                               />
                             )}
                           </Observer>
@@ -305,11 +311,15 @@ const CaptureDetailsScreen = () => {
                         placeHolder="Feedback from participants"
                         onChangeText={cdStore.setFeedbackFromParticipants}
                       />
-                      <AppImageUploadInput
-                        selectedImages={selectedImages}
-                        onPress={cdStore.togglePhotoBottomSheet}
-                        removeImage={removeImage}
-                      />
+                      <Observer>
+                        {() => (
+                          <AppImageUploadInput
+                            selectedImages={selectedImages}
+                            onPress={cdStore.togglePhotoBottomSheet}
+                            removeImage={removeImage}
+                          />
+                        )}
+                      </Observer>
                     </>
                   }
                 />
@@ -323,7 +333,7 @@ const CaptureDetailsScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={cdStore.isLoading}
-                  onPress={toggleLoader}
+                  onPress={cdStore.handleImageUpload}
                   enabled={cdStore.enableSubmit}
                 />
               )}
@@ -415,6 +425,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    //backgroundColor: '#FCFCFC',
   },
   containerWidth: {
     flex: 1,
@@ -423,6 +434,8 @@ const styles = StyleSheet.create({
   backgroundStyle: {
     flex: 1,
     backgroundColor: colors.white,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   textInputStyle: {
     backgroundColor: '#F7F7F7',

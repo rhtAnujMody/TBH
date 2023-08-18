@@ -9,6 +9,7 @@ const useCamera = () => {
 
   useEffect(() => {
     requestPermission();
+    // console.log(selectedImages[0].path);
   }, []);
 
   const requestPermission = async () => {
@@ -35,11 +36,15 @@ const useCamera = () => {
       mediaType: 'photo',
       maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
     })
-      .then(images =>
+      .then(images => {
+        if (images.length > 5) {
+        }
         setSelectedImages(prevSelectedImages =>
           prevSelectedImages.concat(images),
-        ),
-      )
+        );
+
+        cdStore.image_1 = console.log(images[0], 'images');
+      })
       .catch(error => {
         console.log('Error selecting images:', error);
       });
@@ -53,13 +58,13 @@ const useCamera = () => {
   };
 
   const takePhotoFromCamera = () => {
-    cdStore.togglePhotoBottomSheet();
     ImageCropPicker.openCamera({
       width: 300,
       height: 400,
       cropping: true,
     }).then(image => {
       console.log(image);
+      cdStore.togglePhotoBottomSheet();
     });
     //cdStore.togglePhotoBottomSheet();
   };

@@ -20,7 +20,7 @@ type Props = {
   setValue: (item: string) => void;
   onPress?: () => void;
   onClose: () => void;
-  onItemSelect: (header: string, value: string) => void;
+  onItemSelect: (header: string, value: string, id: string) => void;
 };
 
 export const AppBottomSheetDropdown = ({
@@ -48,7 +48,7 @@ export const AppBottomSheetDropdown = ({
           <TouchableHighlight
             underlayColor="#eee"
             onPress={() => {
-              onItemSelect(header, item.name);
+              onItemSelect(header, item.name, item.id);
             }}
             style={styles.itemContainer}>
             <Text>{item.name}</Text>

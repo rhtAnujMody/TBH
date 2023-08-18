@@ -2,8 +2,15 @@ import {useLocalObservable} from 'mobx-react-lite';
 import {AppSVGs} from '../assets';
 import authStore from './authStore';
 import Utility from '../utils/Utility';
+import {runInAction} from 'mobx';
+import {CaptureModal} from '../models/CaptureModal';
+import AppStrings from '../utils/AppStrings';
+import useApiService from '../network/useAPIService';
+import axios from 'axios';
+import {Image} from 'react-native-svg';
 
 const useCaptureDetailsStore = () => {
+  const {request} = useApiService();
   const cdStore = useLocalObservable(() => ({
     dov: '',
     openDOVPicker: false,
@@ -15,8 +22,10 @@ const useCaptureDetailsStore = () => {
     openPhotoBottomSheet: false,
     partner: '',
     partnerName: '',
+    partnerID: '',
     location: '',
     age: '',
+    ageID: '',
     targetBeneficiaries: '',
     totalNoOfParticipants: '',
     methodUsed: '',
@@ -28,29 +37,31 @@ const useCaptureDetailsStore = () => {
     feedbackFromParticipants: '',
     selectedImages: [],
     enableSubmit: false,
+    beneficiarieID: '',
+    image_1: null,
     beneficiarisOptions: [
-      {id: 0, name: 'Children - Govt/Public School'},
-      {id: 1, name: 'Children - Private School'},
-      {id: 2, name: 'Children - Anganwadi'},
-      {id: 3, name: 'Children - Balwadi'},
-      {id: 4, name: 'Children - Shelter Home'},
-      {id: 5, name: 'Children - Ashramshala'},
-      {id: 6, name: 'Teachers - Govt/Public School'},
-      {id: 7, name: 'Teachers - Private School'},
-      {id: 8, name: 'Teachers - Anganwadi'},
-      {id: 9, name: 'Teachers - Balwadi'},
-      {id: 10, name: 'Teachers - Shelter Home'},
-      {id: 11, name: 'Teachers - Ashramshala'},
-      {id: 12, name: 'Parents'},
-      {id: 13, name: 'Adolescents'},
-      {id: 14, name: 'Women - Prenatal'},
-      {id: 15, name: 'Women - Postnatal'},
-      {id: 16, name: 'Women - Group'},
-      {id: 17, name: 'Staff/Officers/Workers - ASHA'},
-      {id: 18, name: 'Staff/Officers/Workers - Anganwadi'},
-      {id: 19, name: 'Staff/Officers/Workers - Balwadi'},
-      {id: 20, name: 'Staff/Officers/Workers - NGO'},
-      {id: 21, name: 'Staff/Officers/Workers - Corporate'},
+      {id: '0', name: 'Children - Govt/Public School'},
+      {id: '1', name: 'Children - Private School'},
+      {id: '2', name: 'Children - Anganwadi'},
+      {id: '3', name: 'Children - Balwadi'},
+      {id: '4', name: 'Children - Shelter Home'},
+      {id: '5', name: 'Children - Ashramshala'},
+      {id: '6', name: 'Teachers - Govt/Public School'},
+      {id: '7', name: 'Teachers - Private School'},
+      {id: '8', name: 'Teachers - Anganwadi'},
+      {id: '9', name: 'Teachers - Balwadi'},
+      {id: '10', name: 'Teachers - Shelter Home'},
+      {id: '11', name: 'Teachers - Ashramshala'},
+      {id: '12', name: 'Parents'},
+      {id: '13', name: 'Adolescents'},
+      {id: '14', name: 'Women - Prenatal'},
+      {id: '15', name: 'Women - Postnatal'},
+      {id: '16', name: 'Women - Group'},
+      {id: '17', name: 'Staff/Officers/Workers - ASHA'},
+      {id: '18', name: 'Staff/Officers/Workers - Anganwadi'},
+      {id: '19', name: 'Staff/Officers/Workers - Balwadi'},
+      {id: '20', name: 'Staff/Officers/Workers - NGO'},
+      {id: '21', name: 'Staff/Officers/Workers - Corporate'},
     ],
     partnerOptions: [
       {name: 'New', id: 'new'},
@@ -63,7 +74,10 @@ const useCaptureDetailsStore = () => {
         id: '0',
       },
     ],
-    photoOptions: [{name: 'Take a Photo'}, {name: 'Upload from Library'}],
+    photoOptions: [
+      {name: 'Take a Photo', id: 'camera'},
+      {name: 'Upload from Library', id: 'gallery'},
+    ],
     hourOptions: Array.from({length: 12}, (_, index) => ({
       name: (index + 1).toString(),
       id: (index + 1).toString(),
@@ -156,11 +170,12 @@ const useCaptureDetailsStore = () => {
       cdStore.index = value;
     },
 
-    setValue(from: string, value: string) {
+    setValue(from: string, value: string, id: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
       switch (from) {
         case 'Select Age':
           cdStore.age = value;
+          cdStore.ageID = id;
           cdStore.validateSubmit();
           break;
         case 'Is this a new/existing partner':
@@ -169,6 +184,7 @@ const useCaptureDetailsStore = () => {
           break;
         case 'Name of the Partner':
           cdStore.partnerName = value;
+          cdStore.partnerID = id;
           cdStore.validateSubmit();
           break;
 
@@ -178,6 +194,7 @@ const useCaptureDetailsStore = () => {
           break;
         case 'Target beneficiaries':
           cdStore.targetBeneficiaries = value;
+          cdStore.beneficiarieID = id;
           cdStore.validateSubmit();
           break;
         case 'Select hour':
@@ -203,10 +220,6 @@ const useCaptureDetailsStore = () => {
       cdStore.partnerName = value;
       cdStore.validateSubmit();
     },
-    setLocation(value: string) {
-      cdStore.location = value;
-      cdStore.validateSubmit();
-    },
 
     setMethodUsed(value: string) {
       cdStore.methodUsed = value;
@@ -215,6 +228,11 @@ const useCaptureDetailsStore = () => {
 
     setTopicsCovered(value: string) {
       cdStore.topicsCovered = value;
+      cdStore.validateSubmit();
+    },
+
+    setLocation(value: string) {
+      cdStore.location = value;
       cdStore.validateSubmit();
     },
 
@@ -229,27 +247,127 @@ const useCaptureDetailsStore = () => {
     },
 
     validateSubmit() {
-      console.log('hii');
       cdStore.enableSubmit = false;
+      if (cdStore.dov == '') {
+        return;
+      }
+      /*if (!Utility.validateAlpha(cdStore.partner)) {
+        return;
+      }
+      if (cdStore.partnerName == '') {
+        return;
+      }
+      if (!Utility.validateAlphaNumericSpecial(cdStore.location)) {
+        return;
+      }*/
+      if (cdStore.age == '') {
+        return;
+      }
+      if (!Utility.validateNumeric(cdStore.totalNoOfParticipants)) {
+        return;
+      }
+      if (cdStore.targetBeneficiaries == '') {
+        return;
+      }
+      if (cdStore.hour == '') {
+        return;
+      }
+      if (cdStore.minute == '') {
+        return;
+      }
+      if (!Utility.validateAlphaNumericSpecial(cdStore.methodUsed)) {
+        return;
+      }
+      if (!Utility.validateAlphaNumericSpecial(cdStore.topicsCovered)) {
+        return;
+      }
+      if (!Utility.validateAlphaNumericSpecial(cdStore.sessionConductedBy)) {
+        return;
+      }
       if (
-        cdStore.dov == '' ||
-        cdStore.partner == '' ||
-        cdStore.partnerName == '' ||
-        cdStore.location == '' ||
-        cdStore.age == '' ||
-        cdStore.totalNoOfParticipants == '' ||
-        cdStore.targetBeneficiaries == '' ||
-        cdStore.hour == '' ||
-        cdStore.minute == '' ||
-        cdStore.methodUsed == '' ||
-        cdStore.topicsCovered == '' ||
-        cdStore.sessionConductedBy == '' ||
-        cdStore.feedbackFromParticipants == '' ||
-        cdStore.selectedImages.length == 0
+        !Utility.validateAlphaNumericSpecial(cdStore.feedbackFromParticipants)
       ) {
         return;
       }
+      //cdStore.selectedImages.length == 0
+
       cdStore.enableSubmit = true;
+    },
+
+    async handleImageUpload() {
+      try {
+        const formData = new FormData();
+
+        formData.append('partner', 2);
+        formData.append('age_group', 2);
+        formData.append('duration', 62);
+        formData.append('topics', 'abc');
+        formData.append('participants_count', 2);
+        formData.append('method_used', 'ABC');
+        formData.append('conducted_by', 'abc');
+        formData.append('feedback', 'abc');
+        formData.append('beneficiary', 2);
+        formData.append('visit_date', '2023-08-17');
+        //formData.append('image_1', null);
+
+        const response = await axios.post(
+          'http://4693-2405-201-4041-b074-53da-6e1a-9112-50b3.ngrok-free.app/api/v1/accounts/nutrition-education/',
+          formData,
+          {
+            headers: {
+              'content-type': 'multipart/form-data',
+            },
+          },
+        );
+
+        console.log('Upload successful:', response.data);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    },
+
+    async sendData() {
+      runInAction(() => {
+        cdStore.isLoading = true;
+      });
+      cdStore.isLoading = true;
+
+      try {
+        const response = await request<CaptureModal>(
+          'post',
+          AppStrings.captureDetails,
+          {
+            partner: cdStore.partnerID, //
+            age_group: cdStore.ageID, //
+            duration: parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute), //
+            topics: cdStore.topicsCovered,
+            participants_count: cdStore.totalNoOfParticipants, //
+            method_used: cdStore.methodUsed,
+            conducted_by: cdStore.sessionConductedBy,
+            feedback: cdStore.feedbackFromParticipants,
+            beneficiary: cdStore.beneficiarieID, //
+            visit_date: cdStore.dov,
+            image_1: null,
+            image_2: null,
+            image_3: null,
+            image_4: null,
+            image_5: null,
+          },
+        );
+        if (response.success) {
+          console.log(response);
+          Utility.showToast(response.msg);
+        } else {
+          Utility.showToast(response.msg);
+        }
+      } catch (err) {
+        Utility.showToast('Something went wrong');
+        console.log(err);
+      } finally {
+        runInAction(() => {
+          cdStore.isLoading = false;
+        });
+      }
     },
 
     // setSelectedImages(value: Image[]) {
