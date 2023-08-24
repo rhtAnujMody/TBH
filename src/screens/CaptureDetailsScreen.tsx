@@ -25,6 +25,7 @@ import useCamera from '../custom_hooks/useCamera';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
+import {authStore} from '../stores';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
@@ -74,6 +75,8 @@ const CaptureDetailsScreen = () => {
     cdStore.validateSubmit();
     hideDatePicker();
   };
+
+  Utility.logData(authStore.userData);
 
   return (
     <>

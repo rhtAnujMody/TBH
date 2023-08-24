@@ -23,7 +23,6 @@ const useApiService = () => {
         url,
         data,
       });
-      console.tron.log('api response', typeof response.data);
       return response.data;
     } catch (error) {
       return Promise.reject(error);

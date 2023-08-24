@@ -1,11 +1,12 @@
-import {makeAutoObservable} from 'mobx';
-import {UserModal} from '../models/UserModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {makeAutoObservable} from 'mobx';
+import {UserData} from '../models/UserModal';
+import Utility from '../utils/Utility';
 
 const authStore = {
   isLoggedIn: false,
   showSplash: true,
-  userData: {} as UserModal,
+  userData: {} as UserData,
 
   setIsLogin(value: boolean, cb?: () => void) {
     this.isLoggedIn = value;
@@ -13,8 +14,9 @@ const authStore = {
       cb();
     }
   },
-  setUserData(data: UserModal) {
-    this.userData = data;
+  setUserData(data: UserData) {
+    Utility.logData(data);
+    authStore.userData = data;
   },
   toggleSplash(value: boolean) {
     authStore.showSplash = value;

@@ -1,13 +1,12 @@
 import {useLocalObservable} from 'mobx-react-lite';
 import {AppSVGs} from '../assets';
-import authStore from './authStore';
 import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
 import {CaptureModal} from '../models/CaptureModal';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import axios from 'axios';
-import {Image} from 'react-native-svg';
+import authStore from './authStore';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
@@ -37,37 +36,12 @@ const useCaptureDetailsStore = () => {
     feedbackFromParticipants: '',
     selectedImages: [],
     enableSubmit: false,
-    beneficiarieID: '',
-    image_1: null,
-    beneficiarisOptions: [
-      {id: '0', name: 'Children - Govt/Public School'},
-      {id: '1', name: 'Children - Private School'},
-      {id: '2', name: 'Children - Anganwadi'},
-      {id: '3', name: 'Children - Balwadi'},
-      {id: '4', name: 'Children - Shelter Home'},
-      {id: '5', name: 'Children - Ashramshala'},
-      {id: '6', name: 'Teachers - Govt/Public School'},
-      {id: '7', name: 'Teachers - Private School'},
-      {id: '8', name: 'Teachers - Anganwadi'},
-      {id: '9', name: 'Teachers - Balwadi'},
-      {id: '10', name: 'Teachers - Shelter Home'},
-      {id: '11', name: 'Teachers - Ashramshala'},
-      {id: '12', name: 'Parents'},
-      {id: '13', name: 'Adolescents'},
-      {id: '14', name: 'Women - Prenatal'},
-      {id: '15', name: 'Women - Postnatal'},
-      {id: '16', name: 'Women - Group'},
-      {id: '17', name: 'Staff/Officers/Workers - ASHA'},
-      {id: '18', name: 'Staff/Officers/Workers - Anganwadi'},
-      {id: '19', name: 'Staff/Officers/Workers - Balwadi'},
-      {id: '20', name: 'Staff/Officers/Workers - NGO'},
-      {id: '21', name: 'Staff/Officers/Workers - Corporate'},
-    ],
+    beneficiarisOptions: authStore.userData.beneficiary_list ?? [],
     partnerOptions: [
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: [{name: 'Calvary Day Care Centre', id: '0'}],
+    partnerNameList: authStore.userData.partner_list ?? [],
     locationList: [
       {
         name: 'Ramabai',
