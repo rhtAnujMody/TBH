@@ -18,14 +18,20 @@ type Props = {
   selectedImages: ImageProps[];
   onPress: () => void;
   removeImage: (index: number) => void;
+  title: string;
 };
 
-const AppImageUploadInput = ({onPress, selectedImages, removeImage}: Props) => {
+const AppImageUploadInput = ({
+  title,
+  onPress,
+  selectedImages,
+  removeImage,
+}: Props) => {
   const showUploadInput = selectedImages.length < 5;
-
+  //UPLOAD PHOTO
   return (
     <View style={styles.container}>
-      <Text style={styles.textHeader}>UPLOAD PHOTO</Text>
+      <Text style={styles.textHeader}>{title}</Text>
       <Text style={styles.textHeader}>
         (User can upload up to maximum 5 photos and in .jpg / .jpeg / .png
         formats)

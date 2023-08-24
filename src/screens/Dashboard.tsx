@@ -87,7 +87,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => {}}
+              onPress={() => navigation.navigate('ProgramMonitor')}
             />
           </View>
         </ScrollView>
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   cardsContainer: {
     marginHorizontal: 20,
     marginTop: 10,
+    zIndex: 100,
   },
   buildingLogo: {
     position: 'absolute',

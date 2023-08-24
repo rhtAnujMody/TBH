@@ -23,19 +23,19 @@ class Utility {
   static validateAlpha = (name: string) => {
     return String(name)
       .toLowerCase()
-      .match(/^[a-z]+[a-z]$/);
+      .match(/^[A-Za-z]+$/g);
   };
 
   static validateAlphaNumericSpecial = (email: string) => {
     return String(email)
       .toLowerCase()
-      .match(/^(?=.*[a-zA-Z0-9!@#$%^&*()\-_=+[\]{}|;:'",.<>/?\\])\S+$/);
+      .match(/^(?=.*[a-zA-Z0-9])[\w\s!@#$%^&*(),.?":{}|<>+[\]\-\\/]{1,}$/g);
   };
 
   static validateNumeric = (num: string) => {
     return String(num)
       .toLowerCase()
-      .match(/^[0-9]+$/);
+      .match(/^[0-9]+$/g);
   };
 
   static showToast = (msg: string, duration: number = 3) => {
