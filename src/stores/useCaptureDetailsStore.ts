@@ -6,8 +6,7 @@ import {runInAction} from 'mobx';
 import {CaptureModal} from '../models/CaptureModal';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
-import axios from 'axios';
-import {Image} from 'react-native-svg';
+import {Image} from 'react-native-image-crop-picker';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
@@ -21,9 +20,19 @@ const useCaptureDetailsStore = () => {
     openBottomSheet: false,
     openPhotoBottomSheet: false,
     partner: '',
-    partnerName: '',
-    partnerID: '',
-    location: '',
+    newPartnerName: '',
+    newLocation: '',
+    newBlock: '',
+    newDistrict: '',
+    newState: '',
+    existPartnerName: '',
+    existLocation: '',
+    existBlock: '',
+    existDistrict: '',
+    existState: '',
+
+    partnerID: '', //backend not accepting 0
+
     age: '',
     ageID: '',
     targetBeneficiaries: '',
@@ -35,10 +44,8 @@ const useCaptureDetailsStore = () => {
     index: 2,
     sessionConductedBy: '',
     feedbackFromParticipants: '',
-    selectedImages: [],
     enableSubmit: false,
     beneficiarieID: '',
-    image_1: null,
     beneficiarisOptions: [
       {id: '0', name: 'Children - Govt/Public School'},
       {id: '1', name: 'Children - Private School'},
@@ -67,7 +74,12 @@ const useCaptureDetailsStore = () => {
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: [{name: 'Calvary Day Care Centre', id: '0'}],
+    partnerNameList: [
+      {
+        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
+        id: '1', //backend not accepting 0
+      },
+    ],
     locationList: [
       {
         name: 'Ramabai',
@@ -166,6 +178,10 @@ const useCaptureDetailsStore = () => {
       cdStore.dov = value;
     },
 
+    setImage1(value: any) {
+      cdStore.age = value;
+    },
+
     setIndex(value: number) {
       cdStore.index = value;
     },
@@ -183,15 +199,16 @@ const useCaptureDetailsStore = () => {
           cdStore.validateSubmit();
           break;
         case 'Name of the Partner':
-          cdStore.partnerName = value;
+          const res = value.split(',');
+          cdStore.existPartnerName = res[0];
+          cdStore.existLocation = res[1];
+          cdStore.existBlock = res[2];
+          cdStore.existDistrict = res[3];
+          cdStore.existState = res[4];
           cdStore.partnerID = id;
           cdStore.validateSubmit();
           break;
 
-        case 'Location':
-          cdStore.location = value;
-          cdStore.validateSubmit();
-          break;
         case 'Target beneficiaries':
           cdStore.targetBeneficiaries = value;
           cdStore.beneficiarieID = id;
@@ -216,8 +233,25 @@ const useCaptureDetailsStore = () => {
       cdStore.totalNoOfParticipants = value;
       cdStore.validateSubmit();
     },
-    setPartnerName(value: string) {
-      cdStore.partnerName = value;
+
+    setNewPartnerName(value: string) {
+      cdStore.newPartnerName = value;
+      cdStore.validateSubmit();
+    },
+    setNewLocation(value: string) {
+      cdStore.newLocation = value;
+      cdStore.validateSubmit();
+    },
+    setNewBlock(value: string) {
+      cdStore.newBlock = value;
+      cdStore.validateSubmit();
+    },
+    setNewDistrict(value: string) {
+      cdStore.newDistrict = value;
+      cdStore.validateSubmit();
+    },
+    setNewState(value: string) {
+      cdStore.newState = value;
       cdStore.validateSubmit();
     },
 
@@ -228,11 +262,6 @@ const useCaptureDetailsStore = () => {
 
     setTopicsCovered(value: string) {
       cdStore.topicsCovered = value;
-      cdStore.validateSubmit();
-    },
-
-    setLocation(value: string) {
-      cdStore.location = value;
       cdStore.validateSubmit();
     },
 
@@ -251,15 +280,26 @@ const useCaptureDetailsStore = () => {
       if (cdStore.dov == '') {
         return;
       }
-      /*if (!Utility.validateAlpha(cdStore.partner)) {
+
+      if (cdStore.partner == '') {
         return;
+      } else {
+        if (cdStore.partner == 'New') {
+          if (
+            cdStore.newPartnerName == '' ||
+            cdStore.newLocation == '' ||
+            cdStore.newBlock == '' ||
+            cdStore.newDistrict == '' ||
+            cdStore.newState == ''
+          ) {
+            return;
+          }
+        } else {
+          if (cdStore.existPartnerName == '') {
+            return;
+          }
+        }
       }
-      if (cdStore.partnerName == '') {
-        return;
-      }
-      if (!Utility.validateAlphaNumericSpecial(cdStore.location)) {
-        return;
-      }*/
       if (cdStore.age == '') {
         return;
       }
@@ -289,76 +329,74 @@ const useCaptureDetailsStore = () => {
       ) {
         return;
       }
+      //  if(selectedImages.length==0){
+      //   return;
+      //  }
       //cdStore.selectedImages.length == 0
 
       cdStore.enableSubmit = true;
     },
 
-    async handleImageUpload() {
-      try {
-        const formData = new FormData();
-
-        formData.append('partner', 2);
-        formData.append('age_group', 2);
-        formData.append('duration', 62);
-        formData.append('topics', 'abc');
-        formData.append('participants_count', 2);
-        formData.append('method_used', 'ABC');
-        formData.append('conducted_by', 'abc');
-        formData.append('feedback', 'abc');
-        formData.append('beneficiary', 2);
-        formData.append('visit_date', '2023-08-17');
-        //formData.append('image_1', null);
-
-        const response = await axios.post(
-          'http://4693-2405-201-4041-b074-53da-6e1a-9112-50b3.ngrok-free.app/api/v1/accounts/nutrition-education/',
-          formData,
-          {
-            headers: {
-              'content-type': 'multipart/form-data',
-            },
-          },
-        );
-
-        console.log('Upload successful:', response.data);
-      } catch (error) {
-        console.error('Error uploading image:', error);
-      }
-    },
-
-    async sendData() {
+    async handleImageUpload(selectedImages: Image[]) {
+      console.log(selectedImages, 'images');
       runInAction(() => {
         cdStore.isLoading = true;
       });
       cdStore.isLoading = true;
-
       try {
-        const response = await request<CaptureModal>(
+        const formData = new FormData();
+
+        if (this.partner == 'New') {
+          formData.append(
+            'partner_details',
+            JSON.stringify({
+              name: cdStore.newPartnerName,
+              location: cdStore.newLocation,
+              block: cdStore.newBlock,
+              district: cdStore.newDistrict,
+              state: cdStore.newState,
+            }),
+          );
+          formData.append('partner', '');
+        } else {
+          formData.append('partner', cdStore.partnerID);
+        }
+
+        formData.append('age_group', cdStore.ageID);
+        formData.append(
+          'duration',
+          parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute),
+        );
+        formData.append('topics', cdStore.topicsCovered);
+        formData.append('participants_count', cdStore.totalNoOfParticipants);
+        formData.append('method_used', cdStore.methodUsed);
+        formData.append('conducted_by', cdStore.sessionConductedBy);
+        formData.append('feedback', cdStore.feedbackFromParticipants);
+        formData.append('beneficiary', cdStore.beneficiarieID);
+        formData.append('visit_date', cdStore.dov);
+
+        for (let i = 0; i < Math.min(selectedImages.length, 5); i++) {
+          formData.append(`image_${i + 1}`, {
+            uri: selectedImages[i].path,
+            type: selectedImages[i].mime,
+            name: selectedImages[i].path.split('/').pop(),
+          });
+        }
+
+        const responseJson = await request<CaptureModal>(
           'post',
           AppStrings.captureDetails,
+          formData,
           {
-            partner: cdStore.partnerID, //
-            age_group: cdStore.ageID, //
-            duration: parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute), //
-            topics: cdStore.topicsCovered,
-            participants_count: cdStore.totalNoOfParticipants, //
-            method_used: cdStore.methodUsed,
-            conducted_by: cdStore.sessionConductedBy,
-            feedback: cdStore.feedbackFromParticipants,
-            beneficiary: cdStore.beneficiarieID, //
-            visit_date: cdStore.dov,
-            image_1: null,
-            image_2: null,
-            image_3: null,
-            image_4: null,
-            image_5: null,
+            'Content-Type': 'multipart/form-data;',
           },
         );
-        if (response.success) {
-          console.log(response);
-          Utility.showToast(response.msg);
+
+        if (responseJson.success) {
+          console.log(responseJson, 'response from server');
+          Utility.showToast(responseJson.msg);
         } else {
-          Utility.showToast(response.msg);
+          Utility.showToast(responseJson.msg);
         }
       } catch (err) {
         Utility.showToast('Something went wrong');
@@ -369,10 +407,6 @@ const useCaptureDetailsStore = () => {
         });
       }
     },
-
-    // setSelectedImages(value: Image[]) {
-    //   cdStore.selectedImages = value;
-    // },
   }));
 
   return cdStore;

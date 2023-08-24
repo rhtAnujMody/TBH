@@ -16,12 +16,14 @@ const useApiService = () => {
     method: Method,
     url: string,
     data?: any,
+    headers?: any,
   ): Promise<ApiResponse<T>> => {
     try {
       const response = await apiInstance.request<ApiResponse<T>>({
         method,
         url,
         data,
+        headers,
       });
       console.tron.log('api response', typeof response.data);
       return response.data;

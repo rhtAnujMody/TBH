@@ -50,8 +50,8 @@ const useLoginStore = () => {
       auth.setIsLogin(true);*/
       try {
         const response = await request<UserModal>('post', AppStrings.login, {
-          email: this.userEmail,
-          password: this.password,
+          email: loginStore.userEmail,
+          password: loginStore.password,
         });
         if (response.success) {
           setData(AppStrings.isLogin, true);

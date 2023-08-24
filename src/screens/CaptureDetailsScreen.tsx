@@ -1,6 +1,7 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
+import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -9,6 +10,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  PermissionsAndroid,
+  Alert,
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
 import DatePicker from 'react-native-date-picker';
@@ -31,19 +34,85 @@ const CaptureDetailsScreen = () => {
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const [showCalender, setShowCalender] = useState(false);
+  //const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera();
+    useCamera(cdStore.togglePhotoBottomSheet);
 
-  const onConfirmDate = (date: Date) => {
-    cdStore.setDOV(Utility.formatDate(date));
+  // useEffect(() => {
+  //   requestPermission();
+  //   // console.log(selectedImages[0].path);
+  // }, []);
 
-    cdStore.toggleDOVPicker();
-  };
+  // const requestPermission = async () => {
+  //   try {
+  //     const granted = await PermissionsAndroid.requestMultiple([
+  //       PermissionsAndroid.PERMISSIONS.CAMERA,
+  //       PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
+  //     ]);
+  //     if (
+  //       granted['android.permission.CAMERA'] &&
+  //       granted['android.permission.READ_MEDIA_IMAGES']
+  //     ) {
+  //       console.log('You can use the camera');
+  //     } else {
+  //       console.log('Camera permission denied');
+  //     }
+  //   } catch (error) {
+  //     console.log('permission error', error);
+  //   }
+  // };
 
-  const onCancelDate = () => {
-    cdStore.toggleDOVPicker();
-  };
+  // const openGallery = () => {
+  //   ImageCropPicker.openPicker({
+  //     multiple: true,
+  //     mediaType: 'photo',
+  //     maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
+  //   })
+  //     .then(images => {
+  //       if (images.length + selectedImages.length > 5) {
+  //         Alert.alert('Oops!', 'You can select max 5 images');
+  //       }
+
+  //       setSelectedImages(prevSelectedImages =>
+  //         prevSelectedImages
+  //           .concat(images)
+  //           .slice(0, Math.min(prevSelectedImages.length + images.length, 5)),
+  //       );
+  //     })
+  //     .catch(error => {
+  //       console.log('Error selecting images:', error);
+  //     });
+  //   cdStore.togglePhotoBottomSheet();
+  // };
+
+  // const removeImage = (index: number) => {
+  //   const updatedImages = [...selectedImages];
+  //   updatedImages.splice(index, 1);
+  //   setSelectedImages(updatedImages);
+  // };
+
+  // const takePhotoFromCamera = () => {
+  //   ImageCropPicker.openCamera({
+  //     width: 300,
+  //     height: 400,
+  //     cropping: true,
+  //   }).then(image => {
+  //     console.log(image);
+  //     cdStore.togglePhotoBottomSheet();
+  //   });
+  //   //cdStore.togglePhotoBottomSheet();
+  // };
+
+  // const onConfirmDate = (date: Date) => {
+  //   cdStore.setDOV(Utility.formatDate(date));
+
+  //   cdStore.toggleDOVPicker();
+  // };
+
+  // const onCancelDate = () => {
+  //   cdStore.toggleDOVPicker();
+  // };
 
   const handleBottomSheetClick = (from: string) => {
     cdStore.toggleBottomSheet(from);
@@ -78,7 +147,7 @@ const CaptureDetailsScreen = () => {
   return (
     <>
       <AppContainer>
-        <Header title={'Capture Details'} />
+        <Header title={'Nutrition Education'} />
         <KeyboardAvoidingView
           behavior={Platform.select({ios: 'padding'})}
           style={{flex: 1, backgroundColor: colors.palette.primary}}>
@@ -117,6 +186,7 @@ const CaptureDetailsScreen = () => {
                             value={cdStore.partner}
                             textHeader="IS THIS A NEW / EXISTING PARTNER"
                             placeHolder="Is this a New / Existing Partner"
+                            rightIcon={AppSVGs.dropdown}
                           />
                         )}
                       </Observer>
@@ -125,19 +195,65 @@ const CaptureDetailsScreen = () => {
                         {() =>
                           cdStore.partner == 'New' ? (
                             <>
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="NAME OF THE PARTNER"
-                                placeHolder="Name of the partner"
-                                onChangeText={cdStore.setPartnerName}
-                              />
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    value={cdStore.newPartnerName}
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="NAME OF THE PARTNER"
+                                    placeHolder="Name of the partner"
+                                    onChangeText={cdStore.setNewPartnerName}
+                                  />
+                                )}
+                              </Observer>
 
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="LOCATION"
-                                placeHolder="Location"
-                                onChangeText={cdStore.setLocation}
-                              />
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    value={cdStore.newLocation}
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="LOCATION"
+                                    placeHolder="Location"
+                                    onChangeText={cdStore.setNewLocation}
+                                  />
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    value={cdStore.newBlock}
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="BLOCK"
+                                    placeHolder="Block"
+                                    onChangeText={cdStore.setNewBlock}
+                                  />
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    value={cdStore.newDistrict}
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="District"
+                                    placeHolder="District"
+                                    onChangeText={cdStore.setNewDistrict}
+                                  />
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    value={cdStore.newState}
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="STATE"
+                                    placeHolder="State"
+                                    onChangeText={cdStore.setNewState}
+                                  />
+                                )}
+                              </Observer>
                             </>
                           ) : cdStore.partner == 'Existing' ? (
                             <>
@@ -149,52 +265,64 @@ const CaptureDetailsScreen = () => {
                                       handleIndex(1);
                                     }}
                                     parentStyle={styles.textInputStyle}
-                                    value={cdStore.partnerName}
+                                    value={cdStore.existPartnerName}
                                     textHeader="NAME OF THE PARTNER"
                                     placeHolder="Name of the partner"
                                     rightIcon={AppSVGs.dropdown}
                                   />
                                 )}
                               </Observer>
+
                               <Observer>
                                 {() => (
-                                  <AppInput
-                                    onPress={() => {
-                                      handleBottomSheetClick('location');
-                                      handleIndex(1);
-                                    }}
-                                    parentStyle={styles.textInputStyle}
-                                    value={cdStore.location}
-                                    textHeader="LOCATION"
-                                    placeHolder="location"
-                                    rightIcon={AppSVGs.dropdown}
-                                  />
-                                )}
-                              </Observer>
-                            </>
-                          ) : (
-                            <Observer>
-                              {() => (
-                                <>
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="NAME OF THE PARTNER"
-                                    placeHolder="Name of the partner"
-                                    onChangeText={cdStore.setPartnerName}
-                                    editable={false}
-                                  />
-
                                   <AppTextInput
                                     parentStyle={styles.textInputStyle}
                                     textHeader="LOCATION"
                                     placeHolder="Location"
-                                    onChangeText={cdStore.setLocation}
+                                    value={cdStore.existLocation}
+                                    //onChangeText={cdStore.setLocation}
                                     editable={false}
                                   />
-                                </>
-                              )}
-                            </Observer>
-                          )
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="BLOCK"
+                                    placeHolder="Block"
+                                    value={cdStore.existBlock}
+                                    editable={false}
+                                  />
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="District"
+                                    placeHolder="District"
+                                    value={cdStore.existDistrict}
+                                    editable={false}
+                                  />
+                                )}
+                              </Observer>
+
+                              <Observer>
+                                {() => (
+                                  <AppTextInput
+                                    parentStyle={styles.textInputStyle}
+                                    textHeader="STATE"
+                                    placeHolder="State"
+                                    value={cdStore.existState}
+                                    editable={false}
+                                  />
+                                )}
+                              </Observer>
+                            </>
+                          ) : null
                         }
                       </Observer>
                     </>
@@ -216,6 +344,7 @@ const CaptureDetailsScreen = () => {
                         textHeader="TOTAL NUMBER OF PARTICIPANTS"
                         placeHolder="Total number of participants"
                         onChangeText={cdStore.setTotalNoOfParticipants}
+                        keyboardType={'numeric'}
                       />
                       <Observer>
                         {() => (
@@ -314,6 +443,7 @@ const CaptureDetailsScreen = () => {
                       <Observer>
                         {() => (
                           <AppImageUploadInput
+                            title={'UPLOAD PHOTO'}
                             selectedImages={selectedImages}
                             onPress={cdStore.togglePhotoBottomSheet}
                             removeImage={removeImage}
@@ -333,14 +463,14 @@ const CaptureDetailsScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={cdStore.isLoading}
-                  onPress={cdStore.handleImageUpload}
+                  onPress={() => cdStore.handleImageUpload(selectedImages)}
                   enabled={cdStore.enableSubmit}
                 />
               )}
             </Observer>
           </View>
         </KeyboardAvoidingView>
-        <Observer>
+        {/* <Observer>
           {() => (
             <DatePicker
               modal
@@ -351,7 +481,7 @@ const CaptureDetailsScreen = () => {
               onCancel={onCancelDate}
             />
           )}
-        </Observer>
+        </Observer> */}
       </AppContainer>
       <Observer>
         {() => (

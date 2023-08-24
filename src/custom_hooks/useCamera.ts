@@ -1,15 +1,13 @@
 import {useEffect, useState} from 'react';
 import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import {PermissionsAndroid} from 'react-native';
-import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 
-const useCamera = () => {
+const useCamera = (togglePhotoBottomSheet: any) => {
   const [selectedImages, setSelectedImages] = useState<Image[]>([]);
-  const cdStore = useCaptureDetailsStore();
+  //const cdStore = useCaptureDetailsStore(); //mobx instantiates diffrent stores for different screens
 
   useEffect(() => {
     requestPermission();
-    // console.log(selectedImages[0].path);
   }, []);
 
   const requestPermission = async () => {
@@ -37,18 +35,14 @@ const useCamera = () => {
       maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
     })
       .then(images => {
-        if (images.length > 5) {
-        }
         setSelectedImages(prevSelectedImages =>
           prevSelectedImages.concat(images),
         );
-
-        cdStore.image_1 = console.log(images[0], 'images');
       })
       .catch(error => {
         console.log('Error selecting images:', error);
       });
-    cdStore.togglePhotoBottomSheet();
+    togglePhotoBottomSheet();
   };
 
   const removeImage = (index: number) => {
@@ -64,9 +58,8 @@ const useCamera = () => {
       cropping: true,
     }).then(image => {
       console.log(image);
-      cdStore.togglePhotoBottomSheet();
     });
-    //cdStore.togglePhotoBottomSheet();
+    togglePhotoBottomSheet();
   };
 
   return {

@@ -86,6 +86,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
+              onPress={() => navigation.navigate('ProgramMonitor')}
             />
           </View>
         </ScrollView>

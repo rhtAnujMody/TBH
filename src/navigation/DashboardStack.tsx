@@ -3,11 +3,13 @@ import React from 'react';
 import CaptureDetailsScreen from '../screens/CaptureDetailsScreen';
 import Dashboard from '../screens/Dashboard';
 import GenerateReportsScreen from '../screens/GenerateReportsScreen';
+import ProgramMonitorScreen from '../screens/ProgramMonitorScreen';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
   CaptureDetails: undefined;
   GenerateReports: undefined;
+  ProgramMonitor: undefined;
 };
 
 const DashboardStackRoot =
@@ -22,6 +24,11 @@ const DashboardStack = () => {
       <DashboardStackRoot.Screen
         component={CaptureDetailsScreen}
         name="CaptureDetails"
+      />
+
+      <DashboardStackRoot.Screen
+        component={ProgramMonitorScreen}
+        name="ProgramMonitor"
       />
       <DashboardStackRoot.Screen
         component={GenerateReportsScreen}

@@ -1,5 +1,5 @@
 export interface CaptureModal {
-  partner: number;
+  partner: number | null;
   age_group: number;
   duration: number;
   topics: string;
