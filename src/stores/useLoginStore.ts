@@ -31,9 +31,11 @@ const useLoginStore = () => {
     validateCredentials() {
       loginStore.isButtonEnabled = false;
       if (!Utility.validateEmail(loginStore.userEmail)) {
+        //Utility.showToast(AppStrings.invalidEmail);
         return;
       }
-      if (loginStore.password.length < 4) {
+      if (loginStore.password.length < 6) {
+        //Utility.showToast(AppStrings.invalidPassword);
         return;
       }
       loginStore.isButtonEnabled = true;
@@ -62,8 +64,14 @@ const useLoginStore = () => {
         } else {
           Utility.showToast(response.msg);
         }
-      } catch (err) {
-        Utility.showToast('Something went wrong');
+      } catch (err: unknown) {
+        if (typeof err === 'string') {
+          err.toUpperCase();
+          Utility.showToast(err.toUpperCase()); // works, `e` narrowed to string
+        } else if (err instanceof Error) {
+          err.message;
+          Utility.showToast(err.message); // works, `e` narrowed to Error
+        }
       } finally {
         runInAction(() => {
           loginStore.isLoading = false;

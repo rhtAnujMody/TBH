@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  FlatList,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -8,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {AppSVGs} from '../../assets';
+import {FlatList} from 'react-native-gesture-handler';
 
 type Array = {
   name: string;

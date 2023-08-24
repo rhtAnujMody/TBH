@@ -1,11 +1,11 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {HomeCard} from '../components';
-import {useNavigation} from '@react-navigation/native';
-import {DashboardStackProps} from '../navigation/AppNavigation';
 import AppContainer from '../components/common/AppContainer';
 import ObservableChild from '../components/common/ObservableChild';
+import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
 
@@ -51,7 +51,7 @@ const Dashboard = () => {
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcome}>Welcome,</Text>
             <ObservableChild>
-              <Text style={styles.userName}>Sumit</Text>
+              <Text style={styles.userName}>{authStore.userData.name}</Text>
             </ObservableChild>
           </View>
         </View>
@@ -66,6 +66,7 @@ const Dashboard = () => {
                   title={data.title}
                   icon={data.icon}
                   key={data.title}
+                  onPress={() => {}}
                   marginRight={index === 0 ? 10 : 0}
                 />
               );
@@ -86,6 +87,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
+              onPress={() => {}}
             />
           </View>
         </ScrollView>

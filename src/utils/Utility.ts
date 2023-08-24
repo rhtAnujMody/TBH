@@ -38,12 +38,14 @@ class Utility {
       .match(/^[0-9]+$/);
   };
 
-  static showToast = (msg: string, duration: number = 2) => {
+  static showToast = (msg: string, duration: number = 3) => {
     Toast.show(msg, duration);
   };
 
   static logData = (msg: any) => {
-    console.tron.log(msg);
+    if (__DEV__) {
+      console.tron.log(msg);
+    }
   };
 }
 export default Utility;

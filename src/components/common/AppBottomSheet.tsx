@@ -14,9 +14,7 @@ const AppBottomSheet = forwardRef<BottomSheet, Props>(
     const snapPoints = useMemo(() => ['25%', '28%', '50%', '75%'], []);
 
     // callbacks
-    const handleSheetChanges = useCallback((index: number) => {
-      //console.log('handleSheetChanges', index);
-    }, []);
+    const handleSheetChanges = useCallback((index: number) => {}, []);
     if (!isVisible) {
       return null;
     }

@@ -19,6 +19,7 @@ const SignUpScreen = () => {
   const styles = loginStyles(keyboard);
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
+  const numberRef = useRef<TextInput>(null);
 
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [dob, setDOB] = useState<string | undefined>(undefined);
@@ -35,11 +36,15 @@ const SignUpScreen = () => {
         }
         break;
       case 2:
+        if (numberRef && numberRef.current) {
+          numberRef.current.focus();
+        }
+        break;
+      case 3:
         if (passwordRef && passwordRef.current) {
           passwordRef.current.focus();
         }
         break;
-
       default:
         break;
     }
@@ -103,6 +108,17 @@ const SignUpScreen = () => {
           onChangeText={signUpStore.setEmail}
           inputRef={emailRef}
           onSubmitEditing={() => handleOnSubmitEditing(2)}
+        />
+
+        <AppTextInput
+          placeHolder="Phone Number"
+          returnKeyType="next"
+          keyboardType="phone-pad"
+          maxLength={10}
+          leftText="+91"
+          onChangeText={signUpStore.setNumber}
+          inputRef={numberRef}
+          onSubmitEditing={() => handleOnSubmitEditing(3)}
         />
 
         <AppTextInput
