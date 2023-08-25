@@ -53,7 +53,7 @@ const AppInput = ({
     setBorder(colors.gray);
   };
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.touchableInputContainer}>
       <Text style={styles.textHeader}>{textHeader}</Text>
       <View style={[styles.container, parentStyle, {borderColor: border}]}>
         {LeftIcon && <LeftIcon />}

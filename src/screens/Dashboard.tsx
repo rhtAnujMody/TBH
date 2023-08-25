@@ -35,15 +35,7 @@ const Dashboard = () => {
     <AppContainer style={styles.container}>
       <View style={styles.topContainer}>
         <AppSVGs.logo style={styles.logo} />
-        <Text
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            padding: 20,
-            zIndex: 10,
-          }}
-          onPress={auth.logout}>
+        <Text style={styles.loginText} onPress={auth.logout}>
           Logout
         </Text>
         <View style={styles.profileContainer}>
@@ -57,7 +49,7 @@ const Dashboard = () => {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView contentContainerStyle={styles.bodyScroll}>
           <Text style={styles.title}>Health Camp</Text>
           <View style={styles.cardsContainer}>
             {homeCards.map((data, index) => {
@@ -154,4 +146,12 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 10,
   },
+  loginText: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 20,
+    zIndex: 10,
+  },
+  bodyScroll: {flexGrow: 1},
 });

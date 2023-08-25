@@ -135,7 +135,7 @@ const ProgramMonitorScreen = () => {
         <Header title={'Program Monitoring'} />
         <KeyboardAvoidingView
           behavior={Platform.select({ios: 'padding'})}
-          style={{flex: 1, backgroundColor: colors.palette.primary}}>
+          style={styles.keyboardAvoidStyle}>
           <View style={styles.backgroundStyle}>
             <ScrollView contentContainerStyle={styles.contentContainerStyle}>
               <View style={styles.container}>
@@ -784,6 +784,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  keyboardAvoidStyle: {flex: 1, backgroundColor: colors.palette.primary},
   backgroundStyle: {
     flex: 1,
     backgroundColor: colors.white,

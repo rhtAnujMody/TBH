@@ -40,10 +40,7 @@ export const AppBottomSheetDropdown = ({
       <FlatList
         data={data}
         keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={{
-          paddingBottom: 10,
-          flexGrow: 1,
-        }}
+        contentContainerStyle={styles.contentContainerStyle}
         renderItem={({item}) => (
           <TouchableHighlight
             underlayColor="#eee"
@@ -63,6 +60,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginBottom: 16,
+  },
+  contentContainerStyle: {
+    paddingBottom: 10,
+    flexGrow: 1,
   },
   itemContainer: {
     paddingVertical: 16,
