@@ -3,6 +3,7 @@ export default {
   login: 'v1/accounts/login/',
   signUp: 'v1/accounts/register/',
   captureDetails: 'v1/accounts/nutrition-education/',
+  healthCamp: 'v1/accounts/health-camp/',
 
   //AsyncStore Keys
   isLogin: 'is_login',

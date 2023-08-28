@@ -35,85 +35,9 @@ const CaptureDetailsScreen = () => {
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const [showCalender, setShowCalender] = useState(false);
-  //const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera(cdStore.togglePhotoBottomSheet);
-
-  // useEffect(() => {
-  //   requestPermission();
-  //   // console.log(selectedImages[0].path);
-  // }, []);
-
-  // const requestPermission = async () => {
-  //   try {
-  //     const granted = await PermissionsAndroid.requestMultiple([
-  //       PermissionsAndroid.PERMISSIONS.CAMERA,
-  //       PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-  //     ]);
-  //     if (
-  //       granted['android.permission.CAMERA'] &&
-  //       granted['android.permission.READ_MEDIA_IMAGES']
-  //     ) {
-  //       console.log('You can use the camera');
-  //     } else {
-  //       console.log('Camera permission denied');
-  //     }
-  //   } catch (error) {
-  //     console.log('permission error', error);
-  //   }
-  // };
-
-  // const openGallery = () => {
-  //   ImageCropPicker.openPicker({
-  //     multiple: true,
-  //     mediaType: 'photo',
-  //     maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-  //   })
-  //     .then(images => {
-  //       if (images.length + selectedImages.length > 5) {
-  //         Alert.alert('Oops!', 'You can select max 5 images');
-  //       }
-
-  //       setSelectedImages(prevSelectedImages =>
-  //         prevSelectedImages
-  //           .concat(images)
-  //           .slice(0, Math.min(prevSelectedImages.length + images.length, 5)),
-  //       );
-  //     })
-  //     .catch(error => {
-  //       console.log('Error selecting images:', error);
-  //     });
-  //   cdStore.togglePhotoBottomSheet();
-  // };
-
-  // const removeImage = (index: number) => {
-  //   const updatedImages = [...selectedImages];
-  //   updatedImages.splice(index, 1);
-  //   setSelectedImages(updatedImages);
-  // };
-
-  // const takePhotoFromCamera = () => {
-  //   ImageCropPicker.openCamera({
-  //     width: 300,
-  //     height: 400,
-  //     cropping: true,
-  //   }).then(image => {
-  //     console.log(image);
-  //     cdStore.togglePhotoBottomSheet();
-  //   });
-  //   //cdStore.togglePhotoBottomSheet();
-  // };
-
-  // const onConfirmDate = (date: Date) => {
-  //   cdStore.setDOV(Utility.formatDate(date));
-
-  //   cdStore.toggleDOVPicker();
-  // };
-
-  // const onCancelDate = () => {
-  //   cdStore.toggleDOVPicker();
-  // };
 
   const handleBottomSheetClick = (from: string) => {
     cdStore.toggleBottomSheet(from);

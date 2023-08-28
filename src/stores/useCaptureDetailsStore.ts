@@ -10,6 +10,24 @@ import authStore from './authStore';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const cdStore = useLocalObservable(() => ({
     dov: '',
     openDOVPicker: false,
@@ -32,6 +50,7 @@ const useCaptureDetailsStore = () => {
     existState: '',
 
     partnerID: '', //backend not accepting 0
+    beneficiarieID: '',
 
     age: '',
     ageID: '',
@@ -50,7 +69,7 @@ const useCaptureDetailsStore = () => {
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: authStore.userData.partner_list ?? [],
+    partnerNameList: partnerNameLocation(),
     locationList: [
       {
         name: 'Ramabai',
