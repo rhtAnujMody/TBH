@@ -50,21 +50,20 @@ const HealthCampScreen = () => {
   };
 
   const handleConfirm = (date: Date) => {
-    if (healthStore.calenderID == '1') {
-      healthStore.setDOHC(Utility.formatDate(date));
-    }
-    if (healthStore.calenderID == '2') {
-      healthStore.setDOB(Utility.formatDate(date));
-      healthStore.setAge(Utility.getAge(date));
-    }
-    if (healthStore.calenderID == '3') {
-      healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
-    }
-    if (healthStore.calenderID == '4') {
-      healthStore.setDateOfDoseDeworm(Utility.formatDate(date));
-    }
-    if (healthStore.calenderID == '5') {
-      healthStore.setDateOfDoseIFA(Utility.formatDate(date));
+    switch (healthStore.calenderID) {
+      case '1':
+        healthStore.setDOHC(Utility.formatDate(date));
+        break;
+      case '2':
+        healthStore.setDOB(Utility.formatDate(date));
+        healthStore.setAge(Utility.getAge(date));
+        break;
+      case '3':
+        healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
+      case '4':
+        healthStore.setDateOfDoseDeworm(Utility.formatDate(date));
+      case '5':
+        healthStore.setDateOfDoseIFA(Utility.formatDate(date));
     }
     healthStore.toogleCalender();
   };
@@ -138,7 +137,7 @@ const HealthCampScreen = () => {
                           onChangeText={healthStore.setNewState}
                         />
                       </>
-                    ) : healthStore.partner == 'Existing' ? (
+                    ) : healthStore.partner === 'Existing' ? (
                       <>
                         <AppInput
                           onPress={() => {
@@ -306,7 +305,7 @@ const HealthCampScreen = () => {
                       rightIcon={AppSVGs.dropdown}
                     />
 
-                    {healthStore.vitaminA == 'Done' && (
+                    {healthStore.vitaminA === 'Done' && (
                       <>
                         <AppInput
                           onPress={() => {
@@ -363,7 +362,7 @@ const HealthCampScreen = () => {
                       rightIcon={AppSVGs.dropdown}
                     />
 
-                    {healthStore.deworming == 'Done' ? (
+                    {healthStore.deworming === 'Done' && (
                       <>
                         <AppInput
                           onPress={() => {
@@ -376,7 +375,7 @@ const HealthCampScreen = () => {
                           rightIcon={AppSVGs.dropdown}
                         />
 
-                        {healthStore.doneByWorm ? (
+                        {healthStore.doneByWorm && (
                           <>
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
@@ -406,9 +405,9 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setLocationOfDoseWorm}
                             />
                           </>
-                        ) : null}
+                        )}
                       </>
-                    ) : null}
+                    )}
 
                     <AppInput
                       onPress={() => {
@@ -421,7 +420,7 @@ const HealthCampScreen = () => {
                       rightIcon={AppSVGs.dropdown}
                     />
 
-                    {healthStore.ifa == 'Done' ? (
+                    {healthStore.ifa === 'Done' && (
                       <>
                         <AppInput
                           onPress={() => {
@@ -434,7 +433,7 @@ const HealthCampScreen = () => {
                           rightIcon={AppSVGs.dropdown}
                         />
 
-                        {healthStore.doneBy ? (
+                        {healthStore.doneBy && (
                           <>
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
@@ -464,9 +463,9 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setLocationOfDoseIFA}
                             />
                           </>
-                        ) : null}
+                        )}
                       </>
-                    ) : null}
+                    )}
 
                     <AppInput
                       onPress={() => {
