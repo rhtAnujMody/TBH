@@ -25,6 +25,7 @@ import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
+import useCamera from '../custom_hooks/useCamera';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -32,67 +33,9 @@ const ProgramMonitorScreen = () => {
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const [showCalender, setShowCalender] = useState(false);
   const [showCalender2, setShowCalender2] = useState(false);
-  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
-  useEffect(() => {
-    requestPermission();
-    // console.log(selectedImages[0].path);
-  }, []);
-
-  const requestPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-      ]);
-      if (
-        granted['android.permission.CAMERA'] &&
-        granted['android.permission.READ_MEDIA_IMAGES']
-      ) {
-        console.log('You can use the camera');
-      } else {
-        console.log('Camera permission denied');
-      }
-    } catch (error) {
-      console.log('permission error', error);
-    }
-  };
-
-  const openGallery = () => {
-    ImageCropPicker.openPicker({
-      multiple: true,
-      mediaType: 'photo',
-      maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-    })
-      .then(images => {
-        if (images.length > 5) {
-        }
-        setSelectedImages(prevSelectedImages =>
-          prevSelectedImages.concat(images),
-        );
-      })
-      .catch(error => {
-        console.log('Error selecting images:', error);
-      });
-    proStore.togglePhotoBottomSheet();
-  };
-
-  const removeImage = (index: number) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-
-  const takePhotoFromCamera = () => {
-    ImageCropPicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-      proStore.togglePhotoBottomSheet();
-    });
-    //cdStore.togglePhotoBottomSheet();
-  };
+  const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
+    useCamera(proStore.togglePhotoBottomSheet);
 
   const handleBottomSheetClick = (from: string) => {
     proStore.toggleBottomSheet(from);
@@ -255,6 +198,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Visiting team size (staff/volunteers)"
                             onChangeText={proStore.setVVTeamSize}
                             keyboardType="numeric"
+                            value={proStore.vvTeamSize}
                           />
                         )}
                       </Observer>
@@ -263,8 +207,9 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Partner liaison for the visit"
-                            placeHolder="Name and designation of decimal staff"
-                            onChangeText={proStore.setLiaDStaff}
+                            placeHolder="Name of decimal staff"
+                            value={proStore.liaDNameStaff}
+                            onChangeText={proStore.setLiaDNameStaff}
                           />
                         )}
                       </Observer>
@@ -273,8 +218,31 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Partner liaison for the visit"
-                            placeHolder="Name and designation of Partner's staff"
-                            onChangeText={proStore.setLiaPStaff}
+                            placeHolder="Designation of decimal staff"
+                            onChangeText={proStore.setLiaDDesigStaff}
+                            value={proStore.liaDDesigStaff}
+                          />
+                        )}
+                      </Observer>
+                      <Observer>
+                        {() => (
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Partner liaison for the visit"
+                            placeHolder="Name of Partner's staff"
+                            onChangeText={proStore.setLiaPNameStaff}
+                            value={proStore.liaPNameStaff}
+                          />
+                        )}
+                      </Observer>
+                      <Observer>
+                        {() => (
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Partner liaison for the visit"
+                            placeHolder="Designation of Partner's staff"
+                            onChangeText={proStore.setLiaPDesigStaff}
+                            value={proStore.liaPDesigStaff}
                           />
                         )}
                       </Observer>
@@ -298,6 +266,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Number of children present on the day of visit"
                             onChangeText={proStore.setNumberOfChildrenDOV}
                             keyboardType="numeric"
+                            value={proStore.numberOfChildrenDOV}
                           />
                         )}
                       </Observer>
@@ -308,6 +277,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Avg. class/school attendance  for the month"
                             placeHolder="Avg. class/school attendance  for the month"
                             onChangeText={proStore.setAvgAttendMonth}
+                            value={proStore.averageAttendMonth}
                           />
                         )}
                       </Observer>
@@ -319,6 +289,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Number of new children enrolled into the program"
                             onChangeText={proStore.setNumNewChildEnroll}
                             keyboardType="numeric"
+                            value={proStore.numNewChildEnroll}
                           />
                         )}
                       </Observer>
@@ -330,6 +301,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Number of children who have dropped out of the program"
                             onChangeText={proStore.setNumChildDropped}
                             keyboardType="numeric"
+                            value={proStore.numChildDropped}
                           />
                         )}
                       </Observer>
@@ -337,12 +309,22 @@ const ProgramMonitorScreen = () => {
                         {() => (
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of children who are sick around the day of visit. 
-                        What is the illness?"
-                            placeHolder="Number of children who are sick around the day of visit. 
-                        What is the illness?"
+                            textHeader="Number of children who are sick around the day of visit."
+                            placeHolder="Number of children who are sick around the day of visit."
+                            value={proStore.numChildSick}
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
+                          />
+                        )}
+                      </Observer>
+                      <Observer>
+                        {() => (
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="What is the illness?"
+                            placeHolder="What is the illness?"
+                            onChangeText={proStore.setIllness}
+                            value={proStore.illness}
                           />
                         )}
                       </Observer>
@@ -353,6 +335,8 @@ const ProgramMonitorScreen = () => {
                             textHeader="Which numbered activity sheet was received this month?"
                             placeHolder="Which numbered activity sheet was received this month?"
                             onChangeText={proStore.setNumberedActivitySheet}
+                            value={proStore.numberedActivitySheet}
+                            keyboardType="numeric"
                           />
                         )}
                       </Observer>
@@ -409,6 +393,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Number of meals carried forward from the previous month"
                             onChangeText={proStore.setNoOfMealsCF}
                             keyboardType="numeric"
+                            value={proStore.noOfMealsCF}
                           />
                         )}
                       </Observer>
@@ -420,6 +405,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Number of meals received this month"
                             onChangeText={proStore.setNoOfMealsReceive}
                             keyboardType="numeric"
+                            value={proStore.noOfMealsReceive}
                           />
                         )}
                       </Observer>
@@ -479,6 +465,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Additional observations or points discussed"
                             placeHolder="Additional observations or points discussed"
                             onChangeText={proStore.setAddObservations}
+                            value={proStore.addObservations}
                           />
                         )}
                       </Observer>
@@ -501,6 +488,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
                             placeHolder="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
                             onChangeText={proStore.setTeacherFeedback}
+                            value={proStore.teacherFeedback}
                           />
                         )}
                       </Observer>
@@ -511,6 +499,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Feedback from parents (if available)"
                             placeHolder="Feedback from parents (if available)"
                             onChangeText={proStore.setParentFeedback}
+                            value={proStore.parentFeedback}
                           />
                         )}
                       </Observer>
@@ -521,6 +510,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Feedback from the children (food tastes, thoughts, activity sheets etc)"
                             placeHolder="Feedback from the children (food tastes, thoughts, activity sheets etc)"
                             onChangeText={proStore.setChildFeedback}
+                            value={proStore.childFeedback}
                           />
                         )}
                       </Observer>
@@ -541,9 +531,21 @@ const ProgramMonitorScreen = () => {
                         {() => (
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Company name, Name of volunteer(s)"
-                            placeHolder="Company name, Name of volunteer(s)"
+                            textHeader="Company name"
+                            placeHolder="Company name"
+                            onChangeText={proStore.setCompanyName}
+                            value={proStore.companyName}
+                          />
+                        )}
+                      </Observer>
+                      <Observer>
+                        {() => (
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Name of volunteer(s)"
+                            placeHolder="Name of volunteer(s)"
                             onChangeText={proStore.setVolunteerName}
+                            value={proStore.volunteerName}
                           />
                         )}
                       </Observer>
@@ -556,7 +558,7 @@ const ProgramMonitorScreen = () => {
                           <Observer>
                             {() => (
                               <AppInput
-                                textHeader="Duration of the volunteer session "
+                                textHeader="Duration of the volunteer session"
                                 placeHolder="Hour"
                                 value={proStore.volunteerHour}
                                 parentStyle={styles.textInputStyle}
@@ -573,7 +575,7 @@ const ProgramMonitorScreen = () => {
                           <Observer>
                             {() => (
                               <AppInput
-                                textHeader=" "
+                                textHeader=""
                                 placeHolder="Minute"
                                 value={proStore.volunteerMinute}
                                 parentStyle={styles.textInputStyle}
@@ -595,6 +597,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Reason/objective for the volunteering session with Decimal"
                             placeHolder="Reason/objective for the volunteering session with Decimal"
                             onChangeText={proStore.setVolunteerReason}
+                            value={proStore.volunteerReason}
                           />
                         )}
                       </Observer>
@@ -606,6 +609,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Any major learning(s)  and/or observations "
                             placeHolder="Any major learning(s)  and/or observations "
                             onChangeText={proStore.setLearnAndObserve}
+                            value={proStore.learnAndObserve}
                           />
                         )}
                       </Observer>
@@ -616,6 +620,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Any other feedback"
                             placeHolder="Any other feedback"
                             onChangeText={proStore.setOtherFeedback}
+                            value={proStore.otherFeedback}
                           />
                         )}
                       </Observer>
@@ -692,7 +697,9 @@ const ProgramMonitorScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={proStore.isLoading}
-                  onPress={proStore.sendData}
+                  onPress={() => {
+                    proStore.sendData(selectedImages);
+                  }}
                   enabled={proStore.enableSubmit}
                 />
               )}
