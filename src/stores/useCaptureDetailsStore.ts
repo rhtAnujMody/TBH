@@ -1,15 +1,33 @@
-import {useLocalObservable} from 'mobx-react-lite';
-import {AppSVGs} from '../assets';
-import authStore from './authStore';
-import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
-import {CaptureModal} from '../models/CaptureModal';
-import AppStrings from '../utils/AppStrings';
-import useApiService from '../network/useAPIService';
+import {useLocalObservable} from 'mobx-react-lite';
 import {Image} from 'react-native-image-crop-picker';
+import {AppSVGs} from '../assets';
+import {CaptureModal} from '../models/CaptureModal';
+import useApiService from '../network/useAPIService';
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
+import authStore from './authStore';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const cdStore = useLocalObservable(() => ({
     dov: '',
     openDOVPicker: false,
@@ -32,6 +50,7 @@ const useCaptureDetailsStore = () => {
     existState: '',
 
     partnerID: '', //backend not accepting 0
+    beneficiarieID: '',
 
     age: '',
     ageID: '',
@@ -45,41 +64,13 @@ const useCaptureDetailsStore = () => {
     sessionConductedBy: '',
     feedbackFromParticipants: '',
     enableSubmit: false,
-    beneficiarieID: '',
-    beneficiarisOptions: [
-      {id: '0', name: 'Children - Govt/Public School'},
-      {id: '1', name: 'Children - Private School'},
-      {id: '2', name: 'Children - Anganwadi'},
-      {id: '3', name: 'Children - Balwadi'},
-      {id: '4', name: 'Children - Shelter Home'},
-      {id: '5', name: 'Children - Ashramshala'},
-      {id: '6', name: 'Teachers - Govt/Public School'},
-      {id: '7', name: 'Teachers - Private School'},
-      {id: '8', name: 'Teachers - Anganwadi'},
-      {id: '9', name: 'Teachers - Balwadi'},
-      {id: '10', name: 'Teachers - Shelter Home'},
-      {id: '11', name: 'Teachers - Ashramshala'},
-      {id: '12', name: 'Parents'},
-      {id: '13', name: 'Adolescents'},
-      {id: '14', name: 'Women - Prenatal'},
-      {id: '15', name: 'Women - Postnatal'},
-      {id: '16', name: 'Women - Group'},
-      {id: '17', name: 'Staff/Officers/Workers - ASHA'},
-      {id: '18', name: 'Staff/Officers/Workers - Anganwadi'},
-      {id: '19', name: 'Staff/Officers/Workers - Balwadi'},
-      {id: '20', name: 'Staff/Officers/Workers - NGO'},
-      {id: '21', name: 'Staff/Officers/Workers - Corporate'},
-    ],
+    selectedImages: [] as Image[],
+    beneficiarisOptions: authStore.userData.beneficiary_list ?? [],
     partnerOptions: [
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: [
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '1', //backend not accepting 0
-      },
-    ],
+    partnerNameList: partnerNameLocation(),
     locationList: [
       {
         name: 'Ramabai',
@@ -275,6 +266,10 @@ const useCaptureDetailsStore = () => {
       cdStore.validateSubmit();
     },
 
+    setSelectedImages(selectedImage: Image[]) {
+      cdStore.selectedImages = selectedImage;
+    },
+
     validateSubmit() {
       cdStore.enableSubmit = false;
       if (cdStore.dov == '') {
@@ -337,8 +332,7 @@ const useCaptureDetailsStore = () => {
       cdStore.enableSubmit = true;
     },
 
-    async handleImageUpload(selectedImages: Image[]) {
-      console.log(selectedImages, 'images');
+    async saveData() {
       runInAction(() => {
         cdStore.isLoading = true;
       });
@@ -375,11 +369,11 @@ const useCaptureDetailsStore = () => {
         formData.append('beneficiary', cdStore.beneficiarieID);
         formData.append('visit_date', cdStore.dov);
 
-        for (let i = 0; i < Math.min(selectedImages.length, 5); i++) {
+        for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
           formData.append(`image_${i + 1}`, {
-            uri: selectedImages[i].path,
-            type: selectedImages[i].mime,
-            name: selectedImages[i].path.split('/').pop(),
+            uri: cdStore.selectedImages[i].path,
+            type: cdStore.selectedImages[i].mime,
+            name: cdStore.selectedImages[i].path.split('/').pop(),
           });
         }
 

@@ -22,6 +22,7 @@ interface Props extends TextInputProps {
   keyboardType?: KeyboardType;
   otherText?: string;
   textHeader?: string;
+  leftText?: string;
   onPress?: () => void;
 }
 
@@ -36,6 +37,7 @@ const AppTextInput = ({
   textHeader,
   otherText,
   onPress,
+  leftText,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -53,6 +55,7 @@ const AppTextInput = ({
     <View style={{flex: 1}}>
       <Text style={styles.textHeader}>{textHeader}</Text>
       <View style={[styles.container, parentStyle, {borderColor: border}]}>
+        {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
         {LeftIcon && <LeftIcon />}
         {hideInput ? (
           <Pressable
@@ -95,6 +98,7 @@ const AppTextInput = ({
     </View>
   ) : (
     <View style={[styles.container, parentStyle]}>
+      {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
       {LeftIcon && <LeftIcon />}
       {hideInput ? (
         <Pressable

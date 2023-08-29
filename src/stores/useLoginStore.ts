@@ -1,7 +1,7 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {useAsyncStorage} from '../custom_hooks';
-import {UserModal} from '../models/UserModal';
+import {UserData} from '../models/UserModal';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
@@ -31,9 +31,11 @@ const useLoginStore = () => {
     validateCredentials() {
       loginStore.isButtonEnabled = false;
       if (!Utility.validateEmail(loginStore.userEmail)) {
+        //Utility.showToast(AppStrings.invalidEmail);
         return;
       }
-      if (loginStore.password.length < 4) {
+      if (loginStore.password.length < 6) {
+        //Utility.showToast(AppStrings.invalidPassword);
         return;
       }
       loginStore.isButtonEnabled = true;
@@ -43,20 +45,17 @@ const useLoginStore = () => {
       runInAction(() => {
         loginStore.isLoading = true;
       });
-      loginStore.isLoading = true;
-      /*setTimeout(() => {
-        loginStore.isLoading = !loginStore.isLoading;
-      }, 5000);
-      auth.setIsLogin(true);*/
       try {
-        const response = await request<UserModal>('post', AppStrings.login, {
-          email: loginStore.userEmail,
-          password: loginStore.password,
+        const response = await request<UserData>('post', AppStrings.login, {
+          email: this.userEmail,
+          password: this.password,
         });
         if (response.success) {
+          Utility.logData(response.data);
           setData(AppStrings.isLogin, true);
           setData(AppStrings.userData, response.data);
           if (response.data) {
+            Utility.logData(response.data);
             auth.setUserData(response.data);
           }
           auth.setIsLogin(true, () => {
@@ -65,8 +64,14 @@ const useLoginStore = () => {
         } else {
           Utility.showToast(response.msg);
         }
-      } catch (err) {
-        Utility.showToast('Something went wrong');
+      } catch (err: unknown) {
+        if (typeof err === 'string') {
+          err.toUpperCase();
+          Utility.showToast(err.toUpperCase()); // works, `e` narrowed to string
+        } else if (err instanceof Error) {
+          err.message;
+          Utility.showToast(err.message); // works, `e` narrowed to Error
+        }
       } finally {
         runInAction(() => {
           loginStore.isLoading = false;

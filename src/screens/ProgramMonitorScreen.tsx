@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -9,7 +9,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  PermissionsAndroid,
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -21,11 +20,10 @@ import AppImageUploadInput from '../components/common/AppImageUploadInput';
 import AppInput from '../components/common/AppInput';
 import AppToggle from '../components/common/AppToggle';
 import Header from '../components/common/Header';
-import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
+import useCamera from '../custom_hooks/useCamera';
 import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
-import useCamera from '../custom_hooks/useCamera';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -35,7 +33,16 @@ const ProgramMonitorScreen = () => {
   const [showCalender2, setShowCalender2] = useState(false);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera(proStore.togglePhotoBottomSheet);
+    useCamera();
+
+  const handleImagePicker = (from: number) => {
+    proStore.togglePhotoBottomSheet();
+    if (from === 1) {
+      takePhotoFromCamera();
+    } else {
+      openGallery();
+    }
+  };
 
   const handleBottomSheetClick = (from: string) => {
     proStore.toggleBottomSheet(from);
@@ -78,7 +85,7 @@ const ProgramMonitorScreen = () => {
         <Header title={'Program Monitoring'} />
         <KeyboardAvoidingView
           behavior={Platform.select({ios: 'padding'})}
-          style={{flex: 1, backgroundColor: colors.palette.primary}}>
+          style={styles.keyboardAvoidStyle}>
           <View style={styles.backgroundStyle}>
             <ScrollView contentContainerStyle={styles.contentContainerStyle}>
               <View style={styles.container}>
@@ -759,12 +766,16 @@ const ProgramMonitorScreen = () => {
               </View>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={takePhotoFromCamera}>
+                onPress={() => {
+                  handleImagePicker(1);
+                }}>
                 <Text>Take a Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={openGallery}>
+                onPress={() => {
+                  handleImagePicker(2);
+                }}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>
@@ -791,6 +802,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  keyboardAvoidStyle: {flex: 1, backgroundColor: colors.palette.primary},
   backgroundStyle: {
     flex: 1,
     backgroundColor: colors.white,

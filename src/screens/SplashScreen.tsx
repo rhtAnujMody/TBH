@@ -3,10 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppContainer} from '../components';
 import {useAsyncStorage} from '../custom_hooks';
-import {UserModal} from '../models/UserModal';
 import {authStore} from '../stores';
 import {colors} from '../theme';
 import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
+import {UserData} from '../models/UserModal';
 
 function SplashScreen() {
   const {getData} = useAsyncStorage();
@@ -16,8 +17,11 @@ function SplashScreen() {
     const checkUserAuth = async () => {
       const isLoggedIn = await getData(AppStrings.isLogin, false);
       if (isLoggedIn) {
-        const userData = await getData<UserModal>(AppStrings.userData, null);
-        auth.setUserData(userData!!);
+        const userData = await getData<UserData>(AppStrings.userData, null);
+        Utility.logData(userData);
+        if (userData) {
+          auth.setUserData(userData);
+        }
       }
       auth.setIsLogin(isLoggedIn!!);
       setTimeout(() => {

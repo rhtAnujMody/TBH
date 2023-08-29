@@ -20,6 +20,20 @@ class Utility {
       );
   };
 
+  static getAge = (date: Date) => {
+    let month_diff = Date.now() - date.getTime();
+    let age_dt = new Date(month_diff);
+    let year = age_dt.getUTCFullYear();
+    var age = Math.abs(year - 1970);
+    return age;
+  };
+
+  static validatePhoneNumber = (num: string) => {
+    return String(num)
+      .toLowerCase()
+      .match(/^\d{10}$/);
+  };
+
   static validateAlpha = (name: string) => {
     return String(name)
       .toLowerCase()
@@ -38,12 +52,25 @@ class Utility {
       .match(/^[0-9]+$/g);
   };
 
-  static showToast = (msg: string, duration: number = 2) => {
+  static validateFloat = (num: string) => {
+    return String(num)
+      .toLowerCase()
+      .match(/^\d+(\.\d{0,1})?$/);
+  };
+
+  static showToast = (msg: string, duration: number = 3) => {
     Toast.show(msg, duration);
   };
 
   static logData = (msg: any) => {
-    console.tron.log(msg);
+    if (__DEV__) {
+      console.tron.log(msg);
+    }
+  };
+
+  static checkDigits = (text: string) => {
+    var pattern = /^[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]*$/g;
+    return pattern.test(text);
   };
 }
 export default Utility;

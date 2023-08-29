@@ -12,10 +12,6 @@ const apiInstance = axios.create({
 
 apiInstance.interceptors.response.use(
   response => {
-    // Modify the response data if needed
-    // For example, you can extract the response data from the server's response format
-    // and return only the data to the application
-
     return response;
   },
   error => {

@@ -1,7 +1,7 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {useAsyncStorage} from '../custom_hooks';
-import {LoginModel, UserModal} from '../models/UserModal';
+import {UserData} from '../models/UserModal';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
@@ -19,6 +19,7 @@ const useSignUpStore = () => {
     dob: '',
     userEmail: '',
     password: '',
+    phoneNumber: '',
 
     setEmail(value: string) {
       signUpStore.userEmail = value;
@@ -34,6 +35,12 @@ const useSignUpStore = () => {
       signUpStore.dob = value;
       signUpStore.validateCredentials();
     },
+    setNumber(value: string) {
+      if (Utility.checkDigits(value)) {
+        signUpStore.phoneNumber = value;
+      }
+      signUpStore.validateCredentials();
+    },
 
     setPassword(value: string) {
       signUpStore.password = value;
@@ -43,14 +50,27 @@ const useSignUpStore = () => {
     validateCredentials() {
       signUpStore.isButtonEnabled = false;
 
-      if (signUpStore.name.length === 0 || signUpStore.dob.length === 0) {
+      if (
+        signUpStore.name.length === 0 ||
+        signUpStore.userEmail.length === 0 ||
+        signUpStore.password.length === 0 ||
+        signUpStore.phoneNumber.length === 0 ||
+        signUpStore.dob.length === 0
+      ) {
         return;
       }
 
       if (!Utility.validateEmail(signUpStore.userEmail)) {
+        //Utility.showToast(AppStrings.invalidEmail);
         return;
       }
-      if (signUpStore.password.length < 4) {
+      if (signUpStore.password.length < 6) {
+        //Utility.showToast(AppStrings.invalidPassword);
+        return;
+      }
+
+      if (signUpStore.phoneNumber.length < 10) {
+        //Utility.showToast(AppStrings.invalidNumber);
         return;
       }
       signUpStore.isButtonEnabled = true;
@@ -61,13 +81,15 @@ const useSignUpStore = () => {
         signUpStore.isLoading = true;
       });
       try {
-        const response = await request<UserModal>('post', AppStrings.signUp, {
-          name: this.name,
-          dob: this.dob,
-          email: this.userEmail,
-          password: this.password,
+        const response = await request<UserData>('post', AppStrings.signUp, {
+          name: signUpStore.name,
+          dob: signUpStore.dob,
+          email: signUpStore.userEmail,
+          password: signUpStore.password,
+          contact: signUpStore.phoneNumber,
         });
         if (response.success) {
+          Utility.logData(response.data);
           setData(AppStrings.isLogin, true);
           setData(AppStrings.userData, response.data);
           if (response.data) {
@@ -77,10 +99,10 @@ const useSignUpStore = () => {
             Utility.showToast('SignUp Success');
           });
         } else {
-          Utility.showToast(response.msg);
+          Utility.showToast(response.msg ?? AppStrings.somethingWentWrong);
         }
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
           signUpStore.isLoading = false;

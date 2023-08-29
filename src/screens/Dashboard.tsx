@@ -1,11 +1,11 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {HomeCard} from '../components';
-import {useNavigation} from '@react-navigation/native';
-import {DashboardStackProps} from '../navigation/AppNavigation';
 import AppContainer from '../components/common/AppContainer';
 import ObservableChild from '../components/common/ObservableChild';
+import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
 
@@ -23,10 +23,19 @@ const Dashboard = () => {
   ];
 
   const navigateToCard = (index: number) => {
-    if (index === 0) {
-      navigation.navigate('CaptureDetails');
-    } else if (index === 1) {
-      navigation.navigate('GenerateReports');
+    switch (index) {
+      case 0:
+        navigation.navigate('HealthCamp');
+        break;
+      case 1:
+        navigation.navigate('GenerateReports');
+        break;
+      case 2:
+        navigation.navigate('CaptureDetails');
+        break;
+      case 3:
+        navigation.navigate('ProgramMonitor');
+        break;
     }
   };
   const auth = authStore;
@@ -35,15 +44,7 @@ const Dashboard = () => {
     <AppContainer style={styles.container}>
       <View style={styles.topContainer}>
         <AppSVGs.logo style={styles.logo} />
-        <Text
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            padding: 20,
-            zIndex: 10,
-          }}
-          onPress={auth.logout}>
+        <Text style={styles.loginText} onPress={auth.logout}>
           Logout
         </Text>
         <View style={styles.profileContainer}>
@@ -51,13 +52,13 @@ const Dashboard = () => {
           <View style={styles.welcomeContainer}>
             <Text style={styles.welcome}>Welcome,</Text>
             <ObservableChild>
-              <Text style={styles.userName}>Sumit</Text>
+              <Text style={styles.userName}>{authStore.userData.name}</Text>
             </ObservableChild>
           </View>
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <ScrollView contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView contentContainerStyle={styles.bodyScroll}>
           <Text style={styles.title}>Health Camp</Text>
           <View style={styles.cardsContainer}>
             {homeCards.map((data, index) => {
@@ -66,6 +67,7 @@ const Dashboard = () => {
                   title={data.title}
                   icon={data.icon}
                   key={data.title}
+                  onPress={() => navigateToCard(index)}
                   marginRight={index === 0 ? 10 : 0}
                 />
               );
@@ -77,7 +79,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigation.navigate('CaptureDetails')}
+              onPress={() => navigateToCard(2)}
             />
           </View>
           <Text style={styles.title}>Program Monitoring</Text>
@@ -86,7 +88,40 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigation.navigate('ProgramMonitor')}
+              onPress={() => navigateToCard(3)}
+            />
+          </View>
+          <Text style={styles.title}>Generate Report</Text>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Malnutrition Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(4)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Wasting-Stunting Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(5)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Custom Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(6)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={"Doctor's Observation Report"}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(7)}
             />
           </View>
         </ScrollView>
@@ -140,16 +175,26 @@ const styles = StyleSheet.create({
   cardsContainer: {
     marginHorizontal: 20,
     marginTop: 10,
+    zIndex: 100,
   },
   buildingLogo: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
+    zIndex: -2,
   },
   title: {
     ...typography.bold(18),
     marginLeft: 20,
     marginTop: 10,
   },
+  loginText: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 20,
+    zIndex: 10,
+  },
+  bodyScroll: {flexGrow: 1},
 });
