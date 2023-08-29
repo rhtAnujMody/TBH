@@ -1,18 +1,18 @@
+import {useNavigation} from '@react-navigation/native';
+import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {AppSVGs} from '../assets';
 import AppBack from '../components/common/AppBack';
 import AppButton from '../components/common/AppButton';
 import AppContainer from '../components/common/AppContainer';
 import AppTextInput from '../components/common/AppTextInput';
 import useKeyboard from '../custom_hooks/useKeyboard';
-import {colors, typography} from '../theme';
-import Utility from '../utils/Utility';
-import {useNavigation} from '@react-navigation/native';
 import {AuthStackProps} from '../navigation/AppNavigation';
 import useSignUpStore from '../stores/useSignUpStore';
-import {observer} from 'mobx-react-lite';
+import {colors, typography} from '../theme';
+import Utility from '../utils/Utility';
 
 const SignUpScreen = () => {
   const keyboard = useKeyboard();
@@ -110,16 +110,21 @@ const SignUpScreen = () => {
           onSubmitEditing={() => handleOnSubmitEditing(2)}
         />
 
-        <AppTextInput
-          placeHolder="Phone Number"
-          returnKeyType="next"
-          keyboardType="phone-pad"
-          maxLength={10}
-          leftText="+91"
-          onChangeText={signUpStore.setNumber}
-          inputRef={numberRef}
-          onSubmitEditing={() => handleOnSubmitEditing(3)}
-        />
+        <Observer>
+          {() => (
+            <AppTextInput
+              placeHolder="Phone Number"
+              returnKeyType="next"
+              keyboardType="phone-pad"
+              maxLength={10}
+              leftText="+91"
+              value={signUpStore.phoneNumber}
+              onChangeText={signUpStore.setNumber}
+              inputRef={numberRef}
+              onSubmitEditing={() => handleOnSubmitEditing(3)}
+            />
+          )}
+        </Observer>
 
         <AppTextInput
           icon={AppSVGs.dob}
@@ -147,13 +152,13 @@ const SignUpScreen = () => {
           <ShowButton />
         </View>
       </View>
-      <DatePicker
-        modal
-        date={new Date()}
-        open={openDatePicker}
+
+      <DateTimePickerModal
+        isVisible={openDatePicker}
         mode="date"
         onConfirm={onConfirmDate}
         onCancel={onCancelDate}
+        maximumDate={new Date()}
       />
     </AppContainer>
   );

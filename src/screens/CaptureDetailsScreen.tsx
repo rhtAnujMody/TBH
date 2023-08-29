@@ -1,7 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef, useState, useEffect} from 'react';
-import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
+import React, {useRef, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,11 +9,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  PermissionsAndroid,
-  Alert,
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
-import DatePicker from 'react-native-date-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {AppSVGs} from '../assets';
 import {AppButton, AppContainer, AppTextInput} from '../components';
@@ -25,10 +21,10 @@ import AppInput from '../components/common/AppInput';
 import AppToggle from '../components/common/AppToggle';
 import Header from '../components/common/Header';
 import useCamera from '../custom_hooks/useCamera';
+import {authStore} from '../stores';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
-import {authStore} from '../stores';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
@@ -49,10 +45,6 @@ const CaptureDetailsScreen = () => {
 
   const handleIndex = (value: number) => {
     cdStore.setIndex(value);
-  };
-
-  const toggleLoader = () => {
-    cdStore.toggleLoader();
   };
 
   const showDatePicker = () => {

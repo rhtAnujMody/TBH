@@ -67,5 +67,10 @@ class Utility {
       console.tron.log(msg);
     }
   };
+
+  static checkDigits = (text: string) => {
+    var pattern = /^[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]*$/g;
+    return pattern.test(text);
+  };
 }
 export default Utility;
