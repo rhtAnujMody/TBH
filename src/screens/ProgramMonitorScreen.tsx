@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -9,7 +9,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  PermissionsAndroid,
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -21,18 +20,15 @@ import AppImageUploadInput from '../components/common/AppImageUploadInput';
 import AppInput from '../components/common/AppInput';
 import AppToggle from '../components/common/AppToggle';
 import Header from '../components/common/Header';
-import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
+import useCamera from '../custom_hooks/useCamera';
 import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
-import useCamera from '../custom_hooks/useCamera';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
-  const [showCalender, setShowCalender] = useState(false);
-  const [showCalender2, setShowCalender2] = useState(false);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
@@ -56,50 +52,43 @@ const ProgramMonitorScreen = () => {
     proStore.setIndex(value);
   };
 
-  const showDatePicker = () => {
-    setShowCalender(true);
-  };
-
-  const showDatePicker2 = () => {
-    setShowCalender2(true);
-  };
-
-  const hideDatePicker = () => {
-    setShowCalender(false);
-  };
-
-  const hideDatePicker2 = () => {
-    setShowCalender2(false);
+  const showDatePicker = (id: string) => {
+    proStore.setCalenderID(id);
+    proStore.toogleCalender();
   };
 
   const handleConfirm = (date: Date) => {
-    proStore.setDOV(Utility.formatDate(date));
-    hideDatePicker();
-  };
-  const handleConfirm2 = (date: Date) => {
-    proStore.setFoodSupplyDate(Utility.formatDate(date));
-    hideDatePicker();
+    switch (proStore.calenderID) {
+      case '1':
+        proStore.setDOV(Utility.formatDate(date));
+        break;
+      case '2':
+        proStore.setFoodSupplyDate(Utility.formatDate(date));
+        break;
+    }
+    proStore.toogleCalender();
   };
 
   return (
-    <>
-      <AppContainer>
-        <Header title={'Program Monitoring'} />
-        <KeyboardAvoidingView
-          behavior={Platform.select({ios: 'padding'})}
-          style={styles.keyboardAvoidStyle}>
-          <View style={styles.backgroundStyle}>
-            <ScrollView contentContainerStyle={styles.contentContainerStyle}>
-              <View style={styles.container}>
-                <Text style={styles.headingText}>
-                  Enter details related to the Program Monitoring event
-                </Text>
-                <AppToggle
-                  title={'Partner Info'}
-                  children={
-                    <>
-                      <Observer>
-                        {() => (
+    <Observer>
+      {() => (
+        <>
+          <AppContainer>
+            <Header title={'Program Monitoring'} />
+            <KeyboardAvoidingView
+              behavior={Platform.select({ios: 'padding'})}
+              style={styles.keyboardAvoidStyle}>
+              <View style={styles.backgroundStyle}>
+                <ScrollView
+                  contentContainerStyle={styles.contentContainerStyle}>
+                  <View style={styles.container}>
+                    <Text style={styles.headingText}>
+                      Enter details related to the Program Monitoring event
+                    </Text>
+                    <AppToggle
+                      title={'Partner Info'}
+                      children={
+                        <>
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('partnerType');
@@ -111,10 +100,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Partner Type"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('existingPartner');
@@ -126,191 +112,169 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Name and Location of existing partner"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() =>
-                          proStore.existingPartner ? (
+                          {proStore.existingPartner && (
                             <>
-                              <Observer>
-                                {() => (
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="LOCATION"
-                                    placeHolder="Location"
-                                    value={proStore.existLocation}
-                                    //onChangeText={cdStore.setLocation}
-                                    editable={false}
-                                  />
-                                )}
-                              </Observer>
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="LOCATION"
+                                placeHolder="Location"
+                                value={proStore.existLocation}
+                                //onChangeText={cdStore.setLocation}
+                                editable={false}
+                              />
 
-                              <Observer>
-                                {() => (
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="BLOCK"
-                                    placeHolder="Block"
-                                    value={proStore.existBlock}
-                                    editable={false}
-                                  />
-                                )}
-                              </Observer>
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="BLOCK"
+                                placeHolder="Block"
+                                value={proStore.existBlock}
+                                editable={false}
+                              />
 
-                              <Observer>
-                                {() => (
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="District"
-                                    placeHolder="District"
-                                    value={proStore.existDistrict}
-                                    editable={false}
-                                  />
-                                )}
-                              </Observer>
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="District"
+                                placeHolder="District"
+                                value={proStore.existDistrict}
+                                editable={false}
+                              />
 
-                              <Observer>
-                                {() => (
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="STATE"
-                                    placeHolder="State"
-                                    value={proStore.existState}
-                                    editable={false}
-                                  />
-                                )}
-                              </Observer>
+                              <AppTextInput
+                                parentStyle={styles.textInputStyle}
+                                textHeader="STATE"
+                                placeHolder="State"
+                                value={proStore.existState}
+                                editable={false}
+                              />
                             </>
-                          ) : null
-                        }
-                      </Observer>
+                          )}
 
-                      <Observer>
-                        {() => (
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
                             textHeader="DATE OF VISIT"
                             rightIcon={AppSVGs.dob}
                             placeHolder="Date Of Visit for Monitoring"
                             hideInput={true}
-                            onPress={showDatePicker}
+                            onPress={() => {
+                              showDatePicker('1');
+                            }}
                             otherText={proStore.dov}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Visiting team size (staff/volunteers)"
                             placeHolder="Visiting team size (staff/volunteers)"
                             onChangeText={proStore.setVVTeamSize}
                             keyboardType="numeric"
+                            value={proStore.vvTeamSize}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Partner liaison for the visit"
-                            placeHolder="Name and designation of decimal staff"
-                            onChangeText={proStore.setLiaDStaff}
+                            placeHolder="Name of decimal staff"
+                            value={proStore.liaDNameStaff}
+                            onChangeText={proStore.setLiaDNameStaff}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Partner liaison for the visit"
-                            placeHolder="Name and designation of Partner's staff"
-                            onChangeText={proStore.setLiaPStaff}
+                            placeHolder="Designation of decimal staff"
+                            onChangeText={proStore.setLiaDDesigStaff}
+                            value={proStore.liaDDesigStaff}
                           />
-                        )}
-                      </Observer>
-                    </>
-                  }
-                />
-                <DashedLine
-                  dashLength={5}
-                  dashThickness={0.7}
-                  dashColor={colors.gray}
-                />
-                <AppToggle
-                  title={'Program Compliance'}
-                  children={
-                    <>
-                      <Observer>
-                        {() => (
+
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Partner liaison for the visit"
+                            placeHolder="Name of Partner's staff"
+                            onChangeText={proStore.setLiaPNameStaff}
+                            value={proStore.liaPNameStaff}
+                          />
+
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Partner liaison for the visit"
+                            placeHolder="Designation of Partner's staff"
+                            onChangeText={proStore.setLiaPDesigStaff}
+                            value={proStore.liaPDesigStaff}
+                          />
+                        </>
+                      }
+                    />
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.7}
+                      dashColor={colors.gray}
+                    />
+                    <AppToggle
+                      title={'Program Compliance'}
+                      children={
+                        <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of children present on the day of visit"
                             placeHolder="Number of children present on the day of visit"
                             onChangeText={proStore.setNumberOfChildrenDOV}
                             keyboardType="numeric"
+                            value={proStore.numberOfChildrenDOV}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Avg. class/school attendance  for the month"
                             placeHolder="Avg. class/school attendance  for the month"
                             onChangeText={proStore.setAvgAttendMonth}
+                            value={proStore.averageAttendMonth}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of new children enrolled into the program"
                             placeHolder="Number of new children enrolled into the program"
                             onChangeText={proStore.setNumNewChildEnroll}
                             keyboardType="numeric"
+                            value={proStore.numNewChildEnroll}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of children who have dropped out of the program"
                             placeHolder="Number of children who have dropped out of the program"
                             onChangeText={proStore.setNumChildDropped}
                             keyboardType="numeric"
+                            value={proStore.numChildDropped}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of children who are sick around the day of visit. 
-                        What is the illness?"
-                            placeHolder="Number of children who are sick around the day of visit. 
-                        What is the illness?"
+                            textHeader="Number of children who are sick around the day of visit."
+                            placeHolder="Number of children who are sick around the day of visit."
+                            value={proStore.numChildSick}
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="What is the illness?"
+                            placeHolder="What is the illness?"
+                            onChangeText={proStore.setIllness}
+                            value={proStore.illness}
+                          />
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Which numbered activity sheet was received this month?"
                             placeHolder="Which numbered activity sheet was received this month?"
                             onChangeText={proStore.setNumberedActivitySheet}
+                            value={proStore.numberedActivitySheet}
+                            keyboardType="numeric"
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('activitySheet');
@@ -322,11 +286,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Have the children completed the activity sheet for this month?"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('poshanCalendar');
@@ -338,46 +298,37 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Are the teachers/social workers completing the Poshan Calendar properly?"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
                             textHeader="Date when the month's food supply was received"
                             rightIcon={AppSVGs.dob}
                             placeHolder="Date when the month's food supply was received"
                             hideInput={true}
-                            onPress={showDatePicker2}
+                            onPress={() => {
+                              showDatePicker('2');
+                            }}
                             otherText={proStore.foodSupplyDate}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of meals carried forward from the previous month"
                             placeHolder="Number of meals carried forward from the previous month"
                             onChangeText={proStore.setNoOfMealsCF}
                             keyboardType="numeric"
+                            value={proStore.noOfMealsCF}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of meals received this month"
                             placeHolder="Number of meals received this month"
                             onChangeText={proStore.setNoOfMealsReceive}
                             keyboardType="numeric"
+                            value={proStore.noOfMealsReceive}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('storedFoodSafely');
@@ -389,11 +340,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Has the partner stored the food safely?"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('breakfastServedDaily');
@@ -405,11 +352,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Is the breakfast being served daily?"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('whenBreakfast');
@@ -421,94 +364,82 @@ const ProgramMonitorScreen = () => {
                             placeHolder="When is breakfast usually served? (observed by Decimal staff)"
                             rightIcon={AppSVGs.dropdown}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Additional observations or points discussed"
                             placeHolder="Additional observations or points discussed"
                             onChangeText={proStore.setAddObservations}
+                            value={proStore.addObservations}
                           />
-                        )}
-                      </Observer>
-                    </>
-                  }
-                />
-                <DashedLine
-                  dashLength={5}
-                  dashThickness={0.7}
-                  dashColor={colors.gray}
-                />
-                <AppToggle
-                  title={'Beneficiary Follow Up'}
-                  children={
-                    <>
-                      <Observer>
-                        {() => (
+                        </>
+                      }
+                    />
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.7}
+                      dashColor={colors.gray}
+                    />
+                    <AppToggle
+                      title={'Beneficiary Follow Up'}
+                      children={
+                        <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
                             placeHolder="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
                             onChangeText={proStore.setTeacherFeedback}
+                            value={proStore.teacherFeedback}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from parents (if available)"
                             placeHolder="Feedback from parents (if available)"
                             onChangeText={proStore.setParentFeedback}
+                            value={proStore.parentFeedback}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from the children (food tastes, thoughts, activity sheets etc)"
                             placeHolder="Feedback from the children (food tastes, thoughts, activity sheets etc)"
                             onChangeText={proStore.setChildFeedback}
+                            value={proStore.childFeedback}
                           />
-                        )}
-                      </Observer>
-                    </>
-                  }
-                />
-                <DashedLine
-                  dashLength={5}
-                  dashThickness={0.7}
-                  dashColor={colors.gray}
-                />
+                        </>
+                      }
+                    />
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.7}
+                      dashColor={colors.gray}
+                    />
 
-                <AppToggle
-                  title={'Volunteers Info'}
-                  children={
-                    <>
-                      <Observer>
-                        {() => (
+                    <AppToggle
+                      title={'Volunteers Info'}
+                      children={
+                        <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Company name, Name of volunteer(s)"
-                            placeHolder="Company name, Name of volunteer(s)"
-                            onChangeText={proStore.setVolunteerName}
+                            textHeader="Company name"
+                            placeHolder="Company name"
+                            onChangeText={proStore.setCompanyName}
+                            value={proStore.companyName}
                           />
-                        )}
-                      </Observer>
 
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                        }}>
-                        <View style={{flex: 1, paddingRight: 10}}>
-                          <Observer>
-                            {() => (
+                          <AppTextInput
+                            parentStyle={styles.textInputStyle}
+                            textHeader="Name of volunteer(s)"
+                            placeHolder="Name of volunteer(s)"
+                            onChangeText={proStore.setVolunteerName}
+                            value={proStore.volunteerName}
+                          />
+
+                          <View style={styles.hourMinContainer}>
+                            <View style={styles.hourMinStyle}>
                               <AppInput
-                                textHeader="Duration of the volunteer session "
+                                textHeader="Duration of the volunteer session"
                                 placeHolder="Hour"
                                 value={proStore.volunteerHour}
                                 parentStyle={styles.textInputStyle}
@@ -518,14 +449,10 @@ const ProgramMonitorScreen = () => {
                                 }}
                                 rightIcon={AppSVGs.dropdown}
                               />
-                            )}
-                          </Observer>
-                        </View>
-                        <View style={{flex: 1, paddingLeft: 10}}>
-                          <Observer>
-                            {() => (
+                            </View>
+                            <View style={styles.hourMinStyle}>
                               <AppInput
-                                textHeader=" "
+                                textHeader=""
                                 placeHolder="Minute"
                                 value={proStore.volunteerMinute}
                                 parentStyle={styles.textInputStyle}
@@ -535,58 +462,43 @@ const ProgramMonitorScreen = () => {
                                 }}
                                 rightIcon={AppSVGs.dropdown}
                               />
-                            )}
-                          </Observer>
-                        </View>
-                      </View>
+                            </View>
+                          </View>
 
-                      <Observer>
-                        {() => (
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Reason/objective for the volunteering session with Decimal"
                             placeHolder="Reason/objective for the volunteering session with Decimal"
                             onChangeText={proStore.setVolunteerReason}
+                            value={proStore.volunteerReason}
                           />
-                        )}
-                      </Observer>
 
-                      <Observer>
-                        {() => (
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Any major learning(s)  and/or observations "
                             placeHolder="Any major learning(s)  and/or observations "
                             onChangeText={proStore.setLearnAndObserve}
+                            value={proStore.learnAndObserve}
                           />
-                        )}
-                      </Observer>
-                      <Observer>
-                        {() => (
+
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Any other feedback"
                             placeHolder="Any other feedback"
                             onChangeText={proStore.setOtherFeedback}
+                            value={proStore.otherFeedback}
                           />
-                        )}
-                      </Observer>
-                    </>
-                  }
-                />
-                <DashedLine
-                  dashLength={5}
-                  dashThickness={0.7}
-                  dashColor={colors.gray}
-                />
+                        </>
+                      }
+                    />
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.7}
+                      dashColor={colors.gray}
+                    />
 
-                <View
-                  style={{
-                    flexDirection: 'row',
-                  }}>
-                  <View style={{flex: 1, paddingRight: 10}}>
-                    <Observer>
-                      {() => (
+                    <View style={styles.hourMinContainer}>
+                      <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader="Duration of Visit for"
                           placeHolder="Hour"
@@ -598,12 +510,8 @@ const ProgramMonitorScreen = () => {
                           }}
                           rightIcon={AppSVGs.dropdown}
                         />
-                      )}
-                    </Observer>
-                  </View>
-                  <View style={{flex: 1, paddingLeft: 10}}>
-                    <Observer>
-                      {() => (
+                      </View>
+                      <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader=" "
                           placeHolder="Minute"
@@ -615,59 +523,46 @@ const ProgramMonitorScreen = () => {
                           }}
                           rightIcon={AppSVGs.dropdown}
                         />
-                      )}
-                    </Observer>
-                  </View>
-                </View>
-                <DashedLine
-                  dashLength={5}
-                  dashThickness={0.7}
-                  dashColor={colors.gray}
-                />
+                      </View>
+                    </View>
+                    <DashedLine
+                      dashLength={5}
+                      dashThickness={0.7}
+                      dashColor={colors.gray}
+                    />
 
-                <Observer>
-                  {() => (
                     <AppImageUploadInput
                       title={'Photos for Monitoring'}
                       selectedImages={selectedImages}
                       onPress={proStore.togglePhotoBottomSheet}
                       removeImage={removeImage}
                     />
-                  )}
-                </Observer>
-              </View>
-            </ScrollView>
-            <Observer>
-              {() => (
+                  </View>
+                </ScrollView>
+
                 <AppButton
                   title="Save"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={proStore.isLoading}
-                  onPress={proStore.sendData}
+                  onPress={() => {
+                    proStore.setSelectedImages(selectedImages);
+                    proStore.sendData();
+                  }}
                   enabled={proStore.enableSubmit}
                 />
-              )}
-            </Observer>
-          </View>
-        </KeyboardAvoidingView>
-      </AppContainer>
-      <DateTimePickerModal
-        isVisible={showCalender}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-        maximumDate={new Date()}
-      />
-      <DateTimePickerModal
-        isVisible={showCalender2}
-        mode="date"
-        onConfirm={handleConfirm2}
-        onCancel={hideDatePicker2}
-        maximumDate={new Date()}
-      />
-      <Observer>
-        {() => (
+              </View>
+            </KeyboardAvoidingView>
+          </AppContainer>
+
+          <DateTimePickerModal
+            isVisible={proStore.showCalender}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={proStore.toogleCalender}
+            maximumDate={new Date()}
+          />
+
           <AppBottomSheet
             isVisible={proStore.openBottomSheet}
             onClose={hideBottomSheet}
@@ -685,11 +580,7 @@ const ProgramMonitorScreen = () => {
               setValue={() => {}}
             />
           </AppBottomSheet>
-        )}
-      </Observer>
 
-      <Observer>
-        {() => (
           <AppBottomSheet
             isVisible={proStore.openPhotoBottomSheet}
             onClose={proStore.togglePhotoBottomSheet}
@@ -718,9 +609,9 @@ const ProgramMonitorScreen = () => {
               </TouchableOpacity>
             </View>
           </AppBottomSheet>
-        )}
-      </Observer>
-    </>
+        </>
+      )}
+    </Observer>
   );
 };
 
@@ -780,5 +671,9 @@ const styles = StyleSheet.create({
   headingText: {
     ...typography.bold(16),
     marginBottom: 20,
+  },
+  hourMinStyle: {flex: 1, paddingLeft: 10},
+  hourMinContainer: {
+    flexDirection: 'row',
   },
 });

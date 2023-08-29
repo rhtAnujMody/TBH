@@ -1,8 +1,32 @@
 import {useLocalObservable} from 'mobx-react-lite';
 import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
+import {Image} from 'react-native-image-crop-picker';
+import {ProgramModal} from '../models/ProgramModal';
+import AppStrings from '../utils/AppStrings';
+import useApiService from '../network/useAPIService';
+import authStore from './authStore';
 
 const useProgramStore = () => {
+  const {request} = useApiService();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const proStore = useLocalObservable(() => ({
     index: 2,
     openBottomSheet: false,
@@ -18,8 +42,10 @@ const useProgramStore = () => {
     existState: '',
     dov: '',
     vvTeamSize: '',
-    liaDStaff: '',
-    liaPStaff: '',
+    liaDNameStaff: '',
+    liaDDesigStaff: '',
+    liaPNameStaff: '',
+    liaPDesigStaff: '',
     hour: '',
     minute: '',
     teacherFeedback: '',
@@ -30,16 +56,23 @@ const useProgramStore = () => {
     numNewChildEnroll: '',
     numChildDropped: '',
     numChildSick: '',
+    illness: '',
     numberedActivitySheet: '',
     activitySheetCompleted: '',
+    activitySheetCompletedID: '',
     poshanCalenderCompleted: '',
+    poshanCalenderCompletedID: '',
     foodSupplyDate: '',
     noOfMealsCF: '',
     noOfMealsReceive: '',
     storedFoodSafely: '',
+    storedFoodSafelyID: '',
     breakfastServedDaily: '',
+    breakfastServedDailyID: '',
     whenBreakfast: '',
+    whenBreakfastID: '',
     addObservations: '',
+    companyName: '',
     volunteerName: '',
     volunteerReason: '',
     learnAndObserve: '',
@@ -49,33 +82,23 @@ const useProgramStore = () => {
     isLoading: false,
     enableSubmit: false,
     openPhotoBottomSheet: false,
+    calenderID: '',
+    showCalender: false,
+    selectedImages: [] as Image[],
     partnerTypeOptions: [
-      {name: 'TBR', id: '1'},
-      {name: 'Bright Start', id: '2'},
-      {name: 'Anaemia Mukt Bharat', id: '3'},
+      {name: 'TBR', id: 'T'},
+      {name: 'Bright Start', id: 'B'},
+      {name: 'Anaemia Mukt Bharat', id: 'A'},
     ],
-    existingPartnerOptions: [
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '1',
-      },
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '2',
-      },
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '3',
-      },
-    ],
+    existingPartnerOptions: partnerNameLocation(),
     locationOptions: [
       {name: 'Hyderabad', id: '1'},
       {name: 'Bengaluru', id: '2'},
       {name: 'Mumbai', id: '3'},
     ],
     selectionOptions: [
-      {name: 'Yes', id: '1'},
-      {name: 'No', id: '2'},
+      {name: 'Yes', id: true},
+      {name: 'No', id: false},
     ],
     hourOptions: Array.from({length: 12}, (_, index) => ({
       name: (index + 1).toString(),
@@ -86,11 +109,17 @@ const useProgramStore = () => {
       id: index.toString(),
     })),
     breakfastOptions: [
-      {name: 'Morning', id: '1'},
-      {name: 'Afternoon', id: '2'},
-      {name: 'Evening', id: '3'},
+      {name: 'Morning', id: 'M'},
+      {name: 'Afternoon', id: 'A'},
+      {name: 'Evening', id: 'E'},
     ],
 
+    toogleCalender() {
+      proStore.showCalender = !proStore.showCalender;
+    },
+    setCalenderID(value: string) {
+      proStore.calenderID = value;
+    },
     setIndex(value: number) {
       proStore.index = value;
     },
@@ -102,12 +131,20 @@ const useProgramStore = () => {
       proStore.vvTeamSize = value;
       proStore.validateSubmit();
     },
-    setLiaDStaff(value: string) {
-      proStore.liaDStaff = value;
+    setLiaDNameStaff(value: string) {
+      proStore.liaDNameStaff = value;
       proStore.validateSubmit();
     },
-    setLiaPStaff(value: string) {
-      proStore.liaPStaff = value;
+    setLiaDDesigStaff(value: string) {
+      proStore.liaDDesigStaff = value;
+      proStore.validateSubmit();
+    },
+    setLiaPNameStaff(value: string) {
+      proStore.liaPNameStaff = value;
+      proStore.validateSubmit();
+    },
+    setLiaPDesigStaff(value: string) {
+      proStore.liaPDesigStaff = value;
       proStore.validateSubmit();
     },
     setTeacherFeedback(value: string) {
@@ -142,6 +179,10 @@ const useProgramStore = () => {
       proStore.numChildSick = value;
       proStore.validateSubmit();
     },
+    setIllness(value: string) {
+      proStore.illness = value;
+      proStore.validateSubmit();
+    },
     setNumberedActivitySheet(value: string) {
       proStore.numberedActivitySheet = value;
       proStore.validateSubmit();
@@ -158,12 +199,12 @@ const useProgramStore = () => {
       proStore.noOfMealsReceive = value;
       proStore.validateSubmit();
     },
-    setBreakfastServedDaily(value: string) {
-      proStore.breakfastServedDaily = value;
-      proStore.validateSubmit();
-    },
     setAddObservations(value: string) {
       proStore.addObservations = value;
+      proStore.validateSubmit();
+    },
+    setCompanyName(value: string) {
+      proStore.companyName = value;
       proStore.validateSubmit();
     },
     setVolunteerName(value: string) {
@@ -181,6 +222,9 @@ const useProgramStore = () => {
     setOtherFeedback(value: string) {
       proStore.otherFeedback = value;
       proStore.validateSubmit();
+    },
+    setSelectedImages(selectedImages: Image[]) {
+      proStore.selectedImages = selectedImages;
     },
 
     togglePhotoBottomSheet() {
@@ -272,22 +316,27 @@ const useProgramStore = () => {
           break;
         case 'Have the children completed the activity sheet for this month?':
           proStore.activitySheetCompleted = value;
+          proStore.activitySheetCompletedID = id;
           proStore.validateSubmit();
           break;
         case 'Are the teachers/social workers completing the Poshan Calendar properly?':
           proStore.poshanCalenderCompleted = value;
+          proStore.poshanCalenderCompletedID = id;
           proStore.validateSubmit();
           break;
         case 'Has the partner stored the food safely?':
           proStore.storedFoodSafely = value;
+          proStore.storedFoodSafelyID = id;
           proStore.validateSubmit();
           break;
         case 'Is the breakfast being served daily?':
           proStore.breakfastServedDaily = value;
+          proStore.breakfastServedDailyID = id;
           proStore.validateSubmit();
           break;
         case 'When is breakfast usually served? (observed by Decimal staff)':
           proStore.whenBreakfast = value;
+          proStore.whenBreakfastID = id;
           proStore.validateSubmit();
           break;
         case 'Select hour:':
@@ -311,28 +360,37 @@ const useProgramStore = () => {
       if (proStore.dov == '') {
         return;
       }
-      if (proStore.vvTeamSize == '') {
+      if (!Utility.validateNumeric(proStore.vvTeamSize)) {
         return;
       }
-      if (proStore.liaDStaff == '') {
+      if (!Utility.validateAlpha(proStore.liaDNameStaff)) {
         return;
       }
-      if (proStore.liaPStaff == '') {
+      if (!Utility.validateAlpha(proStore.liaDDesigStaff)) {
         return;
       }
-      if (proStore.numberOfChildrenDOV == '') {
+      if (!Utility.validateAlpha(proStore.liaPNameStaff)) {
+        return;
+      }
+      if (!Utility.validateAlpha(proStore.liaPDesigStaff)) {
+        return;
+      }
+      if (!Utility.validateNumeric(proStore.numberOfChildrenDOV)) {
         return;
       }
       if (proStore.averageAttendMonth == '') {
         return;
       }
-      if (proStore.numNewChildEnroll == '') {
+      if (!Utility.validateNumeric(proStore.numNewChildEnroll)) {
         return;
       }
-      if (proStore.numChildDropped == '') {
+      if (!Utility.validateNumeric(proStore.numChildDropped)) {
         return;
       }
-      if (proStore.numChildSick == '') {
+      if (!Utility.validateNumeric(proStore.numChildSick)) {
+        return;
+      }
+      if (!Utility.validateAlphaNumericSpecial(proStore.illness)) {
         return;
       }
       if (proStore.numberedActivitySheet == '') {
@@ -347,10 +405,10 @@ const useProgramStore = () => {
       if (proStore.foodSupplyDate == '') {
         return;
       }
-      if (proStore.noOfMealsCF == '') {
+      if (!Utility.validateNumeric(proStore.noOfMealsCF)) {
         return;
       }
-      if (proStore.noOfMealsReceive == '') {
+      if (!Utility.validateNumeric(proStore.noOfMealsReceive)) {
         return;
       }
       if (proStore.storedFoodSafely == '') {
@@ -362,19 +420,22 @@ const useProgramStore = () => {
       if (proStore.whenBreakfast == '') {
         return;
       }
-      if (proStore.addObservations == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.addObservations)) {
         return;
       }
-      if (proStore.teacherFeedback == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.teacherFeedback)) {
         return;
       }
-      if (proStore.parentFeedback == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.parentFeedback)) {
         return;
       }
       if (proStore.childFeedback == '') {
         return;
       }
-      if (proStore.volunteerName == '') {
+      if (!Utility.validateAlpha(proStore.volunteerName)) {
+        return;
+      }
+      if (!Utility.validateAlpha(proStore.companyName)) {
         return;
       }
       if (proStore.volunteerHour == '') {
@@ -383,13 +444,13 @@ const useProgramStore = () => {
       if (proStore.volunteerMinute == '') {
         return;
       }
-      if (proStore.volunteerReason == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.volunteerReason)) {
         return;
       }
-      if (proStore.learnAndObserve == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.learnAndObserve)) {
         return;
       }
-      if (proStore.otherFeedback == '') {
+      if (!Utility.validateAlphaNumericSpecial(proStore.otherFeedback)) {
         return;
       }
       if (proStore.hour == '') {
@@ -404,14 +465,109 @@ const useProgramStore = () => {
       runInAction(() => {
         proStore.isLoading = true;
       });
-      proStore.isLoading = true;
-      setTimeout(() => {
-        proStore.isLoading = !proStore.isLoading;
-        Utility.showToast('Data Sent Successful  :)');
-      }, 5000);
-    },
+      try {
+        const formData = new FormData(); //existingPartnerID
+        formData.append('type', proStore.partnerTypeID);
+        formData.append('partner', proStore.existingPartnerID);
+        formData.append('date', proStore.dov);
+        formData.append('visiting_team_size', proStore.vvTeamSize);
+        formData.append(
+          'liaison',
+          JSON.stringify({
+            decimal: {
+              name: proStore.liaDNameStaff,
+              designation: proStore.liaDDesigStaff,
+            },
+            partner: {
+              name: proStore.liaPNameStaff,
+              designation: proStore.liaPDesigStaff,
+            },
+          }),
+        );
 
-    //console.log(cdStore.image_1, 'image');
+        formData.append('children_participated', proStore.numberOfChildrenDOV);
+        formData.append('avg_attendance', proStore.averageAttendMonth);
+        formData.append('enrollers_count', proStore.numNewChildEnroll);
+        formData.append('dropouts_count', proStore.numChildDropped);
+        formData.append('sick_count', proStore.numChildSick);
+        formData.append('illness', proStore.illness);
+        formData.append('activity_sheet_no', proStore.numberedActivitySheet);
+        formData.append(
+          'is_activity_completed',
+          proStore.activitySheetCompletedID,
+        );
+        formData.append(
+          'is_poshan_calendar_maintained',
+          proStore.activitySheetCompletedID,
+        );
+        formData.append('food_received_timestamp', proStore.foodSupplyDate);
+        formData.append('meals_carry_forward', proStore.noOfMealsCF);
+        formData.append('meals_received', proStore.noOfMealsReceive);
+        formData.append('is_food_safely_stored', proStore.storedFoodSafelyID);
+        formData.append(
+          'is_breakfast_served_daily',
+          proStore.breakfastServedDailyID,
+        );
+        formData.append('breakfast_served_at', proStore.whenBreakfastID);
+        formData.append('additional_info', proStore.addObservations);
+
+        formData.append(
+          'teacher_or_social_worker_feedback',
+          proStore.teacherFeedback,
+        );
+        formData.append('parents_feedback', proStore.parentFeedback);
+        formData.append('children_feedback', proStore.childFeedback);
+
+        formData.append(
+          'volunteer_details',
+          JSON.stringify({
+            name: proStore.volunteerName,
+            partner: proStore.companyName,
+            session_duration:
+              parseInt(proStore.volunteerHour) * 60 +
+              parseInt(proStore.volunteerMinute),
+            objective: proStore.volunteerReason,
+            learnings: proStore.learnAndObserve,
+            feedback: proStore.otherFeedback,
+          }),
+        );
+
+        formData.append(
+          'visit_duration',
+          parseInt(proStore.hour) * 60 + parseInt(proStore.minute),
+        );
+        for (let i = 0; i < Math.min(proStore.selectedImages.length, 5); i++) {
+          formData.append(`image_${i + 1}`, {
+            uri: proStore.selectedImages[i].path,
+            type: proStore.selectedImages[i].mime,
+            name: proStore.selectedImages[i].path.split('/').pop(),
+          });
+        }
+
+        const responseJson = await request<ProgramModal>(
+          'post',
+          AppStrings.programMonitor,
+          formData,
+          {
+            'Content-Type': 'multipart/form-data;',
+          },
+        );
+
+        if (responseJson.success) {
+          console.log(responseJson, 'response from server');
+          Utility.showToast(responseJson.msg);
+        } else {
+          Utility.showToast(responseJson.msg);
+        }
+      } catch (err) {
+        Utility.showToast('Something went wrong');
+        console.log(err);
+      } finally {
+        runInAction(() => {
+          proStore.isLoading = false;
+        });
+      }
+    },
   }));
   return proStore;
 };
