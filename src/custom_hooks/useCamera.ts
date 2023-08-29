@@ -2,9 +2,8 @@ import {useEffect, useState} from 'react';
 import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import {PermissionsAndroid} from 'react-native';
 
-const useCamera = (togglePhotoBottomSheet: any) => {
+const useCamera = () => {
   const [selectedImages, setSelectedImages] = useState<Image[]>([]);
-  //const cdStore = useCaptureDetailsStore(); //mobx instantiates diffrent stores for different screens
 
   useEffect(() => {
     requestPermission();
@@ -42,7 +41,6 @@ const useCamera = (togglePhotoBottomSheet: any) => {
       .catch(error => {
         console.log('Error selecting images:', error);
       });
-    togglePhotoBottomSheet();
   };
 
   const removeImage = (index: number) => {
@@ -59,7 +57,6 @@ const useCamera = (togglePhotoBottomSheet: any) => {
     }).then(image => {
       console.log(image);
     });
-    togglePhotoBottomSheet();
   };
 
   return {

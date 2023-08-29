@@ -29,7 +29,7 @@ const HealthCampScreen = () => {
   const bottomSheetRef = useRef<BottomSheet | null>(null);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera(healthStore.togglePhotoBottomSheet);
+    useCamera();
 
   const handleBottomSheetClick = (from: string, index?: number) => {
     healthStore.setIndex(index ?? 1);
@@ -38,6 +38,15 @@ const HealthCampScreen = () => {
 
   const hideBottomSheet = () => {
     healthStore.toggleBottomSheet();
+  };
+
+  const handleImagePicker = (from: number) => {
+    healthStore.togglePhotoBottomSheet();
+    if (from === 1) {
+      takePhotoFromCamera();
+    } else {
+      openGallery();
+    }
   };
 
   const showDatePicker = (id: string) => {
@@ -497,7 +506,8 @@ const HealthCampScreen = () => {
                   width={'90%'}
                   isLoading={healthStore.isLoading}
                   onPress={() => {
-                    healthStore.handleSubmit(selectedImages);
+                    healthStore.setSelectedImages(selectedImages);
+                    healthStore.handleSubmit();
                   }}
                   enabled={healthStore.enableSubmit}
                 />
@@ -545,12 +555,16 @@ const HealthCampScreen = () => {
               </View>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={takePhotoFromCamera}>
+                onPress={() => {
+                  handleImagePicker(1);
+                }}>
                 <Text>Take a Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={openGallery}>
+                onPress={() => {
+                  handleImagePicker(2);
+                }}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>

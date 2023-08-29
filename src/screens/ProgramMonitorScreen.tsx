@@ -25,6 +25,7 @@ import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
+import useCamera from '../custom_hooks/useCamera';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -32,66 +33,17 @@ const ProgramMonitorScreen = () => {
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const [showCalender, setShowCalender] = useState(false);
   const [showCalender2, setShowCalender2] = useState(false);
-  const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
-  useEffect(() => {
-    requestPermission();
-    // console.log(selectedImages[0].path);
-  }, []);
+  const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
+    useCamera();
 
-  const requestPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-      ]);
-      if (
-        granted['android.permission.CAMERA'] &&
-        granted['android.permission.READ_MEDIA_IMAGES']
-      ) {
-        console.log('You can use the camera');
-      } else {
-        console.log('Camera permission denied');
-      }
-    } catch (error) {
-      console.log('permission error', error);
-    }
-  };
-
-  const openGallery = () => {
-    ImageCropPicker.openPicker({
-      multiple: true,
-      mediaType: 'photo',
-      maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-    })
-      .then(images => {
-        if (images.length > 5) {
-        }
-        setSelectedImages(prevSelectedImages =>
-          prevSelectedImages.concat(images),
-        );
-      })
-      .catch(error => {
-        console.log('Error selecting images:', error);
-      });
+  const handleImagePicker = (from: number) => {
     proStore.togglePhotoBottomSheet();
-  };
-
-  const removeImage = (index: number) => {
-    const updatedImages = [...selectedImages];
-    updatedImages.splice(index, 1);
-    setSelectedImages(updatedImages);
-  };
-
-  const takePhotoFromCamera = () => {
-    ImageCropPicker.openCamera({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(image => {
-      console.log(image);
-      proStore.togglePhotoBottomSheet();
-    });
-    //cdStore.togglePhotoBottomSheet();
+    if (from === 1) {
+      takePhotoFromCamera();
+    } else {
+      openGallery();
+    }
   };
 
   const handleBottomSheetClick = (from: string) => {
@@ -752,12 +704,16 @@ const ProgramMonitorScreen = () => {
               </View>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={takePhotoFromCamera}>
+                onPress={() => {
+                  handleImagePicker(1);
+                }}>
                 <Text>Take a Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={openGallery}>
+                onPress={() => {
+                  handleImagePicker(2);
+                }}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>

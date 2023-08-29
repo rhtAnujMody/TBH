@@ -7,6 +7,7 @@ import useApiService from '../network/useAPIService';
 import {HealthModal} from '../models/HealthModal';
 import authStore from './authStore';
 import {useNavigation} from '@react-navigation/native';
+
 const useHealthStore = () => {
   const {request} = useApiService();
   const navigation = useNavigation();
@@ -86,6 +87,7 @@ const useHealthStore = () => {
     dateOfDoseIFA: '',
     durationOfCourseIFA: '',
     locationOfDoseIFA: '',
+    selectedImages: [] as Image[],
     partnerOptions: [
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
@@ -227,6 +229,9 @@ const useHealthStore = () => {
     setDurationOfCourseIFA(value: string) {
       healthStore.durationOfCourseIFA = value;
       healthStore.validateSubmit();
+    },
+    setSelectedImages(selectedImage: Image[]) {
+      healthStore.selectedImages = selectedImage;
     },
 
     togglePhotoBottomSheet() {
@@ -474,7 +479,7 @@ const useHealthStore = () => {
           break;
       }
     },
-    async handleSubmit(selectedImages: Image[]) {
+    async handleSubmit() {
       runInAction(() => {
         healthStore.isLoading = true;
       });
@@ -506,7 +511,7 @@ const useHealthStore = () => {
             contact: healthStore.contact,
             gender: healthStore.genderID,
             beneficiary_id: healthStore.beneficiaryID,
-            image: selectedImages[0].path,
+            image: healthStore.selectedImages[0].path,
           }),
         );
         formData.append(

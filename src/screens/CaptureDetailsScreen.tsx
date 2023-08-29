@@ -33,7 +33,16 @@ const CaptureDetailsScreen = () => {
   const [showCalender, setShowCalender] = useState(false);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera(cdStore.togglePhotoBottomSheet);
+    useCamera();
+
+  const handleImagePicker = (from: number) => {
+    cdStore.togglePhotoBottomSheet();
+    if (from === 1) {
+      takePhotoFromCamera();
+    } else {
+      openGallery();
+    }
+  };
 
   const handleBottomSheetClick = (from: string) => {
     cdStore.toggleBottomSheet(from);
@@ -382,7 +391,10 @@ const CaptureDetailsScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={cdStore.isLoading}
-                  onPress={() => cdStore.handleImageUpload(selectedImages)}
+                  onPress={() => {
+                    cdStore.setSelectedImages(selectedImages);
+                    cdStore.saveData();
+                  }}
                   enabled={cdStore.enableSubmit}
                 />
               )}
@@ -448,12 +460,16 @@ const CaptureDetailsScreen = () => {
               </View>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={takePhotoFromCamera}>
+                onPress={() => {
+                  handleImagePicker(1);
+                }}>
                 <Text>Take a Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={openGallery}>
+                onPress={() => {
+                  handleImagePicker(2);
+                }}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>
