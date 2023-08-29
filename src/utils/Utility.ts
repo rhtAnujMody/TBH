@@ -38,6 +38,12 @@ class Utility {
       .match(/^[0-9]+$/g);
   };
 
+  static validateFloat = (num: string) => {
+    return String(num)
+      .toLowerCase()
+      .match(/^\d+(\.\d{0,1})?$/);
+  };
+
   static showToast = (msg: string, duration: number = 3) => {
     Toast.show(msg, duration);
   };

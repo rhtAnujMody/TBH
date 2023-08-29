@@ -263,11 +263,11 @@ const useHealthStore = () => {
       } else {
         if (healthStore.partner == 'New') {
           if (
-            healthStore.newPartnerName == '' ||
-            healthStore.newLocation == '' ||
-            healthStore.newBlock == '' ||
-            healthStore.newDistrict == '' ||
-            healthStore.newState == ''
+            !Utility.validateAlpha(healthStore.newPartnerName) ||
+            !Utility.validateAlpha(healthStore.newLocation) ||
+            !Utility.validateAlpha(healthStore.newBlock) ||
+            !Utility.validateAlpha(healthStore.newDistrict) ||
+            !Utility.validateAlpha(healthStore.newState)
           ) {
             return;
           }
@@ -283,10 +283,10 @@ const useHealthStore = () => {
       if (healthStore.numberHC == '') {
         return;
       }
-      if (healthStore.childName == '') {
+      if (!Utility.validateAlpha(healthStore.childName)) {
         return;
       }
-      if (healthStore.contact == '') {
+      if (!Utility.validateNumeric(healthStore.contact)) {
         return;
       }
       if (healthStore.dob == '') {
@@ -295,16 +295,13 @@ const useHealthStore = () => {
       if (healthStore.gender == '') {
         return;
       }
-      if (healthStore.height == '') {
+      if (!Utility.validateFloat(healthStore.height)) {
         return;
       }
-      if (healthStore.weight == '') {
+      if (!Utility.validateFloat(healthStore.weight)) {
         return;
       }
-      if (healthStore.muac == '') {
-        return;
-      }
-      if (healthStore.muac == '') {
+      if (!Utility.validateFloat(healthStore.muac)) {
         return;
       }
       if (healthStore.targetBeneficiary == '') {

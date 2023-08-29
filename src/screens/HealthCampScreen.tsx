@@ -366,7 +366,7 @@ const HealthCampScreen = () => {
                     <AppTextInput
                       parentStyle={styles.textInputStyle}
                       textHeader="Height"
-                      placeHolder="Height"
+                      placeHolder="Height(CM)"
                       value={healthStore.height}
                       onChangeText={healthStore.setHeight}
                     />
@@ -377,7 +377,7 @@ const HealthCampScreen = () => {
                     <AppTextInput
                       parentStyle={styles.textInputStyle}
                       textHeader="Weight"
-                      placeHolder="Weight"
+                      placeHolder="Weight(KG)"
                       value={healthStore.weight}
                       onChangeText={healthStore.setWeight}
                     />
@@ -388,7 +388,7 @@ const HealthCampScreen = () => {
                     <AppTextInput
                       parentStyle={styles.textInputStyle}
                       textHeader="MUAC"
-                      placeHolder="MUAC"
+                      placeHolder="MUAC(CM)"
                       value={healthStore.muac}
                       onChangeText={healthStore.setMUAC}
                     />
