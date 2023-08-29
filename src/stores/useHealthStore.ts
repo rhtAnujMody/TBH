@@ -29,7 +29,7 @@ const useHealthStore = () => {
     });
   };
   const healthStore = useLocalObservable(() => ({
-    index: 2,
+    index: 1,
     openBottomSheet: false,
     bottomSheetHeader: '',
     bottomSheetArray: [] as any[],
@@ -38,7 +38,6 @@ const useHealthStore = () => {
     openPhotoBottomSheet: false,
     calenderID: '',
     showCalender: false,
-
     partner: '',
     partnerID: '',
     newPartnerName: '',
@@ -51,14 +50,11 @@ const useHealthStore = () => {
     existBlock: '',
     existDistrict: '',
     existState: '',
-
     partnerType: '',
     partnerTypeID: '',
     centerName: '',
-
     dohc: '',
     numberHC: '',
-
     childName: '',
     dob: '',
     contact: '',
@@ -66,35 +62,30 @@ const useHealthStore = () => {
     genderID: '',
     targetBeneficiary: '',
     beneficiaryID: '',
-
     age: '',
     height: '',
     weight: '',
     muac: '',
     educationalDetails: '',
     educationalDetailsID: '',
-
     vitaminA: '',
     doneBy: '',
     doneByID: '',
     dateOfDoseVitamin: '',
     durationOfCourse: '',
     locationOfDose: '',
-
     deworming: '',
     doneByWorm: '',
     doneByWormID: '',
     dateOfDoseDeworm: '',
     durationOfCourseWorm: '',
     locationOfDoseWorm: '',
-
     ifa: '',
     doneByIFA: '',
     doneByIFAID: '',
     dateOfDoseIFA: '',
     durationOfCourseIFA: '',
     locationOfDoseIFA: '',
-
     partnerOptions: [
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},

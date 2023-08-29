@@ -31,12 +31,9 @@ const HealthCampScreen = () => {
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera(healthStore.togglePhotoBottomSheet);
 
-  const handleBottomSheetClick = (from: string) => {
+  const handleBottomSheetClick = (from: string, index?: number) => {
+    healthStore.setIndex(index ?? 1);
     healthStore.toggleBottomSheet(from);
-  };
-
-  const handleIndex = (value: number) => {
-    healthStore.setIndex(value);
   };
 
   const hideBottomSheet = () => {
@@ -92,7 +89,6 @@ const HealthCampScreen = () => {
                     <AppInput
                       onPress={() => {
                         handleBottomSheetClick('partner');
-                        handleIndex(1);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.partner}
@@ -100,7 +96,7 @@ const HealthCampScreen = () => {
                       placeHolder="Is this a New / Existing Partner"
                       rightIcon={AppSVGs.dropdown}
                     />
-                    {healthStore.partner == 'New' ? (
+                    {healthStore.partner === 'New' ? (
                       <>
                         <AppTextInput
                           value={healthStore.newPartnerName}
@@ -147,7 +143,6 @@ const HealthCampScreen = () => {
                         <AppInput
                           onPress={() => {
                             handleBottomSheetClick('partnerName');
-                            handleIndex(1);
                           }}
                           parentStyle={styles.textInputStyle}
                           value={healthStore.existPartnerName}
@@ -193,8 +188,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('partnerType');
-                        handleIndex(3);
+                        handleBottomSheetClick('partnerType', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.partnerType}
@@ -268,8 +262,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('gender');
-                        handleIndex(3);
+                        handleBottomSheetClick('gender', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.gender}
@@ -304,8 +297,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('vitaminA');
-                        handleIndex(3);
+                        handleBottomSheetClick('vitaminA', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.vitaminA}
@@ -314,12 +306,11 @@ const HealthCampScreen = () => {
                       rightIcon={AppSVGs.dropdown}
                     />
 
-                    {healthStore.vitaminA == 'Done' ? (
+                    {healthStore.vitaminA == 'Done' && (
                       <>
                         <AppInput
                           onPress={() => {
-                            handleBottomSheetClick('doneBy');
-                            handleIndex(3);
+                            handleBottomSheetClick('doneBy', 3);
                           }}
                           parentStyle={styles.textInputStyle}
                           value={healthStore.doneBy}
@@ -327,7 +318,7 @@ const HealthCampScreen = () => {
                           placeHolder="Done By Whom"
                           rightIcon={AppSVGs.dropdown}
                         />
-                        {healthStore.doneBy ? (
+                        {healthStore.doneBy && (
                           <>
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
@@ -357,14 +348,13 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setLocationOfDose}
                             />
                           </>
-                        ) : null}
+                        )}
                       </>
-                    ) : null}
+                    )}
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('deworming');
-                        handleIndex(3);
+                        handleBottomSheetClick('deworming', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.deworming}
@@ -377,8 +367,7 @@ const HealthCampScreen = () => {
                       <>
                         <AppInput
                           onPress={() => {
-                            handleBottomSheetClick('doneByWorm');
-                            handleIndex(3);
+                            handleBottomSheetClick('doneByWorm', 3);
                           }}
                           parentStyle={styles.textInputStyle}
                           value={healthStore.doneByWorm}
@@ -423,8 +412,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('IFA');
-                        handleIndex(3);
+                        handleBottomSheetClick('IFA', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.ifa}
@@ -437,8 +425,7 @@ const HealthCampScreen = () => {
                       <>
                         <AppInput
                           onPress={() => {
-                            handleBottomSheetClick('doneByIFA');
-                            handleIndex(3);
+                            handleBottomSheetClick('doneByIFA', 3);
                           }}
                           parentStyle={styles.textInputStyle}
                           value={healthStore.doneByIFA}
@@ -483,8 +470,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('targetBeneficiary');
-                        handleIndex(3);
+                        handleBottomSheetClick('targetBeneficiary', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.targetBeneficiary}
@@ -495,8 +481,7 @@ const HealthCampScreen = () => {
 
                     <AppInput
                       onPress={() => {
-                        handleBottomSheetClick('educationalDetails');
-                        handleIndex(3);
+                        handleBottomSheetClick('educationalDetails', 3);
                       }}
                       parentStyle={styles.textInputStyle}
                       value={healthStore.educationalDetails}
