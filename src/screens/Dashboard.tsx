@@ -23,14 +23,19 @@ const Dashboard = () => {
   ];
 
   const navigateToCard = (index: number) => {
-    if (index === 2) {
-      navigation.navigate('CaptureDetails');
-    } else if (index === 1) {
-      navigation.navigate('GenerateReports');
-    } else if (index === 3) {
-      navigation.navigate('ProgramMonitor');
-    } else if (index === 0) {
-      navigation.navigate('HealthCamp');
+    switch (index) {
+      case 0:
+        navigation.navigate('HealthCamp');
+        break;
+      case 1:
+        navigation.navigate('GenerateReports');
+        break;
+      case 2:
+        navigation.navigate('CaptureDetails');
+        break;
+      case 3:
+        navigation.navigate('ProgramMonitor');
+        break;
     }
   };
   const auth = authStore;
@@ -92,7 +97,7 @@ const Dashboard = () => {
               title={'Malnutrition Report'}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
+              onPress={() => navigateToCard(4)}
             />
           </View>
           <View style={styles.cardsContainer}>
@@ -100,7 +105,7 @@ const Dashboard = () => {
               title={'Wasting-Stunting Report'}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
+              onPress={() => navigateToCard(5)}
             />
           </View>
           <View style={styles.cardsContainer}>
@@ -108,7 +113,7 @@ const Dashboard = () => {
               title={'Custom Report'}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
+              onPress={() => navigateToCard(6)}
             />
           </View>
           <View style={styles.cardsContainer}>
@@ -116,7 +121,7 @@ const Dashboard = () => {
               title={"Doctor's Observation Report"}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
+              onPress={() => navigateToCard(7)}
             />
           </View>
         </ScrollView>

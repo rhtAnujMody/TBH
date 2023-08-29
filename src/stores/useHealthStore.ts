@@ -5,9 +5,29 @@ import {Image} from 'react-native-image-crop-picker';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import {HealthModal} from '../models/HealthModal';
-
+import authStore from './authStore';
+import {useNavigation} from '@react-navigation/native';
 const useHealthStore = () => {
   const {request} = useApiService();
+  const navigation = useNavigation();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const healthStore = useLocalObservable(() => ({
     index: 2,
     openBottomSheet: false,
@@ -79,16 +99,7 @@ const useHealthStore = () => {
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: [
-      {
-        name: 'SASA,\nPune,Pune,Pune,Maharashtra',
-        id: 1,
-      },
-      {
-        name: 'Anmol Tare,\nPanvel,Panvel,Raigad,Maharashtra',
-        id: 2,
-      },
-    ],
+    partnerNameList: partnerNameLocation(),
     partnerTypeOptions: [
       {
         name: 'TBR',
@@ -116,35 +127,11 @@ const useHealthStore = () => {
       {name: 'Decimal Foundation', id: 'D'},
       {name: 'Government', id: 'G'},
     ],
-    targetBenefitOptions: [
-      {name: 'Children living with HIV', id: 1},
-      {name: 'Children living with Cancer', id: 2},
-      {name: 'Children living with TB', id: 3},
-      {name: 'Children- Other', id: 4},
-      {name: 'Adult- HIV', id: 5},
-      {name: 'Adult- TB', id: 6},
-      {name: 'Adult- Cancer', id: 7},
-      {name: 'Senior Citizen', id: 8},
-      {name: 'Pregnant women', id: 9},
-      {name: 'Lactating mothers', id: 10},
-      {name: 'Adolescents and Others', id: 11},
-    ],
-    educationalDetailsOptions: [
-      {name: 'Home care', id: 1},
-      {name: 'Pre Primary / Balwadi', id: 2},
-      {name: 'Anganwadi', id: 3},
-      {name: 'Lower Primary', id: 4},
-      {name: 'Upper Primary', id: 5},
-      {name: 'High School', id: 6},
-      {name: 'Higher Secondary', id: 7},
-    ],
+    targetBenefitOptions: authStore.userData.health_camp_beneficiary,
+    educationalDetailsOptions: authStore.userData.education_details,
 
-    calenderShow() {
-      healthStore.showCalender = true;
-    },
-
-    calenderHide() {
-      healthStore.showCalender = false;
+    toogleCalender() {
+      healthStore.showCalender = !healthStore.showCalender;
     },
 
     setCalenderID(value: string) {
@@ -260,33 +247,33 @@ const useHealthStore = () => {
 
       if (healthStore.partner == '') {
         return;
+      }
+      if (healthStore.partner == 'New') {
+        if (
+          !Utility.validateAlpha(healthStore.newPartnerName) ||
+          !Utility.validateAlpha(healthStore.newLocation) ||
+          !Utility.validateAlpha(healthStore.newBlock) ||
+          !Utility.validateAlpha(healthStore.newDistrict) ||
+          !Utility.validateAlpha(healthStore.newState)
+        ) {
+          return;
+        }
       } else {
-        if (healthStore.partner == 'New') {
-          if (
-            !Utility.validateAlpha(healthStore.newPartnerName) ||
-            !Utility.validateAlpha(healthStore.newLocation) ||
-            !Utility.validateAlpha(healthStore.newBlock) ||
-            !Utility.validateAlpha(healthStore.newDistrict) ||
-            !Utility.validateAlpha(healthStore.newState)
-          ) {
-            return;
-          }
-        } else {
-          if (healthStore.existPartnerName == '') {
-            return;
-          }
+        if (healthStore.existPartnerName == '') {
+          return;
         }
       }
+
       if (healthStore.dohc == '') {
         return;
       }
-      if (healthStore.numberHC == '') {
+      if (!Utility.validateNumeric(healthStore.numberHC)) {
         return;
       }
       if (!Utility.validateAlpha(healthStore.childName)) {
         return;
       }
-      if (!Utility.validateNumeric(healthStore.contact)) {
+      if (!Utility.validatePhoneNumber(healthStore.contact)) {
         return;
       }
       if (healthStore.dob == '') {
@@ -497,10 +484,10 @@ const useHealthStore = () => {
           break;
       }
     },
-    async handleImageUpload(selectedImages: Image[]) {
-      console.log(selectedImages, 'images');
-      runInAction(() => {});
-      healthStore.isLoading = true;
+    async handleSubmit(selectedImages: Image[]) {
+      runInAction(() => {
+        healthStore.isLoading = true;
+      });
       try {
         const formData = new FormData();
         if (this.partner == 'New') {
@@ -586,9 +573,6 @@ const useHealthStore = () => {
         } else {
           formData.append('ifa', false);
         }
-
-        console.log(formData, 'formdata');
-
         const responseJson = await request<HealthModal>(
           'post',
           AppStrings.healthCamp,
@@ -599,14 +583,14 @@ const useHealthStore = () => {
         );
 
         if (responseJson.success) {
-          console.log(responseJson, 'response from server');
           Utility.showToast(responseJson.msg);
+          navigation.goBack();
         } else {
           Utility.showToast(responseJson.msg);
+          navigation.goBack();
         }
       } catch (err) {
         Utility.showToast('Something went wrong');
-        console.log(err);
       } finally {
         runInAction(() => {
           healthStore.isLoading = false;

@@ -20,6 +20,20 @@ class Utility {
       );
   };
 
+  static getAge = (date: Date) => {
+    let month_diff = Date.now() - date.getTime();
+    let age_dt = new Date(month_diff);
+    let year = age_dt.getUTCFullYear();
+    var age = Math.abs(year - 1970);
+    return age;
+  };
+
+  static validatePhoneNumber = (num: string) => {
+    return String(num)
+      .toLowerCase()
+      .match(/^\d{10}$/);
+  };
+
   static validateAlpha = (name: string) => {
     return String(name)
       .toLowerCase()
