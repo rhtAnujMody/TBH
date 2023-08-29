@@ -5,9 +5,28 @@ import {Image} from 'react-native-image-crop-picker';
 import {ProgramModal} from '../models/ProgramModal';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
+import authStore from './authStore';
 
 const useProgramStore = () => {
   const {request} = useApiService();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const proStore = useLocalObservable(() => ({
     index: 2,
     openBottomSheet: false,
@@ -63,25 +82,15 @@ const useProgramStore = () => {
     isLoading: false,
     enableSubmit: false,
     openPhotoBottomSheet: false,
+    calenderID: '',
+    showCalender: false,
+    selectedImages: [] as Image[],
     partnerTypeOptions: [
       {name: 'TBR', id: 'T'},
       {name: 'Bright Start', id: 'B'},
       {name: 'Anaemia Mukt Bharat', id: 'A'},
     ],
-    existingPartnerOptions: [
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '1',
-      },
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '2',
-      },
-      {
-        name: 'Calvary Day Care Centre,\nGhatkopar,Mumbai Urban,Mumbai,Maharashtra',
-        id: '3',
-      },
-    ],
+    existingPartnerOptions: partnerNameLocation(),
     locationOptions: [
       {name: 'Hyderabad', id: '1'},
       {name: 'Bengaluru', id: '2'},
@@ -105,6 +114,12 @@ const useProgramStore = () => {
       {name: 'Evening', id: 'E'},
     ],
 
+    toogleCalender() {
+      proStore.showCalender = !proStore.showCalender;
+    },
+    setCalenderID(value: string) {
+      proStore.calenderID = value;
+    },
     setIndex(value: number) {
       proStore.index = value;
     },
@@ -207,6 +222,9 @@ const useProgramStore = () => {
     setOtherFeedback(value: string) {
       proStore.otherFeedback = value;
       proStore.validateSubmit();
+    },
+    setSelectedImages(selectedImages: Image[]) {
+      proStore.selectedImages = selectedImages;
     },
 
     togglePhotoBottomSheet() {
@@ -443,12 +461,10 @@ const useProgramStore = () => {
       }
       proStore.enableSubmit = true;
     },
-    async sendData(selectedImages: Image[]) {
-      console.log(selectedImages, 'images');
+    async sendData() {
       runInAction(() => {
         proStore.isLoading = true;
       });
-      proStore.isLoading = true;
       try {
         const formData = new FormData(); //existingPartnerID
         formData.append('type', proStore.partnerTypeID);
@@ -458,8 +474,14 @@ const useProgramStore = () => {
         formData.append(
           'liaison',
           JSON.stringify({
-            decimal: {name: 'ABC', designation: 'XYZ'},
-            partner: {name: 'DEF', designation: 'GHI'},
+            decimal: {
+              name: proStore.liaDNameStaff,
+              designation: proStore.liaDDesigStaff,
+            },
+            partner: {
+              name: proStore.liaPNameStaff,
+              designation: proStore.liaPDesigStaff,
+            },
           }),
         );
 
@@ -514,11 +536,11 @@ const useProgramStore = () => {
           'visit_duration',
           parseInt(proStore.hour) * 60 + parseInt(proStore.minute),
         );
-        for (let i = 0; i < Math.min(selectedImages.length, 5); i++) {
+        for (let i = 0; i < Math.min(proStore.selectedImages.length, 5); i++) {
           formData.append(`image_${i + 1}`, {
-            uri: selectedImages[i].path,
-            type: selectedImages[i].mime,
-            name: selectedImages[i].path.split('/').pop(),
+            uri: proStore.selectedImages[i].path,
+            type: proStore.selectedImages[i].mime,
+            name: proStore.selectedImages[i].path.split('/').pop(),
           });
         }
 
@@ -546,8 +568,6 @@ const useProgramStore = () => {
         });
       }
     },
-
-    //console.log(cdStore.image_1, 'image');
   }));
   return proStore;
 };
