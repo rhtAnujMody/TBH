@@ -6,7 +6,6 @@ import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
 import React = require('react');
 
@@ -16,7 +15,6 @@ const ResetPasswordScreen = () => {
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
   const navigation = useNavigation<AuthStackProps>();
-  const loginStore = useLoginStore();
 
   const handleOnSubmitEditing = () => {};
 
@@ -28,9 +26,9 @@ const ResetPasswordScreen = () => {
     return (
       <AppButton
         title="Reset"
-        isLoading={loginStore.isLoading}
-        onPress={loginStore.login}
-        enabled={loginStore.isButtonEnabled}
+        isLoading={false}
+        onPress={() => {}}
+        enabled={true}
       />
     );
   });
@@ -53,7 +51,7 @@ const ResetPasswordScreen = () => {
           returnKeyType="done"
           inputRef={passwordRef}
           secureTextEntry
-          onChangeText={loginStore.setPassword}
+          onChangeText={() => {}}
         />
         <AppTextInput
           icon={AppSVGs.lock}
@@ -61,7 +59,7 @@ const ResetPasswordScreen = () => {
           returnKeyType="done"
           inputRef={passwordRef}
           secureTextEntry
-          onChangeText={loginStore.setPassword}
+          onChangeText={() => {}}
         />
 
         <View style={styles.bottomContainer}>

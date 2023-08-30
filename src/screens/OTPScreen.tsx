@@ -6,16 +6,15 @@ import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
 import React = require('react');
+import {AppOTPInput} from '../components/common/AppOTPInput';
 
 const OTPScreen = () => {
   const emailRef = useRef<TextInput>(null);
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
   const navigation = useNavigation<AuthStackProps>();
-  const loginStore = useLoginStore();
 
   const handleOnSubmitEditing = () => {};
 
@@ -51,7 +50,14 @@ const OTPScreen = () => {
           </Text>
         </View>
 
-        {}
+        {
+          <AppOTPInput
+            length={4}
+            value={[]}
+            disabled={false}
+            onChange={() => {}}
+          />
+        }
 
         <View style={styles.bottomContainer}>
           <ShowButton />

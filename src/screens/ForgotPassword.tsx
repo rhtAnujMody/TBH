@@ -6,7 +6,6 @@ import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
 import React = require('react');
 
@@ -15,7 +14,6 @@ const ForgotPassword = () => {
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
   const navigation = useNavigation<AuthStackProps>();
-  const loginStore = useLoginStore();
 
   const handleOnSubmitEditing = () => {};
 
@@ -55,7 +53,7 @@ const ForgotPassword = () => {
           placeHolder="Email / Phone Number"
           returnKeyType="next"
           inputRef={emailRef}
-          onChangeText={loginStore.setEmail}
+          onChangeText={() => {}}
           onSubmitEditing={handleOnSubmitEditing}
         />
 
