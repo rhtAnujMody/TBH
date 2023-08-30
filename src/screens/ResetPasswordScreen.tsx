@@ -10,7 +10,7 @@ import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
 import React = require('react');
 
-const LoginScreen = () => {
+const ResetPasswordScreen = () => {
   const emailRef = useRef<TextInput>(null);
   const passwordRef = useRef<TextInput>(null);
   const keyboard = useKeyboard();
@@ -18,23 +18,16 @@ const LoginScreen = () => {
   const navigation = useNavigation<AuthStackProps>();
   const loginStore = useLoginStore();
 
-  const handleOnSubmitEditing = () => {
-    if (passwordRef && passwordRef.current) {
-      passwordRef.current.focus();
-    }
-  };
+  const handleOnSubmitEditing = () => {};
 
-  const navigateToSignUp = () => {
+  const navigateToOTP = () => {
     navigation.navigate('SignUp');
-  };
-  const navigateToForgot = () => {
-    navigation.navigate('Forgot');
   };
 
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Sign In"
+        title="Reset"
         isLoading={loginStore.isLoading}
         onPress={loginStore.login}
         enabled={loginStore.isButtonEnabled}
@@ -46,46 +39,32 @@ const LoginScreen = () => {
     <AppContainer style={styles.container}>
       <AppBack />
       <View style={styles.headerContainer}>
-        <View style={styles.logoContainer}>
-          <AppSVGs.logo style={styles.logo} />
-        </View>
-        <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>Sign In</Text>
-          <Text style={styles.signInDesc}>
-            Provide your Login Credentials to Sign In to the Application
-          </Text>
-        </View>
+        <AppSVGs.reset style={styles.logo} />
       </View>
 
       <View style={styles.textInputContainer}>
-        <AppTextInput
-          icon={AppSVGs.name}
-          placeHolder="Email Id"
-          returnKeyType="next"
-          inputRef={emailRef}
-          onChangeText={loginStore.setEmail}
-          onSubmitEditing={handleOnSubmitEditing}
-        />
+        <View style={styles.signInHeaderContainer}>
+          <Text style={styles.signIn}>Reset Password</Text>
+          <Text style={styles.signInDesc}>Please Enter Your New Password</Text>
+        </View>
         <AppTextInput
           icon={AppSVGs.lock}
-          placeHolder="Password"
+          placeHolder="New Password"
           returnKeyType="done"
           inputRef={passwordRef}
           secureTextEntry
           onChangeText={loginStore.setPassword}
         />
-        <Text
-          style={[styles.signUp, {alignSelf: 'flex-end'}]}
-          onPress={navigateToForgot}>
-          {' Forgot Password '}
-        </Text>
+        <AppTextInput
+          icon={AppSVGs.lock}
+          placeHolder="Confirm Password"
+          returnKeyType="done"
+          inputRef={passwordRef}
+          secureTextEntry
+          onChangeText={loginStore.setPassword}
+        />
+
         <View style={styles.bottomContainer}>
-          <Text style={styles.dontHaveAcc}>
-            Don't have account yet?
-            <Text style={styles.signUp} onPress={navigateToSignUp}>
-              {' Sign Up'}
-            </Text>
-          </Text>
           <ShowButton />
         </View>
       </View>
@@ -93,7 +72,7 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ResetPasswordScreen;
 
 const loginStyles = (isKeyboardVisible: boolean) => {
   return StyleSheet.create({
@@ -113,15 +92,14 @@ const loginStyles = (isKeyboardVisible: boolean) => {
       marginTop: 10,
     },
     signInHeaderContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 40,
+      marginBottom: 20,
     },
     signIn: {
-      ...typography.bold(24, colors.black),
+      ...typography.bold(20, colors.black),
+      width: '100%',
     },
     signInDesc: {
-      ...typography.medium(15),
+      ...typography.regular(13),
     },
     textInputContainer: {
       flex: 1,
@@ -131,7 +109,6 @@ const loginStyles = (isKeyboardVisible: boolean) => {
       borderTopLeftRadius: 40,
       paddingHorizontal: 30,
       paddingTop: 30,
-      alignItems: 'center',
     },
     bottomContainer: {
       width: '100%',
@@ -139,6 +116,7 @@ const loginStyles = (isKeyboardVisible: boolean) => {
       bottom: 20,
       justifyContent: 'center',
       alignItems: 'center',
+      alignSelf: 'center',
     },
     dontHaveAcc: {
       ...typography.medium(14),
