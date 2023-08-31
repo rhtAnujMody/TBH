@@ -55,7 +55,7 @@ const useCamera = () => {
       height: 400,
       cropping: true,
     }).then(image => {
-      console.log(image);
+      setSelectedImages(prevSelectedImages => prevSelectedImages.concat(image));
     });
   };
 

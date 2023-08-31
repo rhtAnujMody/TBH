@@ -35,9 +35,11 @@ class Utility {
   };
 
   static validateAlpha = (name: string) => {
-    return String(name)
-      .toLowerCase()
-      .match(/^[A-Za-z]+$/g);
+    return (
+      String(name)
+        .toLowerCase()
+        .match(/^[a-zA-Z\s]+$/) && String(name).trim() !== ''
+    );
   };
 
   static validateAlphaNumericSpecial = (email: string) => {

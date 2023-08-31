@@ -151,6 +151,7 @@ const HealthCampScreen = () => {
                         <AppInput
                           onPress={() => {
                             handleBottomSheetClick('partnerName');
+                            healthStore.setIndex(3);
                           }}
                           parentStyle={styles.textInputStyle}
                           value={healthStore.existPartnerName}
@@ -246,6 +247,7 @@ const HealthCampScreen = () => {
                       placeHolder="Contact Number"
                       value={healthStore.contact}
                       onChangeText={healthStore.setContact}
+                      maxLength={10}
                     />
 
                     <AppTextInput

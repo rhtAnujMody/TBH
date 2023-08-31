@@ -246,11 +246,11 @@ const useHealthStore = () => {
       }
       if (healthStore.partner === 'New') {
         if (
-          !Utility.validateAlpha(healthStore.newPartnerName) ||
-          !Utility.validateAlpha(healthStore.newLocation) ||
-          !Utility.validateAlpha(healthStore.newBlock) ||
-          !Utility.validateAlpha(healthStore.newDistrict) ||
-          !Utility.validateAlpha(healthStore.newState)
+          !Utility.validateAlphaNumericSpecial(healthStore.newPartnerName) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newLocation) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newBlock) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newDistrict) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newState)
         ) {
           return;
         }
@@ -263,7 +263,7 @@ const useHealthStore = () => {
       if (healthStore.dohc === '') {
         return;
       }
-      if (!Utility.validateNumeric(healthStore.numberHC)) {
+      if (!Utility.validateAlphaNumericSpecial(healthStore.numberHC)) {
         return;
       }
       if (!Utility.validateAlpha(healthStore.childName)) {
@@ -304,10 +304,12 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseVitamin === '') {
               return;
             }
-            if (healthStore.durationOfCourse === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourse)) {
               return;
             }
-            if (healthStore.locationOfDose === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(healthStore.locationOfDose)
+            ) {
               return;
             }
           }
@@ -324,10 +326,14 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseDeworm === '') {
               return;
             }
-            if (healthStore.durationOfCourseWorm === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourseWorm)) {
               return;
             }
-            if (healthStore.locationOfDoseWorm === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(
+                healthStore.locationOfDoseWorm,
+              )
+            ) {
               return;
             }
           }
@@ -345,10 +351,14 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseIFA === '') {
               return;
             }
-            if (healthStore.durationOfCourseIFA === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourseIFA)) {
               return;
             }
-            if (healthStore.locationOfDoseIFA === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(
+                healthStore.locationOfDoseIFA,
+              )
+            ) {
               return;
             }
           }
