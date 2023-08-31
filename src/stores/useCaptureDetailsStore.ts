@@ -232,6 +232,9 @@ const useCaptureDetailsStore = () => {
     },
 
     setNewPartnerName(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlpha(value)) {
+        return;
+      }
       cdStore.newPartnerName = value;
       cdStore.validateSubmit();
     },

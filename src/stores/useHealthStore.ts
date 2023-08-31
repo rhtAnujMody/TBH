@@ -148,10 +148,16 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setChildName(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlpha(value)) {
+        return;
+      }
       healthStore.childName = value;
       healthStore.validateSubmit();
     },
     setContact(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.contact = value;
       healthStore.validateSubmit();
     },
@@ -163,14 +169,23 @@ const useHealthStore = () => {
       healthStore.age = value.toString();
     },
     setHeight(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.height = value;
       healthStore.validateSubmit();
     },
     setWeight(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.weight = value;
       healthStore.validateSubmit();
     },
     setMUAC(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.muac = value;
       healthStore.validateSubmit();
     },
@@ -195,22 +210,37 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setDurationOfCourse(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourse = value;
       healthStore.validateSubmit();
     },
     setDurationOfCourseWorm(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourseWorm = value;
       healthStore.validateSubmit();
     },
     setLocationOfDose(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDose = value;
       healthStore.validateSubmit();
     },
     setLocationOfDoseWorm(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDoseWorm = value;
       healthStore.validateSubmit();
     },
     setLocationOfDoseIFA(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDoseIFA = value;
       healthStore.validateSubmit();
     },
@@ -227,6 +257,9 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setDurationOfCourseIFA(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourseIFA = value;
       healthStore.validateSubmit();
     },
