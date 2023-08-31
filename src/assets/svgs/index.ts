@@ -10,6 +10,7 @@ import close from './close';
 import uploadImage from './uploadImage';
 import forgot from './forgot';
 import reset from './reset';
+import otp from './otp';
 
 export default {
   logo,
@@ -22,6 +23,7 @@ export default {
   uploadImage,
   forgot,
   reset,
+  otp,
   ...login,
   ...home,
 };

@@ -1,33 +1,27 @@
-import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import {useRef} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
-import {AuthStackProps} from '../navigation/AppNavigation';
 import {colors, typography} from '../theme';
+import {useForgotPasswordStore} from '../stores';
 import React = require('react');
 
 const ForgotPassword = () => {
   const emailRef = useRef<TextInput>(null);
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
-  const navigation = useNavigation<AuthStackProps>();
-
+  const forgotStore = useForgotPasswordStore();
   const handleOnSubmitEditing = () => {};
-
-  const navigateToOTP = () => {
-    navigation.navigate('OTP');
-  };
 
   const ShowButton = observer(() => {
     return (
       <AppButton
         title="Send OTP"
-        isLoading={false}
-        onPress={navigateToOTP}
-        enabled={true}
+        isLoading={forgotStore.isLoading}
+        onPress={forgotStore.handleSubmit}
+        enabled={forgotStore.isButtonEnabled}
       />
     );
   });
@@ -53,7 +47,7 @@ const ForgotPassword = () => {
           placeHolder="Email / Phone Number"
           returnKeyType="next"
           inputRef={emailRef}
-          onChangeText={() => {}}
+          onChangeText={forgotStore.setPhoneNumber}
           onSubmitEditing={handleOnSubmitEditing}
         />
 

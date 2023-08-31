@@ -12,8 +12,8 @@ export type AuthStackParamList = {
   Login: undefined;
   SignUp: undefined;
   Forgot: undefined;
-  Reset: undefined;
-  OTP: undefined;
+  Reset: {id: string};
+  OTP: {data: string; id: string};
 };
 
 const AuthStackRoot = createNativeStackNavigator<AuthStackParamList>();

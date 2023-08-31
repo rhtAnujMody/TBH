@@ -1,34 +1,33 @@
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import {useRef} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
-import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
+import {AppBack, AppButton, AppContainer} from '../components';
 import {useKeyboard} from '../custom_hooks';
-import {AuthStackProps} from '../navigation/AppNavigation';
 import {colors, typography} from '../theme';
 import React = require('react');
 import {AppOTPInput} from '../components/common/AppOTPInput';
+import useOTPStore from '../stores/useOTPStore';
+import {AuthStackParamList} from '../navigation/AuthStack';
 
 const OTPScreen = () => {
-  const emailRef = useRef<TextInput>(null);
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
-  const navigation = useNavigation<AuthStackProps>();
+  const otpStore = useOTPStore();
+  const route = useRoute<RouteProp<AuthStackParamList, 'OTP'>>();
+  const {data, id} = route.params;
 
   const handleOnSubmitEditing = () => {};
-
-  const navigateToOTP = () => {
-    navigation.navigate('Reset');
-  };
 
   const ShowButton = observer(() => {
     return (
       <AppButton
         title="Submit"
-        isLoading={false}
-        onPress={navigateToOTP}
-        enabled={true}
+        isLoading={otpStore.isLoading}
+        onPress={() => {
+          otpStore.handleSubmit(id);
+        }}
+        enabled={otpStore.isButtonEnabled}
       />
     );
   });
@@ -38,7 +37,7 @@ const OTPScreen = () => {
       <AppBack />
       <View style={styles.headerContainer}>
         <View style={styles.logoContainer}>
-          <AppSVGs.forgot style={styles.logo} />
+          <AppSVGs.otp style={styles.logo} />
         </View>
       </View>
 
@@ -46,18 +45,18 @@ const OTPScreen = () => {
         <View style={styles.signInHeaderContainer}>
           <Text style={styles.signIn}>Enter OTP</Text>
           <Text style={styles.signInDesc}>
-            {'A 4 digit code has been sent to\n +911234567891'}
+            {'A 4 digit code has been sent to\n' + data}
           </Text>
         </View>
 
-        {
-          <AppOTPInput
-            length={4}
-            value={[]}
-            disabled={false}
-            onChange={() => {}}
-          />
-        }
+        <AppOTPInput
+          length={4}
+          value={otpStore.otp}
+          disabled={otpStore.isButtonEnabled}
+          onChange={value => {
+            otpStore.setOTP(value);
+          }}
+        />
 
         <View style={styles.bottomContainer}>
           <ShowButton />

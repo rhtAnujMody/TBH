@@ -1,115 +1,63 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
-import {useAsyncStorage} from '../custom_hooks';
-import {UserData} from '../models/UserModal';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
-import authStore from './authStore';
+import {useNavigation} from '@react-navigation/native';
+import {AuthStackProps} from '../navigation/AppNavigation';
 
 const useForgotPasswordStore = () => {
-  const auth = authStore;
   const {request} = useApiService();
-  const {setData} = useAsyncStorage();
-
-  const signUpStore = useLocalObservable(() => ({
+  const navigation = useNavigation<AuthStackProps>();
+  const forgotStore = useLocalObservable(() => ({
     isLoading: false,
     isButtonEnabled: false,
-    name: '',
-    dob: '',
-    userEmail: '',
-    password: '',
     phoneNumber: '',
 
-    setEmail(value: string) {
-      signUpStore.userEmail = value;
-      signUpStore.validateCredentials();
+    setPhoneNumber(value: string) {
+      forgotStore.phoneNumber = value;
+      forgotStore.validateSubmit();
     },
-
-    setName(value: string) {
-      signUpStore.name = value;
-      signUpStore.validateCredentials();
-    },
-
-    setDOB(value: string) {
-      signUpStore.dob = value;
-      signUpStore.validateCredentials();
-    },
-    setNumber(value: string) {
-      signUpStore.phoneNumber = value;
-      signUpStore.validateCredentials();
-    },
-
-    setPassword(value: string) {
-      signUpStore.password = value;
-      signUpStore.validateCredentials();
-    },
-
-    validateCredentials() {
-      signUpStore.isButtonEnabled = false;
-
+    validateSubmit() {
+      forgotStore.isButtonEnabled = false;
       if (
-        signUpStore.name.length === 0 ||
-        signUpStore.userEmail.length === 0 ||
-        signUpStore.password.length === 0 ||
-        signUpStore.phoneNumber.length === 0 ||
-        signUpStore.dob.length === 0
+        Utility.validatePhone(forgotStore.phoneNumber) ||
+        Utility.validateEmail(forgotStore.phoneNumber)
       ) {
-        return;
+        forgotStore.isButtonEnabled = true;
       }
-
-      if (!Utility.validateEmail(signUpStore.userEmail)) {
-        //Utility.showToast(AppStrings.invalidEmail);
-        return;
-      }
-      if (signUpStore.password.length < 6) {
-        //Utility.showToast(AppStrings.invalidPassword);
-        return;
-      }
-
-      if (signUpStore.phoneNumber.length < 10) {
-        //Utility.showToast(AppStrings.invalidNumber);
-        return;
-      }
-      signUpStore.isButtonEnabled = true;
+      return;
     },
 
-    async signUp() {
+    async handleSubmit() {
       runInAction(() => {
-        signUpStore.isLoading = true;
+        forgotStore.isLoading = true;
       });
       try {
-        const response = await request<UserData>('post', AppStrings.signUp, {
-          name: signUpStore.name,
-          dob: signUpStore.dob,
-          email: signUpStore.userEmail,
-          password: signUpStore.password,
-          contact: signUpStore.phoneNumber,
-        });
+        const response: any = await request(
+          'get',
+          `https://2579-2405-201-4041-b074-d708-68d5-b1d7-9214.ngrok-free.app/api/v1/accounts/forgot-password/?unique_id=${this.phoneNumber}`,
+        );
         if (response.success) {
-          Utility.logData(response.data);
-          setData(AppStrings.isLogin, true);
-          setData(AppStrings.userData, response.data);
-          if (response.data) {
-            auth.setUserData(response.data);
-          }
-          auth.setIsLogin(true, () => {
-            Utility.showToast('SignUp Success');
+          Utility.showToast(response.msg);
+          navigation.navigate('OTP', {
+            data: this.phoneNumber,
+            id: response.data.id,
           });
         } else {
-          Utility.showToast(AppStrings.somethingWentWrong);
+          Utility.showToast(response.msg);
         }
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
-          signUpStore.isLoading = false;
+          forgotStore.isLoading = false;
         });
       }
     },
   }));
 
-  return signUpStore;
+  return forgotStore;
 };
 
 export default useForgotPasswordStore;

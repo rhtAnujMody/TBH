@@ -28,10 +28,8 @@ export const AppOTPInput: React.FunctionComponent<OTPInputProps> = ({
       if (valueIndex === index) {
         return text;
       }
-
       return item;
     });
-
     onChange(newValue);
   };
 
@@ -87,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
+    marginBottom: 20,
   },
   input: {
     fontSize: 24,

@@ -20,6 +20,12 @@ class Utility {
       );
   };
 
+  static validatePhone = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^\d{10}$/);
+  };
+
   static validateAlpha = (name: string) => {
     return String(name)
       .toLowerCase()

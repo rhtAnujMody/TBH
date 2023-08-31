@@ -4,6 +4,9 @@ export default {
   signUp: 'v1/accounts/register/',
   captureDetails: 'v1/accounts/nutrition-education/',
 
+  requestOTP: 'v1/accounts/forgot-password/',
+  verifyOTP: '/v1/accounts/verify-otp/',
+
   //AsyncStore Keys
   isLogin: 'is_login',
   userData: 'user_data',
