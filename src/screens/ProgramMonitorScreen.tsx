@@ -104,7 +104,7 @@ const ProgramMonitorScreen = () => {
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('existingPartner');
-                              handleIndex(2);
+                              handleIndex(3);
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.existingPartner}
@@ -152,7 +152,7 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
-                            textHeader="DATE OF VISIT"
+                            textHeader="Date Of Visit for Monitoring"
                             rightIcon={AppSVGs.dob}
                             placeHolder="Date Of Visit for Monitoring"
                             hideInput={true}
@@ -167,7 +167,6 @@ const ProgramMonitorScreen = () => {
                             textHeader="Visiting team size (staff/volunteers)"
                             placeHolder="Visiting team size (staff/volunteers)"
                             onChangeText={proStore.setVVTeamSize}
-                            keyboardType="numeric"
                             value={proStore.vvTeamSize}
                           />
 
@@ -228,6 +227,7 @@ const ProgramMonitorScreen = () => {
                             textHeader="Avg. class/school attendance  for the month"
                             placeHolder="Avg. class/school attendance  for the month"
                             onChangeText={proStore.setAvgAttendMonth}
+                            keyboardType="numeric"
                             value={proStore.averageAttendMonth}
                           />
 
@@ -272,7 +272,6 @@ const ProgramMonitorScreen = () => {
                             placeHolder="Which numbered activity sheet was received this month?"
                             onChangeText={proStore.setNumberedActivitySheet}
                             value={proStore.numberedActivitySheet}
-                            keyboardType="numeric"
                           />
 
                           <AppInput

@@ -494,7 +494,7 @@ const useHealthStore = () => {
               block: healthStore.newBlock,
               district: healthStore.newDistrict,
               state: healthStore.newState,
-              type: healthStore.partnerTypeID,
+              //type: healthStore.partnerTypeID,
             }),
           );
           formData.append('partner', '');

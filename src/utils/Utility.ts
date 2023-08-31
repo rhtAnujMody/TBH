@@ -43,7 +43,19 @@ class Utility {
   static validateAlphaNumericSpecial = (email: string) => {
     return String(email)
       .toLowerCase()
-      .match(/^(?=.*[a-zA-Z0-9])[\w\s!@#$%^&*(),.?":{}|<>+[\]\-\\/]{1,}$/g);
+      .match(/^[\s\S]+$/);
+  };
+
+  static validateAlphaSpecial = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^[a-zA-Z !@#$%^&*()\-_=+[{\]}|;:'",<.>/?]+$/);
+  };
+
+  static validateNumberSpecial = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^[0-9,.\s!@#$%^&*()\-_=+[{\]}|;:'",<.>/?]+$/);
   };
 
   static validateNumeric = (num: string) => {
