@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
-import {PermissionsAndroid} from 'react-native';
+import {Alert, PermissionsAndroid} from 'react-native';
 
 const useCamera = () => {
   const [selectedImages, setSelectedImages] = useState<Image[]>([]);
@@ -34,6 +34,10 @@ const useCamera = () => {
       maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
     })
       .then(images => {
+        if (selectedImages.length + images.length > 5) {
+          Alert.alert('Oops!', 'You cannot select more than 5 images');
+          return;
+        }
         setSelectedImages(prevSelectedImages =>
           prevSelectedImages.concat(images),
         );
