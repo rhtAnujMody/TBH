@@ -5,7 +5,8 @@ export default {
   captureDetails: 'v1/accounts/nutrition-education/',
   programMonitor: 'v1/accounts/program-monitoring/',
   healthCamp: 'v1/accounts/health-camp/',
-
+  forgetPassword: (phoneNumber: string) =>
+    `v1/accounts/forgot-password/?unique_id=${phoneNumber}`,
   requestOTP: 'v1/accounts/forgot-password/',
   verifyOTP: '/v1/accounts/verify-otp/',
 
