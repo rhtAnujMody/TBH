@@ -451,7 +451,7 @@ const ProgramMonitorScreen = () => {
                             </View>
                             <View style={styles.hourMinStyle}>
                               <AppInput
-                                textHeader=""
+                                textHeader={'\n'}
                                 placeHolder="Minute"
                                 value={proStore.volunteerMinute}
                                 parentStyle={styles.textInputStyle}
