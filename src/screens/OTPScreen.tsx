@@ -17,8 +17,6 @@ const OTPScreen = () => {
   const route = useRoute<RouteProp<AuthStackParamList, 'OTP'>>();
   const {data, id} = route.params;
 
-  const handleOnSubmitEditing = () => {};
-
   const ShowButton = observer(() => {
     return (
       <AppButton

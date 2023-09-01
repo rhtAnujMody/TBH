@@ -75,7 +75,7 @@ const LoginScreen = () => {
           onChangeText={loginStore.setPassword}
         />
         <Text
-          style={[styles.signUp, {alignSelf: 'flex-end'}]}
+          style={[styles.signUp, styles.flexEnd]}
           onPress={navigateToForgot}>
           {' Forgot Password '}
         </Text>
@@ -147,5 +147,6 @@ const loginStyles = (isKeyboardVisible: boolean) => {
     signUp: {
       color: colors.palette.primary,
     },
+    flexEnd: {alignSelf: 'flex-end'},
   });
 };

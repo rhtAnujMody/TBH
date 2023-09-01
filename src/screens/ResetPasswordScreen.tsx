@@ -18,7 +18,6 @@ const ResetPasswordScreen = () => {
   const resetStore = useResetStore();
   const route = useRoute<RouteProp<AuthStackParamList, 'Reset'>>();
   const {id} = route.params;
-  const handleOnSubmitEditing = () => {};
 
   const ShowButton = observer(() => {
     return (

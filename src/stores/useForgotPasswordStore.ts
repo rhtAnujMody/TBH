@@ -36,12 +36,12 @@ const useForgotPasswordStore = () => {
       try {
         const response: any = await request(
           'get',
-          `https://2579-2405-201-4041-b074-d708-68d5-b1d7-9214.ngrok-free.app/api/v1/accounts/forgot-password/?unique_id=${this.phoneNumber}`,
+          AppStrings.forgetPassword(forgotStore.phoneNumber),
         );
         if (response.success) {
           Utility.showToast(response.msg);
           navigation.navigate('OTP', {
-            data: this.phoneNumber,
+            data: forgotStore.phoneNumber,
             id: response.data.id,
           });
         } else {

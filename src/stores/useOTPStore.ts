@@ -5,7 +5,6 @@ import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import useForgotPasswordStore from './useForgotPasswordStore';
 
 const useOTPStore = () => {
   const {request} = useApiService();
@@ -14,27 +13,27 @@ const useOTPStore = () => {
   const otpStore = useLocalObservable(() => ({
     isLoading: false,
     isButtonEnabled: false,
-    otp: ['', '', '', ''],
+    otp: [] as string[],
 
     setOTP(value: string[]) {
       value.map((value, index) => {
         otpStore.otp[index] = value;
       });
-      this.validateSubmit();
+      otpStore.validateSubmit();
     },
 
     getOTP() {
       let res = '';
-      for (let i = 0; i < this.otp.length; i++) {
-        res = res + this.otp[i];
+      for (let i = 0; i < otpStore.otp.length; i++) {
+        res = res + otpStore.otp[i];
       }
       return res;
     },
 
     validateSubmit() {
       otpStore.isButtonEnabled = false;
-      for (let i = 0; i < this.otp.length; i++) {
-        if (this.otp[i] == '') {
+      for (let i = 0; i < otpStore.otp.length; i++) {
+        if (otpStore.otp[i] == '') {
           return;
         }
       }
@@ -48,7 +47,7 @@ const useOTPStore = () => {
       try {
         const response = await request('post', AppStrings.verifyOTP, {
           user_id: id,
-          otp: this.getOTP(),
+          otp: otpStore.getOTP(),
         });
         if (response.success) {
           Utility.showToast(response.msg);

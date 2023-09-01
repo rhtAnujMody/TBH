@@ -44,7 +44,7 @@ const useResetStore = () => {
       try {
         const response = await request('post', AppStrings.requestOTP, {
           user_id: id,
-          new_password: this.confirmPwd,
+          new_password: resetStore.confirmPwd,
         });
         if (response.success) {
           Utility.showToast(response.msg);
