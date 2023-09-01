@@ -6,9 +6,11 @@ import {ProgramModal} from '../models/ProgramModal';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import authStore from './authStore';
+import {useNavigation} from '@react-navigation/native';
 
 const useProgramStore = () => {
   const {request} = useApiService();
+  const navigation = useNavigation();
   const partnerNameLocation = () => {
     return authStore.userData.partner_list.map(item => {
       return {
@@ -100,9 +102,9 @@ const useProgramStore = () => {
       {name: 'Yes', id: true},
       {name: 'No', id: false},
     ],
-    hourOptions: Array.from({length: 12}, (_, index) => ({
-      name: (index + 1).toString(),
-      id: (index + 1).toString(),
+    hourOptions: Array.from({length: 24}, (_, index) => ({
+      name: index.toString(),
+      id: index.toString(),
     })),
     minuteOptions: Array.from({length: 60}, (_, index) => ({
       name: index.toString().padStart(2, '0'),
@@ -132,18 +134,30 @@ const useProgramStore = () => {
       proStore.validateSubmit();
     },
     setLiaDNameStaff(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       proStore.liaDNameStaff = value;
       proStore.validateSubmit();
     },
     setLiaDDesigStaff(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       proStore.liaDDesigStaff = value;
       proStore.validateSubmit();
     },
     setLiaPNameStaff(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       proStore.liaPNameStaff = value;
       proStore.validateSubmit();
     },
     setLiaPDesigStaff(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       proStore.liaPDesigStaff = value;
       proStore.validateSubmit();
     },
@@ -160,18 +174,30 @@ const useProgramStore = () => {
       proStore.validateSubmit();
     },
     setNumberOfChildrenDOV(value: string) {
+      if (!value.trim() && !Utility.validateNumeric(value)) {
+        return;
+      }
       proStore.numberOfChildrenDOV = value;
       proStore.validateSubmit();
     },
     setAvgAttendMonth(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
+        return;
+      }
       proStore.averageAttendMonth = value;
       proStore.validateSubmit();
     },
     setNumNewChildEnroll(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
+        return;
+      }
       proStore.numNewChildEnroll = value;
       proStore.validateSubmit();
     },
     setNumChildDropped(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
+        return;
+      }
       proStore.numChildDropped = value;
       proStore.validateSubmit();
     },
@@ -192,10 +218,16 @@ const useProgramStore = () => {
       proStore.validateSubmit();
     },
     setNoOfMealsCF(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
+        return;
+      }
       proStore.noOfMealsCF = value;
       proStore.validateSubmit();
     },
     setNoOfMealsReceive(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
+        return;
+      }
       proStore.noOfMealsReceive = value;
       proStore.validateSubmit();
     },
@@ -239,7 +271,7 @@ const useProgramStore = () => {
           proStore.bottomSheetArray = proStore.partnerTypeOptions;
           break;
         case 'existingPartner':
-          proStore.bottomSheetHeader = 'Name of Existing Partner';
+          proStore.bottomSheetHeader = 'Name and Location of Existing Partner';
           proStore.bottomSheetArray = proStore.existingPartnerOptions;
           break;
         case 'location':
@@ -296,7 +328,7 @@ const useProgramStore = () => {
           proStore.partnerTypeID = id;
           proStore.validateSubmit();
           break;
-        case 'Name of Existing Partner':
+        case 'Name and Location of Existing Partner':
           const res = value.split(',');
           proStore.existingPartner = res[0];
           proStore.existLocation = res[1];
@@ -351,73 +383,75 @@ const useProgramStore = () => {
     },
     validateSubmit() {
       proStore.enableSubmit = false;
-      if (proStore.partnerType == '') {
+      if (proStore.partnerType === '') {
         return;
       }
-      if (proStore.existingPartner == '') {
+      if (proStore.existingPartner === '') {
         return;
       }
-      if (proStore.dov == '') {
+      if (proStore.dov === '') {
         return;
       }
-      if (!Utility.validateNumeric(proStore.vvTeamSize)) {
+      if (!Utility.validateAlphaNumericSpecial(proStore.vvTeamSize)) {
         return;
       }
-      if (!Utility.validateAlpha(proStore.liaDNameStaff)) {
+      if (!Utility.validateAlphaSpecial(proStore.liaDNameStaff)) {
         return;
       }
-      if (!Utility.validateAlpha(proStore.liaDDesigStaff)) {
+      if (!Utility.validateAlphaSpecial(proStore.liaDDesigStaff)) {
         return;
       }
-      if (!Utility.validateAlpha(proStore.liaPNameStaff)) {
+      if (!Utility.validateAlphaSpecial(proStore.liaPNameStaff)) {
         return;
       }
-      if (!Utility.validateAlpha(proStore.liaPDesigStaff)) {
+      if (!Utility.validateAlphaSpecial(proStore.liaPDesigStaff)) {
         return;
       }
       if (!Utility.validateNumeric(proStore.numberOfChildrenDOV)) {
         return;
       }
-      if (proStore.averageAttendMonth == '') {
+      if (!Utility.validateNumberSpecial(proStore.averageAttendMonth)) {
         return;
       }
-      if (!Utility.validateNumeric(proStore.numNewChildEnroll)) {
+      if (!Utility.validateNumberSpecial(proStore.numNewChildEnroll)) {
         return;
       }
-      if (!Utility.validateNumeric(proStore.numChildDropped)) {
+      if (!Utility.validateNumberSpecial(proStore.numChildDropped)) {
         return;
       }
-      if (!Utility.validateNumeric(proStore.numChildSick)) {
+      if (!Utility.validateNumberSpecial(proStore.numChildSick)) {
         return;
       }
       if (!Utility.validateAlphaNumericSpecial(proStore.illness)) {
         return;
       }
-      if (proStore.numberedActivitySheet == '') {
+      if (
+        !Utility.validateAlphaNumericSpecial(proStore.numberedActivitySheet)
+      ) {
         return;
       }
-      if (proStore.activitySheetCompleted == '') {
+      if (proStore.activitySheetCompleted === '') {
         return;
       }
-      if (proStore.poshanCalenderCompleted == '') {
+      if (proStore.poshanCalenderCompleted === '') {
         return;
       }
-      if (proStore.foodSupplyDate == '') {
+      if (proStore.foodSupplyDate === '') {
         return;
       }
-      if (!Utility.validateNumeric(proStore.noOfMealsCF)) {
+      if (!Utility.validateNumberSpecial(proStore.noOfMealsCF)) {
         return;
       }
-      if (!Utility.validateNumeric(proStore.noOfMealsReceive)) {
+      if (!Utility.validateNumberSpecial(proStore.noOfMealsReceive)) {
         return;
       }
-      if (proStore.storedFoodSafely == '') {
+      if (proStore.storedFoodSafely === '') {
         return;
       }
-      if (proStore.breakfastServedDaily == '') {
+      if (proStore.breakfastServedDaily === '') {
         return;
       }
-      if (proStore.whenBreakfast == '') {
+      if (proStore.whenBreakfast === '') {
         return;
       }
       if (!Utility.validateAlphaNumericSpecial(proStore.addObservations)) {
@@ -429,19 +463,19 @@ const useProgramStore = () => {
       if (!Utility.validateAlphaNumericSpecial(proStore.parentFeedback)) {
         return;
       }
-      if (proStore.childFeedback == '') {
+      if (proStore.childFeedback === '') {
         return;
       }
-      if (!Utility.validateAlpha(proStore.volunteerName)) {
+      if (!Utility.validateAlphaNumericSpecial(proStore.volunteerName)) {
         return;
       }
-      if (!Utility.validateAlpha(proStore.companyName)) {
+      if (!Utility.validateAlphaNumericSpecial(proStore.companyName)) {
         return;
       }
-      if (proStore.volunteerHour == '') {
+      if (proStore.volunteerHour === '') {
         return;
       }
-      if (proStore.volunteerMinute == '') {
+      if (proStore.volunteerMinute === '') {
         return;
       }
       if (!Utility.validateAlphaNumericSpecial(proStore.volunteerReason)) {
@@ -453,10 +487,10 @@ const useProgramStore = () => {
       if (!Utility.validateAlphaNumericSpecial(proStore.otherFeedback)) {
         return;
       }
-      if (proStore.hour == '') {
+      if (proStore.hour === '') {
         return;
       }
-      if (proStore.minute == '') {
+      if (proStore.minute === '') {
         return;
       }
       proStore.enableSubmit = true;
@@ -554,14 +588,13 @@ const useProgramStore = () => {
         );
 
         if (responseJson.success) {
-          console.log(responseJson, 'response from server');
           Utility.showToast(responseJson.msg);
         } else {
           Utility.showToast(responseJson.msg);
         }
+        navigation.goBack();
       } catch (err) {
         Utility.showToast('Something went wrong');
-        console.log(err);
       } finally {
         runInAction(() => {
           proStore.isLoading = false;

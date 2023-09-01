@@ -144,14 +144,24 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setNumberHC(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
+
       healthStore.numberHC = value;
       healthStore.validateSubmit();
     },
     setChildName(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlpha(value)) {
+        return;
+      }
       healthStore.childName = value;
       healthStore.validateSubmit();
     },
     setContact(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.contact = value;
       healthStore.validateSubmit();
     },
@@ -163,14 +173,23 @@ const useHealthStore = () => {
       healthStore.age = value.toString();
     },
     setHeight(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.height = value;
       healthStore.validateSubmit();
     },
     setWeight(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.weight = value;
       healthStore.validateSubmit();
     },
     setMUAC(value: string) {
+      if (!(value.trim() === '') && !Utility.validateFloat(value)) {
+        return;
+      }
       healthStore.muac = value;
       healthStore.validateSubmit();
     },
@@ -195,22 +214,37 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setDurationOfCourse(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourse = value;
       healthStore.validateSubmit();
     },
     setDurationOfCourseWorm(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourseWorm = value;
       healthStore.validateSubmit();
     },
     setLocationOfDose(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDose = value;
       healthStore.validateSubmit();
     },
     setLocationOfDoseWorm(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDoseWorm = value;
       healthStore.validateSubmit();
     },
     setLocationOfDoseIFA(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
       healthStore.locationOfDoseIFA = value;
       healthStore.validateSubmit();
     },
@@ -227,6 +261,9 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setDurationOfCourseIFA(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       healthStore.durationOfCourseIFA = value;
       healthStore.validateSubmit();
     },
@@ -246,11 +283,11 @@ const useHealthStore = () => {
       }
       if (healthStore.partner === 'New') {
         if (
-          !Utility.validateAlpha(healthStore.newPartnerName) ||
-          !Utility.validateAlpha(healthStore.newLocation) ||
-          !Utility.validateAlpha(healthStore.newBlock) ||
-          !Utility.validateAlpha(healthStore.newDistrict) ||
-          !Utility.validateAlpha(healthStore.newState)
+          !Utility.validateAlphaNumericSpecial(healthStore.newPartnerName) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newLocation) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newBlock) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newDistrict) ||
+          !Utility.validateAlphaNumericSpecial(healthStore.newState)
         ) {
           return;
         }
@@ -263,7 +300,7 @@ const useHealthStore = () => {
       if (healthStore.dohc === '') {
         return;
       }
-      if (!Utility.validateNumeric(healthStore.numberHC)) {
+      if (!Utility.validateAlphaNumericSpecial(healthStore.numberHC)) {
         return;
       }
       if (!Utility.validateAlpha(healthStore.childName)) {
@@ -304,10 +341,12 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseVitamin === '') {
               return;
             }
-            if (healthStore.durationOfCourse === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourse)) {
               return;
             }
-            if (healthStore.locationOfDose === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(healthStore.locationOfDose)
+            ) {
               return;
             }
           }
@@ -324,10 +363,14 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseDeworm === '') {
               return;
             }
-            if (healthStore.durationOfCourseWorm === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourseWorm)) {
               return;
             }
-            if (healthStore.locationOfDoseWorm === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(
+                healthStore.locationOfDoseWorm,
+              )
+            ) {
               return;
             }
           }
@@ -345,10 +388,14 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseIFA === '') {
               return;
             }
-            if (healthStore.durationOfCourseIFA === '') {
+            if (!Utility.validateNumeric(healthStore.durationOfCourseIFA)) {
               return;
             }
-            if (healthStore.locationOfDoseIFA === '') {
+            if (
+              !Utility.validateAlphaNumericSpecial(
+                healthStore.locationOfDoseIFA,
+              )
+            ) {
               return;
             }
           }
@@ -494,7 +541,7 @@ const useHealthStore = () => {
               block: healthStore.newBlock,
               district: healthStore.newDistrict,
               state: healthStore.newState,
-              type: healthStore.partnerTypeID,
+              //type: healthStore.partnerTypeID,
             }),
           );
           formData.append('partner', '');

@@ -97,19 +97,19 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.partnerType}
                             textHeader="PARTNER TYPE"
-                            placeHolder="Partner Type"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
                           <AppInput
                             onPress={() => {
                               handleBottomSheetClick('existingPartner');
-                              handleIndex(2);
+                              handleIndex(3);
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.existingPartner}
                             textHeader="NAME AND LOCATION OF EXISTING PARTNER"
-                            placeHolder="Name and Location of existing partner"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -152,9 +152,9 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
-                            textHeader="DATE OF VISIT"
+                            textHeader="Date Of Visit for Monitoring"
                             rightIcon={AppSVGs.dob}
-                            placeHolder="Date Of Visit for Monitoring"
+                            placeHolder="Please Select"
                             hideInput={true}
                             onPress={() => {
                               showDatePicker('1');
@@ -165,40 +165,39 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Visiting team size (staff/volunteers)"
-                            placeHolder="Visiting team size (staff/volunteers)"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setVVTeamSize}
-                            keyboardType="numeric"
                             value={proStore.vvTeamSize}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Partner liaison for the visit"
-                            placeHolder="Name of decimal staff"
+                            textHeader="Name of Decimal Staff Partner liaison for the visit"
+                            placeHolder="Please Enter the details"
                             value={proStore.liaDNameStaff}
                             onChangeText={proStore.setLiaDNameStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Partner liaison for the visit"
-                            placeHolder="Designation of decimal staff"
+                            textHeader="Designation of Decimal Staff Partner liaison for the visit"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaDDesigStaff}
                             value={proStore.liaDDesigStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Partner liaison for the visit"
-                            placeHolder="Name of Partner's staff"
+                            textHeader="Name of Partner's Staff Partner liaison for the visit"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaPNameStaff}
                             value={proStore.liaPNameStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Partner liaison for the visit"
-                            placeHolder="Designation of Partner's staff"
+                            textHeader="Designation of Partner's Staff Partner liaison for the visit"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaPDesigStaff}
                             value={proStore.liaPDesigStaff}
                           />
@@ -217,7 +216,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of children present on the day of visit"
-                            placeHolder="Number of children present on the day of visit"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNumberOfChildrenDOV}
                             keyboardType="numeric"
                             value={proStore.numberOfChildrenDOV}
@@ -226,15 +225,16 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Avg. class/school attendance  for the month"
-                            placeHolder="Avg. class/school attendance  for the month"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setAvgAttendMonth}
+                            keyboardType="numeric"
                             value={proStore.averageAttendMonth}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of new children enrolled into the program"
-                            placeHolder="Number of new children enrolled into the program"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNumNewChildEnroll}
                             keyboardType="numeric"
                             value={proStore.numNewChildEnroll}
@@ -243,7 +243,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of children who have dropped out of the program"
-                            placeHolder="Number of children who have dropped out of the program"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNumChildDropped}
                             keyboardType="numeric"
                             value={proStore.numChildDropped}
@@ -252,7 +252,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of children who are sick around the day of visit."
-                            placeHolder="Number of children who are sick around the day of visit."
+                            placeHolder="Please Enter the details"
                             value={proStore.numChildSick}
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
@@ -261,7 +261,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="What is the illness?"
-                            placeHolder="What is the illness?"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setIllness}
                             value={proStore.illness}
                           />
@@ -269,10 +269,9 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Which numbered activity sheet was received this month?"
-                            placeHolder="Which numbered activity sheet was received this month?"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNumberedActivitySheet}
                             value={proStore.numberedActivitySheet}
-                            keyboardType="numeric"
                           />
 
                           <AppInput
@@ -283,7 +282,7 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.activitySheetCompleted}
                             textHeader="Have the children completed the activity sheet for this month?"
-                            placeHolder="Have the children completed the activity sheet for this month?"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -295,7 +294,7 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.poshanCalenderCompleted}
                             textHeader="Are the teachers/social workers completing the Poshan Calendar properly?"
-                            placeHolder="Are the teachers/social workers completing the Poshan Calendar properly?"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -303,7 +302,7 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.dovInputStyle}
                             textHeader="Date when the month's food supply was received"
                             rightIcon={AppSVGs.dob}
-                            placeHolder="Date when the month's food supply was received"
+                            placeHolder="Please Enter the details"
                             hideInput={true}
                             onPress={() => {
                               showDatePicker('2');
@@ -314,7 +313,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of meals carried forward from the previous month"
-                            placeHolder="Number of meals carried forward from the previous month"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNoOfMealsCF}
                             keyboardType="numeric"
                             value={proStore.noOfMealsCF}
@@ -323,7 +322,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Number of meals received this month"
-                            placeHolder="Number of meals received this month"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setNoOfMealsReceive}
                             keyboardType="numeric"
                             value={proStore.noOfMealsReceive}
@@ -337,7 +336,7 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.storedFoodSafely}
                             textHeader="Has the partner stored the food safely?"
-                            placeHolder="Has the partner stored the food safely?"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -349,7 +348,7 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.breakfastServedDaily}
                             textHeader="Is the breakfast being served daily?"
-                            placeHolder="Is the breakfast being served daily?"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -361,14 +360,14 @@ const ProgramMonitorScreen = () => {
                             parentStyle={styles.textInputStyle}
                             value={proStore.whenBreakfast}
                             textHeader="When is breakfast usually served? (observed by Decimal staff)"
-                            placeHolder="When is breakfast usually served? (observed by Decimal staff)"
+                            placeHolder="Please Select"
                             rightIcon={AppSVGs.dropdown}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Additional observations or points discussed"
-                            placeHolder="Additional observations or points discussed"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setAddObservations}
                             value={proStore.addObservations}
                           />
@@ -387,7 +386,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
-                            placeHolder="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setTeacherFeedback}
                             value={proStore.teacherFeedback}
                           />
@@ -395,7 +394,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from parents (if available)"
-                            placeHolder="Feedback from parents (if available)"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setParentFeedback}
                             value={proStore.parentFeedback}
                           />
@@ -403,7 +402,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Feedback from the children (food tastes, thoughts, activity sheets etc)"
-                            placeHolder="Feedback from the children (food tastes, thoughts, activity sheets etc)"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setChildFeedback}
                             value={proStore.childFeedback}
                           />
@@ -423,7 +422,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Company name"
-                            placeHolder="Company name"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setCompanyName}
                             value={proStore.companyName}
                           />
@@ -431,7 +430,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Name of volunteer(s)"
-                            placeHolder="Name of volunteer(s)"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
                           />
@@ -452,7 +451,7 @@ const ProgramMonitorScreen = () => {
                             </View>
                             <View style={styles.hourMinStyle}>
                               <AppInput
-                                textHeader=""
+                                textHeader={'\n'}
                                 placeHolder="Minute"
                                 value={proStore.volunteerMinute}
                                 parentStyle={styles.textInputStyle}
@@ -468,7 +467,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Reason/objective for the volunteering session with Decimal"
-                            placeHolder="Reason/objective for the volunteering session with Decimal"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setVolunteerReason}
                             value={proStore.volunteerReason}
                           />
@@ -476,7 +475,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Any major learning(s)  and/or observations "
-                            placeHolder="Any major learning(s)  and/or observations "
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setLearnAndObserve}
                             value={proStore.learnAndObserve}
                           />
@@ -484,7 +483,7 @@ const ProgramMonitorScreen = () => {
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
                             textHeader="Any other feedback"
-                            placeHolder="Any other feedback"
+                            placeHolder="Please Enter the details"
                             onChangeText={proStore.setOtherFeedback}
                             value={proStore.otherFeedback}
                           />

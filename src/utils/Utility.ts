@@ -25,7 +25,7 @@ class Utility {
     let age_dt = new Date(month_diff);
     let year = age_dt.getUTCFullYear();
     var age = Math.abs(year - 1970);
-    return age;
+    return age * 12;
   };
 
   static validatePhoneNumber = (num: string) => {
@@ -35,15 +35,29 @@ class Utility {
   };
 
   static validateAlpha = (name: string) => {
-    return String(name)
-      .toLowerCase()
-      .match(/^[A-Za-z]+$/g);
+    return (
+      String(name)
+        .toLowerCase()
+        .match(/^[a-zA-Z\s]+$/) && String(name).trim() !== ''
+    );
   };
 
   static validateAlphaNumericSpecial = (email: string) => {
     return String(email)
       .toLowerCase()
-      .match(/^(?=.*[a-zA-Z0-9])[\w\s!@#$%^&*(),.?":{}|<>+[\]\-\\/]{1,}$/g);
+      .match(/^[\s\S]+$/);
+  };
+
+  static validateAlphaSpecial = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^[a-zA-Z !@#$%^&*()\-_=+[{\]}|;:'",<.>/?]+$/);
+  };
+
+  static validateNumberSpecial = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(/^[0-9,.\s!@#$%^&*()\-_=+[{\]}|;:'",<.>/?]+$/);
   };
 
   static validateNumeric = (num: string) => {
