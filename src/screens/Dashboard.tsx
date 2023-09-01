@@ -23,10 +23,19 @@ const Dashboard = () => {
   ];
 
   const navigateToCard = (index: number) => {
-    if (index === 0) {
-      navigation.navigate('CaptureDetails');
-    } else if (index === 1) {
-      navigation.navigate('GenerateReports');
+    switch (index) {
+      case 0:
+        navigation.navigate('HealthCamp');
+        break;
+      case 1:
+        navigation.navigate('GenerateReports');
+        break;
+      case 2:
+        navigation.navigate('CaptureDetails');
+        break;
+      case 3:
+        navigation.navigate('ProgramMonitor');
+        break;
     }
   };
   const auth = authStore;
@@ -58,7 +67,7 @@ const Dashboard = () => {
                   title={data.title}
                   icon={data.icon}
                   key={data.title}
-                  onPress={() => {}}
+                  onPress={() => navigateToCard(index)}
                   marginRight={index === 0 ? 10 : 0}
                 />
               );
@@ -70,7 +79,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigation.navigate('CaptureDetails')}
+              onPress={() => navigateToCard(2)}
             />
           </View>
           <Text style={styles.title}>Program Monitoring</Text>
@@ -79,7 +88,40 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigation.navigate('ProgramMonitor')}
+              onPress={() => navigateToCard(3)}
+            />
+          </View>
+          <Text style={styles.title}>Generate Report</Text>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Malnutrition Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(4)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Wasting-Stunting Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(5)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={'Custom Report'}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(6)}
+            />
+          </View>
+          <View style={styles.cardsContainer}>
+            <HomeCard
+              title={"Doctor's Observation Report"}
+              icon={homeCards[0].icon}
+              key={homeCards[0].title}
+              onPress={() => navigateToCard(7)}
             />
           </View>
         </ScrollView>
@@ -140,6 +182,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    zIndex: -2,
   },
   title: {
     ...typography.bold(18),

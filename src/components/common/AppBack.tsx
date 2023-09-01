@@ -26,5 +26,8 @@ const AppBack = ({onPress}: Props) => {
 export default AppBack;
 
 const styles = StyleSheet.create({
-  container: {padding: 20},
+  container: {
+    padding: 20,
+    width: '15%',
+  },
 });

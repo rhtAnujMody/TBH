@@ -1,7 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef, useState, useEffect} from 'react';
-import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
+import React, {useRef, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -10,11 +9,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  PermissionsAndroid,
-  Alert,
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
-import DatePicker from 'react-native-date-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {AppSVGs} from '../assets';
 import {AppButton, AppContainer, AppTextInput} from '../components';
@@ -25,95 +21,28 @@ import AppInput from '../components/common/AppInput';
 import AppToggle from '../components/common/AppToggle';
 import Header from '../components/common/Header';
 import useCamera from '../custom_hooks/useCamera';
+import {authStore} from '../stores';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
-import {authStore} from '../stores';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const [showCalender, setShowCalender] = useState(false);
-  //const [selectedImages, setSelectedImages] = useState<Image[]>([]);
 
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera(cdStore.togglePhotoBottomSheet);
+    useCamera();
 
-  // useEffect(() => {
-  //   requestPermission();
-  //   // console.log(selectedImages[0].path);
-  // }, []);
-
-  // const requestPermission = async () => {
-  //   try {
-  //     const granted = await PermissionsAndroid.requestMultiple([
-  //       PermissionsAndroid.PERMISSIONS.CAMERA,
-  //       PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES,
-  //     ]);
-  //     if (
-  //       granted['android.permission.CAMERA'] &&
-  //       granted['android.permission.READ_MEDIA_IMAGES']
-  //     ) {
-  //       console.log('You can use the camera');
-  //     } else {
-  //       console.log('Camera permission denied');
-  //     }
-  //   } catch (error) {
-  //     console.log('permission error', error);
-  //   }
-  // };
-
-  // const openGallery = () => {
-  //   ImageCropPicker.openPicker({
-  //     multiple: true,
-  //     mediaType: 'photo',
-  //     maxFiles: 5 - selectedImages.length, // Limit the number of images to 5
-  //   })
-  //     .then(images => {
-  //       if (images.length + selectedImages.length > 5) {
-  //         Alert.alert('Oops!', 'You can select max 5 images');
-  //       }
-
-  //       setSelectedImages(prevSelectedImages =>
-  //         prevSelectedImages
-  //           .concat(images)
-  //           .slice(0, Math.min(prevSelectedImages.length + images.length, 5)),
-  //       );
-  //     })
-  //     .catch(error => {
-  //       console.log('Error selecting images:', error);
-  //     });
-  //   cdStore.togglePhotoBottomSheet();
-  // };
-
-  // const removeImage = (index: number) => {
-  //   const updatedImages = [...selectedImages];
-  //   updatedImages.splice(index, 1);
-  //   setSelectedImages(updatedImages);
-  // };
-
-  // const takePhotoFromCamera = () => {
-  //   ImageCropPicker.openCamera({
-  //     width: 300,
-  //     height: 400,
-  //     cropping: true,
-  //   }).then(image => {
-  //     console.log(image);
-  //     cdStore.togglePhotoBottomSheet();
-  //   });
-  //   //cdStore.togglePhotoBottomSheet();
-  // };
-
-  // const onConfirmDate = (date: Date) => {
-  //   cdStore.setDOV(Utility.formatDate(date));
-
-  //   cdStore.toggleDOVPicker();
-  // };
-
-  // const onCancelDate = () => {
-  //   cdStore.toggleDOVPicker();
-  // };
+  const handleImagePicker = (from: number) => {
+    cdStore.togglePhotoBottomSheet();
+    if (from === 1) {
+      takePhotoFromCamera();
+    } else {
+      openGallery();
+    }
+  };
 
   const handleBottomSheetClick = (from: string) => {
     cdStore.toggleBottomSheet(from);
@@ -125,10 +54,6 @@ const CaptureDetailsScreen = () => {
 
   const handleIndex = (value: number) => {
     cdStore.setIndex(value);
-  };
-
-  const toggleLoader = () => {
-    cdStore.toggleLoader();
   };
 
   const showDatePicker = () => {
@@ -466,7 +391,10 @@ const CaptureDetailsScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={cdStore.isLoading}
-                  onPress={() => cdStore.handleImageUpload(selectedImages)}
+                  onPress={() => {
+                    cdStore.setSelectedImages(selectedImages);
+                    cdStore.saveData();
+                  }}
                   enabled={cdStore.enableSubmit}
                 />
               )}
@@ -532,12 +460,16 @@ const CaptureDetailsScreen = () => {
               </View>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={takePhotoFromCamera}>
+                onPress={() => {
+                  handleImagePicker(1);
+                }}>
                 <Text>Take a Photo</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
-                onPress={openGallery}>
+                onPress={() => {
+                  handleImagePicker(2);
+                }}>
                 <Text>Upload from Library</Text>
               </TouchableOpacity>
             </View>

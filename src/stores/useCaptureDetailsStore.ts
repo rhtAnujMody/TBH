@@ -10,6 +10,24 @@ import authStore from './authStore';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
+  const partnerNameLocation = () => {
+    return authStore.userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
   const cdStore = useLocalObservable(() => ({
     dov: '',
     openDOVPicker: false,
@@ -32,6 +50,7 @@ const useCaptureDetailsStore = () => {
     existState: '',
 
     partnerID: '', //backend not accepting 0
+    beneficiarieID: '',
 
     age: '',
     ageID: '',
@@ -45,12 +64,13 @@ const useCaptureDetailsStore = () => {
     sessionConductedBy: '',
     feedbackFromParticipants: '',
     enableSubmit: false,
+    selectedImages: [] as Image[],
     beneficiarisOptions: authStore.userData.beneficiary_list ?? [],
     partnerOptions: [
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: authStore.userData.partner_list ?? [],
+    partnerNameList: partnerNameLocation(),
     locationList: [
       {
         name: 'Ramabai',
@@ -246,6 +266,10 @@ const useCaptureDetailsStore = () => {
       cdStore.validateSubmit();
     },
 
+    setSelectedImages(selectedImage: Image[]) {
+      cdStore.selectedImages = selectedImage;
+    },
+
     validateSubmit() {
       cdStore.enableSubmit = false;
       if (cdStore.dov == '') {
@@ -308,8 +332,7 @@ const useCaptureDetailsStore = () => {
       cdStore.enableSubmit = true;
     },
 
-    async handleImageUpload(selectedImages: Image[]) {
-      console.log(selectedImages, 'images');
+    async saveData() {
       runInAction(() => {
         cdStore.isLoading = true;
       });
@@ -346,11 +369,11 @@ const useCaptureDetailsStore = () => {
         formData.append('beneficiary', cdStore.beneficiarieID);
         formData.append('visit_date', cdStore.dov);
 
-        for (let i = 0; i < Math.min(selectedImages.length, 5); i++) {
+        for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
           formData.append(`image_${i + 1}`, {
-            uri: selectedImages[i].path,
-            type: selectedImages[i].mime,
-            name: selectedImages[i].path.split('/').pop(),
+            uri: cdStore.selectedImages[i].path,
+            type: cdStore.selectedImages[i].mime,
+            name: cdStore.selectedImages[i].path.split('/').pop(),
           });
         }
 

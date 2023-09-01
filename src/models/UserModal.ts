@@ -5,9 +5,21 @@ export interface UserData {
   dob: string;
   beneficiary_list: BeneficiaryList[];
   partner_list: PartnerList[];
+  health_camp_beneficiary: HealthCampBeneficiary[];
+  education_details: EducationDetails[];
+}
+
+export interface EducationDetails {
+  id: number;
+  name: string;
 }
 
 export interface BeneficiaryList {
+  id: number;
+  name: string;
+}
+
+export interface HealthCampBeneficiary {
   id: number;
   name: string;
 }

@@ -36,7 +36,9 @@ const useSignUpStore = () => {
       signUpStore.validateCredentials();
     },
     setNumber(value: string) {
-      signUpStore.phoneNumber = value;
+      if (Utility.checkDigits(value)) {
+        signUpStore.phoneNumber = value;
+      }
       signUpStore.validateCredentials();
     },
 
@@ -97,7 +99,7 @@ const useSignUpStore = () => {
             Utility.showToast('SignUp Success');
           });
         } else {
-          Utility.showToast(AppStrings.somethingWentWrong);
+          Utility.showToast(response.msg ?? AppStrings.somethingWentWrong);
         }
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
