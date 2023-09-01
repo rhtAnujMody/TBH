@@ -21,7 +21,7 @@ const useForgotPasswordStore = () => {
     validateSubmit() {
       forgotStore.isButtonEnabled = false;
       if (
-        Utility.validatePhone(forgotStore.phoneNumber) ||
+        Utility.validatePhoneNumber(forgotStore.phoneNumber) ||
         Utility.validateEmail(forgotStore.phoneNumber)
       ) {
         forgotStore.isButtonEnabled = true;
