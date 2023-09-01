@@ -8,6 +8,9 @@ import female from './female';
 import dropdown from './dropdown';
 import close from './close';
 import uploadImage from './uploadImage';
+import forgot from './forgot';
+import reset from './reset';
+import otp from './otp';
 
 export default {
   logo,
@@ -18,6 +21,9 @@ export default {
   close,
   dropdown,
   uploadImage,
+  forgot,
+  reset,
+  otp,
   ...login,
   ...home,
 };
