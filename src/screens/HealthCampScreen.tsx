@@ -444,7 +444,7 @@ const HealthCampScreen = () => {
                           rightIcon={AppSVGs.dropdown}
                         />
 
-                        {healthStore.doneBy && (
+                        {healthStore.doneByIFA && (
                           <>
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}

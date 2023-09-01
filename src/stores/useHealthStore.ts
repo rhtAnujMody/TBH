@@ -144,6 +144,10 @@ const useHealthStore = () => {
       healthStore.validateSubmit();
     },
     setNumberHC(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
+
       healthStore.numberHC = value;
       healthStore.validateSubmit();
     },

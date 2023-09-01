@@ -25,7 +25,7 @@ class Utility {
     let age_dt = new Date(month_diff);
     let year = age_dt.getUTCFullYear();
     var age = Math.abs(year - 1970);
-    return age;
+    return age * 12;
   };
 
   static validatePhoneNumber = (num: string) => {
