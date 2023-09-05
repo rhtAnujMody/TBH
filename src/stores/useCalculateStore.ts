@@ -28,23 +28,13 @@ const useCalculateStore = () => {
     toogleCalender() {
       calStore.showCalender = !calStore.showCalender;
     },
-
-    toggleBottomSheet(from?: string) {
+    toggleBottomSheet() {
       calStore.openBottomSheet = !calStore.openBottomSheet;
-      switch (from) {
-        case '':
-          calStore.bottomSheetHeader = 'Select Child';
-          calStore.bottomSheetArray = [];
-          break;
-      }
     },
 
     setValue(from: string, value: string, id: string) {
       calStore.openBottomSheet = !calStore.openBottomSheet;
-      switch (from) {
-        case 'Select Child':
-          break;
-      }
+      navigation.navigate('Generate', {id: id});
     },
 
     setChildame(value: string) {
@@ -85,18 +75,55 @@ const useCalculateStore = () => {
       calStore.enableSubmit = true;
     },
 
+    generateName(value: any) {
+      let res: {name: string; id: string}[] = [];
+      for (let i = 0; i < value.length; i++) {
+        res[i] = {
+          name:
+            'Name:' +
+            value[i].name.toString() +
+            ',' +
+            'DOB:' +
+            value[i].dob.toString() +
+            ',Gender:' +
+            value[i].gender.toString(),
+          id: value[i].id.toString(),
+        };
+      }
+      return res;
+    },
+
     async handleSubmit() {
       runInAction(() => {
         calStore.isLoading = true;
       });
       try {
-        const responseJson = await request(
+        const responseJson: any = await request(
           'get',
-          AppStrings.calculateFields(calStore.childName, '', calStore.contact),
+          AppStrings.calculateFields(
+            calStore.childName,
+            calStore.dob,
+            calStore.contact,
+          ),
         );
-        navigation.navigate('Generate');
-        console.log(responseJson);
+
+        if (responseJson.success) {
+          if (responseJson.data.length === 1) {
+            navigation.navigate('Generate', {id: responseJson.data[0].id});
+          } else {
+            runInAction(() => {
+              calStore.bottomSheetHeader = 'Select Child';
+              calStore.bottomSheetArray = calStore.generateName(
+                responseJson.data,
+              );
+              calStore.toggleBottomSheet();
+            });
+          }
+        } else {
+          Utility.showToast(responseJson.msg);
+        }
       } catch (err) {
+        console.log(err, 'hii');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {

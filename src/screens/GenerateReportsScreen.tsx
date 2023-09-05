@@ -1,5 +1,5 @@
 import {Observer} from 'mobx-react-lite';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -12,10 +12,17 @@ import {AppContainer, AppTextInput, AppTextContent} from '../components';
 import Header from '../components/common/Header';
 import {colors, typography} from '../theme';
 import useGenerateStore from '../stores/useGenerateStore';
+import {useRoute} from '@react-navigation/native';
+import {TargetScreenRouteProp} from '../navigation/ReportsStack';
 type Props = {};
 
 const GenerateReportsScreen = ({}: Props) => {
   const genStore = useGenerateStore();
+  const route = useRoute<TargetScreenRouteProp>();
+  const {id} = route.params;
+  useEffect(() => {
+    genStore.handleSubmit(id);
+  }, []);
   return (
     <Observer>
       {() => (

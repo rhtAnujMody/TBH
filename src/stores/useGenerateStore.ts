@@ -12,7 +12,7 @@ const useGenerateStore = () => {
     vitaminA: '',
     deworm: '',
     ifa: '',
-    age: '',
+    age: '0',
     bmi: '',
     weightDev: '',
     heightDev: '',
@@ -47,10 +47,52 @@ const useGenerateStore = () => {
       genStore.weightGain = value;
     },
 
-    async handleSubmit() {
+    async handleSubmit(id: string) {
       runInAction(() => {});
       try {
+        console.log(id, 'id');
+        const response: any = await request('post', AppStrings.generateFields, {
+          child_id: id,
+        });
+
+        if (response.success) {
+          if (response.data) {
+            runInAction(() => {
+              response.data.vitamin_A
+                ? genStore.setVitaminA('YES')
+                : genStore.setVitaminA('NO');
+              response.data.deworming
+                ? genStore.setDeworm('YES')
+                : genStore.setDeworm('NO');
+              response.data.ifa
+                ? genStore.setIFA('YES')
+                : genStore.setIFA('NO');
+              response.data.age &&
+                genStore.setAge(response.data.age.toString());
+              response.data.bmi &&
+                genStore.setBMI(response.data.bmi.toString());
+              response.data.weight_development &&
+                response.data.weight_development &&
+                genStore.setWeightDev(
+                  response.data.weight_development.toString(),
+                );
+              response.data.height_development &&
+                genStore.setHeightDev(
+                  response.data.height_development.toString(),
+                );
+              response.data.overall_development &&
+                genStore.setOverAllDev(
+                  response.data.overall_development.toString(),
+                );
+              response.data.weight_gain &&
+                genStore.setWeightGain(response.data.weight_gain.toString());
+            });
+          } else {
+            Utility.showToast('No Data to show');
+          }
+        }
       } catch (err) {
+        console.log(err, 'hello');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {});

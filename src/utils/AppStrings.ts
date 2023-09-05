@@ -9,6 +9,7 @@ export default {
   calculateFields: (name: string, dob: string, contact: string): string => {
     return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
   },
+  generateFields: '/v1/accounts/view-calculated-fields/',
 
   //AsyncStore Keys
   isLogin: 'is_login',
