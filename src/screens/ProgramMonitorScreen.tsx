@@ -172,7 +172,7 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Name of Decimal Staff Partner liaison for the visit"
+                            textHeader="Name of Decimal Staff liaison for the visit"
                             placeHolder="Please Enter the details"
                             value={proStore.liaDNameStaff}
                             onChangeText={proStore.setLiaDNameStaff}
@@ -180,7 +180,7 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Designation of Decimal Staff Partner liaison for the visit"
+                            textHeader="Designation of Decimal Staff liaison for the visit"
                             placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaDDesigStaff}
                             value={proStore.liaDDesigStaff}
@@ -188,7 +188,7 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Name of Partner's Staff Partner liaison for the visit"
+                            textHeader="Name of Partner's Staff liaison for the visit"
                             placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaPNameStaff}
                             value={proStore.liaPNameStaff}
@@ -196,7 +196,7 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Designation of Partner's Staff Partner liaison for the visit"
+                            textHeader="Designation of Partner's Staff liaison for the visit"
                             placeHolder="Please Enter the details"
                             onChangeText={proStore.setLiaPDesigStaff}
                             value={proStore.liaPDesigStaff}

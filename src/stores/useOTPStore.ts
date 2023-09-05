@@ -13,7 +13,7 @@ const useOTPStore = () => {
   const otpStore = useLocalObservable(() => ({
     isLoading: false,
     isButtonEnabled: false,
-    otp: [] as string[],
+    otp: ['', '', '', ''],
 
     setOTP(value: string[]) {
       value.map((value, index) => {
@@ -33,7 +33,7 @@ const useOTPStore = () => {
     validateSubmit() {
       otpStore.isButtonEnabled = false;
       for (let i = 0; i < otpStore.otp.length; i++) {
-        if (otpStore.otp[i] == '') {
+        if (otpStore.otp[i] === '') {
           return;
         }
       }

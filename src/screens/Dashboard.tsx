@@ -20,6 +20,10 @@ const Dashboard = () => {
       title: 'View Calculated Field Values',
       icon: AppSVGs.report,
     },
+    {
+      title: "Doctor's Observation Entry",
+      icon: AppSVGs.report,
+    },
   ];
 
   const navigateToCard = (index: number) => {

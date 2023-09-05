@@ -27,7 +27,10 @@ const useSignUpStore = () => {
     },
 
     setName(value: string) {
-      signUpStore.name = value;
+      if (Utility.validateAlpha(value)) {
+        signUpStore.name = value;
+      }
+
       signUpStore.validateCredentials();
     },
 
@@ -69,7 +72,7 @@ const useSignUpStore = () => {
         return;
       }
 
-      if (signUpStore.phoneNumber.length < 10) {
+      if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
         //Utility.showToast(AppStrings.invalidNumber);
         return;
       }

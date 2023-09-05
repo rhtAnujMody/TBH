@@ -174,7 +174,7 @@ const useProgramStore = () => {
       proStore.validateSubmit();
     },
     setNumberOfChildrenDOV(value: string) {
-      if (!value.trim() && !Utility.validateNumeric(value)) {
+      if (!(value.trim() == '') && !Utility.validateNumeric(value)) {
         return;
       }
       proStore.numberOfChildrenDOV = value;
