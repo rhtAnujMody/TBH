@@ -129,7 +129,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
   },
   containerWidth: {
     flex: 1,
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
   textInputStyle: {
-    backgroundColor: '#F7F7F7',
+    backgroundColor: colors.grey,
     borderColor: colors.gray,
     borderWidth: 1,
     borderRadius: 25,
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   dovInputStyle: {
-    backgroundColor: '#F7F7F7',
+    backgroundColor: colors.grey,
     borderColor: colors.gray,
     borderWidth: 1,
     paddingRight: 30,
