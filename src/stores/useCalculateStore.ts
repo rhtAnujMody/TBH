@@ -76,21 +76,10 @@ const useCalculateStore = () => {
     },
 
     generateName(value: any) {
-      let res: {name: string; id: string}[] = [];
-      for (let i = 0; i < value.length; i++) {
-        res[i] = {
-          name:
-            'Name:' +
-            value[i].name.toString() +
-            ',' +
-            'DOB:' +
-            value[i].dob.toString() +
-            ',Gender:' +
-            value[i].gender.toString(),
-          id: value[i].id.toString(),
-        };
-      }
-      return res;
+      return value.map((item: any) => ({
+        name: `Name: ${item.name}, DOB: ${item.dob}, Gender: ${item.gender}`,
+        id: item.id.toString(),
+      }));
     },
 
     async handleSubmit() {
