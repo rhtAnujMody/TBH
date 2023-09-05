@@ -50,7 +50,6 @@ const useGenerateStore = () => {
     async handleSubmit(id: string) {
       runInAction(() => {});
       try {
-        console.log(id, 'id');
         const response: any = await request('post', AppStrings.generateFields, {
           child_id: id,
         });
@@ -92,7 +91,6 @@ const useGenerateStore = () => {
           }
         }
       } catch (err) {
-        console.log(err, 'hello');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {});

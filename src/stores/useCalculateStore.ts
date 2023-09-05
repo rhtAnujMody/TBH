@@ -123,7 +123,6 @@ const useCalculateStore = () => {
           Utility.showToast(responseJson.msg);
         }
       } catch (err) {
-        console.log(err, 'hii');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
