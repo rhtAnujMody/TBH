@@ -7,9 +7,11 @@ import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
 import authStore from './authStore';
+import {useNavigation} from '@react-navigation/native';
 
 const useCaptureDetailsStore = () => {
   const {request} = useApiService();
+  const navigation = useNavigation();
   const partnerNameLocation = () => {
     return authStore.userData.partner_list.map(item => {
       return {
@@ -51,7 +53,7 @@ const useCaptureDetailsStore = () => {
 
     partnerID: '', //backend not accepting 0
     beneficiarieID: '',
-
+    showCalender: false,
     age: '',
     ageID: '',
     targetBeneficiaries: '',
@@ -81,9 +83,9 @@ const useCaptureDetailsStore = () => {
       {name: 'Take a Photo', id: 'camera'},
       {name: 'Upload from Library', id: 'gallery'},
     ],
-    hourOptions: Array.from({length: 12}, (_, index) => ({
-      name: (index + 1).toString(),
-      id: (index + 1).toString(),
+    hourOptions: Array.from({length: 24}, (_, index) => ({
+      name: index.toString(),
+      id: index.toString(),
     })),
     minuteOptions: Array.from({length: 60}, (_, index) => ({
       name: index.toString().padStart(2, '0'),
@@ -177,6 +179,10 @@ const useCaptureDetailsStore = () => {
       cdStore.index = value;
     },
 
+    toogleCalender() {
+      cdStore.showCalender = !cdStore.showCalender;
+    },
+
     setValue(from: string, value: string, id: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
       switch (from) {
@@ -226,6 +232,9 @@ const useCaptureDetailsStore = () => {
     },
 
     setNewPartnerName(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlpha(value)) {
+        return;
+      }
       cdStore.newPartnerName = value;
       cdStore.validateSubmit();
     },
@@ -272,42 +281,42 @@ const useCaptureDetailsStore = () => {
 
     validateSubmit() {
       cdStore.enableSubmit = false;
-      if (cdStore.dov == '') {
+      if (cdStore.dov === '') {
         return;
       }
 
-      if (cdStore.partner == '') {
+      if (cdStore.partner === '') {
         return;
       } else {
-        if (cdStore.partner == 'New') {
+        if (cdStore.partner === 'New') {
           if (
-            cdStore.newPartnerName == '' ||
-            cdStore.newLocation == '' ||
-            cdStore.newBlock == '' ||
-            cdStore.newDistrict == '' ||
-            cdStore.newState == ''
+            !Utility.validateAlpha(cdStore.newPartnerName) ||
+            !Utility.validateAlphaNumericSpecial(cdStore.newLocation) ||
+            !Utility.validateAlphaNumericSpecial(cdStore.newBlock) ||
+            !Utility.validateAlphaNumericSpecial(cdStore.newDistrict) ||
+            !Utility.validateAlphaNumericSpecial(cdStore.newState)
           ) {
             return;
           }
         } else {
-          if (cdStore.existPartnerName == '') {
+          if (cdStore.existPartnerName === '') {
             return;
           }
         }
       }
-      if (cdStore.age == '') {
+      if (cdStore.age === '') {
         return;
       }
       if (!Utility.validateNumeric(cdStore.totalNoOfParticipants)) {
         return;
       }
-      if (cdStore.targetBeneficiaries == '') {
+      if (cdStore.targetBeneficiaries === '') {
         return;
       }
-      if (cdStore.hour == '') {
+      if (cdStore.hour === '') {
         return;
       }
-      if (cdStore.minute == '') {
+      if (cdStore.minute === '') {
         return;
       }
       if (!Utility.validateAlphaNumericSpecial(cdStore.methodUsed)) {
@@ -340,7 +349,7 @@ const useCaptureDetailsStore = () => {
       try {
         const formData = new FormData();
 
-        if (this.partner == 'New') {
+        if (this.partner === 'New') {
           formData.append(
             'partner_details',
             JSON.stringify({
@@ -387,14 +396,13 @@ const useCaptureDetailsStore = () => {
         );
 
         if (responseJson.success) {
-          console.log(responseJson, 'response from server');
           Utility.showToast(responseJson.msg);
         } else {
           Utility.showToast(responseJson.msg);
         }
+        navigation.goBack();
       } catch (err) {
         Utility.showToast('Something went wrong');
-        console.log(err);
       } finally {
         runInAction(() => {
           cdStore.isLoading = false;

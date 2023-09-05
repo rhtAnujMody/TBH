@@ -7,6 +7,7 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
+  TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
@@ -90,9 +91,9 @@ const AppTextInput = ({
           />
         )}
         {RightIcon && (
-          <View>
+          <TouchableWithoutFeedback onPress={onPress}>
             <RightIcon />
-          </View>
+          </TouchableWithoutFeedback>
         )}
       </View>
     </View>

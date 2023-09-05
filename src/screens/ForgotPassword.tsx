@@ -1,43 +1,27 @@
-import {useNavigation} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import {useRef} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
-import {AuthStackProps} from '../navigation/AppNavigation';
-import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
+import {useForgotPasswordStore} from '../stores';
 import React = require('react');
 
-const LoginScreen = () => {
+const ForgotPassword = () => {
   const emailRef = useRef<TextInput>(null);
-  const passwordRef = useRef<TextInput>(null);
   const keyboard = useKeyboard();
   const styles = loginStyles(keyboard);
-  const navigation = useNavigation<AuthStackProps>();
-  const loginStore = useLoginStore();
-
-  const handleOnSubmitEditing = () => {
-    if (passwordRef && passwordRef.current) {
-      passwordRef.current.focus();
-    }
-  };
-
-  const navigateToSignUp = () => {
-    navigation.navigate('SignUp');
-  };
-  const navigateToForgot = () => {
-    navigation.navigate('Forgot');
-  };
+  const forgotStore = useForgotPasswordStore();
+  const handleOnSubmitEditing = () => {};
 
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Sign In"
-        isLoading={loginStore.isLoading}
-        onPress={loginStore.login}
-        enabled={loginStore.isButtonEnabled}
+        title="Send OTP"
+        isLoading={forgotStore.isLoading}
+        onPress={forgotStore.handleSubmit}
+        enabled={forgotStore.isButtonEnabled}
       />
     );
   });
@@ -47,45 +31,27 @@ const LoginScreen = () => {
       <AppBack />
       <View style={styles.headerContainer}>
         <View style={styles.logoContainer}>
-          <AppSVGs.logo style={styles.logo} />
-        </View>
-        <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>Sign In</Text>
-          <Text style={styles.signInDesc}>
-            Provide your Login Credentials to Sign In to the Application
-          </Text>
+          <AppSVGs.forgot style={styles.logo} />
         </View>
       </View>
 
       <View style={styles.textInputContainer}>
+        <View style={styles.signInHeaderContainer}>
+          <Text style={styles.signIn}>Forgot Password?</Text>
+          <Text style={styles.signInDesc}>
+            Please Enter Your Email ID/ Phone Number to Reset Password
+          </Text>
+        </View>
         <AppTextInput
           icon={AppSVGs.name}
-          placeHolder="Email Id"
+          placeHolder="Email / Phone Number"
           returnKeyType="next"
           inputRef={emailRef}
-          onChangeText={loginStore.setEmail}
+          onChangeText={forgotStore.setPhoneNumber}
           onSubmitEditing={handleOnSubmitEditing}
         />
-        <AppTextInput
-          icon={AppSVGs.lock}
-          placeHolder="Password"
-          returnKeyType="done"
-          inputRef={passwordRef}
-          secureTextEntry
-          onChangeText={loginStore.setPassword}
-        />
-        <Text
-          style={[styles.signUp, styles.flexEnd]}
-          onPress={navigateToForgot}>
-          {' Forgot Password '}
-        </Text>
+
         <View style={styles.bottomContainer}>
-          <Text style={styles.dontHaveAcc}>
-            Don't have account yet?
-            <Text style={styles.signUp} onPress={navigateToSignUp}>
-              {' Sign Up'}
-            </Text>
-          </Text>
           <ShowButton />
         </View>
       </View>
@@ -93,7 +59,7 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default ForgotPassword;
 
 const loginStyles = (isKeyboardVisible: boolean) => {
   return StyleSheet.create({
@@ -112,16 +78,12 @@ const loginStyles = (isKeyboardVisible: boolean) => {
       alignSelf: 'center',
       marginTop: 10,
     },
-    signInHeaderContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 40,
-    },
+    signInHeaderContainer: {marginBottom: 20},
     signIn: {
-      ...typography.bold(24, colors.black),
+      ...typography.bold(20, colors.black),
     },
     signInDesc: {
-      ...typography.medium(15),
+      ...typography.regular(13),
     },
     textInputContainer: {
       flex: 1,
@@ -147,6 +109,5 @@ const loginStyles = (isKeyboardVisible: boolean) => {
     signUp: {
       color: colors.palette.primary,
     },
-    flexEnd: {alignSelf: 'flex-end'},
   });
 };
