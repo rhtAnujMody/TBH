@@ -48,7 +48,7 @@ const useCalculateStore = () => {
     },
 
     setChildame(value: string) {
-      if (!Utility.validateAlpha(value)) {
+      if (!(value.trim() == '') && !Utility.validateAlpha(value)) {
         return;
       }
       calStore.childName = value;
@@ -56,7 +56,7 @@ const useCalculateStore = () => {
     },
 
     setContact(value: string) {
-      if (!Utility.validateNumeric(value)) {
+      if (!(value.trim() == '') && !Utility.validateNumeric(value)) {
         return;
       }
       calStore.contact = value;
@@ -90,8 +90,12 @@ const useCalculateStore = () => {
         calStore.isLoading = true;
       });
       try {
-        //navigation.navigate('Generate');
-        console.log('hello');
+        const responseJson = await request(
+          'get',
+          AppStrings.calculateFields(calStore.childName, '', calStore.contact),
+        );
+        navigation.navigate('Generate');
+        console.log(responseJson);
       } catch (err) {
         Utility.showToast('Something went wrong');
       } finally {

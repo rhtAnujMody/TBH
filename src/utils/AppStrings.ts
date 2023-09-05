@@ -6,6 +6,10 @@ export default {
   programMonitor: 'v1/accounts/program-monitoring/',
   healthCamp: 'v1/accounts/health-camp/',
 
+  calculateFields: (name: string, dob: string, contact: string): string => {
+    return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
+  },
+
   //AsyncStore Keys
   isLogin: 'is_login',
   userData: 'user_data',
