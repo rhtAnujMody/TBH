@@ -6,16 +6,16 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {AppSVGs} from '../assets';
-import {AppContainer, AppTextInput} from '../components';
+import {AppContainer, AppTextInput, AppTextContent} from '../components';
 import Header from '../components/common/Header';
 import {colors, typography} from '../theme';
+import useGenerateStore from '../stores/useGenerateStore';
 type Props = {};
 
 const GenerateReportsScreen = ({}: Props) => {
+  const genStore = useGenerateStore();
   return (
     <Observer>
       {() => (
@@ -30,68 +30,42 @@ const GenerateReportsScreen = ({}: Props) => {
                   <Text style={styles.headingText}>
                     Calculated Field Values
                   </Text>
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+                  <AppTextContent
                     textHeader="Received Vitamin A Dose?"
-                    placeHolder=""
-                    value={'Yes'}
-                    editable={false}
+                    textContent={genStore.vitaminA}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+                  <AppTextContent
                     textHeader="Received De-worming Dose?"
-                    placeHolder=""
-                    value={'Yes'}
-                    editable={false}
+                    textContent={genStore.deworm}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+                  <AppTextContent
                     textHeader="Received IFA Dose?"
-                    placeHolder=""
-                    value={'Yes'}
-                    editable={false}
+                    textContent={genStore.ifa}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+                  <AppTextContent
                     textHeader="Age in Months"
-                    placeHolder=""
-                    value={'28'}
-                    editable={false}
+                    textContent={genStore.age}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
-                    textHeader="BMI"
-                    placeHolder=""
-                    value={'24'}
-                    editable={false}
-                  />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+                  <AppTextContent textHeader="BMI" textContent={genStore.bmi} />
+
+                  <AppTextContent
                     textHeader="Weight Development"
-                    placeHolder=""
-                    value={'24'}
-                    editable={false}
+                    textContent={genStore.weightDev}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+
+                  <AppTextContent
                     textHeader="Height development / Stunting"
-                    placeHolder=""
-                    value={'24'}
-                    editable={false}
+                    textContent={genStore.heightDev}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+
+                  <AppTextContent
                     textHeader="Overall Development / Malnutrition Grades"
-                    placeHolder=""
-                    value={'24'}
-                    editable={false}
+                    textContent={genStore.overAllDev}
                   />
-                  <AppTextInput
-                    parentStyle={styles.textInputStyle}
+
+                  <AppTextContent
                     textHeader="Weight Gain"
-                    placeHolder=""
-                    value={'24'}
-                    editable={false}
+                    textContent={genStore.weightGain}
                   />
                 </View>
               </ScrollView>
