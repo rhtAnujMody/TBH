@@ -7,10 +7,12 @@ import HealthCampScreen from '../screens/HealthCampScreen';
 import ReportsStack from './ReportsStack';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {ReportsStackRootParamList} from './ReportsStack';
+import DoctorStack, {DoctorStackRootParamList} from './DoctorStack';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
-  ReportsStack: ReportsStackRootParamList; //NavigatorScreenParams<
+  ReportsStack: NavigatorScreenParams<ReportsStackRootParamList>; //
+  DoctorStack: NavigatorScreenParams<DoctorStackRootParamList>;
   CaptureDetails: undefined;
   ProgramMonitor: undefined;
   HealthCamp: undefined;
@@ -40,6 +42,7 @@ const DashboardStack = () => {
         name="ProgramMonitor"
       />
       <DashboardStackRoot.Screen component={ReportsStack} name="ReportsStack" />
+      <DashboardStackRoot.Screen component={DoctorStack} name="DoctorStack" />
     </DashboardStackRoot.Navigator>
   );
 };

@@ -6,11 +6,14 @@ import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReportsStackRootParamList} from '../navigation/ReportsStack';
+import {DoctorStackRootParamList} from '../navigation/DoctorStack';
 
 const useCalculateStore = () => {
   const {request} = useApiService();
   const navigation =
     useNavigation<NativeStackNavigationProp<ReportsStackRootParamList>>();
+  const navigation2 =
+    useNavigation<NativeStackNavigationProp<DoctorStackRootParamList>>();
   const calStore = useLocalObservable(() => ({
     dob: '',
     childName: '',
@@ -82,41 +85,47 @@ const useCalculateStore = () => {
       }));
     },
 
-    async handleSubmit() {
-      runInAction(() => {
-        calStore.isLoading = true;
-      });
-      try {
-        const responseJson: any = await request(
-          'get',
-          AppStrings.calculateFields(
-            calStore.childName,
-            calStore.dob,
-            calStore.contact,
-          ),
-        );
-
-        if (responseJson.success) {
-          if (responseJson.data.length === 1) {
-            navigation.navigate('Generate', {id: responseJson.data[0].id});
-          } else {
-            runInAction(() => {
-              calStore.bottomSheetHeader = 'Select Child';
-              calStore.bottomSheetArray = calStore.generateName(
-                responseJson.data,
-              );
-              calStore.toggleBottomSheet();
-            });
-          }
-        } else {
-          Utility.showToast(responseJson.msg);
-        }
-      } catch (err) {
-        Utility.showToast('Something went wrong');
-      } finally {
+    async handleSubmit(from: string) {
+      console.log(from);
+      if (from === AppStrings.fromDoctor) {
+        navigation2.navigate('Doctor', {id: '1'});
+        return;
+      } else {
         runInAction(() => {
-          calStore.isLoading = false;
+          calStore.isLoading = true;
         });
+        try {
+          const responseJson: any = await request(
+            'get',
+            AppStrings.calculateFields(
+              calStore.childName,
+              calStore.dob,
+              calStore.contact,
+            ),
+          );
+
+          if (responseJson.success) {
+            if (responseJson.data.length === 1) {
+              navigation.navigate('Generate', {id: responseJson.data[0].id});
+            } else {
+              runInAction(() => {
+                calStore.bottomSheetHeader = 'Select Child';
+                calStore.bottomSheetArray = calStore.generateName(
+                  responseJson.data,
+                );
+                calStore.toggleBottomSheet();
+              });
+            }
+          } else {
+            Utility.showToast(responseJson.msg);
+          }
+        } catch (err) {
+          Utility.showToast('Something went wrong');
+        } finally {
+          runInAction(() => {
+            calStore.isLoading = false;
+          });
+        }
       }
     },
   }));
