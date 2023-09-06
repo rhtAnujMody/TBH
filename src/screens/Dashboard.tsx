@@ -28,7 +28,7 @@ const Dashboard = () => {
         navigation.navigate('HealthCamp');
         break;
       case 1:
-        navigation.navigate('GenerateReports');
+        navigation.navigate('ReportsStack');
         break;
       case 2:
         navigation.navigate('CaptureDetails');
