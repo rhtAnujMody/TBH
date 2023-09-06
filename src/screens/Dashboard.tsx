@@ -8,9 +8,12 @@ import ObservableChild from '../components/common/ObservableChild';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
+import Utility from '../utils/Utility';
+import AppStrings from '../utils/AppStrings';
 
 const Dashboard = () => {
   const navigation = useNavigation<DashboardStackProps>();
+
   const homeCards = [
     {
       title: 'Proceed For Data Capture',
@@ -32,12 +35,21 @@ const Dashboard = () => {
         navigation.navigate('HealthCamp');
         break;
       case 1:
-        navigation.navigate('ReportsStack');
+        navigation.navigate('ReportsStack', {
+          screen: 'Calculate',
+          params: {from: AppStrings.fromCalculate},
+        });
         break;
       case 2:
-        navigation.navigate('CaptureDetails');
+        navigation.navigate('ReportsStack', {
+          screen: 'Calculate',
+          params: {from: AppStrings.fromDoctor},
+        });
         break;
       case 3:
+        navigation.navigate('CaptureDetails');
+        break;
+      case 4:
         navigation.navigate('ProgramMonitor');
         break;
     }
@@ -83,7 +95,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(2)}
+              onPress={() => navigateToCard(3)}
             />
           </View>
           <Text style={styles.title}>Program Monitoring</Text>
@@ -92,7 +104,7 @@ const Dashboard = () => {
               title={homeCards[0].title}
               icon={homeCards[0].icon}
               key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
+              onPress={() => navigateToCard(4)}
             />
           </View>
           <Text style={styles.title}>Generate Report</Text>

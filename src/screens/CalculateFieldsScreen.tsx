@@ -18,11 +18,18 @@ import {colors, typography} from '../theme';
 import {AppSVGs} from '../assets';
 import useCalculateStore from '../stores/useCalculateStore';
 import Utility from '../utils/Utility';
+import {CalculateScreenRouteProp} from '../navigation/ReportsStack';
+import {useRoute} from '@react-navigation/native';
 type Props = {};
 
 const CalculateFieldsScreen = ({}: Props) => {
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const calStore = useCalculateStore();
+
+  const route = useRoute<CalculateScreenRouteProp>();
+  console.log(route.params);
+  //console.log(from, 'From');
+
   const toogleDatePicker = () => {
     calStore.toogleCalender();
   };

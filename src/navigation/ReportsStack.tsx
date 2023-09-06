@@ -5,13 +5,18 @@ import CalculateFieldsScreen from '../screens/CalculateFieldsScreen';
 import {RouteProp} from '@react-navigation/native';
 
 export type ReportsStackRootParamList = {
-  Calculate: undefined;
+  Calculate: {from: string};
   Generate: {id: string};
 };
 
 export type TargetScreenRouteProp = RouteProp<
   ReportsStackRootParamList,
   'Generate'
+>;
+
+export type CalculateScreenRouteProp = RouteProp<
+  ReportsStackRootParamList,
+  'Calculate'
 >;
 
 const ReportsStackRoot =

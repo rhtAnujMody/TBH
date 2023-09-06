@@ -15,6 +15,9 @@ export default {
   },
   generateFields: '/v1/accounts/view-calculated-fields/',
 
+  fromCalculate: 'calculated_fields',
+  fromDoctor: 'doctors_observation',
+
   //AsyncStore Keys
   isLogin: 'is_login',
   userData: 'user_data',

@@ -10,7 +10,7 @@ import {ReportsStackRootParamList} from './ReportsStack';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
-  ReportsStack: NavigatorScreenParams<ReportsStackRootParamList>;
+  ReportsStack: ReportsStackRootParamList; //NavigatorScreenParams<
   CaptureDetails: undefined;
   ProgramMonitor: undefined;
   HealthCamp: undefined;
