@@ -31,6 +31,10 @@ const useResetStore = () => {
       if (resetStore.newPassword === '') {
         return;
       }
+
+      if (resetStore.newPassword.length < 6) {
+        return;
+      }
       if (resetStore.newPassword !== resetStore.confirmPwd) {
         return;
       }
