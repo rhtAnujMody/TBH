@@ -227,6 +227,9 @@ const useCaptureDetailsStore = () => {
     },
 
     setTotalNoOfParticipants(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       cdStore.totalNoOfParticipants = value;
       cdStore.validateSubmit();
     },

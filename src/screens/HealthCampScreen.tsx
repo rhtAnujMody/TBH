@@ -529,7 +529,7 @@ const HealthCampScreen = () => {
                     />
 
                     <AppToggle
-                      title={"Children's Details"}
+                      title={'Beneficiary Details'}
                       children={
                         <>
                           <AppInput
