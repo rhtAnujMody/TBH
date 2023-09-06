@@ -19,6 +19,8 @@ export const colors = {
   black: '#000000',
   gray: '#B2B2B2',
   white: '#FFFFFF',
+  grey: '#F7F7F7',
+
   /**
    * The default text color in many components.
    */

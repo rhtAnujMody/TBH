@@ -10,6 +10,11 @@ export default {
   requestOTP: 'v1/accounts/forgot-password/',
   verifyOTP: '/v1/accounts/verify-otp/',
 
+  calculateFields: (name: string, dob: string, contact: string): string => {
+    return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
+  },
+  generateFields: '/v1/accounts/view-calculated-fields/',
+
   //AsyncStore Keys
   isLogin: 'is_login',
   userData: 'user_data',

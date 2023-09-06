@@ -2,14 +2,16 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 import CaptureDetailsScreen from '../screens/CaptureDetailsScreen';
 import Dashboard from '../screens/Dashboard';
-import GenerateReportsScreen from '../screens/GenerateReportsScreen';
 import ProgramMonitorScreen from '../screens/ProgramMonitorScreen';
 import HealthCampScreen from '../screens/HealthCampScreen';
+import ReportsStack from './ReportsStack';
+import {NavigatorScreenParams} from '@react-navigation/native';
+import {ReportsStackRootParamList} from './ReportsStack';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
+  ReportsStack: NavigatorScreenParams<ReportsStackRootParamList>;
   CaptureDetails: undefined;
-  GenerateReports: undefined;
   ProgramMonitor: undefined;
   HealthCamp: undefined;
 };
@@ -37,10 +39,7 @@ const DashboardStack = () => {
         component={ProgramMonitorScreen}
         name="ProgramMonitor"
       />
-      <DashboardStackRoot.Screen
-        component={GenerateReportsScreen}
-        name="GenerateReports"
-      />
+      <DashboardStackRoot.Screen component={ReportsStack} name="ReportsStack" />
     </DashboardStackRoot.Navigator>
   );
 };
