@@ -4,6 +4,7 @@ import React, {useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -81,7 +82,7 @@ const ProgramMonitorScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <TouchableOpacity activeOpacity={1}>
+                  <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
                         Enter details related to the Program Monitoring event
@@ -538,7 +539,7 @@ const ProgramMonitorScreen = () => {
                         removeImage={removeImage}
                       />
                     </View>
-                  </TouchableOpacity>
+                  </Pressable>
                 </ScrollView>
 
                 <AppButton

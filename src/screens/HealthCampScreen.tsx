@@ -10,6 +10,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import AppInput from '../components/common/AppInput';
 import AppImageUploadInput from '../components/common/AppImageUploadInput';
@@ -90,7 +91,7 @@ const HealthCampScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <TouchableOpacity activeOpacity={1}>
+                  <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
                         Enter details related to the Health Camp event
@@ -560,7 +561,7 @@ const HealthCampScreen = () => {
                         }
                       />
                     </View>
-                  </TouchableOpacity>
+                  </Pressable>
                 </ScrollView>
 
                 <AppButton
