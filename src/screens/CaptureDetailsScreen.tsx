@@ -223,6 +223,7 @@ const CaptureDetailsScreen = () => {
                             textHeader="TOTAL NUMBER OF PARTICIPANTS"
                             placeHolder="Total number of participants"
                             onChangeText={cdStore.setTotalNoOfParticipants}
+                            value={cdStore.totalNoOfParticipants}
                             keyboardType={'numeric'}
                           />
 

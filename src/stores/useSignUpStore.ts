@@ -27,6 +27,9 @@ const useSignUpStore = () => {
     },
 
     setName(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlpha(value)) {
+        return;
+      }
       signUpStore.name = value;
       signUpStore.validateCredentials();
     },
@@ -36,9 +39,10 @@ const useSignUpStore = () => {
       signUpStore.validateCredentials();
     },
     setNumber(value: string) {
-      if (Utility.checkDigits(value)) {
-        signUpStore.phoneNumber = value;
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
       }
+      signUpStore.phoneNumber = value;
       signUpStore.validateCredentials();
     },
 
