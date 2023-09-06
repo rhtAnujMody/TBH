@@ -13,7 +13,7 @@ const useOTPStore = () => {
   const otpStore = useLocalObservable(() => ({
     isLoading: false,
     isButtonEnabled: false,
-    otp: [] as string[],
+    otp: ['', '', '', ''],
 
     setOTP(value: string[]) {
       value.map((value, index) => {
