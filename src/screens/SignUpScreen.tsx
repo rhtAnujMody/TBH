@@ -78,40 +78,41 @@ const SignUpScreen = () => {
   });
 
   return (
-    <AppContainer style={styles.container}>
-      <AppBack />
-      <View style={styles.headerContainer}>
-        <View style={styles.logoContainer}>
-          <AppSVGs.logo style={styles.logo} />
-        </View>
-        <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>Register</Text>
-          <Text style={styles.signInDesc}>
-            New to Decimal Foundation! Please Provide Details to Register
-            Yourself
-          </Text>
-        </View>
-      </View>
+    <Observer>
+      {() => (
+        <AppContainer style={styles.container}>
+          <AppBack />
+          <View style={styles.headerContainer}>
+            <View style={styles.logoContainer}>
+              <AppSVGs.logo style={styles.logo} />
+            </View>
+            <View style={styles.signInHeaderContainer}>
+              <Text style={styles.signIn}>Register</Text>
+              <Text style={styles.signInDesc}>
+                New to Decimal Foundation! Please Provide Details to Register
+                Yourself
+              </Text>
+            </View>
+          </View>
 
-      <View style={styles.textInputContainer}>
-        <AppTextInput
-          icon={AppSVGs.name}
-          placeHolder="Name"
-          returnKeyType="next"
-          onChangeText={signUpStore.setName}
-          onSubmitEditing={() => handleOnSubmitEditing(1)}
-        />
-        <AppTextInput
-          icon={AppSVGs.email}
-          placeHolder="Email"
-          returnKeyType="next"
-          onChangeText={signUpStore.setEmail}
-          inputRef={emailRef}
-          onSubmitEditing={() => handleOnSubmitEditing(2)}
-        />
+          <View style={styles.textInputContainer}>
+            <AppTextInput
+              icon={AppSVGs.name}
+              placeHolder="Name"
+              returnKeyType="next"
+              onChangeText={signUpStore.setName}
+              onSubmitEditing={() => handleOnSubmitEditing(1)}
+              value={signUpStore.name}
+            />
+            <AppTextInput
+              icon={AppSVGs.email}
+              placeHolder="Email"
+              returnKeyType="next"
+              onChangeText={signUpStore.setEmail}
+              inputRef={emailRef}
+              onSubmitEditing={() => handleOnSubmitEditing(2)}
+            />
 
-        <Observer>
-          {() => (
             <AppTextInput
               placeHolder="Phone Number"
               returnKeyType="next"
@@ -123,44 +124,44 @@ const SignUpScreen = () => {
               inputRef={numberRef}
               onSubmitEditing={() => handleOnSubmitEditing(3)}
             />
-          )}
-        </Observer>
 
-        <AppTextInput
-          icon={AppSVGs.dob}
-          placeHolder="Date Of Birth"
-          hideInput={true}
-          onPress={onDOBPress}
-          otherText={dob}
-        />
+            <AppTextInput
+              icon={AppSVGs.dob}
+              placeHolder="Date Of Birth"
+              hideInput={true}
+              onPress={onDOBPress}
+              otherText={dob}
+            />
 
-        <AppTextInput
-          icon={AppSVGs.lock}
-          secureTextEntry
-          placeHolder="Password"
-          onChangeText={signUpStore.setPassword}
-          returnKeyType="done"
-          inputRef={passwordRef}
-        />
-        <View style={styles.bottomContainer}>
-          <Text style={styles.dontHaveAcc}>
-            Already have account?
-            <Text style={styles.signUp} onPress={navigateToSignIn}>
-              {' Sign In'}
-            </Text>
-          </Text>
-          <ShowButton />
-        </View>
-      </View>
+            <AppTextInput
+              icon={AppSVGs.lock}
+              secureTextEntry
+              placeHolder="Password"
+              onChangeText={signUpStore.setPassword}
+              returnKeyType="done"
+              inputRef={passwordRef}
+            />
+            <View style={styles.bottomContainer}>
+              <Text style={styles.dontHaveAcc}>
+                Already have account?
+                <Text style={styles.signUp} onPress={navigateToSignIn}>
+                  {' Sign In'}
+                </Text>
+              </Text>
+              <ShowButton />
+            </View>
+          </View>
 
-      <DateTimePickerModal
-        isVisible={openDatePicker}
-        mode="date"
-        onConfirm={onConfirmDate}
-        onCancel={onCancelDate}
-        maximumDate={new Date()}
-      />
-    </AppContainer>
+          <DateTimePickerModal
+            isVisible={openDatePicker}
+            mode="date"
+            onConfirm={onConfirmDate}
+            onCancel={onCancelDate}
+            maximumDate={new Date()}
+          />
+        </AppContainer>
+      )}
+    </Observer>
   );
 };
 
