@@ -14,10 +14,22 @@ const AppBottomSheet = forwardRef<BottomSheet, Props>(
     const snapPoints = useMemo(() => ['25%', '28%', '50%', '75%'], []);
 
     // callbacks
-    const handleSheetChanges = useCallback((index: number) => {}, []);
+    const handleSheetChanges = useCallback(() => {}, []);
     if (!isVisible) {
       return null;
     }
+
+    const backdropComponent = () => {
+      return (
+        <Pressable
+          style={styles.backdropStyle}
+          onPress={() => {
+            ref.current?.close();
+          }}
+        />
+      );
+    };
+
     return (
       <View style={styles.containerStyle}>
         <BottomSheet
@@ -25,16 +37,7 @@ const AppBottomSheet = forwardRef<BottomSheet, Props>(
           onClose={onClose}
           index={index}
           enablePanDownToClose
-          backdropComponent={() => {
-            return (
-              <Pressable
-                style={styles.backdropStyle}
-                onPress={() => {
-                  ref.current?.close();
-                }}
-              />
-            );
-          }}
+          backdropComponent={backdropComponent}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}>
           {children}
