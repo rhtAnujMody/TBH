@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TextInputProps, View, ViewStyle} from 'react-native';
 import {typography} from '../theme';
 import {AppCheckBox} from './common';
@@ -10,17 +10,11 @@ interface Props extends TextInputProps {
   selectedArray: number[];
 }
 
-const DoctorRow = ({
-  parentStyle,
-  textHeader,
-  selectedArray,
-  data,
-  ...props
-}: Props) => {
+const DoctorRow = ({parentStyle, textHeader, selectedArray, data}: Props) => {
   return (
     <View style={[styles.container, parentStyle]}>
       <Text style={styles.textHeader}>{textHeader}</Text>
-      {data.map((item, index) => {
+      {data.map(item => {
         return (
           <AppCheckBox
             textHeader={item.observation}
