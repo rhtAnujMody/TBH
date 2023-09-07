@@ -71,10 +71,13 @@ const HealthCampScreen = () => {
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
+        break;
       case '4':
         healthStore.setDateOfDoseDeworm(Utility.formatDate(date));
+        break;
       case '5':
         healthStore.setDateOfDoseIFA(Utility.formatDate(date));
+        break;
     }
     healthStore.toogleCalender();
   };
