@@ -22,9 +22,7 @@ const useDoctorStore = () => {
     others: '',
     isLoading: false,
     enableSubmit: true,
-    checkedList: [] as number[],
-    doctor_observation: authStore.userData.doctor_observation ?? [],
-
+    doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
       {name: 'Yes', id: '1'},
       {name: 'No', id: '2'},
@@ -35,34 +33,37 @@ const useDoctorStore = () => {
     setOthers(value: string) {
       doctorStore.others = value;
     },
-    toggleBottomSheet(from?: string) {
+    toggleBottomSheet() {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
-      switch (from) {
-        case 'hospital':
-          doctorStore.bottomSheetHeader = 'Referred to Hospital/ Medical Care';
-          doctorStore.bottomSheetArray = doctorStore.hospitalOptions;
-          break;
-      }
+      doctorStore.bottomSheetHeader = 'Referred to Hospital/ Medical Care';
+      doctorStore.bottomSheetArray = doctorStore.hospitalOptions;
     },
-    setValue(from: string, value: string, id: string) {
+    setValue(value: string) {
+      Utility.logData(value);
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
-      switch (from) {
-        case 'Referred to Hospital/ Medical Care':
-          doctorStore.hospital = value;
-          break;
-      }
+      doctorStore.hospital = value;
     },
     async saveData(id: string) {
+      let selectedIds: number[] = [];
       runInAction(() => {
         doctorStore.isLoading = true;
       });
+
+      Object.keys(doctorStore.doctorObservation).map(itemId => {
+        doctorStore.doctorObservation[itemId].map(item => {
+          if (item.isSelected) {
+            selectedIds.push(item.id);
+          }
+        });
+      });
+      Utility.logData(selectedIds);
       try {
         const responseJson = await request(
           'post',
           AppStrings.doctorObservation,
           {
             child_id: id,
-            observation: doctorStore.checkedList,
+            observation: selectedIds,
             others: doctorStore.others,
             is_referred_to_hospital: doctorStore.hospital === 'Yes',
             action_suggested:

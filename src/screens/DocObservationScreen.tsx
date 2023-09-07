@@ -1,26 +1,26 @@
-import {Observer} from 'mobx-react-lite';
 import BottomSheet from '@gorhom/bottom-sheet/';
+import {useRoute} from '@react-navigation/native';
+import {Observer} from 'mobx-react-lite';
 import React, {useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {AppContainer, AppTextInput, AppButton} from '../components';
+import {AppSVGs} from '../assets';
+import {AppButton, AppContainer, AppTextInput} from '../components';
+import DoctorRow from '../components/DoctorRow';
 import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
 import AppInput from '../components/common/AppInput';
 import Header from '../components/common/Header';
-import {colors, typography} from '../theme';
-import {useRoute} from '@react-navigation/native';
 import {DoctorScreenRouteProp} from '../navigation/DoctorStack';
-import DoctorRow from '../components/DoctorRow';
-import {AppSVGs} from '../assets';
 import useDoctorStore from '../stores/useDoctorStore';
+import {colors, typography} from '../theme';
 type Props = {};
 
 const DocObservationScreen = ({}: Props) => {
@@ -31,8 +31,8 @@ const DocObservationScreen = ({}: Props) => {
   const hideBottomSheet = () => {
     doctorStore.toggleBottomSheet();
   };
-  const handleBottomSheetClick = (from: string) => {
-    doctorStore.toggleBottomSheet(from);
+  const handleBottomSheetClick = () => {
+    doctorStore.toggleBottomSheet();
   };
   return (
     <Observer>
@@ -46,52 +46,50 @@ const DocObservationScreen = ({}: Props) => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <TouchableOpacity activeOpacity={1}>
-                    <View style={styles.container}>
-                      <Text style={styles.headingText}>
-                        Calculated Field Values
-                      </Text>
+                  <Pressable style={styles.container}>
+                    <Text style={styles.headingText}>
+                      Calculated Field Values
+                    </Text>
 
-                      {Object.keys(doctorStore.doctor_observation).map(
-                        bodyPart => (
-                          <DoctorRow
-                            textHeader={bodyPart}
-                            data={doctorStore.doctor_observation[bodyPart]}
-                            key={bodyPart}
-                            selectedArray={doctorStore.checkedList}
-                          />
-                        ),
-                      )}
-
-                      <AppTextInput
-                        value={doctorStore.others}
-                        parentStyle={styles.textInputStyle}
-                        textHeader="OTHERS"
-                        placeHolder="Others"
-                        onChangeText={doctorStore.setOthers}
-                      />
-
-                      <AppInput
-                        onPress={() => {
-                          handleBottomSheetClick('hospital');
-                        }}
-                        parentStyle={styles.textInputStyle}
-                        value={doctorStore.hospital}
-                        textHeader="Referred to Hospital/ Medical Care"
-                        placeHolder="Referred to Hospital/ Medical Care"
-                        rightIcon={AppSVGs.dropdown}
-                      />
-                      {doctorStore.hospital === 'Yes' && (
-                        <AppTextInput
-                          value={doctorStore.action}
-                          parentStyle={styles.textInputStyle}
-                          textHeader="Action Suggested"
-                          placeHolder="Action Suggested"
-                          onChangeText={doctorStore.setAction}
+                    {Object.keys(doctorStore.doctorObservation).map(
+                      bodyPart => (
+                        <DoctorRow
+                          textHeader={bodyPart}
+                          data={doctorStore.doctorObservation[bodyPart]}
+                          key={bodyPart}
+                          parentStyle={{marginBottom: 20}}
                         />
-                      )}
-                    </View>
-                  </TouchableOpacity>
+                      ),
+                    )}
+
+                    <AppTextInput
+                      value={doctorStore.others}
+                      parentStyle={styles.textInputStyle}
+                      textHeader="OTHERS"
+                      placeHolder="Others"
+                      onChangeText={doctorStore.setOthers}
+                    />
+
+                    <AppInput
+                      onPress={() => {
+                        handleBottomSheetClick();
+                      }}
+                      parentStyle={styles.textInputStyle}
+                      value={doctorStore.hospital}
+                      textHeader="Referred to Hospital/ Medical Care"
+                      placeHolder="Referred to Hospital/ Medical Care"
+                      rightIcon={AppSVGs.dropdown}
+                    />
+                    {doctorStore.hospital === 'Yes' && (
+                      <AppTextInput
+                        value={doctorStore.action}
+                        parentStyle={styles.textInputStyle}
+                        textHeader="Action Suggested"
+                        placeHolder="Action Suggested"
+                        onChangeText={doctorStore.setAction}
+                      />
+                    )}
+                  </Pressable>
                 </ScrollView>
                 <AppButton
                   title="Save"
@@ -120,7 +118,6 @@ const DocObservationScreen = ({}: Props) => {
               }}
               onItemSelect={doctorStore.setValue}
               onPress={doctorStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
         </>
@@ -139,7 +136,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
   },
   containerWidth: {
     flex: 1,

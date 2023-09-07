@@ -17,7 +17,6 @@ import {AppSVGs} from '../assets';
 import {AppButton, AppContainer, AppTextInput} from '../components';
 import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
-import AppImageUploadInput from '../components/common/AppImageUploadInput';
 import AppInput from '../components/common/AppInput';
 import AppToggle from '../components/common/AppToggle';
 import Header from '../components/common/Header';
@@ -31,8 +30,7 @@ const ProgramMonitorScreen = () => {
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
 
-  const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
-    useCamera();
+  const {openGallery, takePhotoFromCamera, selectedImages} = useCamera();
 
   const handleImagePicker = (from: number) => {
     proStore.togglePhotoBottomSheet();
@@ -82,26 +80,25 @@ const ProgramMonitorScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <Pressable>
-                    <View style={styles.container}>
-                      <Text style={styles.headingText}>
-                        Enter details related to the Program Monitoring event
-                      </Text>
-                      <AppToggle
-                        title={'Partner Info'}
-                        children={
-                          <>
-                            <AppInput
-                              onPress={() => {
-                                handleBottomSheetClick('partnerType');
-                                handleIndex(2);
-                              }}
-                              parentStyle={styles.textInputStyle}
-                              value={proStore.partnerType}
-                              textHeader="PARTNER TYPE"
-                              placeHolder="Please Select"
-                              rightIcon={AppSVGs.dropdown}
-                            />
+                  <Pressable style={styles.container}>
+                    <Text style={styles.headingText}>
+                      Enter details related to the Program Monitoring event
+                    </Text>
+                    <AppToggle
+                      title={'Partner Info'}
+                      children={
+                        <>
+                          <AppInput
+                            onPress={() => {
+                              handleBottomSheetClick('partnerType');
+                              handleIndex(2);
+                            }}
+                            parentStyle={styles.textInputStyle}
+                            value={proStore.partnerType}
+                            textHeader="PARTNER TYPE"
+                            placeHolder="Please Select"
+                            rightIcon={AppSVGs.dropdown}
+                          />
 
                           <AppInput
                             onPress={() => {

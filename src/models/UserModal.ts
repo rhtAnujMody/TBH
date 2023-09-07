@@ -9,8 +9,14 @@ export interface UserData {
   education_details: EducationDetails[];
   doctor_observation: DoctorObservation;
 }
+
+export type DoctorObservationInner = {
+  id: number;
+  observation: string;
+  isSelected: boolean;
+};
 export interface DoctorObservation {
-  [key: string]: {id: number; observation: string}[];
+  [key: string]: DoctorObservationInner[];
 }
 
 export interface EducationDetails {

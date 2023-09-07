@@ -1,36 +1,19 @@
+import CheckBox from '@react-native-community/checkbox';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInputProps, View, ViewStyle} from 'react-native';
 import {colors, typography} from '../../theme';
-import CheckBox from '@react-native-community/checkbox';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
-  textHeader?: string;
-  checked?: boolean;
-  selectedArray: number[];
-  check: number;
+  textHeader: string;
+  onCheckChange: (value: boolean) => void;
 }
 
-const AppCheckBox = ({
-  parentStyle,
-  textHeader,
-  checked,
-  selectedArray,
-  check,
-  ...props
-}: Props) => {
+const AppCheckBox = ({textHeader, onCheckChange}: Props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const onSelect = (newValue: boolean) => {
-    if (newValue === true) {
-      setToggleCheckBox(newValue);
-      selectedArray.push(check);
-    } else {
-      setToggleCheckBox(newValue);
-      const indexToRemove = selectedArray.indexOf(check);
-      if (indexToRemove !== -1) {
-        selectedArray.splice(indexToRemove, 1);
-      }
-    }
+    setToggleCheckBox(newValue);
+    onCheckChange(newValue);
   };
 
   return (
@@ -57,7 +40,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textHeader: {
-    ...typography.medium(10),
+    ...typography.medium(14),
     alignSelf: 'center',
+    flex: 1,
   },
 });

@@ -1,32 +1,33 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TextInputProps, View, ViewStyle} from 'react-native';
 import {typography} from '../theme';
 import {AppCheckBox} from './common';
+import {DoctorObservationInner} from '../models/UserModal';
+import Utility from '../utils/Utility';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
   textHeader?: string;
-  data: {id: number; observation: string}[];
-  selectedArray: number[];
+  data: DoctorObservationInner[];
 }
 
-const DoctorRow = ({
-  parentStyle,
-  textHeader,
-  selectedArray,
-  data,
-  ...props
-}: Props) => {
+const onCheckChange = (value: boolean, item: DoctorObservationInner) => {
+  item.isSelected = value;
+  Utility.logData(item);
+};
+
+const DoctorRow = ({parentStyle, textHeader, data}: Props) => {
   return (
     <View style={[styles.container, parentStyle]}>
       <Text style={styles.textHeader}>{textHeader}</Text>
-      {data.map((item, index) => {
+      {data.map(item => {
         return (
           <AppCheckBox
             textHeader={item.observation}
-            check={item.id}
             key={item.id}
-            selectedArray={selectedArray}
+            onCheckChange={value => {
+              onCheckChange(value, item);
+            }}
           />
         );
       })}
@@ -41,6 +42,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   textHeader: {
-    ...typography.medium(12),
+    ...typography.bold(16),
   },
 });

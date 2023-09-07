@@ -22,7 +22,6 @@ type BottomSheetCard = {
 type Props = {
   header: string;
   data: Array[];
-  setValue: (item: string) => void;
   onPress?: () => void;
   onClose: () => void;
   onItemSelect: (header: string, value: string, id: string) => void;
