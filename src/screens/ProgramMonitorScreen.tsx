@@ -4,6 +4,7 @@ import React, {useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -81,25 +82,26 @@ const ProgramMonitorScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <View style={styles.container}>
-                    <Text style={styles.headingText}>
-                      Enter details related to the Program Monitoring event
-                    </Text>
-                    <AppToggle
-                      title={'Partner Info'}
-                      children={
-                        <>
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('partnerType');
-                              handleIndex(2);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={proStore.partnerType}
-                            textHeader="PARTNER TYPE"
-                            placeHolder="Please Select"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                  <Pressable>
+                    <View style={styles.container}>
+                      <Text style={styles.headingText}>
+                        Enter details related to the Program Monitoring event
+                      </Text>
+                      <AppToggle
+                        title={'Partner Info'}
+                        children={
+                          <>
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('partnerType');
+                                handleIndex(2);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={proStore.partnerType}
+                              textHeader="PARTNER TYPE"
+                              placeHolder="Please Select"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
                           <AppInput
                             onPress={() => {
@@ -524,19 +526,7 @@ const ProgramMonitorScreen = () => {
                         />
                       </View>
                     </View>
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
-
-                    <AppImageUploadInput
-                      title={'Photos for Monitoring'}
-                      selectedImages={selectedImages}
-                      onPress={proStore.togglePhotoBottomSheet}
-                      removeImage={removeImage}
-                    />
-                  </View>
+                  </Pressable>
                 </ScrollView>
 
                 <AppButton

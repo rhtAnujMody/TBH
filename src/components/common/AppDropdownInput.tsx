@@ -17,6 +17,10 @@ type Props = {
   setItems: Dispatch<SetStateCallback<any[]>>;
 };
 
+const ArrowDownIconComponent = () => {
+  return <AppSVGs.dropdown style={styles.arrowDownIcon} />;
+};
+
 const AppDropdownInput = ({
   open,
   value,
@@ -37,9 +41,7 @@ const AppDropdownInput = ({
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
-          ArrowDownIconComponent={() => (
-            <AppSVGs.dropdown style={styles.arrowDownIcon} />
-          )}
+          ArrowDownIconComponent={ArrowDownIconComponent}
           listMode="SCROLLVIEW"
           dropDownContainerStyle={styles.dropDownContainerStyle}
           style={styles.dropdownStyle}

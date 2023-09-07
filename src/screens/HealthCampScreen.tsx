@@ -10,6 +10,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Pressable,
 } from 'react-native';
 import AppInput from '../components/common/AppInput';
 import AppImageUploadInput from '../components/common/AppImageUploadInput';
@@ -70,10 +71,13 @@ const HealthCampScreen = () => {
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
+        break;
       case '4':
         healthStore.setDateOfDoseDeworm(Utility.formatDate(date));
+        break;
       case '5':
         healthStore.setDateOfDoseIFA(Utility.formatDate(date));
+        break;
     }
     healthStore.toogleCalender();
   };
@@ -90,7 +94,7 @@ const HealthCampScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <TouchableOpacity activeOpacity={1}>
+                  <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
                         Enter details related to the Health Camp event
@@ -560,7 +564,7 @@ const HealthCampScreen = () => {
                         }
                       />
                     </View>
-                  </TouchableOpacity>
+                  </Pressable>
                 </ScrollView>
 
                 <AppButton

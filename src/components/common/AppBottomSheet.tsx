@@ -1,5 +1,5 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
-import React, {forwardRef, useCallback, useMemo} from 'react';
+import React, {forwardRef, useMemo} from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 
 type Props = {
@@ -13,11 +13,21 @@ const AppBottomSheet = forwardRef<BottomSheet, Props>(
   ({children, isVisible = false, onClose, index}, ref) => {
     const snapPoints = useMemo(() => ['25%', '28%', '50%', '75%'], []);
 
-    // callbacks
-    const handleSheetChanges = useCallback((index: number) => {}, []);
     if (!isVisible) {
       return null;
     }
+
+    const backdropComponent = () => {
+      return (
+        <Pressable
+          style={styles.backdropStyle}
+          onPress={() => {
+            ref.current?.close();
+          }}
+        />
+      );
+    };
+
     return (
       <View style={styles.containerStyle}>
         <BottomSheet
@@ -25,18 +35,8 @@ const AppBottomSheet = forwardRef<BottomSheet, Props>(
           onClose={onClose}
           index={index}
           enablePanDownToClose
-          backdropComponent={() => {
-            return (
-              <Pressable
-                style={styles.backdropStyle}
-                onPress={() => {
-                  ref.current?.close();
-                }}
-              />
-            );
-          }}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}>
+          backdropComponent={backdropComponent}
+          snapPoints={snapPoints}>
           {children}
         </BottomSheet>
       </View>

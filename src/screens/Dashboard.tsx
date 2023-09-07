@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {HomeCard} from '../components';
 import AppContainer from '../components/common/AppContainer';
@@ -75,71 +75,73 @@ const Dashboard = () => {
       </View>
       <View style={styles.bottomContainer}>
         <ScrollView contentContainerStyle={styles.bodyScroll}>
-          <Text style={styles.title}>Health Camp</Text>
-          <View style={styles.cardsContainer}>
-            {homeCards.map((data, index) => {
-              return (
-                <HomeCard
-                  title={data.title}
-                  icon={data.icon}
-                  key={data.title}
-                  onPress={() => navigateToCard(index)}
-                  marginRight={index === 0 ? 10 : 0}
-                />
-              );
-            })}
-          </View>
-          <Text style={styles.title}>Nutrition Education</Text>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={homeCards[0].title}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(3)}
-            />
-          </View>
-          <Text style={styles.title}>Program Monitoring</Text>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={homeCards[0].title}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(4)}
-            />
-          </View>
-          <Text style={styles.title}>Generate Report</Text>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={'Malnutrition Report'}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(5)}
-            />
-          </View>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={'Wasting-Stunting Report'}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(6)}
-            />
-          </View>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={'Custom Report'}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(7)}
-            />
-          </View>
-          <View style={styles.cardsContainer}>
-            <HomeCard
-              title={"Doctor's Observation Report"}
-              icon={homeCards[0].icon}
-              key={homeCards[0].title}
-              onPress={() => navigateToCard(8)}
-            />
-          </View>
+          <Pressable>
+            <Text style={styles.title}>Health Camp</Text>
+            <View style={styles.cardsContainer}>
+              {homeCards.map((data, index) => {
+                return (
+                  <HomeCard
+                    title={data.title}
+                    icon={data.icon}
+                    key={data.title}
+                    onPress={() => navigateToCard(index)}
+                    marginRight={index === 0 ? 10 : 0}
+                  />
+                );
+              })}
+            </View>
+            <Text style={styles.title}>Nutrition Education</Text>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={homeCards[0].title}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(2)}
+              />
+            </View>
+            <Text style={styles.title}>Program Monitoring</Text>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={homeCards[0].title}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(3)}
+              />
+            </View>
+            <Text style={styles.title}>Generate Report</Text>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={'Malnutrition Report'}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(4)}
+              />
+            </View>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={'Wasting-Stunting Report'}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(5)}
+              />
+            </View>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={'Custom Report'}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(6)}
+              />
+            </View>
+            <View style={styles.cardsContainer}>
+              <HomeCard
+                title={"Doctor's Observation Report"}
+                icon={homeCards[0].icon}
+                key={homeCards[0].title}
+                onPress={() => navigateToCard(7)}
+              />
+            </View>
+          </Pressable>
         </ScrollView>
       </View>
       <AppSVGs.buildings style={styles.buildingLogo} />

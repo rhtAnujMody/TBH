@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {typography} from '../../theme';
 
 type Props = {
@@ -13,12 +13,12 @@ const HomeCard = ({title, icon: Icon, onPress}: Props) => {
   const styles = homeCardStyles();
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <Pressable style={styles.container} onPress={onPress}>
       <View style={styles.imageContainer}>
         <Icon />
       </View>
       <Text style={styles.text}>{title}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

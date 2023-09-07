@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
+import {PermissionsAndroid} from 'react-native';
 import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
-import {Alert, PermissionsAndroid} from 'react-native';
 import Utility from '../utils/Utility';
 
 const useCamera = () => {

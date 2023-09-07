@@ -1,12 +1,5 @@
-import React, {useEffect} from 'react';
-import {
-  Image,
-  PermissionsAndroid,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React from 'react';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../../assets';
 import {colors, typography} from '../../theme';
 
