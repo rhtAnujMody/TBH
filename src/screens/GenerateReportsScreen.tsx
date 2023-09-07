@@ -1,3 +1,4 @@
+import {useRoute} from '@react-navigation/native';
 import {Observer} from 'mobx-react-lite';
 import React, {useEffect} from 'react';
 import {
@@ -8,12 +9,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import {AppContainer, AppTextInput, AppTextContent} from '../components';
+import {AppContainer, AppTextContent} from '../components';
 import Header from '../components/common/Header';
-import {colors, typography} from '../theme';
-import useGenerateStore from '../stores/useGenerateStore';
-import {useRoute} from '@react-navigation/native';
 import {TargetScreenRouteProp} from '../navigation/ReportsStack';
+import useGenerateStore from '../stores/useGenerateStore';
+import {colors, typography} from '../theme';
 type Props = {};
 
 const GenerateReportsScreen = ({}: Props) => {
@@ -30,7 +30,7 @@ const GenerateReportsScreen = ({}: Props) => {
           <Header title={'Health Camp'} />
           <KeyboardAvoidingView
             behavior={Platform.select({ios: 'padding'})}
-            style={{flex: 1, backgroundColor: colors.palette.primary}}>
+            style={styles.keyboardAvoidingViewStyle}>
             <View style={styles.backgroundStyle}>
               <ScrollView contentContainerStyle={styles.contentContainerStyle}>
                 <View style={styles.container}>
@@ -89,6 +89,10 @@ export default GenerateReportsScreen;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+  },
+  keyboardAvoidingViewStyle: {
+    flex: 1,
+    backgroundColor: colors.palette.primary,
   },
   contentContainerStyle: {
     paddingBottom: 20,

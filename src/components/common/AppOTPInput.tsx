@@ -6,7 +6,7 @@ import {
   TextInputKeyPressEventData,
   View,
 } from 'react-native';
-import {colors, typography} from '../../theme';
+import {colors} from '../../theme';
 
 type OTPInputProps = {
   length: number;
