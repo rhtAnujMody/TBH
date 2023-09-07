@@ -58,9 +58,7 @@ const Dashboard = () => {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <ScrollView
-          contentContainerStyle={styles.bodyScroll}
-          keyboardShouldPersistTaps={true}>
+        <ScrollView contentContainerStyle={styles.bodyScroll}>
           <Pressable>
             <Text style={styles.title}>Health Camp</Text>
             <View style={styles.cardsContainer}>
