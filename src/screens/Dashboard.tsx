@@ -1,12 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {HomeCard} from '../components';
 import AppContainer from '../components/common/AppContainer';
@@ -64,10 +58,8 @@ const Dashboard = () => {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <ScrollView
-          contentContainerStyle={styles.bodyScroll}
-          keyboardShouldPersistTaps={true}>
-          <TouchableOpacity activeOpacity={1}>
+        <ScrollView contentContainerStyle={styles.bodyScroll}>
+          <Pressable>
             <Text style={styles.title}>Health Camp</Text>
             <View style={styles.cardsContainer}>
               {homeCards.map((data, index) => {
@@ -133,7 +125,7 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(7)}
               />
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </ScrollView>
       </View>
       <AppSVGs.buildings style={styles.buildingLogo} />

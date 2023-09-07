@@ -3,10 +3,6 @@ import {useLocalObservable} from 'mobx-react-lite';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
-import {Image} from 'react-native-image-crop-picker';
-import {HealthModal} from '../models/HealthModal';
-import authStore from './authStore';
-import {useNavigation} from '@react-navigation/native';
 
 const useGenerateStore = () => {
   const {request} = useApiService();

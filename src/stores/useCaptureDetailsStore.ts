@@ -92,12 +92,13 @@ const useCaptureDetailsStore = () => {
       id: index.toString(),
     })),
     ageOptions: [
-      {name: '2.5 - 5 years', id: '0'},
-      {name: '5-13 years', id: '1'},
-      {name: '13- 18 years', id: '2'},
-      {name: '18- 25 years', id: '3'},
-      {name: '25- 40 years', id: '4'},
-      {name: '40 years and above', id: '5'},
+      {name: '0 - 2.5 years', id: '1'},
+      {name: '2.5 - 5 years', id: '2'},
+      {name: '5-13 years', id: '3'},
+      {name: '13- 18 years', id: '4'},
+      {name: '18- 25 years', id: '5'},
+      {name: '25- 40 years', id: '6'},
+      {name: '40 years and above', id: '7'},
     ],
     options: [
       {

@@ -1,18 +1,17 @@
 import React, {RefObject, useState} from 'react';
 import {
   KeyboardType,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
   TextInputProps,
   TextStyle,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
 import {colors, typography} from '../../theme';
-import {TouchableOpacity} from 'react-native';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;

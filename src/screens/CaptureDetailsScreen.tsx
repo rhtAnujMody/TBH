@@ -4,6 +4,7 @@ import React, {useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -83,7 +84,7 @@ const CaptureDetailsScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <TouchableOpacity activeOpacity={1}>
+                  <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
                         Enter details related to the Nutrition Education event
@@ -316,7 +317,7 @@ const CaptureDetailsScreen = () => {
                         }
                       />
                     </View>
-                  </TouchableOpacity>
+                  </Pressable>
                 </ScrollView>
 
                 <AppButton

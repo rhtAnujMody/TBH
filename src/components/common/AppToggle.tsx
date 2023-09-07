@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {colors, typography} from '../../theme';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {typography} from '../../theme';
 
 type Props = {
   title?: string;

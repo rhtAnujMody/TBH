@@ -558,7 +558,10 @@ const useHealthStore = () => {
             contact: healthStore.contact,
             gender: healthStore.genderID,
             beneficiary_id: healthStore.beneficiaryID,
-            image: healthStore.selectedImages[0].path,
+            image:
+              healthStore.selectedImages.length > 0
+                ? healthStore.selectedImages[0].path
+                : null,
           }),
         );
         formData.append(

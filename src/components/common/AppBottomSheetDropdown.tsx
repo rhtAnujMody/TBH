@@ -14,6 +14,11 @@ type Array = {
   id: string;
 };
 
+type BottomSheetCard = {
+  id: string;
+  name: string;
+};
+
 type Props = {
   header: string;
   data: Array[];
@@ -29,6 +34,19 @@ export const AppBottomSheetDropdown = ({
   onPress,
   onItemSelect,
 }: Props) => {
+  const renderItem = ({item}: {item: BottomSheetCard}) => {
+    return (
+      <TouchableHighlight
+        underlayColor="#eee"
+        onPress={() => {
+          onItemSelect(header, item.name, item.id);
+        }}
+        style={styles.itemContainer}>
+        <Text>{item.name}</Text>
+      </TouchableHighlight>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -41,16 +59,7 @@ export const AppBottomSheetDropdown = ({
         data={data}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contentContainerStyle}
-        renderItem={({item}) => (
-          <TouchableHighlight
-            underlayColor="#eee"
-            onPress={() => {
-              onItemSelect(header, item.name, item.id);
-            }}
-            style={styles.itemContainer}>
-            <Text>{item.name}</Text>
-          </TouchableHighlight>
-        )}
+        renderItem={renderItem}
       />
     </View>
   );
