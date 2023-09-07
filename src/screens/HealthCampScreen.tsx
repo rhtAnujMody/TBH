@@ -90,473 +90,477 @@ const HealthCampScreen = () => {
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
-                  <View style={styles.container}>
-                    <Text style={styles.headingText}>
-                      Enter details related to the Health Camp event
-                    </Text>
+                  <TouchableOpacity activeOpacity={1}>
+                    <View style={styles.container}>
+                      <Text style={styles.headingText}>
+                        Enter details related to the Health Camp event
+                      </Text>
 
-                    <AppToggle
-                      title={'Partner Details'}
-                      children={
-                        <>
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('partner');
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.partner}
-                            textHeader="IS THIS A NEW / EXISTING PARTNER"
-                            placeHolder="Is this a New / Existing Partner"
-                            rightIcon={AppSVGs.dropdown}
-                          />
-                          {healthStore.partner === 'New' ? (
-                            <>
-                              <AppTextInput
-                                value={healthStore.newPartnerName}
-                                parentStyle={styles.textInputStyle}
-                                textHeader="NAME OF THE PARTNER"
-                                placeHolder="Name of the partner"
-                                onChangeText={healthStore.setNewPartnerName}
-                              />
+                      <AppToggle
+                        title={'Partner Details'}
+                        children={
+                          <>
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('partner');
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.partner}
+                              textHeader="IS THIS A NEW / EXISTING PARTNER"
+                              placeHolder="Is this a New / Existing Partner"
+                              rightIcon={AppSVGs.dropdown}
+                            />
+                            {healthStore.partner === 'New' ? (
+                              <>
+                                <AppTextInput
+                                  value={healthStore.newPartnerName}
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="NAME OF THE PARTNER"
+                                  placeHolder="Name of the partner"
+                                  onChangeText={healthStore.setNewPartnerName}
+                                />
 
-                              <AppTextInput
-                                value={healthStore.newLocation}
-                                parentStyle={styles.textInputStyle}
-                                textHeader="LOCATION"
-                                placeHolder="Location"
-                                onChangeText={healthStore.setNewLocation}
-                              />
+                                <AppTextInput
+                                  value={healthStore.newLocation}
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="LOCATION"
+                                  placeHolder="Location"
+                                  onChangeText={healthStore.setNewLocation}
+                                />
 
-                              <AppTextInput
-                                value={healthStore.newBlock}
-                                parentStyle={styles.textInputStyle}
-                                textHeader="BLOCK"
-                                placeHolder="Block"
-                                onChangeText={healthStore.setNewBlock}
-                              />
+                                <AppTextInput
+                                  value={healthStore.newBlock}
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="BLOCK"
+                                  placeHolder="Block"
+                                  onChangeText={healthStore.setNewBlock}
+                                />
 
-                              <AppTextInput
-                                value={healthStore.newDistrict}
-                                parentStyle={styles.textInputStyle}
-                                textHeader="District"
-                                placeHolder="District"
-                                onChangeText={healthStore.setNewDistrict}
-                              />
+                                <AppTextInput
+                                  value={healthStore.newDistrict}
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="District"
+                                  placeHolder="District"
+                                  onChangeText={healthStore.setNewDistrict}
+                                />
 
-                              <AppTextInput
-                                value={healthStore.newState}
-                                parentStyle={styles.textInputStyle}
-                                textHeader="STATE"
-                                placeHolder="State"
-                                onChangeText={healthStore.setNewState}
-                              />
-                            </>
-                          ) : healthStore.partner === 'Existing' ? (
-                            <>
-                              <AppInput
-                                onPress={() => {
-                                  handleBottomSheetClick('partnerName');
-                                  healthStore.setIndex(3);
-                                }}
-                                parentStyle={styles.textInputStyle}
-                                value={healthStore.existPartnerName}
-                                textHeader="NAME OF THE PARTNER"
-                                placeHolder="Name of the partner"
-                                rightIcon={AppSVGs.dropdown}
-                              />
+                                <AppTextInput
+                                  value={healthStore.newState}
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="STATE"
+                                  placeHolder="State"
+                                  onChangeText={healthStore.setNewState}
+                                />
+                              </>
+                            ) : healthStore.partner === 'Existing' ? (
+                              <>
+                                <AppInput
+                                  onPress={() => {
+                                    handleBottomSheetClick('partnerName');
+                                    healthStore.setIndex(3);
+                                  }}
+                                  parentStyle={styles.textInputStyle}
+                                  value={healthStore.existPartnerName}
+                                  textHeader="NAME OF THE PARTNER"
+                                  placeHolder="Name of the partner"
+                                  rightIcon={AppSVGs.dropdown}
+                                />
 
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="LOCATION"
-                                placeHolder="Location"
-                                value={healthStore.existLocation}
-                                //onChangeText={cdStore.setLocation}
-                                editable={false}
-                              />
+                                <AppTextInput
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="LOCATION"
+                                  placeHolder="Location"
+                                  value={healthStore.existLocation}
+                                  //onChangeText={cdStore.setLocation}
+                                  editable={false}
+                                />
 
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="BLOCK"
-                                placeHolder="Block"
-                                value={healthStore.existBlock}
-                                editable={false}
-                              />
+                                <AppTextInput
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="BLOCK"
+                                  placeHolder="Block"
+                                  value={healthStore.existBlock}
+                                  editable={false}
+                                />
 
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="District"
-                                placeHolder="District"
-                                value={healthStore.existDistrict}
-                                editable={false}
-                              />
+                                <AppTextInput
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="District"
+                                  placeHolder="District"
+                                  value={healthStore.existDistrict}
+                                  editable={false}
+                                />
 
-                              <AppTextInput
-                                parentStyle={styles.textInputStyle}
-                                textHeader="STATE"
-                                placeHolder="State"
-                                value={healthStore.existState}
-                                editable={false}
-                              />
-                            </>
-                          ) : null}
+                                <AppTextInput
+                                  parentStyle={styles.textInputStyle}
+                                  textHeader="STATE"
+                                  placeHolder="State"
+                                  value={healthStore.existState}
+                                  editable={false}
+                                />
+                              </>
+                            ) : null}
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('partnerType', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.partnerType}
-                            textHeader="PARTNER TYPE"
-                            placeHolder="Partner Type"
-                            rightIcon={AppSVGs.dropdown}
-                          />
-                        </>
-                      }
-                    />
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('partnerType', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.partnerType}
+                              textHeader="PARTNER TYPE"
+                              placeHolder="Partner Type"
+                              rightIcon={AppSVGs.dropdown}
+                            />
+                          </>
+                        }
+                      />
 
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                      <DashedLine
+                        dashLength={5}
+                        dashThickness={0.7}
+                        dashColor={colors.gray}
+                      />
 
-                    <AppToggle
-                      title={'Health Camp Details'}
-                      children={
-                        <>
-                          <AppTextInput
-                            parentStyle={styles.dovInputStyle}
-                            textHeader="Date of Health Camp"
-                            rightIcon={AppSVGs.dob}
-                            placeHolder="Date of Health Camp"
-                            hideInput={true}
-                            onPress={() => {
-                              showDatePicker('1');
-                            }}
-                            otherText={healthStore.dohc}
-                          />
+                      <AppToggle
+                        title={'Health Camp Details'}
+                        children={
+                          <>
+                            <AppTextInput
+                              parentStyle={styles.dovInputStyle}
+                              textHeader="Date of Health Camp"
+                              rightIcon={AppSVGs.dob}
+                              placeHolder="Date of Health Camp"
+                              hideInput={true}
+                              onPress={() => {
+                                showDatePicker('1');
+                              }}
+                              otherText={healthStore.dohc}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Number of Health Camp"
-                            placeHolder="Serial Number of Health Camp"
-                            value={healthStore.numberHC}
-                            onChangeText={healthStore.setNumberHC}
-                          />
-                        </>
-                      }
-                    />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Number of Health Camp"
+                              placeHolder="Serial Number of Health Camp"
+                              value={healthStore.numberHC}
+                              onChangeText={healthStore.setNumberHC}
+                            />
+                          </>
+                        }
+                      />
 
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                      <DashedLine
+                        dashLength={5}
+                        dashThickness={0.7}
+                        dashColor={colors.gray}
+                      />
 
-                    <AppToggle
-                      title={"Children's Details"}
-                      children={
-                        <>
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Child's Name"
-                            placeHolder="Child's Name"
-                            value={healthStore.childName}
-                            onChangeText={healthStore.setChildName}
-                          />
+                      <AppToggle
+                        title={"Children's Details"}
+                        children={
+                          <>
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Child's Name"
+                              placeHolder="Child's Name"
+                              value={healthStore.childName}
+                              onChangeText={healthStore.setChildName}
+                            />
 
-                          <AppImageUploadInput
-                            title={"Child's Photo"}
-                            selectedImages={selectedImages}
-                            onPress={healthStore.togglePhotoBottomSheet}
-                            removeImage={removeImage}
-                          />
+                            <AppImageUploadInput
+                              title={"Child's Photo"}
+                              selectedImages={selectedImages}
+                              onPress={healthStore.togglePhotoBottomSheet}
+                              removeImage={removeImage}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Contact Number"
-                            placeHolder="Contact Number"
-                            value={healthStore.contact}
-                            onChangeText={healthStore.setContact}
-                            maxLength={10}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Contact Number"
+                              placeHolder="Contact Number"
+                              value={healthStore.contact}
+                              onChangeText={healthStore.setContact}
+                              maxLength={10}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.dovInputStyle}
-                            textHeader="Date of Birth"
-                            rightIcon={AppSVGs.dob}
-                            placeHolder="Date of Birth"
-                            hideInput={true}
-                            onPress={() => {
-                              showDatePicker('2');
-                            }}
-                            otherText={healthStore.dob}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.dovInputStyle}
+                              textHeader="Date of Birth"
+                              rightIcon={AppSVGs.dob}
+                              placeHolder="Date of Birth"
+                              hideInput={true}
+                              onPress={() => {
+                                showDatePicker('2');
+                              }}
+                              otherText={healthStore.dob}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Age"
-                            placeHolder="Age"
-                            value={healthStore.age}
-                            editable={false}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Age"
+                              placeHolder="Age"
+                              value={healthStore.age}
+                              editable={false}
+                            />
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('gender', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.gender}
-                            textHeader="Gender"
-                            placeHolder="Gender"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('gender', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.gender}
+                              textHeader="Gender"
+                              placeHolder="Gender"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Height"
-                            placeHolder="Height(CM)"
-                            value={healthStore.height}
-                            onChangeText={healthStore.setHeight}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Height"
+                              placeHolder="Height(CM)"
+                              value={healthStore.height}
+                              onChangeText={healthStore.setHeight}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="Weight"
-                            placeHolder="Weight(KG)"
-                            value={healthStore.weight}
-                            onChangeText={healthStore.setWeight}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="Weight"
+                              placeHolder="Weight(KG)"
+                              value={healthStore.weight}
+                              onChangeText={healthStore.setWeight}
+                            />
 
-                          <AppTextInput
-                            parentStyle={styles.textInputStyle}
-                            textHeader="MUAC"
-                            placeHolder="MUAC(CM)"
-                            value={healthStore.muac}
-                            onChangeText={healthStore.setMUAC}
-                          />
+                            <AppTextInput
+                              parentStyle={styles.textInputStyle}
+                              textHeader="MUAC"
+                              placeHolder="MUAC(CM)"
+                              value={healthStore.muac}
+                              onChangeText={healthStore.setMUAC}
+                            />
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('vitaminA', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.vitaminA}
-                            textHeader="Vitamin A"
-                            placeHolder="Vitamin A"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('vitaminA', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.vitaminA}
+                              textHeader="Vitamin A"
+                              placeHolder="Vitamin A"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
-                          {healthStore.vitaminA === 'Done' && (
-                            <>
-                              <AppInput
-                                onPress={() => {
-                                  handleBottomSheetClick('doneBy', 3);
-                                }}
-                                parentStyle={styles.textInputStyle}
-                                value={healthStore.doneBy}
-                                textHeader="Done By Whom"
-                                placeHolder="Done By Whom"
-                                rightIcon={AppSVGs.dropdown}
-                              />
-                              {healthStore.doneBy && (
-                                <>
-                                  <AppTextInput
-                                    parentStyle={styles.dovInputStyle}
-                                    textHeader="Date of the Dose"
-                                    rightIcon={AppSVGs.dob}
-                                    placeHolder="Date of the Dose"
-                                    hideInput={true}
-                                    onPress={() => {
-                                      showDatePicker('3');
-                                    }}
-                                    otherText={healthStore.dateOfDoseVitamin}
-                                  />
+                            {healthStore.vitaminA === 'Done' && (
+                              <>
+                                <AppInput
+                                  onPress={() => {
+                                    handleBottomSheetClick('doneBy', 3);
+                                  }}
+                                  parentStyle={styles.textInputStyle}
+                                  value={healthStore.doneBy}
+                                  textHeader="Done By Whom"
+                                  placeHolder="Done By Whom"
+                                  rightIcon={AppSVGs.dropdown}
+                                />
+                                {healthStore.doneBy && (
+                                  <>
+                                    <AppTextInput
+                                      parentStyle={styles.dovInputStyle}
+                                      textHeader="Date of the Dose"
+                                      rightIcon={AppSVGs.dob}
+                                      placeHolder="Date of the Dose"
+                                      hideInput={true}
+                                      onPress={() => {
+                                        showDatePicker('3');
+                                      }}
+                                      otherText={healthStore.dateOfDoseVitamin}
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Duration of Course?"
-                                    placeHolder="Duration of Course?"
-                                    value={healthStore.durationOfCourse}
-                                    onChangeText={
-                                      healthStore.setDurationOfCourse
-                                    }
-                                  />
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Duration of Course?"
+                                      placeHolder="Duration of Course?"
+                                      value={healthStore.durationOfCourse}
+                                      onChangeText={
+                                        healthStore.setDurationOfCourse
+                                      }
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Location of Dose Taken"
-                                    placeHolder="Location of Dose Taken"
-                                    value={healthStore.locationOfDose}
-                                    onChangeText={healthStore.setLocationOfDose}
-                                  />
-                                </>
-                              )}
-                            </>
-                          )}
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Location of Dose Taken"
+                                      placeHolder="Location of Dose Taken"
+                                      value={healthStore.locationOfDose}
+                                      onChangeText={
+                                        healthStore.setLocationOfDose
+                                      }
+                                    />
+                                  </>
+                                )}
+                              </>
+                            )}
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('deworming', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.deworming}
-                            textHeader="Deworming"
-                            placeHolder="Deworming"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('deworming', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.deworming}
+                              textHeader="Deworming"
+                              placeHolder="Deworming"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
-                          {healthStore.deworming === 'Done' && (
-                            <>
-                              <AppInput
-                                onPress={() => {
-                                  handleBottomSheetClick('doneByWorm', 3);
-                                }}
-                                parentStyle={styles.textInputStyle}
-                                value={healthStore.doneByWorm}
-                                textHeader="Done By Whom"
-                                placeHolder="Done By Whom"
-                                rightIcon={AppSVGs.dropdown}
-                              />
+                            {healthStore.deworming === 'Done' && (
+                              <>
+                                <AppInput
+                                  onPress={() => {
+                                    handleBottomSheetClick('doneByWorm', 3);
+                                  }}
+                                  parentStyle={styles.textInputStyle}
+                                  value={healthStore.doneByWorm}
+                                  textHeader="Done By Whom"
+                                  placeHolder="Done By Whom"
+                                  rightIcon={AppSVGs.dropdown}
+                                />
 
-                              {healthStore.doneByWorm && (
-                                <>
-                                  <AppTextInput
-                                    parentStyle={styles.dovInputStyle}
-                                    textHeader="Date of the Dose"
-                                    rightIcon={AppSVGs.dob}
-                                    placeHolder="Date of the Dose"
-                                    hideInput={true}
-                                    onPress={() => {
-                                      showDatePicker('4');
-                                    }}
-                                    otherText={healthStore.dateOfDoseDeworm}
-                                  />
+                                {healthStore.doneByWorm && (
+                                  <>
+                                    <AppTextInput
+                                      parentStyle={styles.dovInputStyle}
+                                      textHeader="Date of the Dose"
+                                      rightIcon={AppSVGs.dob}
+                                      placeHolder="Date of the Dose"
+                                      hideInput={true}
+                                      onPress={() => {
+                                        showDatePicker('4');
+                                      }}
+                                      otherText={healthStore.dateOfDoseDeworm}
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Duration of Course"
-                                    placeHolder="Duration of Course"
-                                    value={healthStore.durationOfCourseWorm}
-                                    onChangeText={
-                                      healthStore.setDurationOfCourseWorm
-                                    }
-                                  />
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Duration of Course"
+                                      placeHolder="Duration of Course"
+                                      value={healthStore.durationOfCourseWorm}
+                                      onChangeText={
+                                        healthStore.setDurationOfCourseWorm
+                                      }
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Location of Dose Taken"
-                                    placeHolder="Location of Dose Taken"
-                                    value={healthStore.locationOfDoseWorm}
-                                    onChangeText={
-                                      healthStore.setLocationOfDoseWorm
-                                    }
-                                  />
-                                </>
-                              )}
-                            </>
-                          )}
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Location of Dose Taken"
+                                      placeHolder="Location of Dose Taken"
+                                      value={healthStore.locationOfDoseWorm}
+                                      onChangeText={
+                                        healthStore.setLocationOfDoseWorm
+                                      }
+                                    />
+                                  </>
+                                )}
+                              </>
+                            )}
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('IFA', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.ifa}
-                            textHeader="IFA"
-                            placeHolder="IFA"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('IFA', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.ifa}
+                              textHeader="IFA"
+                              placeHolder="IFA"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
-                          {healthStore.ifa === 'Done' && (
-                            <>
-                              <AppInput
-                                onPress={() => {
-                                  handleBottomSheetClick('doneByIFA', 3);
-                                }}
-                                parentStyle={styles.textInputStyle}
-                                value={healthStore.doneByIFA}
-                                textHeader="Done By Whom"
-                                placeHolder="Done By Whom"
-                                rightIcon={AppSVGs.dropdown}
-                              />
+                            {healthStore.ifa === 'Done' && (
+                              <>
+                                <AppInput
+                                  onPress={() => {
+                                    handleBottomSheetClick('doneByIFA', 3);
+                                  }}
+                                  parentStyle={styles.textInputStyle}
+                                  value={healthStore.doneByIFA}
+                                  textHeader="Done By Whom"
+                                  placeHolder="Done By Whom"
+                                  rightIcon={AppSVGs.dropdown}
+                                />
 
-                              {healthStore.doneByIFA && (
-                                <>
-                                  <AppTextInput
-                                    parentStyle={styles.dovInputStyle}
-                                    textHeader="Date of the Dose"
-                                    rightIcon={AppSVGs.dob}
-                                    placeHolder="Date of the Dose"
-                                    hideInput={true}
-                                    onPress={() => {
-                                      showDatePicker('5');
-                                    }}
-                                    otherText={healthStore.dateOfDoseIFA}
-                                  />
+                                {healthStore.doneByIFA && (
+                                  <>
+                                    <AppTextInput
+                                      parentStyle={styles.dovInputStyle}
+                                      textHeader="Date of the Dose"
+                                      rightIcon={AppSVGs.dob}
+                                      placeHolder="Date of the Dose"
+                                      hideInput={true}
+                                      onPress={() => {
+                                        showDatePicker('5');
+                                      }}
+                                      otherText={healthStore.dateOfDoseIFA}
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Duration of Course"
-                                    placeHolder="Duration of Course"
-                                    value={healthStore.durationOfCourseIFA}
-                                    onChangeText={
-                                      healthStore.setDurationOfCourseIFA
-                                    }
-                                  />
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Duration of Course"
+                                      placeHolder="Duration of Course"
+                                      value={healthStore.durationOfCourseIFA}
+                                      onChangeText={
+                                        healthStore.setDurationOfCourseIFA
+                                      }
+                                    />
 
-                                  <AppTextInput
-                                    parentStyle={styles.textInputStyle}
-                                    textHeader="Location of Dose Taken"
-                                    placeHolder="Location of Dose Taken"
-                                    value={healthStore.locationOfDoseIFA}
-                                    onChangeText={
-                                      healthStore.setLocationOfDoseIFA
-                                    }
-                                  />
-                                </>
-                              )}
-                            </>
-                          )}
-                        </>
-                      }
-                    />
+                                    <AppTextInput
+                                      parentStyle={styles.textInputStyle}
+                                      textHeader="Location of Dose Taken"
+                                      placeHolder="Location of Dose Taken"
+                                      value={healthStore.locationOfDoseIFA}
+                                      onChangeText={
+                                        healthStore.setLocationOfDoseIFA
+                                      }
+                                    />
+                                  </>
+                                )}
+                              </>
+                            )}
+                          </>
+                        }
+                      />
 
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                      <DashedLine
+                        dashLength={5}
+                        dashThickness={0.7}
+                        dashColor={colors.gray}
+                      />
 
-                    <AppToggle
-                      title={"Children's Details"}
-                      children={
-                        <>
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('targetBeneficiary', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.targetBeneficiary}
-                            textHeader="Target Beneficiary"
-                            placeHolder="Target Beneficiary"
-                            rightIcon={AppSVGs.dropdown}
-                          />
+                      <AppToggle
+                        title={'Beneficiary Details'}
+                        children={
+                          <>
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('targetBeneficiary', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.targetBeneficiary}
+                              textHeader="Target Beneficiary"
+                              placeHolder="Target Beneficiary"
+                              rightIcon={AppSVGs.dropdown}
+                            />
 
-                          <AppInput
-                            onPress={() => {
-                              handleBottomSheetClick('educationalDetails', 3);
-                            }}
-                            parentStyle={styles.textInputStyle}
-                            value={healthStore.educationalDetails}
-                            textHeader="Educational Details"
-                            placeHolder="Educational Details"
-                            rightIcon={AppSVGs.dropdown}
-                          />
-                        </>
-                      }
-                    />
-                  </View>
+                            <AppInput
+                              onPress={() => {
+                                handleBottomSheetClick('educationalDetails', 3);
+                              }}
+                              parentStyle={styles.textInputStyle}
+                              value={healthStore.educationalDetails}
+                              textHeader="Educational Details"
+                              placeHolder="Educational Details"
+                              rightIcon={AppSVGs.dropdown}
+                            />
+                          </>
+                        }
+                      />
+                    </View>
+                  </TouchableOpacity>
                 </ScrollView>
 
                 <AppButton
