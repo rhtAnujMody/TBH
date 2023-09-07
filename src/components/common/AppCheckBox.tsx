@@ -7,17 +7,39 @@ interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
   textHeader?: string;
   checked?: boolean;
+  selectedArray: number[];
+  check: number;
 }
 
-const AppCheckBox = ({parentStyle, textHeader, checked, ...props}: Props) => {
+const AppCheckBox = ({
+  parentStyle,
+  textHeader,
+  checked,
+  selectedArray,
+  check,
+  ...props
+}: Props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const onSelect = (newValue: boolean) => {
+    if (newValue === true) {
+      setToggleCheckBox(newValue);
+      selectedArray.push(check);
+    } else {
+      setToggleCheckBox(newValue);
+      const indexToRemove = selectedArray.indexOf(check);
+      if (indexToRemove !== -1) {
+        selectedArray.splice(indexToRemove, 1);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>{textHeader + ' : '}</Text>
       <CheckBox
         disabled={false}
         value={toggleCheckBox}
-        onValueChange={newValue => setToggleCheckBox(newValue)}
+        onValueChange={onSelect}
         tintColors={{true: colors.palette.primary, false: colors.gray}}
       />
     </View>
@@ -35,7 +57,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   textHeader: {
-    ...typography.medium(12),
+    ...typography.medium(10),
     alignSelf: 'center',
   },
 });

@@ -6,16 +6,29 @@ import {AppCheckBox} from './common';
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
   textHeader?: string;
-  data: {id: string; name: string}[];
-  key: string;
+  data: {id: number; observation: string}[];
+  selectedArray: number[];
 }
 
-const DoctorRow = ({parentStyle, textHeader, data, key, ...props}: Props) => {
+const DoctorRow = ({
+  parentStyle,
+  textHeader,
+  selectedArray,
+  data,
+  ...props
+}: Props) => {
   return (
     <View style={[styles.container, parentStyle]}>
       <Text style={styles.textHeader}>{textHeader}</Text>
       {data.map((item, index) => {
-        return <AppCheckBox textHeader={item.name} />;
+        return (
+          <AppCheckBox
+            textHeader={item.observation}
+            check={item.id}
+            key={item.id}
+            selectedArray={selectedArray}
+          />
+        );
       })}
     </View>
   );
@@ -28,6 +41,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   textHeader: {
-    ...typography.medium(17),
+    ...typography.medium(12),
   },
 });

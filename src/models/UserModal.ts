@@ -7,6 +7,10 @@ export interface UserData {
   partner_list: PartnerList[];
   health_camp_beneficiary: HealthCampBeneficiary[];
   education_details: EducationDetails[];
+  doctor_observation: DoctorObservation;
+}
+export interface DoctorObservation {
+  [key: string]: {id: number; observation: string}[];
 }
 
 export interface EducationDetails {

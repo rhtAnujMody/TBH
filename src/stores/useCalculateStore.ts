@@ -18,12 +18,10 @@ const useCalculateStore = () => {
     dob: '',
     childName: '',
     contact: '',
-
+    screen: '',
     showCalender: false,
-
     isLoading: false,
     enableSubmit: false,
-
     bottomSheetArray: [] as any[],
     bottomSheetHeader: '',
     openBottomSheet: false,
@@ -37,7 +35,11 @@ const useCalculateStore = () => {
 
     setValue(from: string, value: string, id: string) {
       calStore.openBottomSheet = !calStore.openBottomSheet;
-      navigation.navigate('Generate', {id: id});
+      if (calStore.screen === AppStrings.fromDoctor) {
+        navigation2.navigate('Doctor', {id: id});
+      } else {
+        navigation.navigate('Generate', {id: id});
+      }
     },
 
     setChildame(value: string) {
@@ -63,69 +65,68 @@ const useCalculateStore = () => {
 
     validateSubmit() {
       calStore.enableSubmit = false;
-      if (calStore.dob == '') {
-        return;
-      }
+      // if (calStore.dob == '') {
+      //   return;
+      // }
 
       if (!Utility.validateAlpha(calStore.childName)) {
         return;
       }
 
-      if (!Utility.validatePhoneNumber(calStore.contact)) {
-        return;
-      }
+      // if (!Utility.validatePhoneNumber(calStore.contact)) {
+      //   return;
+      // }
 
       calStore.enableSubmit = true;
     },
 
     generateName(value: any) {
       return value.map((item: any) => ({
-        name: `Name: ${item.name}, DOB: ${item.dob}, Gender: ${item.gender}`,
+        name: `Name: ${item.name},\nDOB: ${item.dob},\nGender: ${item.gender}`,
         id: item.id.toString(),
       }));
     },
 
     async handleSubmit(from: string) {
-      console.log(from);
-      if (from === AppStrings.fromDoctor) {
-        navigation2.navigate('Doctor', {id: '1'});
-        return;
-      } else {
-        runInAction(() => {
-          calStore.isLoading = true;
-        });
-        try {
-          const responseJson: any = await request(
-            'get',
-            AppStrings.calculateFields(
-              calStore.childName,
-              calStore.dob,
-              calStore.contact,
-            ),
-          );
+      runInAction(() => {
+        calStore.screen = from;
+        calStore.isLoading = true;
+      });
+      try {
+        const responseJson: any = await request(
+          'get',
+          AppStrings.calculateFields(
+            calStore.childName,
+            calStore.dob,
+            calStore.contact,
+          ),
+        );
 
-          if (responseJson.success) {
-            if (responseJson.data.length === 1) {
-              navigation.navigate('Generate', {id: responseJson.data[0].id});
+        if (responseJson.success) {
+          if (responseJson.data.length === 1) {
+            if (from === AppStrings.fromDoctor) {
+              navigation2.navigate('Doctor', {id: responseJson.data[0].id});
             } else {
-              runInAction(() => {
-                calStore.bottomSheetHeader = 'Select Child';
-                calStore.bottomSheetArray = calStore.generateName(
-                  responseJson.data,
-                );
-                calStore.toggleBottomSheet();
-              });
+              navigation.navigate('Generate', {id: responseJson.data[0].id});
             }
           } else {
-            Utility.showToast(responseJson.msg);
+            runInAction(() => {
+              calStore.bottomSheetHeader = 'Select Child';
+              calStore.bottomSheetArray = calStore.generateName(
+                responseJson.data,
+              );
+              calStore.toggleBottomSheet();
+            });
           }
-        } catch (err) {
-          Utility.showToast('Something went wrong');
-        } finally {
-          runInAction(() => {
-            calStore.isLoading = false;
-          });
+        } else {
+          Utility.showToast(responseJson.msg);
         }
+      } catch (err) {
+        Utility.showToast('Something went wrong');
+      } finally {
+        runInAction(() => {
+          calStore.isLoading = false;
+        });
       }
     },
   }));

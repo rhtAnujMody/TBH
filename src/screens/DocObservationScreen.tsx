@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {AppContainer, AppTextInput} from '../components';
+import {AppContainer, AppTextInput, AppButton} from '../components';
 import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
 import AppInput from '../components/common/AppInput';
@@ -34,66 +34,6 @@ const DocObservationScreen = ({}: Props) => {
   const handleBottomSheetClick = (from: string) => {
     doctorStore.toggleBottomSheet(from);
   };
-  const data = [
-    {
-      name: 'Head',
-      data: [
-        {name: 'Sparse or brittle hair', id: '1'},
-        {name: 'Fontanelles are tense / bulging / open', id: '2'},
-      ],
-    },
-    {
-      name: 'Eyes',
-      data: [
-        {name: 'Signs of hemorrhagic spots', id: '1'},
-        {name: 'Night blindness', id: '2'},
-        {name: 'Corneal ulcers or scars', id: '3'},
-        {name: "Build up of keratin (Bitot's Spots)", id: '4'},
-        {name: 'Dry eyes', id: '5'},
-      ],
-    },
-    {
-      name: 'Mouth',
-      data: [
-        {name: 'Cavities', id: '1'},
-        {name: 'Ulcers', id: '2'},
-        {name: 'Lips are discoloured / cracked / inflamed', id: '3'},
-        {name: 'Bleeding gums', id: '4'},
-        {
-          name: 'Cracks at the corner of the mouth (Angular Cheilitus)',
-          id: '5',
-        },
-        {name: 'Tongue appears discloured (pallor)', id: '6'},
-      ],
-    },
-    {
-      name: 'Skin',
-      data: [
-        {name: 'Dry, peeling skin', id: '1'},
-        {name: 'Hyperpigmentation', id: '2'},
-        {name: 'Slow healing of wounds', id: '3'},
-        {name: 'Dermatitis', id: '4'},
-      ],
-    },
-    {
-      name: 'Nails',
-      data: [
-        {name: 'Discloured (pallor)', id: '1'},
-        {name: 'Broken or brittle', id: '2'},
-        {name: 'Ridged or fissures present', id: '3'},
-        {name: 'Spoon-shaped dent (Koilonychia)', id: '4'},
-        {name: 'Abnormally flat and large (Platynychia)', id: '5'},
-      ],
-    },
-    {
-      name: 'Body',
-      data: [
-        {name: 'Bow legs', id: '1'},
-        {name: 'Protuberant abdomen with thin limbs', id: '2'},
-        {name: 'Oedema in both feet', id: '3'},
-      ],
-    },
-  ];
   return (
     <Observer>
       {() => (
@@ -112,16 +52,24 @@ const DocObservationScreen = ({}: Props) => {
                         Calculated Field Values
                       </Text>
 
-                      {data.map((item, index) => {
-                        return (
+                      {Object.keys(doctorStore.doctor_observation).map(
+                        bodyPart => (
                           <DoctorRow
-                            data={item.data}
-                            textHeader={item.name}
-                            parentStyle={{marginBottom: 10}}
-                            key={index.toString()}
+                            textHeader={bodyPart}
+                            data={doctorStore.doctor_observation[bodyPart]}
+                            key={bodyPart}
+                            selectedArray={doctorStore.checkedList}
                           />
-                        );
-                      })}
+                        ),
+                      )}
+
+                      <AppTextInput
+                        value={doctorStore.others}
+                        parentStyle={styles.textInputStyle}
+                        textHeader="OTHERS"
+                        placeHolder="Others"
+                        onChangeText={doctorStore.setOthers}
+                      />
 
                       <AppInput
                         onPress={() => {
@@ -145,6 +93,16 @@ const DocObservationScreen = ({}: Props) => {
                     </View>
                   </TouchableOpacity>
                 </ScrollView>
+                <AppButton
+                  title="Save"
+                  style={styles.buttonStyle}
+                  width={'90%'}
+                  isLoading={doctorStore.isLoading}
+                  onPress={() => {
+                    doctorStore.saveData(id);
+                  }}
+                  enabled={doctorStore.enableSubmit}
+                />
               </View>
             </KeyboardAvoidingView>
           </AppContainer>

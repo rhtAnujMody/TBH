@@ -14,6 +14,7 @@ export default {
     return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
   },
   generateFields: '/v1/accounts/view-calculated-fields/',
+  doctorObservation: '/v1/accounts/doctor-observation/',
 
   fromCalculate: 'calculated_fields',
   fromDoctor: 'doctors_observation',
