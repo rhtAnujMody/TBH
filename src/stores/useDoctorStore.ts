@@ -79,6 +79,11 @@ const useDoctorStore = () => {
       } catch (err) {
         Utility.showToast('Something went wrong');
       } finally {
+        Object.keys(doctorStore.doctorObservation).map(itemId => {
+          doctorStore.doctorObservation[itemId].map(item => {
+            item.isSelected = false;
+          });
+        });
         runInAction(() => {
           doctorStore.isLoading = false;
         });
