@@ -108,6 +108,7 @@ const SignUpScreen = () => {
               icon={AppSVGs.email}
               placeHolder="Email"
               returnKeyType="next"
+              value={signUpStore.userEmail}
               onChangeText={signUpStore.setEmail}
               inputRef={emailRef}
               onSubmitEditing={() => handleOnSubmitEditing(2)}

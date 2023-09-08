@@ -22,6 +22,9 @@ const useSignUpStore = () => {
     phoneNumber: '',
 
     setEmail(value: string) {
+      if (value.endsWith(' ')) {
+        return;
+      }
       signUpStore.userEmail = value;
       signUpStore.validateCredentials();
     },
