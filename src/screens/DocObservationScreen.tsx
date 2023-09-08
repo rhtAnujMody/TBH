@@ -42,7 +42,7 @@ const DocObservationScreen = ({}: Props) => {
             <Header title={'Health Camp'} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
-              style={{flex: 1, backgroundColor: colors.palette.primary}}>
+              style={styles.keyboardStyle}>
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
@@ -181,4 +181,5 @@ const styles = StyleSheet.create({
     ...typography.bold(16),
     marginBottom: 20,
   },
+  keyboardStyle: {flex: 1, backgroundColor: colors.palette.primary},
 });
