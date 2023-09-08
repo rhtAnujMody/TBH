@@ -48,7 +48,7 @@ const DocObservationScreen = ({}: Props) => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable style={styles.container}>
                     <Text style={styles.headingText}>
-                      Calculated Field Values
+                      Doctor's Observation Entry
                     </Text>
 
                     {Object.keys(doctorStore.doctorObservation).map(

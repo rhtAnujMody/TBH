@@ -19,6 +19,9 @@ const useLoginStore = () => {
     password: '',
 
     setEmail(value: string) {
+      if (value.endsWith(' ')) {
+        return;
+      }
       loginStore.userEmail = value;
       loginStore.validateCredentials();
     },

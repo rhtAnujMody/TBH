@@ -145,7 +145,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
+                                  textHeader="DISTRICT"
                                   placeHolder="District"
                                   onChangeText={cdStore.setNewDistrict}
                                 />
