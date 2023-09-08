@@ -38,8 +38,7 @@ const useDoctorStore = () => {
       doctorStore.bottomSheetHeader = 'Referred to Hospital/ Medical Care';
       doctorStore.bottomSheetArray = doctorStore.hospitalOptions;
     },
-    setValue(value: string) {
-      Utility.logData(value);
+    setValue(from: string, value: string, id: string) {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
       doctorStore.hospital = value;
     },
@@ -67,7 +66,7 @@ const useDoctorStore = () => {
             others: doctorStore.others,
             is_referred_to_hospital: doctorStore.hospital === 'Yes',
             action_suggested:
-              doctorStore.hospital === 'Yes' && doctorStore.action,
+              doctorStore.hospital === 'Yes' ? doctorStore.action : null,
           },
         );
 

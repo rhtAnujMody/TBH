@@ -121,7 +121,6 @@ const CalculateFieldsScreen = ({}: Props) => {
               }}
               onItemSelect={calStore.setValue}
               onPress={calStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
         </>

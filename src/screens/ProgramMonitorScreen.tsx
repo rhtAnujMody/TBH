@@ -24,13 +24,15 @@ import useCamera from '../custom_hooks/useCamera';
 import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
+import AppImageUploadInput from '../components/common/AppImageUploadInput';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
 
-  const {openGallery, takePhotoFromCamera, selectedImages} = useCamera();
+  const {openGallery, takePhotoFromCamera, selectedImages, removeImage} =
+    useCamera();
 
   const handleImagePicker = (from: number) => {
     proStore.togglePhotoBottomSheet();
@@ -575,7 +577,6 @@ const ProgramMonitorScreen = () => {
               }}
               onItemSelect={proStore.setValue}
               onPress={proStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
 
