@@ -28,7 +28,7 @@ const useResetStore = () => {
 
     validateSubmit() {
       resetStore.isButtonEnabled = false;
-      if (resetStore.newPassword === '') {
+      if (resetStore.newPassword.length < 6) {
         return;
       }
 

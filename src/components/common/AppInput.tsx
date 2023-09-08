@@ -94,9 +94,9 @@ const AppInput = ({
           </TouchableOpacity>
         )}
         {RightIcon && (
-          <View>
+          <TouchableWithoutFeedback onPress={onPress}>
             <RightIcon />
-          </View>
+          </TouchableWithoutFeedback>
         )}
       </View>
     </View>

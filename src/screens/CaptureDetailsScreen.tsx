@@ -349,7 +349,6 @@ const CaptureDetailsScreen = () => {
               }}
               onItemSelect={cdStore.setValue}
               onPress={cdStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
 

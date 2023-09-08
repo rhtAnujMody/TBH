@@ -73,7 +73,7 @@ const useSignUpStore = () => {
         return;
       }
 
-      if (signUpStore.phoneNumber.length < 10) {
+      if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
         //Utility.showToast(AppStrings.invalidNumber);
         return;
       }

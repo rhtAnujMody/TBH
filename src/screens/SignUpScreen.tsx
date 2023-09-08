@@ -102,7 +102,6 @@ const SignUpScreen = () => {
               returnKeyType="next"
               onChangeText={signUpStore.setName}
               onSubmitEditing={() => handleOnSubmitEditing(1)}
-              value={signUpStore.name}
             />
             <AppTextInput
               icon={AppSVGs.email}
@@ -113,17 +112,21 @@ const SignUpScreen = () => {
               onSubmitEditing={() => handleOnSubmitEditing(2)}
             />
 
-            <AppTextInput
-              placeHolder="Phone Number"
-              returnKeyType="next"
-              keyboardType="phone-pad"
-              maxLength={10}
-              leftText="+91"
-              value={signUpStore.phoneNumber}
-              onChangeText={signUpStore.setNumber}
-              inputRef={numberRef}
-              onSubmitEditing={() => handleOnSubmitEditing(3)}
-            />
+            <Observer>
+              {() => (
+                <AppTextInput
+                  placeHolder="Phone Number"
+                  returnKeyType="next"
+                  keyboardType="phone-pad"
+                  maxLength={10}
+                  leftText="+91"
+                  value={signUpStore.phoneNumber}
+                  onChangeText={signUpStore.setNumber}
+                  inputRef={numberRef}
+                  onSubmitEditing={() => handleOnSubmitEditing(3)}
+                />
+              )}
+            </Observer>
 
             <AppTextInput
               icon={AppSVGs.dob}

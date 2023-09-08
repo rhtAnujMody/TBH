@@ -9,7 +9,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import {AppContainer, AppTextInput, AppButton} from '../components';
+import {
+  AppContainer,
+  AppTextInput,
+  AppButton,
+  AppCheckBox,
+} from '../components';
 import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -18,11 +23,17 @@ import {colors, typography} from '../theme';
 import {AppSVGs} from '../assets';
 import useCalculateStore from '../stores/useCalculateStore';
 import Utility from '../utils/Utility';
+import {CalculateScreenRouteProp} from '../navigation/ReportsStack';
+import {useRoute} from '@react-navigation/native';
 type Props = {};
 
 const CalculateFieldsScreen = ({}: Props) => {
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const calStore = useCalculateStore();
+
+  const route = useRoute<CalculateScreenRouteProp>();
+  const {from} = route.params;
+
   const toogleDatePicker = () => {
     calStore.toogleCalender();
   };
@@ -82,7 +93,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={calStore.isLoading}
-                  onPress={calStore.handleSubmit}
+                  onPress={() => calStore.handleSubmit(from)}
                   enabled={calStore.enableSubmit}
                 />
               </View>
@@ -110,7 +121,6 @@ const CalculateFieldsScreen = ({}: Props) => {
               }}
               onItemSelect={calStore.setValue}
               onPress={calStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
         </>

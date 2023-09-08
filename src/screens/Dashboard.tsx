@@ -8,9 +8,12 @@ import ObservableChild from '../components/common/ObservableChild';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
+import Utility from '../utils/Utility';
+import AppStrings from '../utils/AppStrings';
 
 const Dashboard = () => {
   const navigation = useNavigation<DashboardStackProps>();
+
   const homeCards = [
     {
       title: 'Proceed For Data Capture',
@@ -18,6 +21,10 @@ const Dashboard = () => {
     },
     {
       title: 'View Calculated Field Values',
+      icon: AppSVGs.report,
+    },
+    {
+      title: "Doctor's Observation Entry",
       icon: AppSVGs.report,
     },
   ];
@@ -28,12 +35,21 @@ const Dashboard = () => {
         navigation.navigate('HealthCamp');
         break;
       case 1:
-        navigation.navigate('ReportsStack');
+        navigation.navigate('ReportsStack', {
+          screen: 'Calculate',
+          params: {from: AppStrings.fromCalculate},
+        });
         break;
       case 2:
-        navigation.navigate('CaptureDetails');
+        navigation.navigate('DoctorStack', {
+          screen: 'Calculate',
+          params: {from: AppStrings.fromDoctor},
+        });
         break;
       case 3:
+        navigation.navigate('CaptureDetails');
+        break;
+      case 4:
         navigation.navigate('ProgramMonitor');
         break;
     }
@@ -80,7 +96,7 @@ const Dashboard = () => {
                 title={homeCards[0].title}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(2)}
+                onPress={() => navigateToCard(3)}
               />
             </View>
             <Text style={styles.title}>Program Monitoring</Text>
@@ -89,7 +105,7 @@ const Dashboard = () => {
                 title={homeCards[0].title}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(3)}
+                onPress={() => navigateToCard(4)}
               />
             </View>
             <Text style={styles.title}>Generate Report</Text>
@@ -98,7 +114,7 @@ const Dashboard = () => {
                 title={'Malnutrition Report'}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(4)}
+                onPress={() => navigateToCard(5)}
               />
             </View>
             <View style={styles.cardsContainer}>
@@ -106,7 +122,7 @@ const Dashboard = () => {
                 title={'Wasting-Stunting Report'}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(5)}
+                onPress={() => navigateToCard(6)}
               />
             </View>
             <View style={styles.cardsContainer}>
@@ -114,7 +130,7 @@ const Dashboard = () => {
                 title={'Custom Report'}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(6)}
+                onPress={() => navigateToCard(7)}
               />
             </View>
             <View style={styles.cardsContainer}>
@@ -122,7 +138,7 @@ const Dashboard = () => {
                 title={"Doctor's Observation Report"}
                 icon={homeCards[0].icon}
                 key={homeCards[0].title}
-                onPress={() => navigateToCard(7)}
+                onPress={() => navigateToCard(8)}
               />
             </View>
           </Pressable>

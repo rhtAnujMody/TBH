@@ -596,7 +596,6 @@ const HealthCampScreen = () => {
               }}
               onItemSelect={healthStore.setValue}
               onPress={healthStore.toggleBottomSheet}
-              setValue={() => {}}
             />
           </AppBottomSheet>
 

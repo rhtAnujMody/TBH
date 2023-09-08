@@ -6,21 +6,22 @@ import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReportsStackRootParamList} from '../navigation/ReportsStack';
+import {DoctorStackRootParamList} from '../navigation/DoctorStack';
 
 const useCalculateStore = () => {
   const {request} = useApiService();
   const navigation =
     useNavigation<NativeStackNavigationProp<ReportsStackRootParamList>>();
+  const navigation2 =
+    useNavigation<NativeStackNavigationProp<DoctorStackRootParamList>>();
   const calStore = useLocalObservable(() => ({
     dob: '',
     childName: '',
     contact: '',
-
+    screen: '',
     showCalender: false,
-
     isLoading: false,
     enableSubmit: false,
-
     bottomSheetArray: [] as any[],
     bottomSheetHeader: '',
     openBottomSheet: false,
@@ -34,7 +35,11 @@ const useCalculateStore = () => {
 
     setValue(from: string, value: string, id: string) {
       calStore.openBottomSheet = !calStore.openBottomSheet;
-      navigation.navigate('Generate', {id: id});
+      if (calStore.screen === AppStrings.fromDoctor) {
+        navigation2.navigate('Doctor', {id: id});
+      } else {
+        navigation.navigate('Generate', {id: id});
+      }
     },
 
     setChildame(value: string) {
@@ -60,30 +65,31 @@ const useCalculateStore = () => {
 
     validateSubmit() {
       calStore.enableSubmit = false;
-      if (calStore.dob == '') {
-        return;
-      }
+      // if (calStore.dob == '') {
+      //   return;
+      // }
 
       if (!Utility.validateAlpha(calStore.childName)) {
         return;
       }
 
-      if (!Utility.validatePhoneNumber(calStore.contact)) {
-        return;
-      }
+      // if (!Utility.validatePhoneNumber(calStore.contact)) {
+      //   return;
+      // }
 
       calStore.enableSubmit = true;
     },
 
     generateName(value: any) {
       return value.map((item: any) => ({
-        name: `Name: ${item.name}, DOB: ${item.dob}, Gender: ${item.gender}`,
+        name: `Name: ${item.name},\nDOB: ${item.dob},\nGender: ${item.gender}`,
         id: item.id.toString(),
       }));
     },
 
-    async handleSubmit() {
+    async handleSubmit(from: string) {
       runInAction(() => {
+        calStore.screen = from;
         calStore.isLoading = true;
       });
       try {
@@ -98,7 +104,11 @@ const useCalculateStore = () => {
 
         if (responseJson.success) {
           if (responseJson.data.length === 1) {
-            navigation.navigate('Generate', {id: responseJson.data[0].id});
+            if (from === AppStrings.fromDoctor) {
+              navigation2.navigate('Doctor', {id: responseJson.data[0].id});
+            } else {
+              navigation.navigate('Generate', {id: responseJson.data[0].id});
+            }
           } else {
             runInAction(() => {
               calStore.bottomSheetHeader = 'Select Child';

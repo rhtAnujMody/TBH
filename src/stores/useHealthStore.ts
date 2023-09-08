@@ -635,7 +635,7 @@ const useHealthStore = () => {
           navigation.goBack();
         }
       } catch (err) {
-        console.log(err);
+        console.log(err, 'message');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
