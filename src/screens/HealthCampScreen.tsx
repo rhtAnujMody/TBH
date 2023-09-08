@@ -145,7 +145,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
+                                  textHeader="DISTRICT"
                                   placeHolder="District"
                                   onChangeText={healthStore.setNewDistrict}
                                 />
