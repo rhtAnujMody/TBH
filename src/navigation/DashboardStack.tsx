@@ -8,6 +8,7 @@ import ReportsStack from './ReportsStack';
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {ReportsStackRootParamList} from './ReportsStack';
 import DoctorStack, {DoctorStackRootParamList} from './DoctorStack';
+import ReportsScreen from '../screens/ReportsScreen';
 
 export type DashboardStackRootParamList = {
   Home: undefined;
@@ -16,6 +17,7 @@ export type DashboardStackRootParamList = {
   CaptureDetails: undefined;
   ProgramMonitor: undefined;
   HealthCamp: undefined;
+  Reports: undefined;
 };
 
 const DashboardStackRoot =
@@ -41,6 +43,7 @@ const DashboardStack = () => {
         component={ProgramMonitorScreen}
         name="ProgramMonitor"
       />
+      <DashboardStackRoot.Screen component={ReportsScreen} name="Reports" />
       <DashboardStackRoot.Screen component={ReportsStack} name="ReportsStack" />
       <DashboardStackRoot.Screen component={DoctorStack} name="DoctorStack" />
     </DashboardStackRoot.Navigator>

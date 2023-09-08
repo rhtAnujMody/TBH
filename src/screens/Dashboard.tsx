@@ -28,6 +28,37 @@ const Dashboard = () => {
     },
   ];
 
+  const genrateReportsCards = [
+    {
+      title: 'Malnutrition Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Wasting Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Stunting Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Custom Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: "Doctor's Observation Report",
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Nutrition Education Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Monitoring Report',
+      icon: AppSVGs.report,
+    },
+  ];
+
   const navigateToCard = (index: number) => {
     switch (index) {
       case 0:
@@ -51,6 +82,8 @@ const Dashboard = () => {
       case 4:
         navigation.navigate('ProgramMonitor');
         break;
+      default:
+        navigation.navigate('Reports');
     }
   };
   const auth = authStore;
@@ -108,38 +141,17 @@ const Dashboard = () => {
               />
             </View>
             <Text style={styles.title}>Generate Report</Text>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Malnutrition Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(5)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Wasting-Stunting Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(6)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Custom Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(7)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={"Doctor's Observation Report"}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(8)}
-              />
-            </View>
+            {genrateReportsCards.map((data, index) => {
+              return (
+                <HomeCard
+                  title={data.title}
+                  icon={data.icon}
+                  key={data.title}
+                  onPress={() => navigateToCard(index + 5)}
+                  marginRight={index === 0 ? 10 : 0}
+                />
+              );
+            })}
           </Pressable>
         </ScrollView>
       </View>
