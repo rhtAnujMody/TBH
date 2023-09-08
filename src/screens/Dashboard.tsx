@@ -8,7 +8,6 @@ import ObservableChild from '../components/common/ObservableChild';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
-import Utility from '../utils/Utility';
 import AppStrings from '../utils/AppStrings';
 
 const Dashboard = () => {
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   topContainer: {
-    flex: 1.3,
+    flex: 0.8,
     backgroundColor: colors.palette.primary,
     borderBottomRightRadius: 60,
     borderBottomLeftRadius: 60,
