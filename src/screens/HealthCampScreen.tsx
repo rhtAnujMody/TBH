@@ -67,7 +67,9 @@ const HealthCampScreen = () => {
         break;
       case '2':
         healthStore.setDOB(Utility.formatDate(date));
-        healthStore.setAge(Utility.getAge(date));
+        healthStore.setAge(
+          Utility.calculateAgeInMonths(Utility.formatDate(date)),
+        );
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
@@ -189,7 +191,7 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
+                                  textHeader="DISTRICT"
                                   placeHolder="District"
                                   value={healthStore.existDistrict}
                                   editable={false}
@@ -259,7 +261,7 @@ const HealthCampScreen = () => {
                       />
 
                       <AppToggle
-                        title={"Children's Details"}
+                        title={"Child's Details"}
                         children={
                           <>
                             <AppTextInput
@@ -300,8 +302,8 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Age"
-                              placeHolder="Age"
+                              textHeader="Age (IN MONTHS)"
+                              placeHolder="Age (In Months)"
                               value={healthStore.age}
                               editable={false}
                             />

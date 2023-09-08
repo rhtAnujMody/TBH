@@ -100,6 +100,7 @@ const SignUpScreen = () => {
               icon={AppSVGs.name}
               placeHolder="Name"
               returnKeyType="next"
+              value={signUpStore.name}
               onChangeText={signUpStore.setName}
               onSubmitEditing={() => handleOnSubmitEditing(1)}
             />

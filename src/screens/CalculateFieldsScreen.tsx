@@ -62,8 +62,8 @@ const CalculateFieldsScreen = ({}: Props) => {
                     <AppTextInput
                       value={calStore.childName}
                       parentStyle={styles.textInputStyle}
-                      textHeader="NAME OF THE CHILDREN"
-                      placeHolder="Name of the children"
+                      textHeader="NAME OF THE CHILD"
+                      placeHolder="Name of the child"
                       onChangeText={calStore.setChildame}
                     />
 
@@ -89,7 +89,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                   </View>
                 </ScrollView>
                 <AppButton
-                  title="Save"
+                  title="Search"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={calStore.isLoading}

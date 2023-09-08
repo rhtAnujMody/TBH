@@ -20,12 +20,16 @@ class Utility {
       );
   };
 
-  static getAge = (date: Date) => {
-    let month_diff = Date.now() - date.getTime();
-    let age_dt = new Date(month_diff);
-    let year = age_dt.getUTCFullYear();
-    var age = Math.abs(year - 1970);
-    return age * 12;
+  static calculateAgeInMonths = (birthdate: string) => {
+    const currentDate = new Date();
+    const birthDate = new Date(birthdate);
+
+    // Calculate the difference in months
+    const months =
+      (currentDate.getFullYear() - birthDate.getFullYear()) * 12 +
+      (currentDate.getMonth() - birthDate.getMonth());
+
+    return months;
   };
 
   static validatePhoneNumber = (num: string) => {
