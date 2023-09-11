@@ -7,6 +7,7 @@ import Utility from '../utils/Utility';
 
 const useReportsStore = () => {
   const {request} = useApiService();
+
   const partnerNameLocation = () => {
     return authStore.userData.partner_list.map(item => {
       return {
@@ -64,6 +65,7 @@ const useReportsStore = () => {
       reportsStore.partner = res[0];
       reportsStore.partnerID = id;
     },
+
     async saveData(id: string) {
       runInAction(() => {
         reportsStore.isLoading = true;
@@ -80,6 +82,7 @@ const useReportsStore = () => {
           },
         );
         console.log(response);
+        //reportsStore.exportDataToExcel();
         // if (response.success) {
         //   Utility.showToast(response.msg);
         // } else {

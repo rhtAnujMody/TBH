@@ -89,10 +89,16 @@ const Dashboard = () => {
         });
         break;
       case 6:
-        navigation.navigate('Reports', {data: 'Wasting Report', id: ''});
+        navigation.navigate('Reports', {
+          data: 'Wasting Report',
+          id: 'wasting_report',
+        });
         break;
       case 7:
-        navigation.navigate('Reports', {data: 'Stunting Report', id: ''});
+        navigation.navigate('Reports', {
+          data: 'Stunting Report',
+          id: 'stunting_report',
+        });
         break;
       case 8:
         navigation.navigate('Reports', {data: 'Custom Report', id: ''});
@@ -100,17 +106,20 @@ const Dashboard = () => {
       case 9:
         navigation.navigate('Reports', {
           data: "Doctor's Observation Report",
-          id: '',
+          id: 'doctor_observation_report',
         });
         break;
       case 10:
         navigation.navigate('Reports', {
           data: 'Nutrition Education Report',
-          id: '',
+          id: 'nutrition_education_report',
         });
         break;
       case 11:
-        navigation.navigate('Reports', {data: 'Monitoring Report', id: ''});
+        navigation.navigate('Reports', {
+          data: 'Monitoring Report',
+          id: 'monitoring_report',
+        });
         break;
     }
   };

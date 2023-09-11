@@ -23,11 +23,46 @@ import Utility from '../utils/Utility';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {DashboardStackRootParamList} from '../navigation/DashboardStack';
 
+import {
+  writeFile,
+  readFile,
+  DocumentDirectoryPath,
+  DownloadDirectoryPath,
+} from 'react-native-fs';
+import XLSX from 'xlsx';
+
 const ReportsScreen = () => {
   const reportsStore = useReportsStore();
   const route = useRoute<RouteProp<DashboardStackRootParamList, 'Reports'>>();
   const {data, id} = route.params;
   const bottomSheetRef = useRef<BottomSheet | null>(null);
+
+  const DDP = DownloadDirectoryPath + '/';
+  const input = (res: any) => res;
+  const output = (str: any) => str;
+  const exportDataToExcel = () => {
+    // Created Sample data
+    let data = [
+      {id: '1', name: 'First User'},
+      {id: '2', name: 'Second User'},
+    ];
+    let ws = XLSX.utils.json_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Users');
+
+    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+
+    const file = DDP + 'sheet.xlsx';
+
+    // Write generated excel to Storage
+    writeFile(file, output(wbout), 'ascii')
+      .then((r: any) => {
+        console.log('Success');
+      })
+      .catch((e: any) => {
+        console.log('Error', e);
+      });
+  };
   const hideBottomSheet = () => {
     reportsStore.toggleBottomSheet();
   };
@@ -43,7 +78,8 @@ const ReportsScreen = () => {
     reportsStore.toggleBottomSheet();
   };
   const handleSubmit = () => {
-    reportsStore.saveData(id);
+    exportDataToExcel();
+    //reportsStore.saveData(id);
   };
 
   const handleConfirm = (date: Date) => {
