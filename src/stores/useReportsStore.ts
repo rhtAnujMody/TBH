@@ -90,7 +90,7 @@ const useReportsStore = () => {
       let wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Users');
       const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
-      const file = DDP + 'sheet.xlsx';
+      const file = DDP + 'sheet' + Date.now() + '.xlsx';
 
       writeFile(file, output(wbout), 'ascii')
         .then((r: any) => {

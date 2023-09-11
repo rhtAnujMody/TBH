@@ -126,7 +126,7 @@ const ReportsScreen = () => {
                   />
                 </AppBottomSheet>
                 <AppButton
-                  title="Search"
+                  title="Save"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={reportsStore.isLoading}
