@@ -82,8 +82,36 @@ const Dashboard = () => {
       case 4:
         navigation.navigate('ProgramMonitor');
         break;
-      default:
-        navigation.navigate('Reports');
+      case 5:
+        navigation.navigate('Reports', {
+          data: 'Malnutrition Report',
+          id: 'malnutrition_report',
+        });
+        break;
+      case 6:
+        navigation.navigate('Reports', {data: 'Wasting Report', id: ''});
+        break;
+      case 7:
+        navigation.navigate('Reports', {data: 'Stunting Report', id: ''});
+        break;
+      case 8:
+        navigation.navigate('Reports', {data: 'Custom Report', id: ''});
+        break;
+      case 9:
+        navigation.navigate('Reports', {
+          data: "Doctor's Observation Report",
+          id: '',
+        });
+        break;
+      case 10:
+        navigation.navigate('Reports', {
+          data: 'Nutrition Education Report',
+          id: '',
+        });
+        break;
+      case 11:
+        navigation.navigate('Reports', {data: 'Monitoring Report', id: ''});
+        break;
     }
   };
   const auth = authStore;

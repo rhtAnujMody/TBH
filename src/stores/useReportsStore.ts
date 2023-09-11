@@ -2,6 +2,8 @@ import {useLocalObservable} from 'mobx-react-lite';
 import authStore from './authStore';
 import {runInAction} from 'mobx';
 import useApiService from '../network/useAPIService';
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
 
 const useReportsStore = () => {
   const {request} = useApiService();
@@ -33,6 +35,7 @@ const useReportsStore = () => {
     fromDate: '',
     toDate: '',
     partner: '',
+    partnerID: '',
     calenderID: '',
     showCalender: false,
     partnerNameList: partnerNameLocation(),
@@ -59,11 +62,36 @@ const useReportsStore = () => {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;
       const res = value.split(',');
       reportsStore.partner = res[0];
+      reportsStore.partnerID = id;
     },
-    async saveData() {
+    async saveData(id: string) {
       runInAction(() => {
         reportsStore.isLoading = true;
       });
+      try {
+        const response: any = await request(
+          'post',
+          AppStrings.generateReports,
+          {
+            partner_id: reportsStore.partnerID,
+            start_date: reportsStore.fromDate,
+            end_date: reportsStore.toDate,
+            report_name: id,
+          },
+        );
+        console.log(response);
+        // if (response.success) {
+        //   Utility.showToast(response.msg);
+        // } else {
+        //   Utility.showToast(response.msg);
+        // }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } finally {
+        runInAction(() => {
+          reportsStore.isLoading = false;
+        });
+      }
     },
   }));
   return reportsStore;

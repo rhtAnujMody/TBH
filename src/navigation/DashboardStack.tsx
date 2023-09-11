@@ -17,7 +17,7 @@ export type DashboardStackRootParamList = {
   CaptureDetails: undefined;
   ProgramMonitor: undefined;
   HealthCamp: undefined;
-  Reports: undefined;
+  Reports: {data: string; id: string};
 };
 
 const DashboardStackRoot =

@@ -20,9 +20,13 @@ import Header from '../components/common/Header';
 import {colors, typography} from '../theme';
 import useReportsStore from '../stores/useReportsStore';
 import Utility from '../utils/Utility';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {DashboardStackRootParamList} from '../navigation/DashboardStack';
 
 const ReportsScreen = () => {
   const reportsStore = useReportsStore();
+  const route = useRoute<RouteProp<DashboardStackRootParamList, 'Reports'>>();
+  const {data, id} = route.params;
   const bottomSheetRef = useRef<BottomSheet | null>(null);
   const hideBottomSheet = () => {
     reportsStore.toggleBottomSheet();
@@ -37,6 +41,9 @@ const ReportsScreen = () => {
   };
   const handleBottomSheetClick = () => {
     reportsStore.toggleBottomSheet();
+  };
+  const handleSubmit = () => {
+    reportsStore.saveData(id);
   };
 
   const handleConfirm = (date: Date) => {
@@ -64,9 +71,7 @@ const ReportsScreen = () => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable>
                     <View style={styles.container}>
-                      <Text style={styles.headingText}>
-                        Malnutrition Report
-                      </Text>
+                      <Text style={styles.headingText}>{data}</Text>
 
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
@@ -124,7 +129,7 @@ const ReportsScreen = () => {
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={reportsStore.isLoading}
-                  onPress={reportsStore.saveData}
+                  onPress={handleSubmit}
                   enabled={reportsStore.enableSubmit}
                 />
               </View>
