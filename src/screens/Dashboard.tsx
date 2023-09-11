@@ -101,7 +101,9 @@ const Dashboard = () => {
         });
         break;
       case 8:
-        navigation.navigate('Reports', {data: 'Custom Report', id: ''});
+        navigation.navigate('CustomStack', {
+          screen: 'Custom',
+        });
         break;
       case 9:
         navigation.navigate('Reports', {
@@ -178,17 +180,19 @@ const Dashboard = () => {
               />
             </View>
             <Text style={styles.title}>Generate Report</Text>
-            {genrateReportsCards.map((data, index) => {
-              return (
-                <HomeCard
-                  title={data.title}
-                  icon={data.icon}
-                  key={data.title}
-                  onPress={() => navigateToCard(index + 5)}
-                  marginRight={index === 0 ? 10 : 0}
-                />
-              );
-            })}
+            <View style={styles.cardsContainer}>
+              {genrateReportsCards.map((data, index) => {
+                return (
+                  <HomeCard
+                    title={data.title}
+                    icon={data.icon}
+                    key={data.title}
+                    onPress={() => navigateToCard(index + 5)}
+                    marginRight={index === 0 ? 10 : 0}
+                  />
+                );
+              })}
+            </View>
           </Pressable>
         </ScrollView>
       </View>
