@@ -4,45 +4,17 @@ import {runInAction} from 'mobx';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
-import {
-  writeFile,
-  readFile,
-  DocumentDirectoryPath,
-  DownloadDirectoryPath,
-} from 'react-native-fs';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CustomReportsStackRootParamList} from '../navigation/CustomReportsStack';
+import {useNavigation} from '@react-navigation/native';
+import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
 
 const useReportsStore = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<CustomReportsStackRootParamList>>();
   const DDP = DownloadDirectoryPath + '/';
-  const input = (res: any) => res;
   const output = (str: any) => str;
-  const exportDataToExcel = (res: string) => {
-    const test = `${res}`;
-    const lines = test.split('\n');
-    const headerLine = lines[0].split(',');
-    const data1 = lines.slice(1).map(line => {
-      const values = line.split(',');
-      return headerLine.reduce((obj: any, key, index) => {
-        obj[key] = values[index];
-        return obj;
-      }, {});
-    });
-    let ws = XLSX.utils.json_to_sheet(data1);
-    let wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Users');
-    const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
-    const file = DDP + 'sheet.xlsx';
-
-    writeFile(file, output(wbout), 'ascii')
-      .then((r: any) => {
-        Utility.showToast('Excel File downloaded');
-        Utility.logData('Success');
-      })
-      .catch((e: any) => {
-        Utility.logData(`Error: ${e}`);
-      });
-  };
-
   const {request} = useApiService();
 
   const partnerNameLocation = () => {
@@ -103,6 +75,33 @@ const useReportsStore = () => {
       reportsStore.partnerID = id;
     },
 
+    async exportDataToExcel(res: string) {
+      const test = `${res}`;
+      const lines = test.split('\n');
+      const headerLine = lines[0].split(',');
+      const data1 = lines.slice(1).map(line => {
+        const values = line.split(',');
+        return headerLine.reduce((obj: any, key, index) => {
+          obj[key] = values[index];
+          return obj;
+        }, {});
+      });
+      let ws = XLSX.utils.json_to_sheet(data1);
+      let wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Users');
+      const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
+      const file = DDP + 'sheet.xlsx';
+
+      writeFile(file, output(wbout), 'ascii')
+        .then((r: any) => {
+          Utility.showToast('Excel File downloaded');
+          Utility.logData('Success');
+        })
+        .catch((e: any) => {
+          Utility.logData(`Error: ${e}`);
+        });
+    },
+
     async saveData(id: string) {
       runInAction(() => {
         reportsStore.isLoading = true;
@@ -118,10 +117,9 @@ const useReportsStore = () => {
             report_name: id,
           },
         );
-        console.log(response);
-        exportDataToExcel(response);
+        reportsStore.exportDataToExcel(response);
+        navigation.goBack();
       } catch (err) {
-        console.log(err);
         Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
