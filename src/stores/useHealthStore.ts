@@ -11,24 +11,6 @@ import {useNavigation} from '@react-navigation/native';
 const useHealthStore = () => {
   const {request} = useApiService();
   const navigation = useNavigation();
-  const partnerNameLocation = () => {
-    return authStore.userData.partner_list.map(item => {
-      return {
-        name:
-          item.name +
-          ',' +
-          '\n' +
-          item.location +
-          ',' +
-          item.block +
-          ',' +
-          item.district +
-          ',' +
-          item.state,
-        id: item.id,
-      };
-    });
-  };
   const healthStore = useLocalObservable(() => ({
     index: 1,
     openBottomSheet: false,
@@ -92,7 +74,7 @@ const useHealthStore = () => {
       {name: 'New', id: 'new'},
       {name: 'Existing', id: 'existing'},
     ],
-    partnerNameList: partnerNameLocation(),
+    partnerNameList: Utility.partnerNameLocation(authStore.userData),
     partnerTypeOptions: [
       {
         name: 'TBR',

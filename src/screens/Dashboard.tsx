@@ -28,6 +28,37 @@ const Dashboard = () => {
     },
   ];
 
+  const genrateReportsCards = [
+    {
+      title: 'Malnutrition Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Wasting Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Stunting Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Custom Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: "Doctor's Observation Report",
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Nutrition Education Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Monitoring Report',
+      icon: AppSVGs.report,
+    },
+  ];
+
   const navigateToCard = (index: number) => {
     switch (index) {
       case 0:
@@ -50,6 +81,47 @@ const Dashboard = () => {
         break;
       case 4:
         navigation.navigate('ProgramMonitor');
+        break;
+      case 5:
+        navigation.navigate('Reports', {
+          data: 'Malnutrition Report',
+          id: 'malnutrition_report',
+        });
+        break;
+      case 6:
+        navigation.navigate('Reports', {
+          data: 'Wasting Report',
+          id: 'wasting_report',
+        });
+        break;
+      case 7:
+        navigation.navigate('Reports', {
+          data: 'Stunting Report',
+          id: 'stunting_report',
+        });
+        break;
+      case 8:
+        navigation.navigate('CustomStack', {
+          screen: 'Custom',
+        });
+        break;
+      case 9:
+        navigation.navigate('Reports', {
+          data: "Doctor's Observation Report",
+          id: 'doctor_observation_report',
+        });
+        break;
+      case 10:
+        navigation.navigate('Reports', {
+          data: 'Nutrition Education Report',
+          id: 'nutrition_education_report',
+        });
+        break;
+      case 11:
+        navigation.navigate('Reports', {
+          data: 'Monitoring Report',
+          id: 'monitoring_report',
+        });
         break;
     }
   };
@@ -109,36 +181,17 @@ const Dashboard = () => {
             </View>
             <Text style={styles.title}>Generate Report</Text>
             <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Malnutrition Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(5)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Wasting-Stunting Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(6)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={'Custom Report'}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(7)}
-              />
-            </View>
-            <View style={styles.cardsContainer}>
-              <HomeCard
-                title={"Doctor's Observation Report"}
-                icon={homeCards[0].icon}
-                key={homeCards[0].title}
-                onPress={() => navigateToCard(8)}
-              />
+              {genrateReportsCards.map((data, index) => {
+                return (
+                  <HomeCard
+                    title={data.title}
+                    icon={data.icon}
+                    key={data.title}
+                    onPress={() => navigateToCard(index + 5)}
+                    marginRight={index === 0 ? 10 : 0}
+                  />
+                );
+              })}
             </View>
           </Pressable>
         </ScrollView>

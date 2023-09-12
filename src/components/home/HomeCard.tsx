@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View, ViewStyle} from 'react-native';
 import {typography} from '../../theme';
 
 type Props = {
@@ -34,7 +34,6 @@ const homeCardStyles = () => {
       flexDirection: 'row',
       alignItems: 'center',
       paddingHorizontal: 20,
-      paddingVertical: 10,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.5,
       shadowRadius: 2,
@@ -42,7 +41,9 @@ const homeCardStyles = () => {
       marginBottom: 10,
     },
     text: {
+      flex: 1,
       textAlign: 'center',
+      flexWrap: 'wrap',
       ...typography.medium(16),
     },
     imageContainer: {

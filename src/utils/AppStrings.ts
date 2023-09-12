@@ -9,6 +9,7 @@ export default {
     `v1/accounts/forgot-password/?unique_id=${phoneNumber}`,
   requestOTP: 'v1/accounts/forgot-password/',
   verifyOTP: '/v1/accounts/verify-otp/',
+  generateReports: '/v1/accounts/report/',
 
   calculateFields: (name: string, dob: string, contact: string): string => {
     return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
