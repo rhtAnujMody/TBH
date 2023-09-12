@@ -21,7 +21,7 @@ const useDoctorStore = () => {
     action: '',
     others: '',
     isLoading: false,
-    enableSubmit: true,
+    enableSubmit: false,
     doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
       {name: 'Yes', id: '1'},
@@ -41,6 +41,16 @@ const useDoctorStore = () => {
     setValue(from: string, value: string, id: string) {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
       doctorStore.hospital = value;
+      doctorStore.validateSubmit();
+    },
+    validateSubmit() {
+      doctorStore.enableSubmit = false;
+
+      if (doctorStore.hospital === '') {
+        return;
+      }
+
+      doctorStore.enableSubmit = true;
     },
     async saveData(id: string) {
       let selectedIds: number[] = [];

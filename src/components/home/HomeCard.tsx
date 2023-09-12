@@ -42,7 +42,7 @@ const homeCardStyles = () => {
     },
     text: {
       flex: 1,
-      textAlign: 'center',
+      textAlign: 'left',
       flexWrap: 'wrap',
       ...typography.medium(16),
     },

@@ -541,7 +541,7 @@ const ProgramMonitorScreen = () => {
                 </ScrollView>
 
                 <AppButton
-                  title="Save"
+                  title="Submit"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={proStore.isLoading}

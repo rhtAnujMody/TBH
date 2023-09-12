@@ -84,7 +84,7 @@ const LoginScreen = () => {
             </Text>
             <View style={styles.bottomContainer}>
               <Text style={styles.dontHaveAcc}>
-                Don't have account yet?
+                Don't have an account yet?
                 <Text style={styles.signUp} onPress={navigateToSignUp}>
                   {' Sign Up'}
                 </Text>
