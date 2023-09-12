@@ -5996,13 +5996,10 @@ react-native-modal-datetime-picker@^17.0.0:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-permissions@^3.8.4:
-  version "3.8.4"
-  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.8.4.tgz#20f203f1dd659c28fb770fc26bbbf0126faa797e"
-  integrity sha512-tJq+5eNqu8Y1PpmuSVMjQtW8E7YJbQ0LSbZ1o9KjgF7etgYmBSZeCR138x715vyZUAtwuecV+ybEM9z8dDs76Q==
-  dependencies:
-    picocolors "^1.0.0"
-    pkg-dir "^5.0.0"
+react-native-permissions@^3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.9.1.tgz#15f1039b3e6d9b4250f715db642ce0a38e0ae101"
+  integrity sha512-9Pvq7d8hb75+DVzdU5qrwTNmlULWqCugusCxD4Hce0ztbQhInS0tdgp/qt1neWLS0Xg6WX+emr9dM4BpKdk87w==
 
 react-native-reanimated@3.5.0:
   version "3.5.0-nightly-20230801-673de8382"

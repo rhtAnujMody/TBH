@@ -503,6 +503,8 @@ PODS:
     - React-Core
   - RNDateTimePicker (7.4.1):
     - React-Core
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (2.12.1):
     - React-Core
   - RNImageCropPicker (0.40.0):
@@ -514,9 +516,9 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNPermissions (3.8.4):
+  - RNPermissions (3.9.1):
     - React-Core
-  - RNReanimated (3.5.0-nightly-20230801-673de8382):
+  - RNReanimated (3.5.0):
     - DoubleConversion
     - FBLazyVector
     - glog
@@ -626,6 +628,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCCheckbox (from `../node_modules/@react-native-community/checkbox`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
@@ -744,6 +747,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/checkbox"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
@@ -817,10 +822,11 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: f47fe18526970a69c34b548883e1aeceb115e3e1
   RNCCheckbox: 75255b03e604bbcc26411eb31c4cbe3e3865f538
   RNDateTimePicker: 9b4091348e53f540180abdc54984d839a556f593
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
-  RNPermissions: f1b49dd05fa9b83993cd05a9ee115247944d8f1a
-  RNReanimated: 7646fed6d0e87f4843d810c829f01a8b30a30757
+  RNPermissions: 14f8d82f577171a45e9ef00ae5dde214e56a4db9
+  RNReanimated: fd0dc9a5889bfac6c45a922b26c902dc6185b4dc
   RNScreens: 68fd1060f57dd1023880bf4c05d74784b5392789
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
@@ -829,6 +835,6 @@ SPEC CHECKSUMS:
   Yoga: 1d6727ed193122f6adaf435c3de1a768326ff83b
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 7cffd1848ce80c80b5ca7baf8ab6aeb60730308f
+PODFILE CHECKSUM: f69f78db2d453252846d4e826665c3bce7344896
 
 COCOAPODS: 1.12.1
