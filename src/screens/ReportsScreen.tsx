@@ -102,7 +102,7 @@ const ReportsScreen = () => {
                         }}
                         parentStyle={styles.textInputStyle}
                         value={reportsStore.partner}
-                        textHeader="Partner Name, Loation"
+                        textHeader="Partner Name, Location"
                         placeHolder="Partner Name, Location"
                         rightIcon={AppSVGs.dropdown}
                       />

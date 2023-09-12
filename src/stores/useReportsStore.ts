@@ -41,7 +41,7 @@ const useReportsStore = () => {
     bottomSheetHeader: '',
     openBottomSheet: false,
     isLoading: false,
-    enableSubmit: true,
+    enableSubmit: false,
     fromDate: '',
     toDate: '',
     partner: '',
@@ -59,9 +59,11 @@ const useReportsStore = () => {
     },
     setFromDate(value: string) {
       reportsStore.fromDate = value;
+      reportsStore.validateSubmit();
     },
     setToDate(value: string) {
       reportsStore.toDate = value;
+      reportsStore.validateSubmit();
     },
     toggleBottomSheet() {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;
@@ -73,9 +75,26 @@ const useReportsStore = () => {
       const res = value.split(',');
       reportsStore.partner = res[0];
       reportsStore.partnerID = id;
+      reportsStore.validateSubmit();
     },
 
-    async exportDataToExcel(res: string) {
+    validateSubmit() {
+      reportsStore.enableSubmit = false;
+
+      if (reportsStore.fromDate === '') {
+        return;
+      }
+      if (reportsStore.toDate === '') {
+        return;
+      }
+      if (reportsStore.partner === '') {
+        return;
+      }
+
+      reportsStore.enableSubmit = true;
+    },
+
+    async exportDataToExcel(res: string, id: string) {
       const test = `${res}`;
       const lines = test.split('\n');
       const headerLine = lines[0].split(',');
@@ -90,7 +109,7 @@ const useReportsStore = () => {
       let wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Users');
       const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
-      const file = DDP + 'sheet' + Date.now() + '.xlsx';
+      const file = DDP + id + Date.now() + '.xlsx';
 
       writeFile(file, output(wbout), 'ascii')
         .then((r: any) => {
@@ -117,7 +136,7 @@ const useReportsStore = () => {
             report_name: id,
           },
         );
-        reportsStore.exportDataToExcel(response);
+        reportsStore.exportDataToExcel(response, id);
         navigation.goBack();
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
