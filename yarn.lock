@@ -6004,7 +6004,7 @@ react-native-permissions@^3.8.4:
     picocolors "^1.0.0"
     pkg-dir "^5.0.0"
 
-react-native-reanimated@3.5.0:
+react-native-reanimated@3.5.0-nightly-20230801-673de8382:
   version "3.5.0-nightly-20230801-673de8382"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.5.0-nightly-20230801-673de8382.tgz#62a5838c5caeeefe0addb7321fa094eca5689385"
   integrity sha512-UYixHz76w/PZjQ+Wd9PHyUdBjqHi/EbuIiXpkChKiHpGVUC469bMHZSLPPMHjgTmNuYdwt9sbxnI5Ge9KTZxHQ==
