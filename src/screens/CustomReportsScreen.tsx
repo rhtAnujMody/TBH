@@ -25,33 +25,6 @@ const CustomReportsScreen = () => {
     useNavigation<NativeStackNavigationProp<CustomReportsStackRootParamList>>();
   Utility.logData(authStore.userData);
 
-  const customReportsCards = [
-    {
-      title: 'Historical Data Report',
-      icon: AppSVGs.report,
-    },
-    {
-      title: 'Recovered From Malnutrition Report',
-      icon: AppSVGs.report,
-    },
-    {
-      title: 'Received Vitamin A Report',
-      icon: AppSVGs.report,
-    },
-    {
-      title: 'Received Deworming Report',
-      icon: AppSVGs.report,
-    },
-    {
-      title: 'Received IFA Report',
-      icon: AppSVGs.report,
-    },
-    {
-      title: 'Meals Received for Program Monitoring Report',
-      icon: AppSVGs.report,
-    },
-  ];
-
   const navigateToCard = (index: number) => {
     switch (index) {
       case 0:
@@ -109,7 +82,7 @@ const CustomReportsScreen = () => {
                     <View style={styles.container}>
                       <Text style={styles.headingText}>Custom Reports</Text>
                       <View style={styles.cardsContainer}>
-                        {customReportsCards.map((data, index) => {
+                        {Utility.customReportsCards.map((data, index) => {
                           return (
                             <HomeCard
                               title={data.title}

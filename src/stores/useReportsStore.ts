@@ -17,24 +17,6 @@ const useReportsStore = () => {
   const output = (str: any) => str;
   const {request} = useApiService();
 
-  const partnerNameLocation = () => {
-    return authStore.userData.partner_list.map(item => {
-      return {
-        name:
-          item.name +
-          ',' +
-          '\n' +
-          item.location +
-          ',' +
-          item.block +
-          ',' +
-          item.district +
-          ',' +
-          item.state,
-        id: item.id,
-      };
-    });
-  };
   const reportsStore = useLocalObservable(() => ({
     index: 3,
     bottomSheetArray: [] as any[],
@@ -48,7 +30,7 @@ const useReportsStore = () => {
     partnerID: '',
     calenderID: '',
     showCalender: false,
-    partnerNameList: partnerNameLocation(),
+    partnerNameList: Utility.partnerNameLocation(authStore.userData),
 
     toogleCalender() {
       reportsStore.showCalender = !reportsStore.showCalender;

@@ -1,6 +1,8 @@
 import moment from 'moment';
 import {Dimensions} from 'react-native';
 import Toast from 'react-native-simple-toast';
+import {UserData} from '../models/UserModal';
+import {AppSVGs} from '../assets';
 
 const {width: deviceWidth, height: deviceHeight} = Dimensions.get('window');
 
@@ -71,6 +73,52 @@ class Utility {
       .toLowerCase()
       .match(/^\d+(\.\d{0,1})?$/);
   };
+
+  static partnerNameLocation = (userData: UserData) => {
+    return userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
+
+  static customReportsCards = [
+    {
+      title: 'Historical Data Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Recovered From Malnutrition Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Received Vitamin A Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Received Deworming Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Received IFA Report',
+      icon: AppSVGs.report,
+    },
+    {
+      title: 'Meals Received for Program Monitoring Report',
+      icon: AppSVGs.report,
+    },
+  ];
 
   static showToast = (msg: string, duration: number = 3) => {
     Toast.show(msg, duration);

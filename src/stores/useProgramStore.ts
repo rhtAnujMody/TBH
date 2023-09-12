@@ -11,24 +11,6 @@ import {useNavigation} from '@react-navigation/native';
 const useProgramStore = () => {
   const {request} = useApiService();
   const navigation = useNavigation();
-  const partnerNameLocation = () => {
-    return authStore.userData.partner_list.map(item => {
-      return {
-        name:
-          item.name +
-          ',' +
-          '\n' +
-          item.location +
-          ',' +
-          item.block +
-          ',' +
-          item.district +
-          ',' +
-          item.state,
-        id: item.id,
-      };
-    });
-  };
   const proStore = useLocalObservable(() => ({
     index: 2,
     openBottomSheet: false,
@@ -92,7 +74,7 @@ const useProgramStore = () => {
       {name: 'Bright Start', id: 'B'},
       {name: 'Anaemia Mukt Bharat', id: 'A'},
     ],
-    existingPartnerOptions: partnerNameLocation(),
+    existingPartnerOptions: Utility.partnerNameLocation(authStore.userData),
     locationOptions: [
       {name: 'Hyderabad', id: '1'},
       {name: 'Bengaluru', id: '2'},
