@@ -25,6 +25,7 @@ import useCalculateStore from '../stores/useCalculateStore';
 import Utility from '../utils/Utility';
 import {CalculateScreenRouteProp} from '../navigation/ReportsStack';
 import {useRoute} from '@react-navigation/native';
+import AppStrings from '../utils/AppStrings';
 type Props = {};
 
 const CalculateFieldsScreen = ({}: Props) => {
@@ -57,7 +58,9 @@ const CalculateFieldsScreen = ({}: Props) => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <View style={styles.container}>
                     <Text style={styles.headingText}>
-                      Calculated Field Values
+                      {from === AppStrings.fromDoctor
+                        ? "Doctor's Observation Entry"
+                        : 'Calculated Field Values'}
                     </Text>
                     <AppTextInput
                       value={calStore.childName}
@@ -89,7 +92,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                   </View>
                 </ScrollView>
                 <AppButton
-                  title="Search"
+                  title="Submit"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={calStore.isLoading}

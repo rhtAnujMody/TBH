@@ -92,7 +92,7 @@ const DocObservationScreen = ({}: Props) => {
                   </Pressable>
                 </ScrollView>
                 <AppButton
-                  title="Save"
+                  title="Submit"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={doctorStore.isLoading}

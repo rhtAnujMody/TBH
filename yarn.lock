@@ -6001,7 +6001,7 @@ react-native-permissions@^3.9.1:
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.9.1.tgz#15f1039b3e6d9b4250f715db642ce0a38e0ae101"
   integrity sha512-9Pvq7d8hb75+DVzdU5qrwTNmlULWqCugusCxD4Hce0ztbQhInS0tdgp/qt1neWLS0Xg6WX+emr9dM4BpKdk87w==
 
-react-native-reanimated@3.5.0:
+react-native-reanimated@3.5.0-nightly-20230801-673de8382:
   version "3.5.0-nightly-20230801-673de8382"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-3.5.0-nightly-20230801-673de8382.tgz#62a5838c5caeeefe0addb7321fa094eca5689385"
   integrity sha512-UYixHz76w/PZjQ+Wd9PHyUdBjqHi/EbuIiXpkChKiHpGVUC469bMHZSLPPMHjgTmNuYdwt9sbxnI5Ge9KTZxHQ==

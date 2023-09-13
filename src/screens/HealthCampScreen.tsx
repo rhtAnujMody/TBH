@@ -527,20 +527,7 @@ const HealthCampScreen = () => {
                                 )}
                               </>
                             )}
-                          </>
-                        }
-                      />
 
-                      <DashedLine
-                        dashLength={5}
-                        dashThickness={0.7}
-                        dashColor={colors.gray}
-                      />
-
-                      <AppToggle
-                        title={'Beneficiary Details'}
-                        children={
-                          <>
                             <AppInput
                               onPress={() => {
                                 handleBottomSheetClick('targetBeneficiary', 3);
@@ -570,7 +557,7 @@ const HealthCampScreen = () => {
                 </ScrollView>
 
                 <AppButton
-                  title="Save"
+                  title="Submit"
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={healthStore.isLoading}
