@@ -324,104 +324,172 @@ const useHealthStore = () => {
             healthStore.partnerError = AppStrings.requiredField;
           }
           break;
+        case 'newPName':
+          if (
+            !Utility.validateAlphaNumericSpecial(
+              healthStore.newPartnerName.trim(),
+            )
+          ) {
+            healthStore.newPNameError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'newPLoc':
+          if (!Utility.validateAlphaNumericSpecial(healthStore.newLocation)) {
+            healthStore.newPLocError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'newPBlock':
+          if (!Utility.validateAlphaNumericSpecial(healthStore.newBlock)) {
+            healthStore.newPBlockError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'newPDist':
+          if (!Utility.validateAlphaNumericSpecial(healthStore.newDistrict)) {
+            healthStore.newPDistError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'newPState':
+          if (!Utility.validateAlphaNumericSpecial(healthStore.newState)) {
+            healthStore.newPStateError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'existPart':
+          if (healthStore.existPartnerName === '') {
+            healthStore.existPartError = AppStrings.requiredField;
+            return;
+          }
+          break;
+        case 'partType':
+          if (healthStore.partnerType === '') {
+            return;
+          }
+          break;
+        case 'dohc':
+          if (healthStore.dohc === '') {
+            return;
+          }
+          break;
+        case 'nhc':
+          if (!Utility.validateAlphaNumericSpecial(healthStore.numberHC)) {
+            return;
+          }
+          break;
+        case 'childName':
+          if (!Utility.validateAlpha(healthStore.childName)) {
+            return;
+          }
+          break;
+        case 'contact':
+          if (!Utility.validatePhoneNumber(healthStore.contact)) {
+            return;
+          }
+          break;
+        case 'dob':
+          if (healthStore.dob === '') {
+            return;
+          }
+          break;
+        case 'gender':
+          if (healthStore.gender === '') {
+            return;
+          }
+          break;
+        case 'height':
+          if (!Utility.validateFloat(healthStore.height)) {
+            return;
+          }
+          break;
+        case 'weight':
+          if (!Utility.validateFloat(healthStore.weight)) {
+            return;
+          }
+          break;
+        case 'muac':
+          if (!Utility.validateFloat(healthStore.muac)) {
+            return;
+          }
+          break;
       }
     },
 
     validateSubmit() {
       healthStore.enableSubmit = false;
       if (healthStore.partner === '') {
-        healthStore.partnerError = AppStrings.requiredField;
         return;
       }
       if (healthStore.partner === 'New') {
         if (!Utility.validateAlphaNumericSpecial(healthStore.newPartnerName)) {
-          healthStore.newPNameError = AppStrings.requiredField;
           return;
         }
         if (!Utility.validateAlphaNumericSpecial(healthStore.newLocation)) {
-          healthStore.newPLocError = AppStrings.requiredField;
           return;
         }
         if (!Utility.validateAlphaNumericSpecial(healthStore.newBlock)) {
-          healthStore.newPBlockError = AppStrings.requiredField;
           return;
         }
         if (!Utility.validateAlphaNumericSpecial(healthStore.newDistrict)) {
-          healthStore.newPDistError = AppStrings.requiredField;
           return;
         }
         if (!Utility.validateAlphaNumericSpecial(healthStore.newState)) {
-          healthStore.newPStateError = AppStrings.requiredField;
           return;
         }
       } else {
         if (healthStore.existPartnerName === '') {
-          healthStore.existPartError = AppStrings.requiredField;
           return;
         }
       }
       if (healthStore.partnerType === '') {
-        healthStore.partTypeError = AppStrings.requiredField;
         return;
       }
       if (healthStore.dohc === '') {
-        healthStore.dohcError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validateAlphaNumericSpecial(healthStore.numberHC)) {
-        healthStore.nhcError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validateAlpha(healthStore.childName)) {
-        healthStore.childNameError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validatePhoneNumber(healthStore.contact)) {
-        healthStore.contactError = AppStrings.requiredField;
         return;
       }
       if (healthStore.dob === '') {
-        healthStore.dobError = AppStrings.requiredField;
         return;
       }
       if (healthStore.gender === '') {
-        healthStore.genderError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validateFloat(healthStore.height)) {
-        healthStore.heightError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validateFloat(healthStore.weight)) {
-        healthStore.weightError = AppStrings.requiredField;
         return;
       }
       if (!Utility.validateFloat(healthStore.muac)) {
-        healthStore.muacError = AppStrings.requiredField;
         return;
       }
 
       if (healthStore.vitaminA === '') {
-        healthStore.vitAError = AppStrings.requiredField;
         return;
       } else {
         if (healthStore.vitaminA === 'Done') {
           if (healthStore.doneBy === '') {
-            healthStore.vitADBWError = AppStrings.requiredField;
             return;
           } else {
             if (healthStore.dateOfDoseVitamin === '') {
-              healthStore.vitADODError = AppStrings.requiredField;
               return;
             }
             if (!Utility.validateNumeric(healthStore.durationOfCourse)) {
-              healthStore.vitADOCError = AppStrings.requiredField;
               return;
             }
             if (
               !Utility.validateAlphaNumericSpecial(healthStore.locationOfDose)
             ) {
-              healthStore.vitALocError = AppStrings.requiredField;
               return;
             }
           }
@@ -429,20 +497,16 @@ const useHealthStore = () => {
       }
 
       if (healthStore.deworming === '') {
-        healthStore.dewormError = AppStrings.requiredField;
         return;
       } else {
         if (healthStore.deworming === 'Done') {
           if (healthStore.doneByWorm === '') {
-            healthStore.dewormDBWError = AppStrings.requiredField;
             return;
           } else {
             if (healthStore.dateOfDoseDeworm === '') {
-              healthStore.dewormDODError = AppStrings.requiredField;
               return;
             }
             if (!Utility.validateNumeric(healthStore.durationOfCourseWorm)) {
-              healthStore.dewormDOCError = AppStrings.requiredField;
               return;
             }
             if (
@@ -450,7 +514,6 @@ const useHealthStore = () => {
                 healthStore.locationOfDoseWorm,
               )
             ) {
-              healthStore.dewormLocError = AppStrings.requiredField;
               return;
             }
           }
@@ -459,20 +522,16 @@ const useHealthStore = () => {
       }
 
       if (healthStore.ifa === '') {
-        healthStore.ifaError = AppStrings.requiredField;
         return;
       } else {
         if (healthStore.ifa === 'Done') {
           if (healthStore.doneByIFA === '') {
-            healthStore.ifaDBWError = AppStrings.requiredField;
             return;
           } else {
             if (healthStore.dateOfDoseIFA === '') {
-              healthStore.ifaDODError = AppStrings.requiredField;
               return;
             }
             if (!Utility.validateNumeric(healthStore.durationOfCourseIFA)) {
-              healthStore.ifaDOCError = AppStrings.requiredField;
               return;
             }
             if (
@@ -480,7 +539,6 @@ const useHealthStore = () => {
                 healthStore.locationOfDoseIFA,
               )
             ) {
-              healthStore.ifaLocError = AppStrings.requiredField;
               return;
             }
           }
@@ -489,11 +547,9 @@ const useHealthStore = () => {
       }
 
       if (healthStore.targetBeneficiary === '') {
-        healthStore.targetError = AppStrings.requiredField;
         return;
       }
       if (healthStore.educationalDetails === '') {
-        healthStore.educatError = AppStrings.requiredField;
         return;
       }
 

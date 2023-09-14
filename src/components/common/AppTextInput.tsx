@@ -26,6 +26,7 @@ interface Props extends TextInputProps {
   leftText?: string;
   errorMessage?: string;
   onPress?: () => void;
+  onFocusValidation?: (input: string) => void;
 }
 
 const AppTextInput = ({
@@ -41,6 +42,7 @@ const AppTextInput = ({
   onPress,
   leftText,
   errorMessage,
+  onFocusValidation,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -48,6 +50,7 @@ const AppTextInput = ({
   const customOnFocus = () => {
     props?.onFocus;
     setBorder(colors.palette.primary);
+    onFocusValidation?.();
   };
   const customOnBlur = () => {
     props?.onBlur;

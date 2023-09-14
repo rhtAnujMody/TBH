@@ -126,6 +126,9 @@ const HealthCampScreen = () => {
                                   placeHolder="Name of the partner"
                                   onChangeText={healthStore.setNewPartnerName}
                                   errorMessage={healthStore.newPNameError}
+                                  onFocusValidation={healthStore.validateErrors(
+                                    'newPName',
+                                  )}
                                 />
 
                                 <AppTextInput
@@ -135,6 +138,9 @@ const HealthCampScreen = () => {
                                   placeHolder="Location"
                                   onChangeText={healthStore.setNewLocation}
                                   errorMessage={healthStore.newPLocError}
+                                  onFocusValidation={healthStore.validateErrors(
+                                    'newPLoc',
+                                  )}
                                 />
 
                                 <AppTextInput
@@ -144,6 +150,9 @@ const HealthCampScreen = () => {
                                   placeHolder="Block"
                                   onChangeText={healthStore.setNewBlock}
                                   errorMessage={healthStore.newPBlockError}
+                                  onFocusValidation={healthStore.validateErrors(
+                                    'newPBlock',
+                                  )}
                                 />
 
                                 <AppTextInput
@@ -153,6 +162,9 @@ const HealthCampScreen = () => {
                                   placeHolder="District"
                                   onChangeText={healthStore.setNewDistrict}
                                   errorMessage={healthStore.newPDistError}
+                                  onFocusValidation={healthStore.validateErrors(
+                                    'newPDist',
+                                  )}
                                 />
 
                                 <AppTextInput
@@ -162,6 +174,9 @@ const HealthCampScreen = () => {
                                   placeHolder="State"
                                   onChangeText={healthStore.setNewState}
                                   errorMessage={healthStore.newPStateError}
+                                  onFocusValidation={healthStore.validateErrors(
+                                    'newPState',
+                                  )}
                                 />
                               </>
                             ) : healthStore.partner === 'Existing' ? (
