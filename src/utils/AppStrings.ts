@@ -37,4 +37,12 @@ export default {
   loginSignUp: 'Sign Up',
   loginAccountLabel: "Don't have an account yet?",
   loginTitle: 'Provide your Login Credentials to Sign In to the Application',
+  signUpTitle:
+    'New to Decimal Foundation! Please Provide Details to Register Yourself',
+  signUpRegister: 'Register',
+  signUpNamePlaceholder: 'Name',
+  signUpPhoneNoPlaceholder: 'Phone Number',
+  signUpDOBPlaceholder: 'Date Of Birth',
+  alreadyHaveAccount: 'Already have account?',
+  signIn: 'Sign In',
 };
