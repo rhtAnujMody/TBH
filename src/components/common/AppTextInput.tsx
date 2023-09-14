@@ -24,6 +24,7 @@ interface Props extends TextInputProps {
   otherText?: string;
   textHeader?: string;
   leftText?: string;
+  errorMessage?: string;
   onPress?: () => void;
 }
 
@@ -39,6 +40,7 @@ const AppTextInput = ({
   otherText,
   onPress,
   leftText,
+  errorMessage,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -96,6 +98,12 @@ const AppTextInput = ({
           </TouchableWithoutFeedback>
         )}
       </View>
+      {errorMessage !== '' ? (
+        <Text
+          style={{color: 'red', marginTop: -10, fontSize: 12, paddingLeft: 10}}>
+          {errorMessage}
+        </Text>
+      ) : null}
     </View>
   ) : (
     <View style={[styles.container, parentStyle]}>
@@ -114,14 +122,19 @@ const AppTextInput = ({
           </Text>
         </Pressable>
       ) : (
-        <TextInput
-          ref={inputRef}
-          placeholderTextColor={'#B1B1B1'}
-          selectionColor={colors.palette.primary}
-          placeholder={placeHolder}
-          style={styles.textInput}
-          {...props}
-        />
+        <>
+          <TextInput
+            ref={inputRef}
+            placeholderTextColor={'#B1B1B1'}
+            selectionColor={colors.palette.primary}
+            placeholder={placeHolder}
+            style={styles.textInput}
+            {...props}
+          />
+          {errorMessage !== '' ? (
+            <Text style={{color: 'red'}}>{errorMessage}</Text>
+          ) : null}
+        </>
       )}
     </View>
   );
