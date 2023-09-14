@@ -175,9 +175,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorStyle: {
-    color: 'red',
+    ...typography.regular(11, 'red'),
     marginTop: -5,
-    fontSize: 10,
     paddingLeft: 18,
     marginBottom: 10,
     alignSelf: 'flex-start',
