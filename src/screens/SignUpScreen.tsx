@@ -112,6 +112,7 @@ const SignUpScreen = () => {
               onChangeText={signUpStore.setEmail}
               inputRef={emailRef}
               onSubmitEditing={() => handleOnSubmitEditing(2)}
+              errorMessage={signUpStore.emailError}
             />
 
             <Observer>
@@ -126,6 +127,7 @@ const SignUpScreen = () => {
                   onChangeText={signUpStore.setNumber}
                   inputRef={numberRef}
                   onSubmitEditing={() => handleOnSubmitEditing(3)}
+                  errorMessage={signUpStore.phoneError}
                 />
               )}
             </Observer>

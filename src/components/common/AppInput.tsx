@@ -103,9 +103,6 @@ const AppInput = ({
           </TouchableWithoutFeedback>
         )}
       </View>
-      {errorMessage !== '' ? (
-        <Text style={{color: 'red', marginTop: -10}}>{errorMessage}</Text>
-      ) : null}
     </View>
   );
 };

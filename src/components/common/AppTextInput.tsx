@@ -42,15 +42,15 @@ const AppTextInput = ({
   onPress,
   leftText,
   errorMessage,
-  onFocusValidation,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
+  const [touched, setTouched] = useState(false);
 
   const customOnFocus = () => {
+    setTouched(true);
     props?.onFocus;
     setBorder(colors.palette.primary);
-    onFocusValidation?.();
   };
   const customOnBlur = () => {
     props?.onBlur;
@@ -101,44 +101,49 @@ const AppTextInput = ({
           </TouchableWithoutFeedback>
         )}
       </View>
-      {errorMessage !== '' ? (
-        <Text
-          style={{color: 'red', marginTop: -10, fontSize: 12, paddingLeft: 10}}>
+      {errorMessage !== '' && touched ? (
+        <Text style={{color: 'red', marginTop: -10, fontSize: 12}}>
           {errorMessage}
         </Text>
       ) : null}
     </View>
   ) : (
-    <View style={[styles.container, parentStyle]}>
-      {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
-      {LeftIcon && <LeftIcon />}
-      {hideInput ? (
-        <Pressable
-          style={styles.textContainer}
-          onPress={() => {
-            if (onPress) {
-              onPress();
-            }
-          }}>
-          <Text style={styles.otherTextValue(otherText ? false : true)}>
-            {otherText ? otherText : placeHolder}
-          </Text>
-        </Pressable>
-      ) : (
-        <>
-          <TextInput
-            ref={inputRef}
-            placeholderTextColor={'#B1B1B1'}
-            selectionColor={colors.palette.primary}
-            placeholder={placeHolder}
-            style={styles.textInput}
-            {...props}
-          />
-          {errorMessage !== '' ? (
-            <Text style={{color: 'red'}}>{errorMessage}</Text>
-          ) : null}
-        </>
-      )}
+    <View>
+      <View style={[styles.container, parentStyle]}>
+        {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
+        {LeftIcon && <LeftIcon />}
+        {hideInput ? (
+          <Pressable
+            style={styles.textContainer}
+            onPress={() => {
+              if (onPress) {
+                onPress();
+              }
+            }}>
+            <Text style={styles.otherTextValue(otherText ? false : true)}>
+              {otherText ? otherText : placeHolder}
+            </Text>
+          </Pressable>
+        ) : (
+          <>
+            <TextInput
+              ref={inputRef}
+              placeholderTextColor={'#B1B1B1'}
+              selectionColor={colors.palette.primary}
+              placeholder={placeHolder}
+              style={styles.textInput}
+              {...props}
+              onFocus={customOnFocus}
+              onBlur={customOnBlur}
+            />
+          </>
+        )}
+      </View>
+      {errorMessage !== '' && touched ? (
+        <Text style={{color: 'red', marginTop: -10, fontSize: 12}}>
+          {errorMessage}
+        </Text>
+      ) : null}
     </View>
   );
 };
