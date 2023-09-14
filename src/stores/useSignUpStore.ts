@@ -21,17 +21,12 @@ const useSignUpStore = () => {
     password: '',
     phoneNumber: '',
 
-    emailError: '',
-    phoneError: '',
-
     setEmail(value: string) {
       if (value.endsWith(' ')) {
         return;
       }
-      signUpStore.emailError = '';
       signUpStore.userEmail = value;
       signUpStore.validateCredentials();
-      signUpStore.validateErrors('email');
     },
 
     setName(value: string) {
@@ -50,37 +45,25 @@ const useSignUpStore = () => {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
       }
-      signUpStore.phoneError = '';
       signUpStore.phoneNumber = value;
       signUpStore.validateCredentials();
-      signUpStore.validateErrors('phone');
     },
 
     setPassword(value: string) {
       signUpStore.password = value;
       signUpStore.validateCredentials();
     },
-    validateErrors(field: string) {
-      switch (field) {
-        case 'email':
-          if (!Utility.validateEmail(signUpStore.userEmail)) {
-            //Utility.showToast(AppStrings.invalidEmail);
-            signUpStore.emailError = AppStrings.invalidEmail;
-          }
-          break;
-        case 'phone':
-          if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
-            //Utility.showToast(AppStrings.invalidNumber);
-            signUpStore.phoneError = AppStrings.invalidNumber;
-          }
-          break;
-      }
-    },
 
     validateCredentials() {
       signUpStore.isButtonEnabled = false;
 
-      if (signUpStore.name.length === 0) {
+      if (
+        signUpStore.name.length === 0 ||
+        signUpStore.userEmail.length === 0 ||
+        signUpStore.password.length === 0 ||
+        signUpStore.phoneNumber.length === 0 ||
+        signUpStore.dob.length === 0
+      ) {
         return;
       }
 
@@ -88,15 +71,13 @@ const useSignUpStore = () => {
         //Utility.showToast(AppStrings.invalidEmail);
         return;
       }
-      if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
-        //Utility.showToast(AppStrings.invalidNumber);
-        return;
-      }
-      if (signUpStore.dob.length === 0) {
-        return;
-      }
       if (signUpStore.password.length < 6) {
         //Utility.showToast(AppStrings.invalidPassword);
+        return;
+      }
+
+      if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
+        //Utility.showToast(AppStrings.invalidNumber);
         return;
       }
       signUpStore.isButtonEnabled = true;

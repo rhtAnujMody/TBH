@@ -30,5 +30,4 @@ export default {
   allFieldsMandatory: 'All fields are mandatory',
   invalidPassword: 'Password should be minimum 6 characters long',
   somethingWentWrong: 'Something Went Wrong',
-  requiredField: 'This field is required.',
 };

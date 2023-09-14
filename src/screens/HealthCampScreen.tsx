@@ -290,7 +290,6 @@ const HealthCampScreen = () => {
                               value={healthStore.contact}
                               onChangeText={healthStore.setContact}
                               maxLength={10}
-                              errorMessage={healthStore.phoneError}
                             />
 
                             <AppTextInput

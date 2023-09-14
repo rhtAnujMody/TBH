@@ -24,7 +24,6 @@ interface Props extends TextInputProps {
   otherText?: string;
   textHeader?: string;
   value?: string;
-  errorMessage?: string;
   onPress?: () => void;
 }
 
@@ -39,7 +38,6 @@ const AppInput = ({
   textHeader,
   otherText,
   value,
-  errorMessage,
   onPress,
   ...props
 }: Props) => {
@@ -72,30 +70,28 @@ const AppInput = ({
             </Text>
           </TouchableWithoutFeedback>
         ) : (
-          <>
-            <TouchableOpacity
-              onPress={onPress}
-              style={styles.touchableInputContainer}>
-              <View pointerEvents="none">
-                <TextInput
-                  ref={inputRef}
-                  placeholderTextColor={'#B1B1B1'}
-                  value={value}
-                  editable={false}
-                  selectionColor={colors.palette.primary}
-                  placeholder={placeHolder}
-                  style={[
-                    styles.textInput,
-                    styles.leftIconStyle(LeftIcon ? true : false),
-                  ]}
-                  keyboardType={keyboardType}
-                  onFocus={customOnFocus}
-                  onBlur={customOnBlur}
-                  {...props}
-                />
-              </View>
-            </TouchableOpacity>
-          </>
+          <TouchableOpacity
+            onPress={onPress}
+            style={styles.touchableInputContainer}>
+            <View pointerEvents="none">
+              <TextInput
+                ref={inputRef}
+                placeholderTextColor={'#B1B1B1'}
+                value={value}
+                editable={false}
+                selectionColor={colors.palette.primary}
+                placeholder={placeHolder}
+                style={[
+                  styles.textInput,
+                  styles.leftIconStyle(LeftIcon ? true : false),
+                ]}
+                keyboardType={keyboardType}
+                onFocus={customOnFocus}
+                onBlur={customOnBlur}
+                {...props}
+              />
+            </View>
+          </TouchableOpacity>
         )}
         {RightIcon && (
           <TouchableWithoutFeedback onPress={onPress}>
