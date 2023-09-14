@@ -102,13 +102,11 @@ const AppTextInput = ({
         )}
       </View>
       {errorMessage !== '' && touched ? (
-        <Text style={{color: 'red', marginTop: -10, fontSize: 12}}>
-          {errorMessage}
-        </Text>
+        <Text style={styles.errorStyle}>{errorMessage}</Text>
       ) : null}
     </View>
   ) : (
-    <View>
+    <>
       <View style={[styles.container, parentStyle]}>
         {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
         {LeftIcon && <LeftIcon />}
@@ -139,12 +137,10 @@ const AppTextInput = ({
           </>
         )}
       </View>
-      {errorMessage !== '' && touched ? (
-        <Text style={{color: 'red', marginTop: -10, fontSize: 12}}>
-          {errorMessage}
-        </Text>
-      ) : null}
-    </View>
+      {errorMessage !== '' && touched && (
+        <Text style={styles.errorStyle}>{errorMessage}</Text>
+      )}
+    </>
   );
 };
 
@@ -177,6 +173,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'center',
+  },
+  errorStyle: {
+    color: 'red',
+    marginTop: -5,
+    fontSize: 10,
+    paddingLeft: 18,
+    marginBottom: 10,
+    alignSelf: 'flex-start',
   },
   leftIconStyle: (isLeftIcon: boolean) => ({
     marginLeft: isLeftIcon ? 20 : 0,

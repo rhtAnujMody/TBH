@@ -31,7 +31,7 @@ const useSignUpStore = () => {
       signUpStore.emailError = '';
       signUpStore.userEmail = value;
       signUpStore.validateCredentials();
-      signUpStore.validateErrors();
+      signUpStore.validateErrors('email');
     },
 
     setName(value: string) {
@@ -53,21 +53,27 @@ const useSignUpStore = () => {
       signUpStore.phoneError = '';
       signUpStore.phoneNumber = value;
       signUpStore.validateCredentials();
-      signUpStore.validateErrors();
+      signUpStore.validateErrors('phone');
     },
 
     setPassword(value: string) {
       signUpStore.password = value;
       signUpStore.validateCredentials();
     },
-    validateErrors() {
-      if (!Utility.validateEmail(signUpStore.userEmail)) {
-        //Utility.showToast(AppStrings.invalidEmail);
-        signUpStore.emailError = AppStrings.invalidEmail;
-      }
-      if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
-        //Utility.showToast(AppStrings.invalidNumber);
-        signUpStore.phoneError = AppStrings.invalidNumber;
+    validateErrors(field: string) {
+      switch (field) {
+        case 'email':
+          if (!Utility.validateEmail(signUpStore.userEmail)) {
+            //Utility.showToast(AppStrings.invalidEmail);
+            signUpStore.emailError = AppStrings.invalidEmail;
+          }
+          break;
+        case 'phone':
+          if (!Utility.validatePhoneNumber(signUpStore.phoneNumber)) {
+            //Utility.showToast(AppStrings.invalidNumber);
+            signUpStore.phoneError = AppStrings.invalidNumber;
+          }
+          break;
       }
     },
 

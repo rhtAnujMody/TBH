@@ -71,6 +71,7 @@ const LoginScreen = () => {
               errorMessage={loginStore.emailError}
             />
             <AppTextInput
+              errorMessage=""
               icon={AppSVGs.lock}
               placeHolder="Password"
               returnKeyType="done"

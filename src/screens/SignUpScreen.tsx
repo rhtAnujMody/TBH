@@ -101,6 +101,7 @@ const SignUpScreen = () => {
               placeHolder="Name"
               returnKeyType="next"
               value={signUpStore.name}
+              errorMessage=""
               onChangeText={signUpStore.setName}
               onSubmitEditing={() => handleOnSubmitEditing(1)}
             />
