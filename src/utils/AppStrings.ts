@@ -30,4 +30,11 @@ export default {
   allFieldsMandatory: 'All fields are mandatory',
   invalidPassword: 'Password should be minimum 6 characters long',
   somethingWentWrong: 'Something Went Wrong',
+
+  loginEmailPlaceholder: 'Email Id',
+  loginPasswordPlaceholder: 'Password',
+  loginForgotPassword: 'Forgot Password',
+  loginSignUp: 'Sign Up',
+  loginAccountLabel: "Don't have an account yet?",
+  loginTitle: 'Provide your Login Credentials to Sign In to the Application',
 };

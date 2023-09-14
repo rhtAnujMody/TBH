@@ -9,6 +9,7 @@ import {AuthStackProps} from '../navigation/AppNavigation';
 import {useLoginStore} from '../stores';
 import {colors, typography} from '../theme';
 import React = require('react');
+import AppStrings from '../utils/AppStrings';
 
 const LoginScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -34,7 +35,7 @@ const LoginScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Sign In"
+        title={AppStrings.loginSignUp}
         isLoading={loginStore.isLoading}
         onPress={loginStore.login}
         enabled={loginStore.isButtonEnabled}
@@ -52,17 +53,15 @@ const LoginScreen = () => {
               <AppSVGs.logo style={styles.logo} />
             </View>
             <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>Sign In</Text>
-              <Text style={styles.signInDesc}>
-                Provide your Login Credentials to Sign In to the Application
-              </Text>
+              <Text style={styles.signIn}>{AppStrings.loginSignUp}</Text>
+              <Text style={styles.signInDesc}>{AppStrings.loginTitle}</Text>
             </View>
           </View>
 
           <View style={styles.textInputContainer}>
             <AppTextInput
               icon={AppSVGs.name}
-              placeHolder="Email Id"
+              placeHolder={AppStrings.loginEmailPlaceholder}
               returnKeyType="next"
               inputRef={emailRef}
               value={loginStore.userEmail}
@@ -71,7 +70,7 @@ const LoginScreen = () => {
             />
             <AppTextInput
               icon={AppSVGs.lock}
-              placeHolder="Password"
+              placeHolder={AppStrings.loginPasswordPlaceholder}
               returnKeyType="done"
               inputRef={passwordRef}
               secureTextEntry
@@ -80,13 +79,13 @@ const LoginScreen = () => {
             <Text
               style={[styles.signUp, styles.flexEnd]}
               onPress={navigateToForgot}>
-              {' Forgot Password '}
+              {AppStrings.loginForgotPassword}
             </Text>
             <View style={styles.bottomContainer}>
               <Text style={styles.dontHaveAcc}>
-                Don't have an account yet?
+                {AppStrings.loginAccountLabel}
                 <Text style={styles.signUp} onPress={navigateToSignUp}>
-                  {' Sign Up'}
+                  &nbsp;{AppStrings.loginSignUp}
                 </Text>
               </Text>
               <ShowButton />
