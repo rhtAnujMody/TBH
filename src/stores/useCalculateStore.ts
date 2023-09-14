@@ -82,7 +82,9 @@ const useCalculateStore = () => {
 
     generateName(value: any) {
       return value.map((item: any) => ({
-        name: `Name: ${item.name},\nDOB: ${item.dob},\nGender: ${item.gender}`,
+        name: item.name,
+        dob: item.dob,
+        gender: item.gender,
         id: item.id.toString(),
       }));
     },

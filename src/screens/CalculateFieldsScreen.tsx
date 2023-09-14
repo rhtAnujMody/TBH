@@ -26,6 +26,7 @@ import Utility from '../utils/Utility';
 import {CalculateScreenRouteProp} from '../navigation/ReportsStack';
 import {useRoute} from '@react-navigation/native';
 import AppStrings from '../utils/AppStrings';
+import {AppBottomCell} from '../components/common/AppBottomCell';
 type Props = {};
 
 const CalculateFieldsScreen = ({}: Props) => {
@@ -115,7 +116,7 @@ const CalculateFieldsScreen = ({}: Props) => {
             onClose={calStore.toggleBottomSheet}
             index={3}
             ref={bottomSheetRef}>
-            <AppBottomSheetDropdown
+            <AppBottomCell
               header={calStore.bottomSheetHeader}
               data={calStore.bottomSheetArray}
               onClose={() => {

@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {AppSVGs} from '../assets';
 import {
   KeyboardAvoidingView,
@@ -59,6 +59,10 @@ const HealthCampScreen = () => {
   const hideDatePicker = () => {
     healthStore.toogleCalender();
   };
+
+  useEffect(() => {
+    healthStore.getItem();
+  });
 
   const handleConfirm = (date: Date) => {
     switch (healthStore.calenderID) {

@@ -7,10 +7,32 @@ import useApiService from '../network/useAPIService';
 import {HealthModal} from '../models/HealthModal';
 import authStore from './authStore';
 import {useNavigation} from '@react-navigation/native';
+import {useAsyncStorage} from '../custom_hooks';
 
 const useHealthStore = () => {
   const {request} = useApiService();
   const navigation = useNavigation();
+  const {setData, getData} = useAsyncStorage();
+
+  const keys = [
+    'partner',
+    'partnerID',
+    'newPartnerName',
+    'newLocation',
+    'newBlock',
+    'newDistrict',
+    'newState',
+    'existPartnerName',
+    'existLocation',
+    'existBlock',
+    'existDistrict',
+    'existState',
+    'partnerType',
+    'partnerTypeID',
+    'dohc',
+    'numberHC',
+  ];
+
   const healthStore = useLocalObservable(() => ({
     index: 1,
     openBottomSheet: false,
@@ -105,10 +127,68 @@ const useHealthStore = () => {
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
 
+    async getItem() {
+      keys.map(item => {
+        getData(item, '').then(res => healthStore.setValues(item, res ?? ''));
+      });
+    },
+
+    setValues(key: string, value: string) {
+      switch (key) {
+        case 'partner':
+          healthStore.partner = value;
+          break;
+        case 'partnerID':
+          healthStore.partnerID = value;
+          break;
+        case 'newPartnerName':
+          healthStore.setNewPartnerName(value);
+          break;
+        case 'newLocation':
+          healthStore.setNewLocation(value);
+          break;
+        case 'newBlock':
+          healthStore.setNewBlock(value);
+          break;
+        case 'newDistrict':
+          healthStore.setNewDistrict(value);
+          break;
+        case 'newState':
+          healthStore.setNewState(value);
+          break;
+        case 'existPartnerName':
+          healthStore.existPartnerName = value;
+          break;
+        case 'existLocation':
+          healthStore.existLocation = value;
+          break;
+        case 'existBlock':
+          healthStore.existBlock = value;
+          break;
+        case 'existDistrict':
+          healthStore.existDistrict = value;
+          break;
+        case 'existState':
+          healthStore.existState = value;
+          break;
+        case 'partnerType':
+          healthStore.partnerType = value;
+          break;
+        case 'partnerTypeID':
+          healthStore.partnerTypeID = value;
+          break;
+        case 'dohc':
+          healthStore.setDOHC(value);
+          break;
+        case 'numberHC':
+          healthStore.setNumberHC(value);
+          break;
+      }
+    },
+
     toogleCalender() {
       healthStore.showCalender = !healthStore.showCalender;
     },
-
     setCalenderID(value: string) {
       healthStore.calenderID = value;
     },
@@ -528,6 +608,25 @@ const useHealthStore = () => {
         }
         formData.append('health_camp_date', healthStore.dohc);
         formData.append('serial_no', healthStore.numberHC);
+
+        setData('partner', healthStore.partner.toString());
+        setData('partnerID', healthStore.partnerID.toString());
+        setData('existPartnerName', healthStore.existPartnerName.toString());
+        setData('existLocation', healthStore.existLocation.toString());
+        setData('existBlock', healthStore.existBlock.toString());
+        setData('existDistrict', healthStore.existDistrict.toString());
+        setData('existState', healthStore.existState.toString());
+
+        setData('partnerType', healthStore.partnerType.toString());
+        setData('partnerTypeID', healthStore.partnerTypeID.toString());
+        setData('dohc', healthStore.dohc.toString());
+        setData('numberHC', healthStore.numberHC.toString());
+        setData('newPartnerName', healthStore.newPartnerName.toString());
+        setData('newLocation', healthStore.newLocation.toString());
+        setData('newBlock', healthStore.newBlock.toString());
+        setData('newDistrict', healthStore.newDistrict.toString());
+        setData('newState', healthStore.newState.toString());
+
         formData.append(
           'child_info',
           JSON.stringify({
@@ -613,7 +712,6 @@ const useHealthStore = () => {
           navigation.goBack();
         }
       } catch (err) {
-        console.log(err, 'message');
         Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
