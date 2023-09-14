@@ -45,4 +45,25 @@ export default {
   signUpDOBPlaceholder: 'Date Of Birth',
   alreadyHaveAccount: 'Already have account?',
   signIn: 'Sign In',
+  logout: 'Logout',
+  welcome: 'Welcome',
+
+  HOME_CARDS: {
+    dataCapture: 'Proceed For Data Capture',
+    calculatedFieldValues: 'View Calculated Field Values',
+    observationEntry: "Doctor's Observation Entry",
+  },
+  GENERATE_REPORT_CARDS: {
+    malnutrition: 'Malnutrition Report',
+    wasting: 'Wasting Report',
+    stunting: 'Stunting Report',
+    custom: 'Custom Report',
+    doctorsObservation: "Doctor's Observation Report",
+    nutritionEducation: 'Nutrition Education Report',
+    monitoring: 'Monitoring Report',
+  },
+  healthCampLabel: 'Health Camp',
+  nutritionEducationLabel: 'Nutrition Education',
+  programMonitoringLabel: 'Program Monitoring',
+  generateReportLabel: 'Generate Report',
 };

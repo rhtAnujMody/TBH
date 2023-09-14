@@ -15,46 +15,46 @@ const Dashboard = () => {
 
   const homeCards = [
     {
-      title: 'Proceed For Data Capture',
+      title: AppStrings.HOME_CARDS.dataCapture,
       icon: AppSVGs.capture_details,
     },
     {
-      title: 'View Calculated Field Values',
+      title: AppStrings.HOME_CARDS.calculatedFieldValues,
       icon: AppSVGs.report,
     },
     {
-      title: "Doctor's Observation Entry",
+      title: AppStrings.HOME_CARDS.observationEntry,
       icon: AppSVGs.report,
     },
   ];
 
   const genrateReportsCards = [
     {
-      title: 'Malnutrition Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.malnutrition,
       icon: AppSVGs.report,
     },
     {
-      title: 'Wasting Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.wasting,
       icon: AppSVGs.report,
     },
     {
-      title: 'Stunting Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.stunting,
       icon: AppSVGs.report,
     },
     {
-      title: 'Custom Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.custom,
       icon: AppSVGs.report,
     },
     {
-      title: "Doctor's Observation Report",
+      title: AppStrings.GENERATE_REPORT_CARDS.doctorsObservation,
       icon: AppSVGs.report,
     },
     {
-      title: 'Nutrition Education Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.nutritionEducation,
       icon: AppSVGs.report,
     },
     {
-      title: 'Monitoring Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.monitoring,
       icon: AppSVGs.report,
     },
   ];
@@ -132,12 +132,12 @@ const Dashboard = () => {
       <View style={styles.topContainer}>
         <AppSVGs.logo style={styles.logo} />
         <Text style={styles.loginText} onPress={auth.logout}>
-          Logout
+          {AppStrings.logout}
         </Text>
         <View style={styles.profileContainer}>
           <AppSVGs.profile style={styles.userLogo} />
           <View style={styles.welcomeContainer}>
-            <Text style={styles.welcome}>Welcome,</Text>
+            <Text style={styles.welcome}>{AppStrings.welcome},</Text>
             <ObservableChild>
               <Text style={styles.userName}>{authStore.userData.name}</Text>
             </ObservableChild>
@@ -147,7 +147,7 @@ const Dashboard = () => {
       <View style={styles.bottomContainer}>
         <ScrollView contentContainerStyle={styles.bodyScroll}>
           <Pressable>
-            <Text style={styles.title}>Health Camp</Text>
+            <Text style={styles.title}>{AppStrings.healthCampLabel}</Text>
             <View style={styles.cardsContainer}>
               {homeCards.map((data, index) => {
                 return (
@@ -161,7 +161,9 @@ const Dashboard = () => {
                 );
               })}
             </View>
-            <Text style={styles.title}>Nutrition Education</Text>
+            <Text style={styles.title}>
+              {AppStrings.nutritionEducationLabel}
+            </Text>
             <View style={styles.cardsContainer}>
               <HomeCard
                 title={homeCards[0].title}
@@ -170,7 +172,9 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(3)}
               />
             </View>
-            <Text style={styles.title}>Program Monitoring</Text>
+            <Text style={styles.title}>
+              {AppStrings.programMonitoringLabel}
+            </Text>
             <View style={styles.cardsContainer}>
               <HomeCard
                 title={homeCards[0].title}
@@ -179,7 +183,7 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(4)}
               />
             </View>
-            <Text style={styles.title}>Generate Report</Text>
+            <Text style={styles.title}>{AppStrings.generateReportLabel}</Text>
             <View style={styles.cardsContainer}>
               {genrateReportsCards.map((data, index) => {
                 return (

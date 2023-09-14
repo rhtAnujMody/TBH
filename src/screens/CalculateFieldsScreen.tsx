@@ -9,12 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {
-  AppContainer,
-  AppTextInput,
-  AppButton,
-  AppCheckBox,
-} from '../components';
+import {AppContainer, AppTextInput, AppButton} from '../components';
 import AppBottomSheet from '../components/common/AppBottomSheet';
 import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
