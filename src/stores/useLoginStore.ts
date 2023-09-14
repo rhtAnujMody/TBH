@@ -18,10 +18,13 @@ const useLoginStore = () => {
     userEmail: '',
     password: '',
 
+    emailError: '',
+
     setEmail(value: string) {
       if (value.endsWith(' ')) {
         return;
       }
+      loginStore.emailError = '';
       loginStore.userEmail = value;
       loginStore.validateCredentials();
     },
@@ -34,6 +37,7 @@ const useLoginStore = () => {
     validateCredentials() {
       loginStore.isButtonEnabled = false;
       if (!Utility.validateEmail(loginStore.userEmail)) {
+        loginStore.emailError = AppStrings.invalidEmail;
         //Utility.showToast(AppStrings.invalidEmail);
         return;
       }

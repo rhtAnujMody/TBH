@@ -68,8 +68,10 @@ const LoginScreen = () => {
               value={loginStore.userEmail}
               onChangeText={loginStore.setEmail}
               onSubmitEditing={handleOnSubmitEditing}
+              errorMessage={loginStore.emailError}
             />
             <AppTextInput
+              errorMessage=""
               icon={AppSVGs.lock}
               placeHolder="Password"
               returnKeyType="done"

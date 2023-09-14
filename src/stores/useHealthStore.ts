@@ -91,6 +91,9 @@ const useHealthStore = () => {
     dateOfDoseIFA: '',
     durationOfCourseIFA: '',
     locationOfDoseIFA: '',
+
+    phoneError: '',
+
     selectedImages: [] as Image[],
     partnerOptions: [
       {name: 'New', id: 'new'},
@@ -220,8 +223,10 @@ const useHealthStore = () => {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
       }
+      healthStore.phoneError = '';
       healthStore.contact = value;
       healthStore.validateSubmit();
+      healthStore.validateErrors();
     },
     setDOB(value: string) {
       healthStore.dob = value;
@@ -271,18 +276,15 @@ const useHealthStore = () => {
       healthStore.newState = value;
       healthStore.validateSubmit();
     },
+    setDateOfDoseVitamin(value: string) {
+      healthStore.dateOfDoseVitamin = value;
+      healthStore.validateSubmit();
+    },
     setDurationOfCourse(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
       }
       healthStore.durationOfCourse = value;
-      healthStore.validateSubmit();
-    },
-    setDurationOfCourseWorm(value: string) {
-      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
-        return;
-      }
-      healthStore.durationOfCourseWorm = value;
       healthStore.validateSubmit();
     },
     setLocationOfDose(value: string) {
@@ -292,26 +294,22 @@ const useHealthStore = () => {
       healthStore.locationOfDose = value;
       healthStore.validateSubmit();
     },
+    setDateOfDoseDeworm(value: string) {
+      healthStore.dateOfDoseDeworm = value;
+      healthStore.validateSubmit();
+    },
+    setDurationOfCourseWorm(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
+      healthStore.durationOfCourseWorm = value;
+      healthStore.validateSubmit();
+    },
     setLocationOfDoseWorm(value: string) {
       if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
         return;
       }
       healthStore.locationOfDoseWorm = value;
-      healthStore.validateSubmit();
-    },
-    setLocationOfDoseIFA(value: string) {
-      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
-        return;
-      }
-      healthStore.locationOfDoseIFA = value;
-      healthStore.validateSubmit();
-    },
-    setDateOfDoseVitamin(value: string) {
-      healthStore.dateOfDoseVitamin = value;
-      healthStore.validateSubmit();
-    },
-    setDateOfDoseDeworm(value: string) {
-      healthStore.dateOfDoseDeworm = value;
       healthStore.validateSubmit();
     },
     setDateOfDoseIFA(value: string) {
@@ -325,6 +323,13 @@ const useHealthStore = () => {
       healthStore.durationOfCourseIFA = value;
       healthStore.validateSubmit();
     },
+    setLocationOfDoseIFA(value: string) {
+      if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
+        return;
+      }
+      healthStore.locationOfDoseIFA = value;
+      healthStore.validateSubmit();
+    },
     setSelectedImages(selectedImage: Image[]) {
       healthStore.selectedImages = selectedImage;
     },
@@ -333,20 +338,32 @@ const useHealthStore = () => {
       healthStore.openPhotoBottomSheet = !healthStore.openPhotoBottomSheet;
     },
 
+    validateErrors() {
+      if (!Utility.validatePhoneNumber(healthStore.contact)) {
+        healthStore.phoneError = AppStrings.invalidNumber;
+        return;
+      }
+    },
+
     validateSubmit() {
       healthStore.enableSubmit = false;
-
       if (healthStore.partner === '') {
         return;
       }
       if (healthStore.partner === 'New') {
-        if (
-          !Utility.validateAlphaNumericSpecial(healthStore.newPartnerName) ||
-          !Utility.validateAlphaNumericSpecial(healthStore.newLocation) ||
-          !Utility.validateAlphaNumericSpecial(healthStore.newBlock) ||
-          !Utility.validateAlphaNumericSpecial(healthStore.newDistrict) ||
-          !Utility.validateAlphaNumericSpecial(healthStore.newState)
-        ) {
+        if (!Utility.validateAlphaNumericSpecial(healthStore.newPartnerName)) {
+          return;
+        }
+        if (!Utility.validateAlphaNumericSpecial(healthStore.newLocation)) {
+          return;
+        }
+        if (!Utility.validateAlphaNumericSpecial(healthStore.newBlock)) {
+          return;
+        }
+        if (!Utility.validateAlphaNumericSpecial(healthStore.newDistrict)) {
+          return;
+        }
+        if (!Utility.validateAlphaNumericSpecial(healthStore.newState)) {
           return;
         }
       } else {
@@ -354,7 +371,9 @@ const useHealthStore = () => {
           return;
         }
       }
-
+      if (healthStore.partnerType === '') {
+        return;
+      }
       if (healthStore.dohc === '') {
         return;
       }
@@ -380,12 +399,6 @@ const useHealthStore = () => {
         return;
       }
       if (!Utility.validateFloat(healthStore.muac)) {
-        return;
-      }
-      if (healthStore.targetBeneficiary === '') {
-        return;
-      }
-      if (healthStore.educationalDetails === '') {
         return;
       }
 
@@ -459,6 +472,13 @@ const useHealthStore = () => {
           }
         } else {
         }
+      }
+
+      if (healthStore.targetBeneficiary === '') {
+        return;
+      }
+      if (healthStore.educationalDetails === '') {
+        return;
       }
 
       healthStore.enableSubmit = true;

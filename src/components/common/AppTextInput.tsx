@@ -24,7 +24,9 @@ interface Props extends TextInputProps {
   otherText?: string;
   textHeader?: string;
   leftText?: string;
+  errorMessage?: string;
   onPress?: () => void;
+  onFocusValidation?: (input: string) => void;
 }
 
 const AppTextInput = ({
@@ -39,11 +41,14 @@ const AppTextInput = ({
   otherText,
   onPress,
   leftText,
+  errorMessage,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
+  const [touched, setTouched] = useState(false);
 
   const customOnFocus = () => {
+    setTouched(true);
     props?.onFocus;
     setBorder(colors.palette.primary);
   };
@@ -96,34 +101,46 @@ const AppTextInput = ({
           </TouchableWithoutFeedback>
         )}
       </View>
+      {errorMessage !== '' && touched ? (
+        <Text style={styles.errorStyle}>{errorMessage}</Text>
+      ) : null}
     </View>
   ) : (
-    <View style={[styles.container, parentStyle]}>
-      {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
-      {LeftIcon && <LeftIcon />}
-      {hideInput ? (
-        <Pressable
-          style={styles.textContainer}
-          onPress={() => {
-            if (onPress) {
-              onPress();
-            }
-          }}>
-          <Text style={styles.otherTextValue(otherText ? false : true)}>
-            {otherText ? otherText : placeHolder}
-          </Text>
-        </Pressable>
-      ) : (
-        <TextInput
-          ref={inputRef}
-          placeholderTextColor={'#B1B1B1'}
-          selectionColor={colors.palette.primary}
-          placeholder={placeHolder}
-          style={styles.textInput}
-          {...props}
-        />
+    <>
+      <View style={[styles.container, parentStyle]}>
+        {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
+        {LeftIcon && <LeftIcon />}
+        {hideInput ? (
+          <Pressable
+            style={styles.textContainer}
+            onPress={() => {
+              if (onPress) {
+                onPress();
+              }
+            }}>
+            <Text style={styles.otherTextValue(otherText ? false : true)}>
+              {otherText ? otherText : placeHolder}
+            </Text>
+          </Pressable>
+        ) : (
+          <>
+            <TextInput
+              ref={inputRef}
+              placeholderTextColor={'#B1B1B1'}
+              selectionColor={colors.palette.primary}
+              placeholder={placeHolder}
+              style={styles.textInput}
+              {...props}
+              onFocus={customOnFocus}
+              onBlur={customOnBlur}
+            />
+          </>
+        )}
+      </View>
+      {errorMessage !== '' && touched && (
+        <Text style={styles.errorStyle}>{errorMessage}</Text>
       )}
-    </View>
+    </>
   );
 };
 
@@ -156,6 +173,13 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'center',
+  },
+  errorStyle: {
+    ...typography.regular(11, 'red'),
+    marginTop: -5,
+    paddingLeft: 18,
+    marginBottom: 10,
+    alignSelf: 'flex-start',
   },
   leftIconStyle: (isLeftIcon: boolean) => ({
     marginLeft: isLeftIcon ? 20 : 0,
