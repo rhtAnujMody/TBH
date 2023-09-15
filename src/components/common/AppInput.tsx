@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     ...typography.regular(14),
   },
   textHeader: {
-    ...typography.medium(10),
+    ...typography.medium(12),
     marginBottom: 6,
   },
   textContainer: {

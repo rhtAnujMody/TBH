@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   textHeader: {
-    ...typography.medium(10),
+    ...typography.medium(12),
     marginBottom: 6,
   },
 });
