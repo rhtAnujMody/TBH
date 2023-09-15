@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   textHeading: {
-    ...typography.medium(15),
+    ...typography.medium(14),
     width: 80,
   },
   textResult: {

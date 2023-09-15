@@ -83,7 +83,7 @@ const useCalculateStore = () => {
     generateName(value: any) {
       return value.map((item: any) => ({
         name: Utility.getUpper(item.name),
-        dob: item.dob,
+        dob: Utility.formatDate(item.dob),
         gender: item.gender,
         id: item.id.toString(),
       }));
