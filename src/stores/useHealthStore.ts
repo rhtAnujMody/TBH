@@ -354,6 +354,9 @@ const useHealthStore = () => {
           return;
         }
       }
+      if (healthStore.partnerType === '') {
+        return;
+      }
 
       if (healthStore.dohc === '') {
         return;
