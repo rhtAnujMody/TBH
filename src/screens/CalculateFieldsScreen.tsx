@@ -73,7 +73,7 @@ const CalculateFieldsScreen = ({}: Props) => {
 
                     <AppTextInput
                       parentStyle={styles.dovInputStyle}
-                      textHeader="Date of Birth"
+                      textHeader="DATE OF BIRTH"
                       rightIcon={AppSVGs.dob}
                       placeHolder="Date of Birth"
                       hideInput={true}

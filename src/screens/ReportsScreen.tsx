@@ -76,7 +76,7 @@ const ReportsScreen = () => {
 
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
-                        textHeader="Start Date"
+                        textHeader="START DATE"
                         rightIcon={AppSVGs.dob}
                         placeHolder="Start Date"
                         hideInput={true}
@@ -87,7 +87,7 @@ const ReportsScreen = () => {
                       />
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
-                        textHeader="End Date"
+                        textHeader="END DATE"
                         rightIcon={AppSVGs.dob}
                         placeHolder="End Date"
                         hideInput={true}
@@ -102,7 +102,7 @@ const ReportsScreen = () => {
                         }}
                         parentStyle={styles.textInputStyle}
                         value={reportsStore.partner}
-                        textHeader="Partner Name, Location"
+                        textHeader="PARTNER NAME, LOCATION"
                         placeHolder="Partner Name, Location"
                         rightIcon={AppSVGs.dropdown}
                       />
