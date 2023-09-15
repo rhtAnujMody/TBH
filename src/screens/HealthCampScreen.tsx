@@ -62,7 +62,7 @@ const HealthCampScreen = () => {
 
   useEffect(() => {
     healthStore.getItem();
-  });
+  }, []);
 
   const handleConfirm = (date: Date) => {
     switch (healthStore.calenderID) {
