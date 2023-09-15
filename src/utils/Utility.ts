@@ -78,6 +78,18 @@ class Utility {
       .match(/^\d+(\.\d{0,1})?$/);
   };
 
+  static getUpper = (str: string) => {
+    if (str !== '') {
+      const words = str.split(' ');
+      const capitalizedWords = words.map(
+        word => word.charAt(0).toUpperCase() + word.slice(1),
+      );
+      return capitalizedWords.join(' ');
+    } else {
+      return '';
+    }
+  };
+
   static partnerNameLocation = (userData: UserData) => {
     return userData.partner_list.map(item => {
       return {
