@@ -1,7 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {AppSVGs} from '../assets';
 import AppBack from '../components/common/AppBack';
@@ -96,65 +103,69 @@ const SignUpScreen = () => {
           </View>
 
           <View style={styles.textInputContainer}>
-            <AppTextInput
-              icon={AppSVGs.name}
-              placeHolder="Name"
-              returnKeyType="next"
-              value={signUpStore.name}
-              onChangeText={signUpStore.setName}
-              onSubmitEditing={() => handleOnSubmitEditing(1)}
-            />
-            <AppTextInput
-              icon={AppSVGs.email}
-              placeHolder="Email"
-              returnKeyType="next"
-              value={signUpStore.userEmail}
-              onChangeText={signUpStore.setEmail}
-              inputRef={emailRef}
-              onSubmitEditing={() => handleOnSubmitEditing(2)}
-            />
-
-            <Observer>
-              {() => (
+            <ScrollView contentContainerStyle={styles.bodyScroll}>
+              <Pressable>
                 <AppTextInput
-                  placeHolder="Phone Number"
+                  icon={AppSVGs.name}
+                  placeHolder="Name"
                   returnKeyType="next"
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                  leftText="+91"
-                  value={signUpStore.phoneNumber}
-                  onChangeText={signUpStore.setNumber}
-                  inputRef={numberRef}
-                  onSubmitEditing={() => handleOnSubmitEditing(3)}
+                  value={signUpStore.name}
+                  onChangeText={signUpStore.setName}
+                  onSubmitEditing={() => handleOnSubmitEditing(1)}
                 />
-              )}
-            </Observer>
+                <AppTextInput
+                  icon={AppSVGs.email}
+                  placeHolder="Email"
+                  returnKeyType="next"
+                  value={signUpStore.userEmail}
+                  onChangeText={signUpStore.setEmail}
+                  inputRef={emailRef}
+                  onSubmitEditing={() => handleOnSubmitEditing(2)}
+                />
 
-            <AppTextInput
-              icon={AppSVGs.dob}
-              placeHolder="Date Of Birth"
-              hideInput={true}
-              onPress={onDOBPress}
-              otherText={dob}
-            />
+                <Observer>
+                  {() => (
+                    <AppTextInput
+                      placeHolder="Phone Number"
+                      returnKeyType="next"
+                      keyboardType="phone-pad"
+                      maxLength={10}
+                      leftText="+91"
+                      value={signUpStore.phoneNumber}
+                      onChangeText={signUpStore.setNumber}
+                      inputRef={numberRef}
+                      onSubmitEditing={() => handleOnSubmitEditing(3)}
+                    />
+                  )}
+                </Observer>
 
-            <AppTextInput
-              icon={AppSVGs.lock}
-              secureTextEntry
-              placeHolder="Password"
-              onChangeText={signUpStore.setPassword}
-              returnKeyType="done"
-              inputRef={passwordRef}
-            />
-            <View style={styles.bottomContainer}>
-              <Text style={styles.dontHaveAcc}>
-                Already have account?
-                <Text style={styles.signUp} onPress={navigateToSignIn}>
-                  {' Sign In'}
-                </Text>
-              </Text>
-              <ShowButton />
-            </View>
+                <AppTextInput
+                  icon={AppSVGs.dob}
+                  placeHolder="Date Of Birth"
+                  hideInput={true}
+                  onPress={onDOBPress}
+                  otherText={dob}
+                />
+
+                <AppTextInput
+                  icon={AppSVGs.lock}
+                  secureTextEntry
+                  placeHolder="Password"
+                  onChangeText={signUpStore.setPassword}
+                  returnKeyType="done"
+                  inputRef={passwordRef}
+                />
+                <View style={styles.bottomContainer}>
+                  <Text style={styles.dontHaveAcc}>
+                    Already have account?
+                    <Text style={styles.signUp} onPress={navigateToSignIn}>
+                      {' Sign In'}
+                    </Text>
+                  </Text>
+                  <ShowButton />
+                </View>
+              </Pressable>
+            </ScrollView>
           </View>
 
           <DateTimePickerModal
@@ -212,14 +223,18 @@ const loginStyles = (isKeyboardVisible: boolean) => {
     },
     bottomContainer: {
       width: '100%',
-      position: 'absolute',
       bottom: 20,
       justifyContent: 'center',
       alignItems: 'center',
     },
     dontHaveAcc: {
       ...typography.medium(14),
+      marginTop: 20,
       marginBottom: 20,
+    },
+    bodyScroll: {
+      flexGrow: 1,
+      width: '80%',
     },
     signUp: {
       color: colors.palette.primary,
