@@ -79,11 +79,15 @@ class Utility {
   };
 
   static getUpper = (str: string) => {
-    const words = str.split(' ');
-    const capitalizedWords = words.map(
-      word => word.charAt(0).toUpperCase() + word.slice(1),
-    );
-    return capitalizedWords.join(' ');
+    if (str !== '') {
+      const words = str.split(' ');
+      const capitalizedWords = words.map(
+        word => word.charAt(0).toUpperCase() + word.slice(1),
+      );
+      return capitalizedWords.join(' ');
+    } else {
+      return '';
+    }
   };
 
   static partnerNameLocation = (userData: UserData) => {
