@@ -6,7 +6,6 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -28,7 +27,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import {useCamera} from '../custom_hooks';
 import useProgramStore from '../stores/useProgramStore';
-import {colors, typography} from '../theme';
+import {colors} from '../theme';
 import Utility from '../utils/Utility';
 import {AppSVGs} from '../assets';
 import {styles} from '../styles/formStyles';

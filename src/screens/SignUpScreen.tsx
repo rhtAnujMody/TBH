@@ -1,14 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import {AppSVGs} from '../assets';

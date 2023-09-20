@@ -5,7 +5,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -17,7 +16,6 @@ import {
   Header,
   AppBottomCell,
 } from '../components';
-import {colors, typography} from '../theme';
 import {AppSVGs} from '../assets';
 import {useCalculateStore} from '../stores';
 import Utility from '../utils/Utility';
@@ -53,7 +51,7 @@ const CalculateFieldsScreen = ({}: Props) => {
             <Header title={'Health Camp'} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
-              style={{flex: 1, backgroundColor: colors.palette.primary}}>
+              style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>

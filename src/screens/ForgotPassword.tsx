@@ -1,10 +1,9 @@
 import {observer} from 'mobx-react-lite';
 import {useRef} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
-import {colors, typography} from '../theme';
 import {useForgotPasswordStore} from '../stores';
 import React = require('react');
 import {loginStyles} from '../styles/loginStyles';

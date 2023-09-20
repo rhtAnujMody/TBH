@@ -6,7 +6,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -27,7 +26,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DashedLine from 'react-native-dashed-line';
 
 import Utility from '../utils/Utility';
-import {colors, typography} from '../theme';
+import {colors} from '../theme';
 import {useHealthStore} from '../stores';
 import {useCamera} from '../custom_hooks';
 import {styles} from '../styles/formStyles';

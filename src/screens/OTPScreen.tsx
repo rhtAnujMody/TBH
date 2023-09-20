@@ -1,12 +1,11 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React = require('react');
 
 import {AppSVGs} from '../assets';
 import {AppBack, AppButton, AppContainer, AppOTPInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
-import {colors, typography} from '../theme';
 import {loginStyles} from '../styles/loginStyles';
 
 import {useOTPStore} from '../stores';

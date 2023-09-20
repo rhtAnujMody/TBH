@@ -29,15 +29,13 @@ import {
 import {useCamera} from '../custom_hooks';
 import {authStore} from '../stores';
 import {useCaptureDetailsStore} from '../stores';
-import {colors, typography} from '../theme';
+import {colors} from '../theme';
 import Utility from '../utils/Utility';
 import {styles} from '../styles/formStyles';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
-
   const bottomSheetRef = useRef<BottomSheet | null>(null);
-
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
 
