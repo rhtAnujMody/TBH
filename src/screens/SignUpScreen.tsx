@@ -10,14 +10,17 @@ import {
   View,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import {AppSVGs} from '../assets';
-import AppBack from '../components/common/AppBack';
-import AppButton from '../components/common/AppButton';
-import AppContainer from '../components/common/AppContainer';
-import AppTextInput from '../components/common/AppTextInput';
-import useKeyboard from '../custom_hooks/useKeyboard';
+import {
+  AppBack,
+  AppButton,
+  AppContainer,
+  AppTextInput,
+} from '../components/common';
+import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import useSignUpStore from '../stores/useSignUpStore';
+import {useSignUpStore} from '../stores';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
 

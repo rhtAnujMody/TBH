@@ -1,13 +1,14 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 import {StyleSheet, Text, View} from 'react-native';
+import React = require('react');
+
 import {AppSVGs} from '../assets';
-import {AppBack, AppButton, AppContainer} from '../components';
+import {AppBack, AppButton, AppContainer, AppOTPInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {colors, typography} from '../theme';
-import React = require('react');
-import {AppOTPInput} from '../components/common/AppOTPInput';
-import useOTPStore from '../stores/useOTPStore';
+
+import {useOTPStore} from '../stores';
 import {AuthStackParamList} from '../navigation/AuthStack';
 
 const OTPScreen = () => {

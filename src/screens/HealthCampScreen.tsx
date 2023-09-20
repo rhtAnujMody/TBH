@@ -12,24 +12,29 @@ import {
   TouchableOpacity,
   Pressable,
 } from 'react-native';
-import AppInput from '../components/common/AppInput';
-import AppImageUploadInput from '../components/common/AppImageUploadInput';
+import {
+  AppInput,
+  AppImageUploadInput,
+  AppContainer,
+  AppTextInput,
+  AppButton,
+  AppToggle,
+  Header,
+  AppBottomSheetDropdown,
+  AppBottomSheet,
+} from '../components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import Utility from '../utils/Utility';
-import {AppContainer, AppTextInput, AppButton, AppToggle} from '../components';
-import Header from '../components/common/Header';
-import {colors, typography} from '../theme';
-import useHealthStore from '../stores/useHealthStore';
-import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
-import AppBottomSheet from '../components/common/AppBottomSheet';
-import useCamera from '../custom_hooks/useCamera';
 import DashedLine from 'react-native-dashed-line';
+
+import Utility from '../utils/Utility';
+import {colors, typography} from '../theme';
+import {useHealthStore} from '../stores';
+import {useCamera} from '../custom_hooks';
+import {styles} from '../styles/formStyles';
 
 const HealthCampScreen = () => {
   const healthStore = useHealthStore();
-
   const bottomSheetRef = useRef<BottomSheet | null>(null);
-
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
 
@@ -635,60 +640,3 @@ const HealthCampScreen = () => {
 };
 
 export default HealthCampScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  contentContainerStyle: {
-    paddingBottom: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
-  },
-  containerWidth: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  keyboardAwoidStyle: {flex: 1, backgroundColor: colors.palette.primary},
-  backgroundStyle: {
-    flex: 1,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  textInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    borderRadius: 25,
-  },
-  buttonStyle: {
-    marginBottom: 10,
-  },
-  dovInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    paddingRight: 30,
-    borderRadius: 25,
-  },
-  photoContainerStyle: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-  },
-  headerContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    margin: 16,
-  },
-  headerStyle: {
-    fontWeight: 'bold',
-  },
-  headingText: {
-    ...typography.bold(16),
-    marginBottom: 20,
-  },
-});

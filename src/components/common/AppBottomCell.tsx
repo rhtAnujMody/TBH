@@ -30,7 +30,7 @@ type Props = {
   onItemSelect: (header: string, value: string, id: string) => void;
 };
 
-export const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
+const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
   const renderItem = ({item}: {item: BottomSheetCard}) => {
     return (
       <TouchableHighlight
@@ -77,6 +77,8 @@ export const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
     </View>
   );
 };
+
+export default AppBottomCell;
 
 const styles = StyleSheet.create({
   container: {

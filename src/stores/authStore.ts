@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {makeAutoObservable} from 'mobx';
-import {UserData} from '../models/UserModal';
+import {UserData} from '../models';
 import Utility from '../utils/Utility';
 
 const authStore = {

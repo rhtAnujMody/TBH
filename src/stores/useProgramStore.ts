@@ -2,7 +2,7 @@ import {useLocalObservable} from 'mobx-react-lite';
 import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
-import {ProgramModal} from '../models/ProgramModal';
+import {ProgramModal} from '../models';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import authStore from './authStore';
