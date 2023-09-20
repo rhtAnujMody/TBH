@@ -21,7 +21,7 @@ import {
 import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
 import {useSignUpStore} from '../stores';
-import {colors, typography} from '../theme';
+import {loginStyles} from '../styles/loginStyles';
 import Utility from '../utils/Utility';
 
 const SignUpScreen = () => {
@@ -92,7 +92,7 @@ const SignUpScreen = () => {
       {() => (
         <AppContainer style={styles.container}>
           <AppBack />
-          <View style={styles.headerContainer}>
+          <View style={styles.headerContainer2}>
             <View style={styles.logoContainer}>
               <AppSVGs.logo style={styles.logo} />
             </View>
@@ -158,8 +158,8 @@ const SignUpScreen = () => {
                   returnKeyType="done"
                   inputRef={passwordRef}
                 />
-                <View style={styles.bottomContainer}>
-                  <Text style={styles.dontHaveAcc}>
+                <View style={styles.bottomContainer2}>
+                  <Text style={styles.dontHaveAcc2}>
                     Already have account?
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
                       {' Sign In'}
@@ -185,62 +185,3 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
-
-const loginStyles = (isKeyboardVisible: boolean) => {
-  return StyleSheet.create({
-    container: {
-      backgroundColor: colors.palette.primary,
-    },
-    headerContainer: {
-      flex: isKeyboardVisible ? 0.4 : 0.4,
-      justifyContent: 'center',
-    },
-    logoContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    logo: {
-      alignSelf: 'center',
-      marginTop: 10,
-    },
-    signInHeaderContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 40,
-    },
-    signIn: {
-      ...typography.bold(24, colors.black),
-    },
-    signInDesc: {
-      ...typography.medium(15),
-    },
-    textInputContainer: {
-      flex: 1,
-      marginTop: 20,
-      backgroundColor: 'white',
-      borderTopRightRadius: 40,
-      borderTopLeftRadius: 40,
-      paddingHorizontal: 30,
-      paddingTop: 30,
-      alignItems: 'center',
-    },
-    bottomContainer: {
-      width: '100%',
-      bottom: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    dontHaveAcc: {
-      ...typography.medium(14),
-      marginTop: 20,
-      marginBottom: 20,
-    },
-    bodyScroll: {
-      flexGrow: 1,
-      width: '80%',
-    },
-    signUp: {
-      color: colors.palette.primary,
-    },
-  });
-};

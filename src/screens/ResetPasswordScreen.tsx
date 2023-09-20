@@ -10,6 +10,7 @@ import {useKeyboard} from '../custom_hooks';
 import {colors, typography} from '../theme';
 import {useResetStore} from '../stores';
 import {AuthStackParamList} from '../navigation/AuthStack';
+import {loginStyles} from '../styles/loginStyles';
 
 const ResetPasswordScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -43,9 +44,9 @@ const ResetPasswordScreen = () => {
           </View>
 
           <View style={styles.textInputContainer}>
-            <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>Reset Password</Text>
-              <Text style={styles.signInDesc}>
+            <View style={styles.signInHeaderContainer2}>
+              <Text style={styles.signIn3}>Reset Password</Text>
+              <Text style={styles.signInDesc2}>
                 Please Enter Your New Password
               </Text>
             </View>
@@ -67,7 +68,7 @@ const ResetPasswordScreen = () => {
               onChangeText={resetStore.setConfirmPWD}
             />
 
-            <View style={styles.bottomContainer}>
+            <View style={styles.bottomContainer3}>
               <ShowButton />
             </View>
           </View>
@@ -78,57 +79,3 @@ const ResetPasswordScreen = () => {
 };
 
 export default ResetPasswordScreen;
-
-const loginStyles = (isKeyboardVisible: boolean) => {
-  return StyleSheet.create({
-    container: {
-      backgroundColor: colors.palette.primary,
-    },
-    headerContainer: {
-      flex: isKeyboardVisible ? 0.4 : 0.7,
-      justifyContent: 'center',
-    },
-    logoContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    logo: {
-      alignSelf: 'center',
-      marginTop: 10,
-    },
-    signInHeaderContainer: {
-      marginBottom: 20,
-    },
-    signIn: {
-      ...typography.bold(20, colors.black),
-      width: '100%',
-    },
-    signInDesc: {
-      ...typography.regular(13),
-    },
-    textInputContainer: {
-      flex: 1,
-      marginTop: 20,
-      backgroundColor: 'white',
-      borderTopRightRadius: 40,
-      borderTopLeftRadius: 40,
-      paddingHorizontal: 30,
-      paddingTop: 30,
-    },
-    bottomContainer: {
-      width: '100%',
-      position: 'absolute',
-      bottom: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'center',
-    },
-    dontHaveAcc: {
-      ...typography.medium(14),
-      marginBottom: 20,
-    },
-    signUp: {
-      color: colors.palette.primary,
-    },
-  });
-};
