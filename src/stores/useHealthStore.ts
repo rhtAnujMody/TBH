@@ -656,7 +656,7 @@ const useHealthStore = () => {
         );
         if (this.vitaminA === 'Done') {
           formData.append(
-            'vitamin_A',
+            'vitamin_A_details',
             JSON.stringify({
               done_by: healthStore.doneByID,
               duration: healthStore.durationOfCourse,
@@ -698,6 +698,8 @@ const useHealthStore = () => {
         } else {
           formData.append('ifa', false);
         }
+
+        console.log(formData, 'form data');
         const responseJson = await request<HealthModal>(
           'post',
           AppStrings.healthCamp,
