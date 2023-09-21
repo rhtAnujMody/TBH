@@ -153,7 +153,7 @@ const SignUpScreen = () => {
                 />
                 <View style={styles.bottomContainer2}>
                   <Text style={styles.dontHaveAcc2}>
-                    Already have account?
+                    Already have an account?
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
                       {' Sign In'}
                     </Text>

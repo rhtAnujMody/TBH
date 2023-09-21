@@ -64,7 +64,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                     <AppTextInput
                       value={calStore.childName}
                       parentStyle={styles.textInputStyle}
-                      textHeader="NAME OF THE CHILD"
+                      textHeader="Name of the Child"
                       placeHolder="Name of the child"
                       onChangeText={calStore.setChildame}
                     />
@@ -82,7 +82,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                     <AppTextInput
                       value={calStore.contact}
                       parentStyle={styles.textInputStyle}
-                      textHeader="CONTACT NUMBER"
+                      textHeader="Contact Number"
                       placeHolder="Contact Number"
                       onChangeText={calStore.setContact}
                       keyboardType="numeric"

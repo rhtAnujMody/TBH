@@ -254,7 +254,7 @@ const HealthCampScreen = () => {
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
                               textHeader="Number of Health Camp"
-                              placeHolder="Serial Number of Health Camp"
+                              placeHolder="Number of Health Camp"
                               value={healthStore.numberHC}
                               onChangeText={healthStore.setNumberHC}
                             />
