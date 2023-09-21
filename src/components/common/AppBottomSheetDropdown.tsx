@@ -27,7 +27,7 @@ type Props = {
   onItemSelect: (header: string, value: string, id: string) => void;
 };
 
-export const AppBottomSheetDropdown = ({
+const AppBottomSheetDropdown = ({
   data,
   header,
   onPress,
@@ -63,6 +63,8 @@ export const AppBottomSheetDropdown = ({
     </View>
   );
 };
+
+export default AppBottomSheetDropdown;
 
 const styles = StyleSheet.create({
   container: {

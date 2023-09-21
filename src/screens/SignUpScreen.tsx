@@ -1,24 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import {AppSVGs} from '../assets';
-import AppBack from '../components/common/AppBack';
-import AppButton from '../components/common/AppButton';
-import AppContainer from '../components/common/AppContainer';
-import AppTextInput from '../components/common/AppTextInput';
-import useKeyboard from '../custom_hooks/useKeyboard';
+import {
+  AppBack,
+  AppButton,
+  AppContainer,
+  AppTextInput,
+} from '../components/common';
+import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import useSignUpStore from '../stores/useSignUpStore';
-import {colors, typography} from '../theme';
+import {useSignUpStore} from '../stores';
+import {loginStyles} from '../styles/loginStyles';
 import Utility from '../utils/Utility';
 
 const SignUpScreen = () => {
@@ -89,7 +85,7 @@ const SignUpScreen = () => {
       {() => (
         <AppContainer style={styles.container}>
           <AppBack />
-          <View style={styles.headerContainer}>
+          <View style={styles.signUpHeaderContainer}>
             <View style={styles.logoContainer}>
               <AppSVGs.logo style={styles.logo} />
             </View>
@@ -155,9 +151,9 @@ const SignUpScreen = () => {
                   returnKeyType="done"
                   inputRef={passwordRef}
                 />
-                <View style={styles.bottomContainer}>
-                  <Text style={styles.dontHaveAcc}>
-                    Already have account?
+                <View style={styles.signUpBottomContainer}>
+                  <Text style={styles.signUpDontHaveAcc}>
+                    Already have an account?
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
                       {' Sign In'}
                     </Text>
@@ -182,62 +178,3 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
-
-const loginStyles = (isKeyboardVisible: boolean) => {
-  return StyleSheet.create({
-    container: {
-      backgroundColor: colors.palette.primary,
-    },
-    headerContainer: {
-      flex: isKeyboardVisible ? 0.4 : 0.4,
-      justifyContent: 'center',
-    },
-    logoContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    logo: {
-      alignSelf: 'center',
-      marginTop: 10,
-    },
-    signInHeaderContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 40,
-    },
-    signIn: {
-      ...typography.bold(24, colors.black),
-    },
-    signInDesc: {
-      ...typography.medium(15),
-    },
-    textInputContainer: {
-      flex: 1,
-      marginTop: 20,
-      backgroundColor: 'white',
-      borderTopRightRadius: 40,
-      borderTopLeftRadius: 40,
-      paddingHorizontal: 30,
-      paddingTop: 30,
-      alignItems: 'center',
-    },
-    bottomContainer: {
-      width: '100%',
-      bottom: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    dontHaveAcc: {
-      ...typography.medium(14),
-      marginTop: 20,
-      marginBottom: 20,
-    },
-    bodyScroll: {
-      flexGrow: 1,
-      width: '80%',
-    },
-    signUp: {
-      color: colors.palette.primary,
-    },
-  });
-};

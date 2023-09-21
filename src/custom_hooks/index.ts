@@ -1,3 +1,4 @@
 import useKeyboard from './useKeyboard';
 import useAsyncStorage from './useAsyncStorage';
-export {useKeyboard, useAsyncStorage};
+import useCamera from './useCamera';
+export {useKeyboard, useAsyncStorage, useCamera};

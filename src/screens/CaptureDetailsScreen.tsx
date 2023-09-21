@@ -13,25 +13,29 @@ import {
 } from 'react-native';
 import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import {AppSVGs} from '../assets';
-import {AppButton, AppContainer, AppTextInput} from '../components';
-import AppBottomSheet from '../components/common/AppBottomSheet';
-import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
-import AppImageUploadInput from '../components/common/AppImageUploadInput';
-import AppInput from '../components/common/AppInput';
-import AppToggle from '../components/common/AppToggle';
-import Header from '../components/common/Header';
-import useCamera from '../custom_hooks/useCamera';
+import {
+  AppButton,
+  AppContainer,
+  AppTextInput,
+  AppBottomSheet,
+  AppBottomSheetDropdown,
+  AppImageUploadInput,
+  AppInput,
+  AppToggle,
+  Header,
+} from '../components';
+import {useCamera} from '../custom_hooks';
 import {authStore} from '../stores';
-import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
-import {colors, typography} from '../theme';
+import {useCaptureDetailsStore} from '../stores';
+import {colors} from '../theme';
 import Utility from '../utils/Utility';
+import {styles} from '../styles/formStyles';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
-
   const bottomSheetRef = useRef<BottomSheet | null>(null);
-
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
 
@@ -80,7 +84,7 @@ const CaptureDetailsScreen = () => {
             <Header title={'Nutrition Education'} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
-              style={styles.keyboardAwaidStyle}>
+              style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
@@ -191,7 +195,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
+                                  textHeader="DISTRICT"
                                   placeHolder="District"
                                   value={cdStore.existDistrict}
                                   editable={false}
@@ -395,64 +399,3 @@ const CaptureDetailsScreen = () => {
 };
 
 export default CaptureDetailsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  contentContainerStyle: {
-    paddingBottom: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
-  },
-  containerWidth: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  backgroundStyle: {
-    flex: 1,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  textInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    borderRadius: 25,
-  },
-  buttonStyle: {
-    marginBottom: 10,
-  },
-  dovInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    paddingRight: 30,
-    borderRadius: 25,
-  },
-  photoContainerStyle: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-  },
-  headerContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    margin: 16,
-  },
-  headerStyle: {
-    fontWeight: 'bold',
-  },
-  headingText: {
-    ...typography.bold(16),
-    marginBottom: 20,
-  },
-  hourContainer: {
-    flexDirection: 'row',
-  },
-  hourMinute: {flex: 1, paddingRight: 10},
-  keyboardAwaidStyle: {flex: 1, backgroundColor: colors.palette.primary},
-});

@@ -1,8 +1,8 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {RouteProp} from '@react-navigation/native';
 import GenerateReportsScreen from '../screens/GenerateReportsScreen';
 import CalculateFieldsScreen from '../screens/CalculateFieldsScreen';
-import {RouteProp} from '@react-navigation/native';
 
 export type ReportsStackRootParamList = {
   Calculate: {from: string};

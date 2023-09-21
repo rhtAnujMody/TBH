@@ -6,25 +6,31 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import {
+  AppButton,
+  AppContainer,
+  AppTextInput,
+  AppBottomSheet,
+  AppBottomSheetDropdown,
+  AppInput,
+  AppToggle,
+  Header,
+  AppImageUploadInput,
+} from '../components';
+
 import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import {AppSVGs} from '../assets';
-import {AppButton, AppContainer, AppTextInput} from '../components';
-import AppBottomSheet from '../components/common/AppBottomSheet';
-import {AppBottomSheetDropdown} from '../components/common/AppBottomSheetDropdown';
-import AppInput from '../components/common/AppInput';
-import AppToggle from '../components/common/AppToggle';
-import Header from '../components/common/Header';
-import useCamera from '../custom_hooks/useCamera';
+
+import {useCamera} from '../custom_hooks';
 import useProgramStore from '../stores/useProgramStore';
-import {colors, typography} from '../theme';
+import {colors} from '../theme';
 import Utility from '../utils/Utility';
-import AppImageUploadInput from '../components/common/AppImageUploadInput';
+import {AppSVGs} from '../assets';
+import {styles} from '../styles/formStyles';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -78,7 +84,7 @@ const ProgramMonitorScreen = () => {
             <Header title={'Program Monitoring'} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
-              style={styles.keyboardAvoidStyle}>
+              style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
@@ -436,7 +442,7 @@ const ProgramMonitorScreen = () => {
                             value={proStore.volunteerName}
                           />
 
-                          <View style={styles.hourMinContainer}>
+                          <View style={styles.hourContainer}>
                             <View style={styles.hourMinStyle}>
                               <AppInput
                                 textHeader="Duration of the volunteer session"
@@ -497,7 +503,7 @@ const ProgramMonitorScreen = () => {
                       dashColor={colors.gray}
                     />
 
-                    <View style={styles.hourMinContainer}>
+                    <View style={styles.hourContainer}>
                       <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader="Duration of Visit for"
@@ -615,64 +621,3 @@ const ProgramMonitorScreen = () => {
 };
 
 export default ProgramMonitorScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  contentContainerStyle: {
-    paddingBottom: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
-  },
-  containerWidth: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  keyboardAvoidStyle: {flex: 1, backgroundColor: colors.palette.primary},
-  backgroundStyle: {
-    flex: 1,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  textInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    borderRadius: 25,
-  },
-  buttonStyle: {
-    marginBottom: 10,
-  },
-  dovInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    paddingRight: 30,
-    borderRadius: 25,
-  },
-  photoContainerStyle: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-  },
-  headerContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    margin: 16,
-  },
-  headerStyle: {
-    fontWeight: 'bold',
-  },
-  headingText: {
-    ...typography.bold(16),
-    marginBottom: 20,
-  },
-  hourMinStyle: {flex: 1, paddingLeft: 10},
-  hourMinContainer: {
-    flexDirection: 'row',
-  },
-});

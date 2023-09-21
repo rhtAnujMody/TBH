@@ -7,7 +7,7 @@ import {authStore} from '../stores';
 import {colors} from '../theme';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
-import {UserData} from '../models/UserModal';
+import {UserData} from '../models';
 
 function SplashScreen() {
   const {getData} = useAsyncStorage();

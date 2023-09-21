@@ -1,12 +1,13 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import useApiService from '../network/useAPIService';
-import AppStrings from '../utils/AppStrings';
-import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReportsStackRootParamList} from '../navigation/ReportsStack';
 import {DoctorStackRootParamList} from '../navigation/DoctorStack';
+
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
 
 const useCalculateStore = () => {
   const {request} = useApiService();

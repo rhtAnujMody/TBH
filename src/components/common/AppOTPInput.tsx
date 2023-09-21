@@ -15,7 +15,7 @@ type OTPInputProps = {
   onChange(value: Array<string>): void;
 };
 
-export const AppOTPInput: React.FunctionComponent<OTPInputProps> = ({
+const AppOTPInput: React.FunctionComponent<OTPInputProps> = ({
   length,
   disabled,
   value,
@@ -78,6 +78,7 @@ export const AppOTPInput: React.FunctionComponent<OTPInputProps> = ({
     </View>
   );
 };
+export default AppOTPInput;
 
 const styles = StyleSheet.create({
   container: {

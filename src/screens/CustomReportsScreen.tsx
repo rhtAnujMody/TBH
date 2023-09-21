@@ -5,21 +5,18 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-
-import {AppContainer} from '../components';
-import Header from '../components/common/Header';
-import {authStore} from '../stores';
-import {colors, typography} from '../theme';
-import Utility from '../utils/Utility';
-import {HomeCard} from '../components';
-import {AppSVGs} from '../assets';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CustomReportsStackRootParamList} from '../navigation/CustomReportsStack';
+
+import {AppContainer, Header, HomeCard} from '../components';
+import {authStore} from '../stores';
+import {styles} from '../styles/formStyles';
+import Utility from '../utils/Utility';
+
 const CustomReportsScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<CustomReportsStackRootParamList>>();
@@ -74,7 +71,7 @@ const CustomReportsScreen = () => {
             <Header title={'Generate Report'} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
-              style={styles.keyboardAwaidStyle}>
+              style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <ScrollView
                   contentContainerStyle={styles.contentContainerStyle}>
@@ -107,69 +104,3 @@ const CustomReportsScreen = () => {
 };
 
 export default CustomReportsScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  contentContainerStyle: {
-    paddingBottom: 20,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    //backgroundColor: '#FCFCFC',
-  },
-  containerWidth: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  backgroundStyle: {
-    flex: 1,
-    backgroundColor: colors.white,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-  textInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    borderRadius: 25,
-  },
-  buttonStyle: {
-    marginBottom: 10,
-  },
-  dovInputStyle: {
-    backgroundColor: '#F7F7F7',
-    borderColor: colors.gray,
-    borderWidth: 1,
-    paddingRight: 30,
-    borderRadius: 25,
-  },
-  photoContainerStyle: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-  },
-  headerContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    margin: 16,
-  },
-  headerStyle: {
-    fontWeight: 'bold',
-  },
-  headingText: {
-    ...typography.bold(16),
-    marginBottom: 20,
-  },
-  hourContainer: {
-    flexDirection: 'row',
-  },
-  cardsContainer: {
-    //marginHorizontal: 10,
-    marginTop: 10,
-    zIndex: 100,
-  },
-  hourMinute: {flex: 1, paddingRight: 10},
-  keyboardAwaidStyle: {flex: 1, backgroundColor: colors.palette.primary},
-});

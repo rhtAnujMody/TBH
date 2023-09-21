@@ -1,10 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+
 import {AppSVGs} from '../assets';
-import {HomeCard} from '../components';
-import AppContainer from '../components/common/AppContainer';
-import ObservableChild from '../components/common/ObservableChild';
+import {HomeCard, AppContainer, ObservableChild} from '../components';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';

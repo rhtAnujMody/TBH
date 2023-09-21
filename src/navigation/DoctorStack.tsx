@@ -1,8 +1,8 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {RouteProp} from '@react-navigation/native';
 import DocObservationScreen from '../screens/DocObservationScreen';
 import CalculateFieldsScreen from '../screens/CalculateFieldsScreen';
-import {RouteProp} from '@react-navigation/native';
 
 export type DoctorStackRootParamList = {
   Calculate: {from: string};

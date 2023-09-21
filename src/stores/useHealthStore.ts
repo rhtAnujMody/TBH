@@ -4,7 +4,7 @@ import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
-import {HealthModal} from '../models/HealthModal';
+import {HealthModal} from '../models';
 import authStore from './authStore';
 import {useNavigation} from '@react-navigation/native';
 import {useAsyncStorage} from '../custom_hooks';
@@ -656,7 +656,7 @@ const useHealthStore = () => {
         );
         if (this.vitaminA === 'Done') {
           formData.append(
-            'vitamin_A',
+            'vitamin_A_details',
             JSON.stringify({
               done_by: healthStore.doneByID,
               duration: healthStore.durationOfCourse,
@@ -698,6 +698,8 @@ const useHealthStore = () => {
         } else {
           formData.append('ifa', false);
         }
+
+        console.log(formData, 'form data');
         const responseJson = await request<HealthModal>(
           'post',
           AppStrings.healthCamp,

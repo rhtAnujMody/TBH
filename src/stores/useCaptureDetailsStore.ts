@@ -2,7 +2,7 @@ import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {Image} from 'react-native-image-crop-picker';
 import {AppSVGs} from '../assets';
-import {CaptureModal} from '../models/CaptureModal';
+import {CaptureModal} from '../models';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';

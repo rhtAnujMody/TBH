@@ -1,17 +1,19 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {NavigatorScreenParams} from '@react-navigation/native';
+
 import CaptureDetailsScreen from '../screens/CaptureDetailsScreen';
 import Dashboard from '../screens/Dashboard';
 import ProgramMonitorScreen from '../screens/ProgramMonitorScreen';
 import HealthCampScreen from '../screens/HealthCampScreen';
 import ReportsStack from './ReportsStack';
-import {NavigatorScreenParams} from '@react-navigation/native';
 import {ReportsStackRootParamList} from './ReportsStack';
 import DoctorStack, {DoctorStackRootParamList} from './DoctorStack';
 import ReportsScreen from '../screens/ReportsScreen';
 import CustomReportsStack, {
   CustomReportsStackRootParamList,
 } from './CustomReportsStack';
+
 export type DashboardStackRootParamList = {
   Home: undefined;
   ReportsStack: NavigatorScreenParams<ReportsStackRootParamList>; //
