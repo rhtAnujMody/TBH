@@ -113,22 +113,6 @@ const ReportsScreen = () => {
                     </View>
                   </Pressable>
                 </ScrollView>
-                <AppBottomSheet
-                  isVisible={reportsStore.openBottomSheet}
-                  onClose={hideBottomSheet}
-                  index={reportsStore.index}
-                  ref={bottomSheetRef}>
-                  <AppBottomSheetDropdown
-                    header={reportsStore.bottomSheetHeader}
-                    data={reportsStore.bottomSheetArray}
-                    onClose={() => {
-                      bottomSheetRef?.current?.close();
-                      reportsStore.toggleBottomSheet();
-                    }}
-                    onItemSelect={reportsStore.setValue}
-                    onPress={reportsStore.toggleBottomSheet}
-                  />
-                </AppBottomSheet>
                 <AppButton
                   title="Submit"
                   style={styles.buttonStyle}
@@ -140,6 +124,22 @@ const ReportsScreen = () => {
               </View>
             </KeyboardAvoidingView>
           </AppContainer>
+          <AppBottomSheet
+            isVisible={reportsStore.openBottomSheet}
+            onClose={hideBottomSheet}
+            index={reportsStore.index}
+            ref={bottomSheetRef}>
+            <AppBottomSheetDropdown
+              header={reportsStore.bottomSheetHeader}
+              data={reportsStore.bottomSheetArray}
+              onClose={() => {
+                bottomSheetRef?.current?.close();
+                reportsStore.toggleBottomSheet();
+              }}
+              onItemSelect={reportsStore.setValue}
+              onPress={reportsStore.toggleBottomSheet}
+            />
+          </AppBottomSheet>
           <DateTimePickerModal
             isVisible={reportsStore.showCalender}
             mode="date"
