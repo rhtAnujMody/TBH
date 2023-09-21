@@ -42,7 +42,7 @@ const ResetPasswordScreen = () => {
             <AppSVGs.reset style={styles.logo} />
           </View>
 
-          <View style={styles.textInputContainer}>
+          <View style={styles.textInputContainer2}>
             <View style={styles.signInHeaderContainer2}>
               <Text style={styles.signIn3}>Reset Password</Text>
               <Text style={styles.signInDesc2}>

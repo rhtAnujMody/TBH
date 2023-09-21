@@ -67,16 +67,20 @@ const useGenerateStore = () => {
                 : genStore.setIFA('NO');
 
               genStore.setAge(response.data.age.toString());
-              genStore.setBMI(response.data.bmi.toString());
-              genStore.setWeightDev(
-                response.data.weight_development.toString(),
-              );
-              genStore.setHeightDev(
-                response.data.height_development.toString(),
-              );
-              genStore.setOverAllDev(
-                response.data.overall_development.toString(),
-              );
+              response.data.bmi &&
+                genStore.setBMI(response.data.bmi.toString());
+              response.data.weight_development &&
+                genStore.setWeightDev(
+                  response.data.weight_development.toString(),
+                );
+              response.data.height_development &&
+                genStore.setHeightDev(
+                  response.data.height_development.toString(),
+                );
+              response.data.overall_development &&
+                genStore.setOverAllDev(
+                  response.data.overall_development.toString(),
+                );
               genStore.setWeightGain(response.data.weight_gain.toString());
             });
           } else {
