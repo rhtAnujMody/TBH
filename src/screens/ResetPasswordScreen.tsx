@@ -42,10 +42,10 @@ const ResetPasswordScreen = () => {
             <AppSVGs.reset style={styles.logo} />
           </View>
 
-          <View style={styles.textInputContainer2}>
-            <View style={styles.signInHeaderContainer2}>
-              <Text style={styles.signIn3}>Reset Password</Text>
-              <Text style={styles.signInDesc2}>
+          <View style={styles.otpTextInputContainer}>
+            <View style={styles.forgotHeaderContainer}>
+              <Text style={styles.resetSignIn}>Reset Password</Text>
+              <Text style={styles.forgotSignInDesc}>
                 Please Enter Your New Password
               </Text>
             </View>
@@ -67,7 +67,7 @@ const ResetPasswordScreen = () => {
               onChangeText={resetStore.setConfirmPWD}
             />
 
-            <View style={styles.bottomContainer3}>
+            <View style={styles.otpBottomContainer}>
               <ShowButton />
             </View>
           </View>

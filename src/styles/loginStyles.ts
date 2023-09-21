@@ -63,17 +63,17 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
 
     //SignUp Screen
 
-    headerContainer2: {
+    signUpHeaderContainer: {
       flex: isKeyboardVisible ? 0.4 : 0.4,
       justifyContent: 'center',
     },
-    bottomContainer2: {
+    signUpBottomContainer: {
       width: '100%',
       bottom: 20,
       justifyContent: 'center',
       alignItems: 'center',
     },
-    dontHaveAcc2: {
+    signUpDontHaveAcc: {
       ...typography.medium(14),
       marginTop: 20,
       marginBottom: 20,
@@ -81,15 +81,15 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
 
     //Forgot Password Screen
 
-    signInHeaderContainer2: {
+    forgotHeaderContainer: {
       marginBottom: 20,
     },
 
-    signIn2: {
+    forgotSignIn: {
       ...typography.bold(20, colors.black),
     },
 
-    signInDesc2: {
+    forgotSignInDesc: {
       ...typography.regular(13),
     },
 
@@ -114,7 +114,7 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
       borderColor: '#03DAC6',
     },
 
-    bottomContainer3: {
+    otpBottomContainer: {
       width: '100%',
       position: 'absolute',
       bottom: 20,
@@ -122,7 +122,7 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
       alignItems: 'center',
       alignSelf: 'center',
     },
-    textInputContainer2: {
+    otpTextInputContainer: {
       flex: 1,
       marginTop: 20,
       backgroundColor: 'white',
@@ -133,7 +133,7 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
     },
 
     //Reset Password
-    signIn3: {
+    resetSignIn: {
       ...typography.bold(20, colors.black),
       width: '100%',
     },

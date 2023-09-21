@@ -195,7 +195,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
+                                  textHeader="DISTRICT"
                                   placeHolder="District"
                                   value={cdStore.existDistrict}
                                   editable={false}

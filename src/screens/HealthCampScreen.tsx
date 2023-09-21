@@ -310,7 +310,7 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Age (IN MONTHS)"
+                              textHeader="Age (In Months)"
                               placeHolder="Age (In Months)"
                               value={healthStore.age}
                               editable={false}

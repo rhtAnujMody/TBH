@@ -40,10 +40,10 @@ const OTPScreen = () => {
         </View>
       </View>
 
-      <View style={styles.textInputContainer2}>
-        <View style={styles.signInHeaderContainer2}>
-          <Text style={styles.signIn2}>Enter OTP</Text>
-          <Text style={styles.signInDesc2}>
+      <View style={styles.otpTextInputContainer}>
+        <View style={styles.forgotHeaderContainer}>
+          <Text style={styles.forgotSignIn}>Enter OTP</Text>
+          <Text style={styles.forgotSignInDesc}>
             {'A 4 digit code has been sent to\n' + data}
           </Text>
         </View>
@@ -57,7 +57,7 @@ const OTPScreen = () => {
           }}
         />
 
-        <View style={styles.bottomContainer3}>
+        <View style={styles.otpBottomContainer}>
           <ShowButton />
         </View>
       </View>

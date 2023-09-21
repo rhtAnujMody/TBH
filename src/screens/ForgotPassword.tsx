@@ -36,9 +36,9 @@ const ForgotPassword = () => {
       </View>
 
       <View style={styles.textInputContainer}>
-        <View style={styles.signInHeaderContainer2}>
-          <Text style={styles.signIn2}>Forgot Password?</Text>
-          <Text style={styles.signInDesc2}>
+        <View style={styles.forgotHeaderContainer}>
+          <Text style={styles.forgotSignIn}>Forgot Password?</Text>
+          <Text style={styles.forgotSignInDesc}>
             Please Enter Your Email ID/ Phone Number to Reset Password
           </Text>
         </View>

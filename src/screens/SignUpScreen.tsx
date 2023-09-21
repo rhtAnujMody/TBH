@@ -85,7 +85,7 @@ const SignUpScreen = () => {
       {() => (
         <AppContainer style={styles.container}>
           <AppBack />
-          <View style={styles.headerContainer2}>
+          <View style={styles.signUpHeaderContainer}>
             <View style={styles.logoContainer}>
               <AppSVGs.logo style={styles.logo} />
             </View>
@@ -151,8 +151,8 @@ const SignUpScreen = () => {
                   returnKeyType="done"
                   inputRef={passwordRef}
                 />
-                <View style={styles.bottomContainer2}>
-                  <Text style={styles.dontHaveAcc2}>
+                <View style={styles.signUpBottomContainer}>
+                  <Text style={styles.signUpDontHaveAcc}>
                     Already have an account?
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
                       {' Sign In'}

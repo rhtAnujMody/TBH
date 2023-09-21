@@ -33,9 +33,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textHeader: {
+    flex: 1,
     ...typography.medium(12),
   },
   textContent: {
+    flex: 0.4,
     ...typography.regular(12),
   },
 });
