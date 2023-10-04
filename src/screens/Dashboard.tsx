@@ -178,20 +178,24 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(4)}
               />
             </View>
-            <Text style={styles.title}>Generate Report</Text>
-            <View style={styles.cardsContainer}>
-              {genrateReportsCards.map((data, index) => {
-                return (
-                  <HomeCard
-                    title={data.title}
-                    icon={data.icon}
-                    key={data.title}
-                    onPress={() => navigateToCard(index + 5)}
-                    marginRight={index === 0 ? 10 : 0}
-                  />
-                );
-              })}
-            </View>
+            {auth.userData.role === 'A' && (
+              <>
+                <Text style={styles.title}>Generate Report</Text>
+                <View style={styles.cardsContainer}>
+                  {genrateReportsCards.map((data, index) => {
+                    return (
+                      <HomeCard
+                        title={data.title}
+                        icon={data.icon}
+                        key={data.title}
+                        onPress={() => navigateToCard(index + 5)}
+                        marginRight={index === 0 ? 10 : 0}
+                      />
+                    );
+                  })}
+                </View>
+              </>
+            )}
           </Pressable>
         </ScrollView>
       </View>
