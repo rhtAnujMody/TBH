@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Decimal Foundation</string>
+     <string moduleConfig="true" name="CodePushDeploymentKey">A-OMxNK8v61nzOLpgRmc_aFwUlfDEsjZgfDr8</string>
 </resources>
