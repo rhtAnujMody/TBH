@@ -15,3 +15,4 @@ export {default as AppTextInput} from './AppTextInput';
 export {default as AppToggle} from './AppToggle';
 export {default as Header} from './Header';
 export {default as ObservableChild} from './ObservableChild';
+export {default as AppUserDelete} from './AppUserDelete';

@@ -486,6 +486,7 @@ const useProgramStore = () => {
       });
       try {
         const formData = new FormData(); //existingPartnerID
+        formData.append('agent_id', authStore.userData.id);
         formData.append('type', proStore.partnerTypeID);
         formData.append('partner', proStore.existingPartnerID);
         formData.append('date', proStore.dov);
@@ -562,7 +563,6 @@ const useProgramStore = () => {
             name: proStore.selectedImages[i].path.split('/').pop(),
           });
         }
-
         const responseJson = await request<ProgramModal>(
           'post',
           AppStrings.programMonitor,

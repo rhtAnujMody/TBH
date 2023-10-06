@@ -11,6 +11,8 @@ import uploadImage from './uploadImage';
 import forgot from './forgot';
 import reset from './reset';
 import otp from './otp';
+import dustbin from './dustbin';
+import user from './user';
 
 export default {
   logo,
@@ -24,6 +26,8 @@ export default {
   forgot,
   reset,
   otp,
+  dustbin,
+  user,
   ...login,
   ...home,
 };

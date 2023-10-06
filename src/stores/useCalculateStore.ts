@@ -8,6 +8,7 @@ import {DoctorStackRootParamList} from '../navigation/DoctorStack';
 
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
+import authStore from './authStore';
 
 const useCalculateStore = () => {
   const {request} = useApiService();
@@ -102,6 +103,7 @@ const useCalculateStore = () => {
             calStore.childName,
             calStore.dob,
             calStore.contact,
+            authStore.userData.id,
           ),
         );
 

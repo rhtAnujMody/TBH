@@ -11,6 +11,7 @@ import useProgramStore from './useProgramStore';
 import useReportsStore from './useReportsStore';
 import useResetStore from './useResetStore';
 import useSignUpStore from './useSignUpStore';
+import useManageUsersStore from './useManageUsersStore';
 
 export {
   authStore,
@@ -26,4 +27,5 @@ export {
   useReportsStore,
   useResetStore,
   useSignUpStore,
+  useManageUsersStore,
 };
