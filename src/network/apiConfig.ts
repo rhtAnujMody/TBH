@@ -2,8 +2,7 @@ import axios from 'axios';
 import {ApiResponse} from './useAPIService';
 
 const apiInstance = axios.create({
-  baseURL:
-    'https://bb52-2405-201-4041-b074-b88d-f404-7d0-fee7.ngrok-free.app/api/',
+  baseURL: 'http://16.171.139.29/api/',
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },
