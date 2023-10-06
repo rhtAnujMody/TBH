@@ -3,6 +3,7 @@ import {useLocalObservable} from 'mobx-react-lite';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
+import authStore from './authStore';
 
 const useGenerateStore = () => {
   const {request} = useApiService();
@@ -51,6 +52,7 @@ const useGenerateStore = () => {
       try {
         const response: any = await request('post', AppStrings.generateFields, {
           child_id: id,
+          agent_id: authStore.userData.id,
         });
 
         if (response.success) {

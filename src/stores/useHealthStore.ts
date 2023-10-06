@@ -593,6 +593,7 @@ const useHealthStore = () => {
       });
       try {
         const formData = new FormData();
+        formData.append('agent_id', authStore.userData.id);
         if (this.partner === 'New') {
           formData.append(
             'partner_details',
@@ -699,7 +700,6 @@ const useHealthStore = () => {
           formData.append('ifa', false);
         }
 
-        console.log(formData, 'form data');
         const responseJson = await request<HealthModal>(
           'post',
           AppStrings.healthCamp,

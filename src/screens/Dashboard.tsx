@@ -1,9 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+} from 'react-native';
 
 import {AppSVGs} from '../assets';
-import {HomeCard, AppContainer, ObservableChild} from '../components';
+import {
+  HomeCard,
+  AppContainer,
+  ObservableChild,
+  AppUserDelete,
+} from '../components';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
@@ -122,6 +134,9 @@ const Dashboard = () => {
           id: 'monitoring_report',
         });
         break;
+      case 12:
+        navigation.navigate('ManageUsers');
+        break;
     }
   };
   const auth = authStore;
@@ -178,6 +193,7 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(4)}
               />
             </View>
+
             {auth.userData.role === 'A' && (
               <>
                 <Text style={styles.title}>Generate Report</Text>
@@ -193,6 +209,14 @@ const Dashboard = () => {
                       />
                     );
                   })}
+                </View>
+                <Text style={styles.title}>Manage Users</Text>
+                <View style={styles.cardsContainer}>
+                  <HomeCard
+                    title={'Manage Users'}
+                    icon={AppSVGs.user}
+                    onPress={() => navigateToCard(12)}
+                  />
                 </View>
               </>
             )}

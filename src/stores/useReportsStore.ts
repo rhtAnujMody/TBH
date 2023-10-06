@@ -116,6 +116,7 @@ const useReportsStore = () => {
             start_date: reportsStore.fromDate,
             end_date: reportsStore.toDate,
             report_name: id,
+            agent_id: authStore.userData.id,
           },
         );
         reportsStore.exportDataToExcel(response, id);

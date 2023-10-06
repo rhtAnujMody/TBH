@@ -84,6 +84,7 @@ const useDoctorStore = () => {
             is_referred_to_hospital: doctorStore.hospital === 'Yes',
             action_suggested:
               doctorStore.hospital === 'Yes' ? doctorStore.action : null,
+            agent_id: authStore.userData.id,
           },
         );
 
