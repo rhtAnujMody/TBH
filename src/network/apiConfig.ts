@@ -12,12 +12,12 @@ const apiInstance = axios.create({
 
 apiInstance.interceptors.response.use(
   response => {
-    if (response.status === 404) {
-      authStore.setIsLogin(false);
-    }
     return response;
   },
   error => {
+    if (error.response.status === 404) {
+      authStore.setIsLogin(false);
+    }
     const apiError: ApiResponse<null> = {
       data: null,
       status: error.response?.status || 0,
