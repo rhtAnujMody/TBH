@@ -7,9 +7,16 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import {AppContainer, AppUserDelete, Header} from '../components';
+import {
+  AppContainer,
+  AppInput,
+  AppTextInput,
+  AppUserDelete,
+  Header,
+} from '../components';
 import {styles} from '../styles/formStyles';
 import {useManageUsersStore} from '../stores';
+import {AppSVGs} from '../assets';
 
 type Props = {};
 
@@ -36,6 +43,11 @@ const ManageUserScreen = ({}: Props) => {
               <View style={styles.backgroundStyle}>
                 <View style={[styles.container, {marginBottom: 20}]}>
                   <Text style={styles.headingText}>List of Users</Text>
+                  {/* <AppTextInput
+                    placeHolder="Search"
+                    rightIcon={AppSVGs.search}
+                    hideInput={false}
+                  /> */}
                   <FlatList
                     data={manageStore.usersList}
                     keyExtractor={item => item.id.toString()}

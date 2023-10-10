@@ -13,6 +13,7 @@ import reset from './reset';
 import otp from './otp';
 import dustbin from './dustbin';
 import user from './user';
+import search from './search';
 
 export default {
   logo,
@@ -28,6 +29,7 @@ export default {
   otp,
   dustbin,
   user,
+  search,
   ...login,
   ...home,
 };
