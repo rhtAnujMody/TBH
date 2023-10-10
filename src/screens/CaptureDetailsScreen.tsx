@@ -26,6 +26,7 @@ import {authStore} from '../stores';
 import useCaptureDetailsStore from '../stores/useCaptureDetailsStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
+import AppStrings from '../utils/AppStrings';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
@@ -77,7 +78,7 @@ const CaptureDetailsScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Nutrition Education'} />
+            <Header title={AppStrings.nutritionEducationLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwaidStyle}>
@@ -87,95 +88,112 @@ const CaptureDetailsScreen = () => {
                   <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
-                        Enter details related to the Nutrition Education event
+                        {AppStrings.NUTRITION_EDUCATION_SCREEN.nutritionTitle}
                       </Text>
 
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
-                        textHeader="DATE OF VISIT"
+                        textHeader={
+                          AppStrings.NUTRITION_EDUCATION_SCREEN.dateOfVisit
+                        }
                         rightIcon={AppSVGs.dob}
-                        placeHolder="Date Of Visit"
+                        placeHolder={
+                          AppStrings.NUTRITION_EDUCATION_SCREEN
+                            .dateOfVisitPlaceHolder
+                        }
                         hideInput={true}
                         onPress={showDatePicker}
                         otherText={cdStore.dov}
                       />
 
                       <AppToggle
-                        title={'Partner Details'}
+                        title={AppStrings.HEALTH_CAMP_SCREEN.partnerDetails}
                         children={
                           <>
                             <AppInput
                               onPress={() => {
-                                handleBottomSheetClick('partner');
+                                handleBottomSheetClick(
+                                  AppStrings.HEALTH_CAMP_SCREEN.bottomSheet
+                                    .partner,
+                                );
                                 handleIndex(1);
                               }}
                               parentStyle={styles.textInputStyle}
                               value={cdStore.partner}
-                              textHeader="IS THIS A NEW / EXISTING PARTNER"
-                              placeHolder="Is this a New / Existing Partner"
+                              textHeader={AppStrings.newExistingPartner}
+                              placeHolder={
+                                AppStrings.newExistingPartnerPlaceHolder
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
-                            {cdStore.partner === 'New' ? (
+                            {cdStore.partner === AppStrings.new ? (
                               <>
                                 <AppTextInput
                                   value={cdStore.newPartnerName}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="NAME OF THE PARTNER"
-                                  placeHolder="Name of the partner"
+                                  textHeader={AppStrings.partnerName}
+                                  placeHolder={
+                                    AppStrings.partnerNamePlaceHolder
+                                  }
                                   onChangeText={cdStore.setNewPartnerName}
                                 />
 
                                 <AppTextInput
                                   value={cdStore.newLocation}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="LOCATION"
-                                  placeHolder="Location"
+                                  textHeader={AppStrings.location}
+                                  placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={cdStore.setNewLocation}
                                 />
 
                                 <AppTextInput
                                   value={cdStore.newBlock}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="BLOCK"
-                                  placeHolder="Block"
+                                  textHeader={AppStrings.block}
+                                  placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={cdStore.setNewBlock}
                                 />
 
                                 <AppTextInput
                                   value={cdStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="DISTRICT"
-                                  placeHolder="District"
+                                  textHeader={AppStrings.district}
+                                  placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={cdStore.setNewDistrict}
                                 />
 
                                 <AppTextInput
                                   value={cdStore.newState}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="STATE"
-                                  placeHolder="State"
+                                  textHeader={AppStrings.state}
+                                  placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={cdStore.setNewState}
                                 />
                               </>
-                            ) : cdStore.partner === 'Existing' ? (
+                            ) : cdStore.partner === AppStrings.existing ? (
                               <>
                                 <AppInput
                                   onPress={() => {
-                                    handleBottomSheetClick('partnerName');
+                                    handleBottomSheetClick(
+                                      AppStrings.HEALTH_CAMP_SCREEN.bottomSheet
+                                        .partnerName,
+                                    );
                                     handleIndex(3);
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={cdStore.existPartnerName}
-                                  textHeader="NAME OF THE PARTNER"
-                                  placeHolder="Name of the partner"
+                                  textHeader={AppStrings.partnerName}
+                                  placeHolder={
+                                    AppStrings.partnerNamePlaceHolder
+                                  }
                                   rightIcon={AppSVGs.dropdown}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="LOCATION"
-                                  placeHolder="Location"
+                                  textHeader={AppStrings.location}
+                                  placeHolder={AppStrings.locationPlaceHolder}
                                   value={cdStore.existLocation}
                                   //onChangeText={cdStore.setLocation}
                                   editable={false}
@@ -183,24 +201,24 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="BLOCK"
-                                  placeHolder="Block"
+                                  textHeader={AppStrings.block}
+                                  placeHolder={AppStrings.blockPlaceHolder}
                                   value={cdStore.existBlock}
                                   editable={false}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="District"
-                                  placeHolder="District"
+                                  textHeader={AppStrings.district}
+                                  placeHolder={AppStrings.districtPlaceHolder}
                                   value={cdStore.existDistrict}
                                   editable={false}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="STATE"
-                                  placeHolder="State"
+                                  textHeader={AppStrings.state}
+                                  placeHolder={AppStrings.statePlaceHolder}
                                   value={cdStore.existState}
                                   editable={false}
                                 />
@@ -217,13 +235,21 @@ const CaptureDetailsScreen = () => {
                       />
 
                       <AppToggle
-                        title={'Program Details'}
+                        title={
+                          AppStrings.NUTRITION_EDUCATION_SCREEN.programDetails
+                        }
                         children={
                           <>
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="TOTAL NUMBER OF PARTICIPANTS"
-                              placeHolder="Total number of participants"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .totalParticipants
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .totalParticipantsPlaceHolder
+                              }
                               onChangeText={cdStore.setTotalNoOfParticipants}
                               value={cdStore.totalNoOfParticipants}
                               keyboardType={'numeric'}
@@ -236,8 +262,14 @@ const CaptureDetailsScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={cdStore.targetBeneficiaries}
-                              textHeader="TARGET BENEFICIARIES"
-                              placeHolder="Target beneficiaries"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .targetBeneficiaries
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .targetBeneficiariesPlaceHolder
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
@@ -248,16 +280,24 @@ const CaptureDetailsScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={cdStore.age}
-                              textHeader="AGE"
-                              placeHolder="Age"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN.age
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .agePlaceHolder
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
                             <View style={styles.hourContainer}>
                               <View style={styles.hourMinute}>
                                 <AppInput
-                                  textHeader="PROGRAM DURATION"
-                                  placeHolder="Hour"
+                                  textHeader={
+                                    AppStrings.NUTRITION_EDUCATION_SCREEN
+                                      .programDuration
+                                  }
+                                  placeHolder={AppStrings.hourPlaceHolder}
                                   value={cdStore.hour}
                                   parentStyle={styles.textInputStyle}
                                   onPress={() => {
@@ -270,7 +310,7 @@ const CaptureDetailsScreen = () => {
                               <View style={styles.hourMinute}>
                                 <AppInput
                                   textHeader=" "
-                                  placeHolder="Minute"
+                                  placeHolder={AppStrings.minutePlaceHolder}
                                   value={cdStore.minute}
                                   parentStyle={styles.textInputStyle}
                                   onPress={() => {
@@ -283,32 +323,55 @@ const CaptureDetailsScreen = () => {
                             </View>
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="METHOD USED"
-                              placeHolder="Method used"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN.methodUsed
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .methodUsedPlaceHolder
+                              }
                               onChangeText={cdStore.setMethodUsed}
                             />
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="TOPICS COVERED"
-                              placeHolder="Topics covered"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .topicsCovered
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .topicsCoveredPlaceHolder
+                              }
                               onChangeText={cdStore.setTopicsCovered}
                             />
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="SESSION CONDUCTED BY"
-                              placeHolder="Session conducted by"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .sessionConducted
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .sessionConductedPlaceHolder
+                              }
                               onChangeText={cdStore.setSessionCoveredBy}
                             />
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="FEEDBACK FROM PARTICIPANTS"
-                              placeHolder="Feedback from participants"
+                              textHeader={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .feedbackParticipants
+                              }
+                              placeHolder={
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .feedbackParticipantsPlaceHolder
+                              }
                               onChangeText={cdStore.setFeedbackFromParticipants}
                             />
 
                             <AppImageUploadInput
-                              title={'UPLOAD PHOTO'}
+                              title={AppStrings.uploadPhotoCaps}
                               selectedImages={selectedImages}
                               onPress={cdStore.togglePhotoBottomSheet}
                               removeImage={removeImage}
@@ -321,7 +384,7 @@ const CaptureDetailsScreen = () => {
                 </ScrollView>
 
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={cdStore.isLoading}
@@ -367,7 +430,7 @@ const CaptureDetailsScreen = () => {
             ref={bottomSheetRef}>
             <View>
               <View style={styles.headerContainer}>
-                <Text style={styles.headerStyle}>Upload Photo</Text>
+                <Text style={styles.headerStyle}>{AppStrings.uploadPhoto}</Text>
                 <TouchableOpacity onPress={cdStore.togglePhotoBottomSheet}>
                   <AppSVGs.close />
                 </TouchableOpacity>
@@ -377,14 +440,14 @@ const CaptureDetailsScreen = () => {
                 onPress={() => {
                   handleImagePicker(1);
                 }}>
-                <Text>Take a Photo</Text>
+                <Text>{AppStrings.takePhoto}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
                 onPress={() => {
                   handleImagePicker(2);
                 }}>
-                <Text>Upload from Library</Text>
+                <Text>{AppStrings.uploadLibrary}</Text>
               </TouchableOpacity>
             </View>
           </AppBottomSheet>
