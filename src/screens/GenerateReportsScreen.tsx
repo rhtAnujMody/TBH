@@ -14,6 +14,7 @@ import Header from '../components/common/Header';
 import {TargetScreenRouteProp} from '../navigation/ReportsStack';
 import useGenerateStore from '../stores/useGenerateStore';
 import {colors, typography} from '../theme';
+import AppStrings from '../utils/AppStrings';
 type Props = {};
 
 const GenerateReportsScreen = ({}: Props) => {
@@ -27,7 +28,7 @@ const GenerateReportsScreen = ({}: Props) => {
     <Observer>
       {() => (
         <AppContainer>
-          <Header title={'Health Camp'} />
+          <Header title={AppStrings.healthCampLabel} />
           <KeyboardAvoidingView
             behavior={Platform.select({ios: 'padding'})}
             style={styles.keyboardAvoidingViewStyle}>
@@ -35,43 +36,46 @@ const GenerateReportsScreen = ({}: Props) => {
               <ScrollView contentContainerStyle={styles.contentContainerStyle}>
                 <View style={styles.container}>
                   <Text style={styles.headingText}>
-                    Calculated Field Values
+                    {AppStrings.calculatedValues}
                   </Text>
                   <AppTextContent
-                    textHeader="Received Vitamin A Dose?"
+                    textHeader={AppStrings.receivedVitaminA}
                     textContent={genStore.vitaminA}
                   />
                   <AppTextContent
-                    textHeader="Received De-worming Dose?"
+                    textHeader={AppStrings.receivedDeworming}
                     textContent={genStore.deworm}
                   />
                   <AppTextContent
-                    textHeader="Received IFA Dose?"
+                    textHeader={AppStrings.receivedIFA}
                     textContent={genStore.ifa}
                   />
                   <AppTextContent
-                    textHeader="Age in Months"
+                    textHeader={AppStrings.ageMonths}
                     textContent={genStore.age}
                   />
-                  <AppTextContent textHeader="BMI" textContent={genStore.bmi} />
+                  <AppTextContent
+                    textHeader={AppStrings.bmi}
+                    textContent={genStore.bmi}
+                  />
 
                   <AppTextContent
-                    textHeader="Weight Development"
+                    textHeader={AppStrings.weightDevelopment}
                     textContent={genStore.weightDev}
                   />
 
                   <AppTextContent
-                    textHeader="Height development / Stunting"
+                    textHeader={AppStrings.heightDevelopment}
                     textContent={genStore.heightDev}
                   />
 
                   <AppTextContent
-                    textHeader="Overall Development / Malnutrition Grades"
+                    textHeader={AppStrings.overallDevelopment}
                     textContent={genStore.overAllDev}
                   />
 
                   <AppTextContent
-                    textHeader="Weight Gain"
+                    textHeader={AppStrings.weightGain}
                     textContent={genStore.weightGain}
                   />
                 </View>

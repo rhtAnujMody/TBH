@@ -9,6 +9,7 @@ import {colors, typography} from '../theme';
 import useResetStore from '../stores/useResetStore';
 import React = require('react');
 import {AuthStackParamList} from '../navigation/AuthStack';
+import AppStrings from '../utils/AppStrings';
 
 const ResetPasswordScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -22,7 +23,7 @@ const ResetPasswordScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Reset"
+        title={AppStrings.reset}
         isLoading={resetStore.isLoading}
         onPress={() => {
           resetStore.handleSubmit(id);
@@ -43,15 +44,15 @@ const ResetPasswordScreen = () => {
 
           <View style={styles.textInputContainer}>
             <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>Reset Password</Text>
+              <Text style={styles.signIn}>{AppStrings.resetPassword}</Text>
               <Text style={styles.signInDesc}>
-                Please Enter Your New Password
+                {AppStrings.enterNewPassword}
               </Text>
             </View>
 
             <AppTextInput
               icon={AppSVGs.lock}
-              placeHolder="New Password"
+              placeHolder={AppStrings.newPassword}
               returnKeyType="done"
               inputRef={emailRef}
               secureTextEntry
@@ -59,7 +60,7 @@ const ResetPasswordScreen = () => {
             />
             <AppTextInput
               icon={AppSVGs.lock}
-              placeHolder="Confirm Password"
+              placeHolder={AppStrings.confirmPassword}
               returnKeyType="done"
               inputRef={passwordRef}
               secureTextEntry

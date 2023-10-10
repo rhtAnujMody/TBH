@@ -9,6 +9,7 @@ import React = require('react');
 import {AppOTPInput} from '../components/common/AppOTPInput';
 import useOTPStore from '../stores/useOTPStore';
 import {AuthStackParamList} from '../navigation/AuthStack';
+import AppStrings from '../utils/AppStrings';
 
 const OTPScreen = () => {
   const keyboard = useKeyboard();
@@ -20,7 +21,7 @@ const OTPScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Submit"
+        title={AppStrings.submit}
         isLoading={otpStore.isLoading}
         onPress={() => {
           otpStore.handleSubmit(id);
@@ -42,9 +43,7 @@ const OTPScreen = () => {
       <View style={styles.textInputContainer}>
         <View style={styles.signInHeaderContainer}>
           <Text style={styles.signIn}>Enter OTP</Text>
-          <Text style={styles.signInDesc}>
-            {'A 4 digit code has been sent to\n' + data}
-          </Text>
+          <Text style={styles.signInDesc}>{AppStrings.codeSent + data}</Text>
         </View>
 
         <AppOTPInput

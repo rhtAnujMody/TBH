@@ -47,6 +47,12 @@ export default {
   signIn: 'Sign In',
   logout: 'Logout',
   welcome: 'Welcome',
+  reset: 'Reset',
+
+  resetPassword: 'Reset Password',
+  enterNewPassword: 'Please Enter Your New Password',
+  newPassword: 'New Password',
+  confirmPassword: 'Confirm Password',
 
   SCREENS: {
     calculate: 'Calculate',
@@ -212,4 +218,23 @@ export default {
     feedbackParticipants: 'FEEDBACK FROM PARTICIPANTS',
     feedbackParticipantsPlaceHolder: 'Feedback from participants',
   },
+
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  partnerNameLocation: 'Partner Name, Location',
+  minDate: '2014-01-01',
+
+  welcomeDecimal: 'Welcome to \nDecimal Foundation',
+
+  codeSent: 'A 4 digit code has been sent to\n',
+
+  receivedVitaminA: 'Received Vitamin A Dose?',
+  receivedDeworming: 'Received De-worming Dose?',
+  receivedIFA: 'Received IFA Dose?',
+  ageMonths: 'Age in Months',
+  bmi: 'BMI',
+  weightDevelopment: 'Weight Development',
+  heightDevelopment: 'Height development / Stunting',
+  overallDevelopment: 'Overall Development / Malnutrition Grades',
+  weightGain: 'Weight Gain',
 };

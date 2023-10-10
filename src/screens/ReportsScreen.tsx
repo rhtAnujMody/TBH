@@ -22,6 +22,7 @@ import useReportsStore from '../stores/useReportsStore';
 import Utility from '../utils/Utility';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import {DashboardStackRootParamList} from '../navigation/DashboardStack';
+import AppStrings from '../utils/AppStrings';
 
 const ReportsScreen = () => {
   const reportsStore = useReportsStore();
@@ -63,7 +64,7 @@ const ReportsScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Generate Report'} />
+            <Header title={AppStrings.generateReportLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwaidStyle}>
@@ -76,9 +77,9 @@ const ReportsScreen = () => {
 
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
-                        textHeader="Start Date"
+                        textHeader={AppStrings.startDate}
                         rightIcon={AppSVGs.dob}
-                        placeHolder="Start Date"
+                        placeHolder={AppStrings.startDate}
                         hideInput={true}
                         onPress={() => {
                           showDatePicker('1');
@@ -87,9 +88,9 @@ const ReportsScreen = () => {
                       />
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
-                        textHeader="End Date"
+                        textHeader={AppStrings.endDate}
                         rightIcon={AppSVGs.dob}
-                        placeHolder="End Date"
+                        placeHolder={AppStrings.endDate}
                         hideInput={true}
                         onPress={() => {
                           showDatePicker('2');
@@ -102,8 +103,8 @@ const ReportsScreen = () => {
                         }}
                         parentStyle={styles.textInputStyle}
                         value={reportsStore.partner}
-                        textHeader="Partner Name, Location"
-                        placeHolder="Partner Name, Location"
+                        textHeader={AppStrings.partnerNameLocation}
+                        placeHolder={AppStrings.partnerNameLocation}
                         rightIcon={AppSVGs.dropdown}
                       />
                     </View>
@@ -126,7 +127,7 @@ const ReportsScreen = () => {
                   />
                 </AppBottomSheet>
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={reportsStore.isLoading}
@@ -141,7 +142,7 @@ const ReportsScreen = () => {
             mode="date"
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
-            minimumDate={new Date('2014-01-01')}
+            minimumDate={new Date(AppStrings.minDate)}
             maximumDate={new Date()}
           />
         </>

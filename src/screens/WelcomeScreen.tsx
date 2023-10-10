@@ -6,6 +6,7 @@ import AppButton from '../components/common/AppButton';
 import AppContainer from '../components/common/AppContainer';
 import {AuthStackProps} from '../navigation/AppNavigation';
 import {colors, typography} from '../theme';
+import AppStrings from '../utils/AppStrings';
 
 const WelcomeScreen = () => {
   const navigation = useNavigation<AuthStackProps>();
@@ -23,12 +24,10 @@ const WelcomeScreen = () => {
         <AppSVGs.logo />
       </View>
       <View style={styles.textContainer}>
-        <Text style={styles.welcomeText}>
-          {'Welcome to \nDecimal Foundation'}
-        </Text>
+        <Text style={styles.welcomeText}>{AppStrings.welcomeDecimal}</Text>
         <View style={styles.buttonContainer}>
           <AppButton
-            title="Sign In"
+            title={AppStrings.signIn}
             onPress={navigateToLogin}
             width={'50%'}
             style={styles.signIn}
@@ -36,7 +35,7 @@ const WelcomeScreen = () => {
           <AppButton
             style={styles.signUpContainer}
             textStyle={styles.singUp}
-            title="Sign Up"
+            title={AppStrings.loginSignUp}
             width={'50%'}
             onPress={navigateToSignUp}
           />
