@@ -179,4 +179,11 @@ export default {
       gender: 'gender',
     },
   },
+
+  doctorsObservation: "Doctor's Observation Entry",
+  calculatedValues: 'Calculated Field Values',
+  childName: 'NAME OF THE CHILD',
+  childNamePlaceHolder: 'Name of the child',
+  contact: 'CONTACT NUMBER',
+  selectChild: 'Select Child',
 };

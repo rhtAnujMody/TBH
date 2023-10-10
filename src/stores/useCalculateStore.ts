@@ -111,7 +111,7 @@ const useCalculateStore = () => {
             }
           } else {
             runInAction(() => {
-              calStore.bottomSheetHeader = 'Select Child';
+              calStore.bottomSheetHeader = AppStrings.selectChild;
               calStore.bottomSheetArray = calStore.generateName(
                 responseJson.data,
               );
@@ -122,7 +122,7 @@ const useCalculateStore = () => {
           Utility.showToast(responseJson.msg);
         }
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
           calStore.isLoading = false;
