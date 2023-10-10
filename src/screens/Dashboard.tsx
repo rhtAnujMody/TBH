@@ -84,19 +84,19 @@ const Dashboard = () => {
         break;
       case 5:
         navigation.navigate('Reports', {
-          data: 'Malnutrition Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.malnutrition,
           id: 'malnutrition_report',
         });
         break;
       case 6:
         navigation.navigate('Reports', {
-          data: 'Wasting Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.wasting,
           id: 'wasting_report',
         });
         break;
       case 7:
         navigation.navigate('Reports', {
-          data: 'Stunting Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.stunting,
           id: 'stunting_report',
         });
         break;
@@ -107,19 +107,19 @@ const Dashboard = () => {
         break;
       case 9:
         navigation.navigate('Reports', {
-          data: "Doctor's Observation Report",
+          data: AppStrings.doctorObservation,
           id: 'doctor_observation_report',
         });
         break;
       case 10:
         navigation.navigate('Reports', {
-          data: 'Nutrition Education Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.nutritionEducation,
           id: 'nutrition_education_report',
         });
         break;
       case 11:
         navigation.navigate('Reports', {
-          data: 'Monitoring Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.monitoring,
           id: 'monitoring_report',
         });
         break;
