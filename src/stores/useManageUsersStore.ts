@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import useApiService from '../network/useAPIService';
 import Utility from '../utils/Utility';
 import AppStrings from '../utils/AppStrings';
+import authStore from './authStore';
 
 type UserDetails = {
   id: number;
@@ -40,6 +41,7 @@ const useManageUsersStore = () => {
       try {
         const response: any = await request('post', AppStrings.manageUsers, {
           user_id: id,
+          agent_id: authStore.userData.id,
         });
 
         if (response.success) {
