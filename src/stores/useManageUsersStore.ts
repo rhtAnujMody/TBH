@@ -23,7 +23,10 @@ const useManageUsersStore = () => {
     async getUsersList() {
       runInAction(() => {});
       try {
-        const response: any = await request('get', AppStrings.manageUsers);
+        const response: any = await request(
+          'get',
+          AppStrings.manageUsers(authStore.userData.id),
+        );
 
         if (response.success) {
           runInAction(() => {
@@ -39,7 +42,7 @@ const useManageUsersStore = () => {
 
     async deleteUser(id: number) {
       try {
-        const response: any = await request('post', AppStrings.manageUsers, {
+        const response: any = await request('post', AppStrings.deleteUsers, {
           user_id: id,
           agent_id: authStore.userData.id,
         });
