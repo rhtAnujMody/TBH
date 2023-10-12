@@ -22,7 +22,10 @@ export default {
   generateFields: '/v1/accounts/view-calculated-fields/',
   doctorObservation: '/v1/accounts/doctor-observation/',
 
-  manageUsers: '/v1/accounts/admin-actions/',
+  manageUsers: (agent_id: number): string =>
+    `/v1/accounts/admin-actions/?agent_id=${agent_id}`,
+
+  deleteUsers: '/v1/accounts/admin-actions/',
 
   fromCalculate: 'calculated_fields',
   fromDoctor: 'doctors_observation',
