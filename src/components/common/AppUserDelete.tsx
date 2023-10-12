@@ -24,6 +24,7 @@ type Rowtype = {
   icon: React.FC;
   id: number;
 };
+const ITEM_HEIGHT = 100;
 
 const AppUserDelete = ({name, phone, email, onPress}: Props) => {
   const showAlert = () => {
@@ -66,6 +67,15 @@ const AppUserDelete = ({name, phone, email, onPress}: Props) => {
     [],
   );
 
+  const getItemLayout = useCallback(
+    (data: any, index: number) => ({
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    }),
+    [],
+  );
+
   return (
     <Pressable style={styles.container}>
       <View style={styles.button}>
@@ -73,6 +83,7 @@ const AppUserDelete = ({name, phone, email, onPress}: Props) => {
           data={rows}
           keyExtractor={keyExtractor}
           renderItem={renderItem}
+          getItemLayout={getItemLayout}
           scrollEnabled
         />
       </View>
@@ -110,6 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 2,
+    height: 25,
   },
 });
 
