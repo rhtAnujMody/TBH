@@ -21,7 +21,7 @@ type Props = {
 
 type Rowtype = {
   name: string;
-  icon: any;
+  icon: React.FC;
   id: number;
 };
 
