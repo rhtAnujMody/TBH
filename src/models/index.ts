@@ -1,6 +1,7 @@
 import {CaptureModal} from './CaptureModal';
 import {HealthModal} from './HealthModal';
 import {ProgramModal} from './ProgramModal';
+import {UserDetails} from './AdminModal';
 import {
   UserData,
   DoctorObservation,
@@ -21,4 +22,5 @@ export type {
   BeneficiaryList,
   HealthCampBeneficiary,
   PartnerList,
+  UserDetails,
 };

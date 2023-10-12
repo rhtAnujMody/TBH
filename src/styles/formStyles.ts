@@ -75,4 +75,6 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     zIndex: 100,
   },
+  adminMarginBotton: {marginBottom: 100},
+  adminSearch: {backgroundColor: '#eeeeee'},
 });

@@ -5,8 +5,8 @@ function SvgComponent(props) {
   return (
     <Svg
       xmlns="http://www.w3.org/2000/svg"
-      width={25}
-      height={25}
+      width={35}
+      height={35}
       viewBox="0 0 256 256"
       {...props}>
       <G
@@ -28,7 +28,7 @@ function SvgComponent(props) {
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit={10}
-          fill="#f9ad37"
+          fill="#808080"
           fillRule="nonzero"
           opacity={1}
         />
@@ -41,7 +41,7 @@ function SvgComponent(props) {
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit={10}
-          fill="#f9ad37"
+          fill="#808080"
           fillRule="nonzero"
           opacity={1}
         />
