@@ -10,6 +10,7 @@ import {
 import {AppContainer, AppUserDelete, Header} from '../components';
 import {styles} from '../styles/formStyles';
 import {useManageUsersStore} from '../stores';
+import AppStrings from '../utils/AppStrings';
 
 type Props = {};
 
@@ -29,13 +30,15 @@ const ManageUserScreen = ({}: Props) => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Manage Users'} />
+            <Header title={AppStrings.manageUsersLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <View style={[styles.container, {marginBottom: 20}]}>
-                  <Text style={styles.headingText}>List of Users</Text>
+                  <Text style={styles.headingText}>
+                    {AppStrings.listOfUsers}
+                  </Text>
                   <FlatList
                     data={manageStore.usersList}
                     keyExtractor={item => item.id.toString()}

@@ -153,6 +153,13 @@ export default {
   excelDownloaded: 'Excel File downloaded',
   selectPartnerLocation: 'Select Partner Name, Location',
 
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  partnerNameLocation: 'Partner Name, Location',
+  minDate: '2014-01-01',
+
+  listOfUsers: 'List of Users',
+
   partner: 'partner',
   type: 'type',
 
@@ -230,11 +237,6 @@ export default {
     feedbackParticipants: 'FEEDBACK FROM PARTICIPANTS',
     feedbackParticipantsPlaceHolder: 'Feedback from participants',
   },
-
-  startDate: 'Start Date',
-  endDate: 'End Date',
-  partnerNameLocation: 'Partner Name, Location',
-  minDate: '2014-01-01',
 
   receivedVitaminA: 'Received Vitamin A Dose?',
   receivedDeworming: 'Received De-worming Dose?',

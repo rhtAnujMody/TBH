@@ -106,7 +106,7 @@ const Dashboard = () => {
         break;
       case 9:
         navigation.navigate('Reports', {
-          data: AppStrings.doctorObservation,
+          data: AppStrings.GENERATE_REPORT_CARDS.doctorsObservation,
           id: 'doctor_observation_report',
         });
         break;

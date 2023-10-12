@@ -34,7 +34,7 @@ const useManageUsersStore = () => {
           });
         }
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {});
       }
@@ -51,7 +51,7 @@ const useManageUsersStore = () => {
           Utility.showToast(response.msg);
         }
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         navigation.goBack();
       }

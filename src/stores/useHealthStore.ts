@@ -116,13 +116,13 @@ const useHealthStore = () => {
       {name: AppStrings.HEALTH_CAMP_SCREEN.notDone, id: 2},
     ],
     genderOptions: [
-      {name: AppStrings.male, id: AppStrings.maleID},
-      {name: AppStrings.female, id: AppStrings.femaleID},
-      {name: AppStrings.others, id: AppStrings.othersID},
+      {name: AppStrings.male, id: 'M'},
+      {name: AppStrings.female, id: 'F'},
+      {name: AppStrings.others, id: 'O'},
     ],
     doneByOptions: [
-      {name: AppStrings.decimalFoundation, id: AppStrings.D},
-      {name: AppStrings.government, id: AppStrings.G},
+      {name: AppStrings.decimalFoundation, id: 'D'},
+      {name: AppStrings.government, id: 'G'},
     ],
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
@@ -606,7 +606,7 @@ const useHealthStore = () => {
         formData.append('agent_id', authStore.userData.id);
         if (this.partner === 'New') {
           formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.partner_details,
+            'partner_details',
             JSON.stringify({
               name: healthStore.newPartnerName,
               location: healthStore.newLocation,
@@ -615,21 +615,34 @@ const useHealthStore = () => {
               state: healthStore.newState,
             }),
           );
-          formData.append(AppStrings.partner, '');
-          formData.append(AppStrings.type, healthStore.partnerTypeID);
+          formData.append('partner', '');
+          formData.append('type', healthStore.partnerTypeID);
         } else {
-          formData.append(AppStrings.partner, healthStore.partnerID);
+          formData.append('partner', healthStore.partnerID);
         }
+        formData.append('health_camp_date', healthStore.dohc);
+        formData.append('serial_no', healthStore.numberHC);
+
+        setData('partner', healthStore.partner.toString());
+        setData('partnerID', healthStore.partnerID.toString());
+        setData('existPartnerName', healthStore.existPartnerName.toString());
+        setData('existLocation', healthStore.existLocation.toString());
+        setData('existBlock', healthStore.existBlock.toString());
+        setData('existDistrict', healthStore.existDistrict.toString());
+        setData('existState', healthStore.existState.toString());
+
+        setData('partnerType', healthStore.partnerType.toString());
+        setData('partnerTypeID', healthStore.partnerTypeID.toString());
+        setData('dohc', healthStore.dohc.toString());
+        setData('numberHC', healthStore.numberHC.toString());
+        setData('newPartnerName', healthStore.newPartnerName.toString());
+        setData('newLocation', healthStore.newLocation.toString());
+        setData('newBlock', healthStore.newBlock.toString());
+        setData('newDistrict', healthStore.newDistrict.toString());
+        setData('newState', healthStore.newState.toString());
+
         formData.append(
-          AppStrings.HEALTH_CAMP_SCREEN.health_camp_date,
-          healthStore.dohc,
-        );
-        formData.append(
-          AppStrings.HEALTH_CAMP_SCREEN.serial_no,
-          healthStore.numberHC,
-        );
-        formData.append(
-          AppStrings.HEALTH_CAMP_SCREEN.child_info,
+          'child_info',
           JSON.stringify({
             name: healthStore.childName,
             dob: healthStore.dob,
@@ -643,7 +656,7 @@ const useHealthStore = () => {
           }),
         );
         formData.append(
-          AppStrings.HEALTH_CAMP_SCREEN.child_details,
+          'child_details',
           JSON.stringify({
             age: healthStore.age,
             height: healthStore.height,
@@ -652,9 +665,9 @@ const useHealthStore = () => {
             education: healthStore.educationalDetailsID,
           }),
         );
-        if (this.vitaminA === AppStrings.HEALTH_CAMP_SCREEN.done) {
+        if (this.vitaminA === 'Done') {
           formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.vitamin_A_details,
+            'vitamin_A_details',
             JSON.stringify({
               done_by: healthStore.doneByID,
               duration: healthStore.durationOfCourse,
@@ -662,14 +675,14 @@ const useHealthStore = () => {
               dose_date: healthStore.dateOfDoseVitamin,
             }),
           );
-          formData.append(AppStrings.HEALTH_CAMP_SCREEN.vitamin_A, true);
+          formData.append('vitamin_A', true);
         } else {
-          formData.append(AppStrings.HEALTH_CAMP_SCREEN.vitamin_A, false);
+          formData.append('vitamin_A', false);
         }
 
-        if (this.deworming === AppStrings.HEALTH_CAMP_SCREEN.done) {
+        if (this.deworming === 'Done') {
           formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.deworming_details,
+            'deworming_details',
             JSON.stringify({
               done_by: healthStore.doneByWormID,
               duration: healthStore.durationOfCourseWorm,
@@ -677,20 +690,14 @@ const useHealthStore = () => {
               dose_date: healthStore.dateOfDoseDeworm,
             }),
           );
-          formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.deworming,
-            true,
-          );
+          formData.append('deworming', true);
         } else {
-          formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.deworming,
-            false,
-          );
+          formData.append('deworming', false);
         }
 
-        if (this.ifa === AppStrings.HEALTH_CAMP_SCREEN.done) {
+        if (this.ifa === 'Done') {
           formData.append(
-            AppStrings.HEALTH_CAMP_SCREEN.ifa_details,
+            'ifa_details',
             JSON.stringify({
               done_by: healthStore.doneByIFAID,
               duration: healthStore.durationOfCourseIFA,
@@ -698,9 +705,9 @@ const useHealthStore = () => {
               dose_date: healthStore.dateOfDoseIFA,
             }),
           );
-          formData.append(AppStrings.HEALTH_CAMP_SCREEN.ifa_small, true);
+          formData.append('ifa', true);
         } else {
-          formData.append(AppStrings.HEALTH_CAMP_SCREEN.ifa_small, false);
+          formData.append('ifa', false);
         }
 
         const responseJson = await request<HealthModal>(
@@ -720,7 +727,7 @@ const useHealthStore = () => {
           navigation.goBack();
         }
       } catch (err) {
-        Utility.showToast(AppStrings.somethingWentWrong);
+        Utility.showToast('Something went wrong');
       } finally {
         runInAction(() => {
           healthStore.isLoading = false;
@@ -728,7 +735,6 @@ const useHealthStore = () => {
       }
     },
   }));
-
   return healthStore;
 };
 

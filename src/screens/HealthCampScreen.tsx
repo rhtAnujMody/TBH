@@ -315,12 +315,8 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader={
-                                AppStrings.HEALTH_CAMP_SCREEN.contactNumber
-                              }
-                              placeHolder={
-                                AppStrings.HEALTH_CAMP_SCREEN.contactNumber
-                              }
+                              textHeader={AppStrings.contact}
+                              placeHolder={AppStrings.contact}
                               value={healthStore.contact}
                               onChangeText={healthStore.setContact}
                               maxLength={10}
@@ -328,9 +324,9 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
-                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.dob}
+                              textHeader={AppStrings.dob}
                               rightIcon={AppSVGs.dob}
-                              placeHolder={AppStrings.HEALTH_CAMP_SCREEN.dob}
+                              placeHolder={AppStrings.dob}
                               hideInput={true}
                               onPress={() => {
                                 showDatePicker('2');
