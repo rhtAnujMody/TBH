@@ -9,8 +9,8 @@ import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {useResetStore} from '../stores';
 import {AuthStackParamList} from '../navigation/AuthStack';
-import AppStrings from '../utils/AppStrings';
 import {loginStyles} from '../styles/loginStyles';
+import AppStrings from '../utils/AppStrings';
 
 const ResetPasswordScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -43,10 +43,10 @@ const ResetPasswordScreen = () => {
             <AppSVGs.reset style={styles.logo} />
           </View>
 
-          <View style={styles.textInputContainer}>
-            <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>{AppStrings.resetPassword}</Text>
-              <Text style={styles.signInDesc}>
+          <View style={styles.otpTextInputContainer}>
+            <View style={styles.forgotHeaderContainer}>
+              <Text style={styles.resetSignIn}>{AppStrings.resetPassword}</Text>
+              <Text style={styles.forgotSignInDesc}>
                 {AppStrings.enterNewPassword}
               </Text>
             </View>
