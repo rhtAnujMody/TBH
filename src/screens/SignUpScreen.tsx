@@ -117,17 +117,21 @@ const SignUpScreen = () => {
                   onSubmitEditing={() => handleOnSubmitEditing(2)}
                 />
 
-                <AppTextInput
-                  placeHolder={AppStrings.signUpPhoneNoPlaceholder}
-                  returnKeyType="next"
-                  keyboardType="phone-pad"
-                  maxLength={10}
-                  leftText="+91"
-                  value={signUpStore.phoneNumber}
-                  onChangeText={signUpStore.setNumber}
-                  inputRef={numberRef}
-                  onSubmitEditing={() => handleOnSubmitEditing(3)}
-                />
+                <Observer>
+                  {() => (
+                    <AppTextInput
+                      placeHolder={AppStrings.signUpPhoneNoPlaceholder}
+                      returnKeyType="next"
+                      keyboardType="phone-pad"
+                      maxLength={10}
+                      leftText="+91"
+                      value={signUpStore.phoneNumber}
+                      onChangeText={signUpStore.setNumber}
+                      inputRef={numberRef}
+                      onSubmitEditing={() => handleOnSubmitEditing(3)}
+                    />
+                  )}
+                </Observer>
 
                 <AppTextInput
                   icon={AppSVGs.dob}
@@ -145,11 +149,11 @@ const SignUpScreen = () => {
                   returnKeyType="done"
                   inputRef={passwordRef}
                 />
-                <View style={styles.bottomContainer}>
-                  <Text style={styles.dontHaveAcc}>
+                <View style={styles.signUpBottomContainer}>
+                  <Text style={styles.signUpDontHaveAcc}>
                     {AppStrings.alreadyHaveAccount}
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
-                      {AppStrings.loginSignUp}
+                      {AppStrings.signIn}
                     </Text>
                   </Text>
                   <ShowButton />
