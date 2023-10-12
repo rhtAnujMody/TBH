@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
-  View,
+  Alert,
+  FlatList,
+  ListRenderItem,
+  Pressable,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  Alert,
-  StyleSheet,
-  Pressable,
+  View,
 } from 'react-native';
 import {AppSVGs} from '../../assets';
 import {typography} from '../../theme';
@@ -15,6 +17,12 @@ type Props = {
   phone: string;
   email: string;
   onPress: () => void;
+};
+
+type Rowtype = {
+  name: string;
+  icon: any;
+  id: number;
 };
 
 const AppUserDelete = ({name, phone, email, onPress}: Props) => {
@@ -29,31 +37,44 @@ const AppUserDelete = ({name, phone, email, onPress}: Props) => {
     ]);
   };
 
-  const rows = [
+  const rows: Rowtype[] = [
     {
       name: name,
       icon: AppSVGs.name,
+      id: 1,
     },
     {
       name: phone,
       icon: AppSVGs.phone,
+      id: 2,
     },
     {
       name: email,
       icon: AppSVGs.email,
+      id: 3,
     },
   ];
+  const keyExtractor = useCallback((item: Rowtype) => item.id.toString(), []);
+
+  const renderItem: ListRenderItem<Rowtype> = useCallback(
+    ({item}) => (
+      <View style={styles.rowContainer}>
+        <item.icon />
+        <Text style={styles.text}>{item.name}</Text>
+      </View>
+    ),
+    [],
+  );
+
   return (
     <Pressable style={styles.container}>
       <View style={styles.button}>
-        {rows.map((item, index) => {
-          return (
-            <View style={styles.rowContainer} key={index}>
-              <item.icon />
-              <Text style={styles.text}>{item.name}</Text>
-            </View>
-          );
-        })}
+        <FlatList
+          data={rows}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
+          scrollEnabled
+        />
       </View>
       <TouchableOpacity onPress={showAlert}>
         <AppSVGs.dustbin />
@@ -71,7 +92,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     paddingHorizontal: 20,
-    height: 120,
+    height: 100,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.5,
     shadowRadius: 2,

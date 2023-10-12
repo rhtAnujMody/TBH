@@ -15,7 +15,7 @@ import {useManageUsersStore} from '../stores';
 import {styles} from '../styles/formStyles';
 
 type Props = {};
-const ITEM_HEIGHT = 120;
+const ITEM_HEIGHT = 100;
 const ManageUserScreen = ({}: Props) => {
   const manageStore = useManageUsersStore();
 
@@ -45,6 +45,15 @@ const ManageUserScreen = ({}: Props) => {
     [],
   );
 
+  const getItemLayout = useCallback(
+    (data: any, index: number) => ({
+      length: ITEM_HEIGHT,
+      offset: ITEM_HEIGHT * index,
+      index,
+    }),
+    [],
+  );
+
   return (
     <Observer>
       {() => (
@@ -55,10 +64,10 @@ const ManageUserScreen = ({}: Props) => {
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
-                <View style={[styles.container, {marginBottom: 100}]}>
+                <View style={[styles.container, styles.adminMarginBotton]}>
                   <Text style={styles.headingText}>List of Users</Text>
                   <AppTextInput
-                    parentStyle={{backgroundColor: '#eeeeee'}}
+                    parentStyle={styles.adminSearch}
                     icon={AppSVGs.search}
                     placeHolder="Search"
                     onChangeText={searchUser}
@@ -67,11 +76,7 @@ const ManageUserScreen = ({}: Props) => {
                     data={manageStore.searchList}
                     keyExtractor={keyExtractor}
                     renderItem={renderItem}
-                    getItemLayout={(data, index) => ({
-                      length: ITEM_HEIGHT,
-                      offset: ITEM_HEIGHT * index,
-                      index,
-                    })}
+                    getItemLayout={getItemLayout}
                     scrollEnabled
                   />
                 </View>
