@@ -6,8 +6,8 @@ import {AppBack, AppButton, AppContainer, AppTextInput} from '../components';
 import {useKeyboard} from '../custom_hooks';
 import {useForgotPasswordStore} from '../stores';
 import React = require('react');
-import AppStrings from '../utils/AppStrings';
 import {loginStyles} from '../styles/loginStyles';
+import AppStrings from '../utils/AppStrings';
 
 const ForgotPassword = () => {
   const emailRef = useRef<TextInput>(null);
@@ -37,9 +37,11 @@ const ForgotPassword = () => {
       </View>
 
       <View style={styles.textInputContainer}>
-        <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>{AppStrings.forgotPassword}</Text>
-          <Text style={styles.signInDesc}>{AppStrings.resetPasswordEmail}</Text>
+        <View style={styles.forgotHeaderContainer}>
+          <Text style={styles.forgotSignIn}>{AppStrings.forgotPassword}</Text>
+          <Text style={styles.forgotSignInDesc}>
+            {AppStrings.resetPasswordEmail}
+          </Text>
         </View>
         <AppTextInput
           icon={AppSVGs.name}
