@@ -20,13 +20,19 @@ const useGenerateStore = () => {
     weightGain: '',
 
     setVitaminA(value: boolean) {
-      value ? (genStore.vitaminA = 'YES') : (genStore.vitaminA = 'NO');
+      value
+        ? (genStore.vitaminA = AppStrings.yesCaps)
+        : (genStore.vitaminA = AppStrings.noCaps);
     },
     setDeworm(value: boolean) {
-      value ? (genStore.deworm = 'YES') : (genStore.deworm = 'NO');
+      value
+        ? (genStore.deworm = AppStrings.yesCaps)
+        : (genStore.deworm = AppStrings.noCaps);
     },
     setIFA(value: boolean) {
-      value ? (genStore.ifa = 'YES') : (genStore.ifa = 'NO');
+      value
+        ? (genStore.ifa = AppStrings.yesCaps)
+        : (genStore.ifa = AppStrings.noCaps);
     },
     setAge(value: string) {
       genStore.age = value;
@@ -35,13 +41,19 @@ const useGenerateStore = () => {
       genStore.bmi = value.toFixed(2).toString();
     },
     setWeightDev(value: string) {
-      value ? (genStore.weightDev = value) : (genStore.weightDev = 'NA');
+      value
+        ? (genStore.weightDev = value)
+        : (genStore.weightDev = AppStrings.na);
     },
     setHeightDev(value: string) {
-      value ? (genStore.heightDev = value) : (genStore.heightDev = 'NA');
+      value
+        ? (genStore.heightDev = value)
+        : (genStore.heightDev = AppStrings.na);
     },
     setOverAllDev(value: string) {
-      value ? (genStore.overAllDev = value) : (genStore.overAllDev = 'NA');
+      value
+        ? (genStore.overAllDev = value)
+        : (genStore.overAllDev = AppStrings.na);
     },
     setWeightGain(value: string) {
       genStore.weightGain = value;
@@ -69,7 +81,7 @@ const useGenerateStore = () => {
               genStore.setWeightGain(response.data.weight_gain.toString());
             });
           } else {
-            Utility.showToast('No Data to show');
+            Utility.showToast(AppStrings.noData);
           }
         }
       } catch (err) {

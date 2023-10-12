@@ -470,7 +470,7 @@ const useHealthStore = () => {
     toggleBottomSheet(from?: string) {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
       switch (from) {
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partner:
+        case AppStrings.partner:
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader;
           healthStore.bottomSheetArray = healthStore.partnerOptions;

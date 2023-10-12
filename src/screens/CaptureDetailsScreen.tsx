@@ -6,7 +6,6 @@ import {
   Platform,
   Pressable,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -16,23 +15,22 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import {AppSVGs} from '../assets';
 import {
-  AppButton,
-  AppContainer,
-  AppTextInput,
   AppBottomSheet,
   AppBottomSheetDropdown,
+  AppButton,
+  AppContainer,
   AppImageUploadInput,
   AppInput,
+  AppTextInput,
   AppToggle,
   Header,
 } from '../components';
 import {useCamera} from '../custom_hooks';
-import {authStore} from '../stores';
-import {useCaptureDetailsStore} from '../stores';
-import {colors} from '../theme';
-import Utility from '../utils/Utility';
-import AppStrings from '../utils/AppStrings';
+import {authStore, useCaptureDetailsStore} from '../stores';
 import {styles} from '../styles/formStyles';
+import {colors} from '../theme';
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
 
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
@@ -111,15 +109,12 @@ const CaptureDetailsScreen = () => {
                       />
 
                       <AppToggle
-                        title={AppStrings.HEALTH_CAMP_SCREEN.partnerDetails}
+                        title={AppStrings.partnerDetails}
                         children={
                           <>
                             <AppInput
                               onPress={() => {
-                                handleBottomSheetClick(
-                                  AppStrings.HEALTH_CAMP_SCREEN.bottomSheet
-                                    .partner,
-                                );
+                                handleBottomSheetClick('partner');
                                 handleIndex(1);
                               }}
                               parentStyle={styles.textInputStyle}
@@ -131,7 +126,7 @@ const CaptureDetailsScreen = () => {
                               rightIcon={AppSVGs.dropdown}
                             />
 
-                            {cdStore.partner === AppStrings.new ? (
+                            {cdStore.partner === 'New' ? (
                               <>
                                 <AppTextInput
                                   value={cdStore.newPartnerName}
@@ -175,14 +170,11 @@ const CaptureDetailsScreen = () => {
                                   onChangeText={cdStore.setNewState}
                                 />
                               </>
-                            ) : cdStore.partner === AppStrings.existing ? (
+                            ) : cdStore.partner === 'Existing' ? (
                               <>
                                 <AppInput
                                   onPress={() => {
-                                    handleBottomSheetClick(
-                                      AppStrings.HEALTH_CAMP_SCREEN.bottomSheet
-                                        .partnerName,
-                                    );
+                                    handleBottomSheetClick('partnerName');
                                     handleIndex(3);
                                   }}
                                   parentStyle={styles.textInputStyle}

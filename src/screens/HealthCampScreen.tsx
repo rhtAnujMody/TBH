@@ -112,7 +112,7 @@ const HealthCampScreen = () => {
                       </Text>
 
                       <AppToggle
-                        title={AppStrings.HEALTH_CAMP_SCREEN.partnerDetails}
+                        title={AppStrings.partnerDetails}
                         children={
                           <>
                             <AppInput
