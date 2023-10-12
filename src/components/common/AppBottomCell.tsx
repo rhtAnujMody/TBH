@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {AppSVGs} from '../../assets';
 import {FlatList} from 'react-native-gesture-handler';
+import {colors, typography} from '../../theme';
 
 type Array = {
   name: string;
@@ -17,6 +18,8 @@ type Array = {
 type BottomSheetCard = {
   id: string;
   name: string;
+  dob: string;
+  gender: string;
 };
 
 type Props = {
@@ -27,12 +30,7 @@ type Props = {
   onItemSelect: (header: string, value: string, id: string) => void;
 };
 
-const AppBottomSheetDropdown = ({
-  data,
-  header,
-  onPress,
-  onItemSelect,
-}: Props) => {
+const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
   const renderItem = ({item}: {item: BottomSheetCard}) => {
     return (
       <TouchableHighlight
@@ -41,7 +39,23 @@ const AppBottomSheetDropdown = ({
           onItemSelect(header, item.name, item.id);
         }}
         style={styles.itemContainer}>
-        <Text>{item.name}</Text>
+        <>
+          <View style={styles.cellStyle}>
+            <Text style={styles.textHeading}>{'Name'}</Text>
+            <Text>:</Text>
+            <Text style={styles.textResult}>{item.name}</Text>
+          </View>
+          <View style={styles.cellStyle}>
+            <Text style={styles.textHeading}>{'DOB'}</Text>
+            <Text>:</Text>
+            <Text style={styles.textResult}>{item.dob}</Text>
+          </View>
+          <View style={styles.cellStyle}>
+            <Text style={styles.textHeading}>{'Gender'}</Text>
+            <Text>:</Text>
+            <Text style={styles.textResult}>{item.gender}</Text>
+          </View>
+        </>
       </TouchableHighlight>
     );
   };
@@ -64,7 +78,7 @@ const AppBottomSheetDropdown = ({
   );
 };
 
-export default AppBottomSheetDropdown;
+export default AppBottomCell;
 
 const styles = StyleSheet.create({
   container: {
@@ -90,4 +104,13 @@ const styles = StyleSheet.create({
   headerStyle: {
     fontWeight: 'bold',
   },
+  textHeading: {
+    ...typography.medium(14),
+    width: 80,
+  },
+  textResult: {
+    paddingLeft: 10,
+    ...typography.regular(14, colors.black),
+  },
+  cellStyle: {flexDirection: 'row', alignItems: 'center'},
 });

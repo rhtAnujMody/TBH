@@ -1,17 +1,20 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
+import {NavigatorScreenParams} from '@react-navigation/native';
+
 import CaptureDetailsScreen from '../screens/CaptureDetailsScreen';
 import Dashboard from '../screens/Dashboard';
 import ProgramMonitorScreen from '../screens/ProgramMonitorScreen';
 import HealthCampScreen from '../screens/HealthCampScreen';
 import ReportsStack from './ReportsStack';
-import {NavigatorScreenParams} from '@react-navigation/native';
 import {ReportsStackRootParamList} from './ReportsStack';
 import DoctorStack, {DoctorStackRootParamList} from './DoctorStack';
 import ReportsScreen from '../screens/ReportsScreen';
+import ManageUserScreen from '../screens/ManageUsersScreen';
 import CustomReportsStack, {
   CustomReportsStackRootParamList,
 } from './CustomReportsStack';
+
 export type DashboardStackRootParamList = {
   Home: undefined;
   ReportsStack: NavigatorScreenParams<ReportsStackRootParamList>; //
@@ -21,6 +24,7 @@ export type DashboardStackRootParamList = {
   ProgramMonitor: undefined;
   HealthCamp: undefined;
   Reports: {data: string; id: string};
+  ManageUsers: undefined;
 };
 
 const DashboardStackRoot =
@@ -52,6 +56,10 @@ const DashboardStack = () => {
       <DashboardStackRoot.Screen
         component={CustomReportsStack}
         name="CustomStack"
+      />
+      <DashboardStackRoot.Screen
+        component={ManageUserScreen}
+        name="ManageUsers"
       />
     </DashboardStackRoot.Navigator>
   );

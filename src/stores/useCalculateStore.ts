@@ -1,12 +1,14 @@
 import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import useApiService from '../network/useAPIService';
-import AppStrings from '../utils/AppStrings';
-import Utility from '../utils/Utility';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {ReportsStackRootParamList} from '../navigation/ReportsStack';
 import {DoctorStackRootParamList} from '../navigation/DoctorStack';
+
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
+import authStore from './authStore';
 
 const useCalculateStore = () => {
   const {request} = useApiService();
@@ -82,7 +84,9 @@ const useCalculateStore = () => {
 
     generateName(value: any) {
       return value.map((item: any) => ({
-        name: `Name: ${item.name},\nDOB: ${item.dob},\nGender: ${item.gender}`,
+        name: Utility.getUpper(item.name),
+        dob: Utility.formatDate(item.dob),
+        gender: item.gender,
         id: item.id.toString(),
       }));
     },
@@ -99,6 +103,7 @@ const useCalculateStore = () => {
             calStore.childName,
             calStore.dob,
             calStore.contact,
+            authStore.userData.id,
           ),
         );
 

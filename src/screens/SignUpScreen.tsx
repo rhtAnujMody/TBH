@@ -1,17 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+
 import {AppSVGs} from '../assets';
-import AppBack from '../components/common/AppBack';
-import AppButton from '../components/common/AppButton';
-import AppContainer from '../components/common/AppContainer';
-import AppTextInput from '../components/common/AppTextInput';
-import useKeyboard from '../custom_hooks/useKeyboard';
+import {
+  AppBack,
+  AppButton,
+  AppContainer,
+  AppTextInput,
+} from '../components/common';
+import {useKeyboard} from '../custom_hooks';
 import {AuthStackProps} from '../navigation/AppNavigation';
-import useSignUpStore from '../stores/useSignUpStore';
-import {colors, typography} from '../theme';
+import {useSignUpStore} from '../stores';
+import {loginStyles} from '../styles/loginStyles';
 import Utility from '../utils/Utility';
 import AppStrings from '../utils/AppStrings';
 
@@ -83,7 +86,7 @@ const SignUpScreen = () => {
       {() => (
         <AppContainer style={styles.container}>
           <AppBack />
-          <View style={styles.headerContainer}>
+          <View style={styles.signUpHeaderContainer}>
             <View style={styles.logoContainer}>
               <AppSVGs.logo style={styles.logo} />
             </View>
@@ -94,26 +97,26 @@ const SignUpScreen = () => {
           </View>
 
           <View style={styles.textInputContainer}>
-            <AppTextInput
-              icon={AppSVGs.name}
-              placeHolder={AppStrings.signUpNamePlaceholder}
-              returnKeyType="next"
-              value={signUpStore.name}
-              onChangeText={signUpStore.setName}
-              onSubmitEditing={() => handleOnSubmitEditing(1)}
-            />
-            <AppTextInput
-              icon={AppSVGs.email}
-              placeHolder={AppStrings.loginEmailPlaceholder}
-              returnKeyType="next"
-              value={signUpStore.userEmail}
-              onChangeText={signUpStore.setEmail}
-              inputRef={emailRef}
-              onSubmitEditing={() => handleOnSubmitEditing(2)}
-            />
+            <ScrollView contentContainerStyle={styles.bodyScroll}>
+              <Pressable>
+                <AppTextInput
+                  icon={AppSVGs.name}
+                  placeHolder={AppStrings.signUpNamePlaceholder}
+                  returnKeyType="next"
+                  value={signUpStore.name}
+                  onChangeText={signUpStore.setName}
+                  onSubmitEditing={() => handleOnSubmitEditing(1)}
+                />
+                <AppTextInput
+                  icon={AppSVGs.email}
+                  placeHolder={AppStrings.loginEmailPlaceholder}
+                  returnKeyType="next"
+                  value={signUpStore.userEmail}
+                  onChangeText={signUpStore.setEmail}
+                  inputRef={emailRef}
+                  onSubmitEditing={() => handleOnSubmitEditing(2)}
+                />
 
-            <Observer>
-              {() => (
                 <AppTextInput
                   placeHolder={AppStrings.signUpPhoneNoPlaceholder}
                   returnKeyType="next"
@@ -125,34 +128,34 @@ const SignUpScreen = () => {
                   inputRef={numberRef}
                   onSubmitEditing={() => handleOnSubmitEditing(3)}
                 />
-              )}
-            </Observer>
 
-            <AppTextInput
-              icon={AppSVGs.dob}
-              placeHolder={AppStrings.signUpDOBPlaceholder}
-              hideInput={true}
-              onPress={onDOBPress}
-              otherText={dob}
-            />
+                <AppTextInput
+                  icon={AppSVGs.dob}
+                  placeHolder={AppStrings.signUpDOBPlaceholder}
+                  hideInput={true}
+                  onPress={onDOBPress}
+                  otherText={dob}
+                />
 
-            <AppTextInput
-              icon={AppSVGs.lock}
-              secureTextEntry
-              placeHolder={AppStrings.loginPasswordPlaceholder}
-              onChangeText={signUpStore.setPassword}
-              returnKeyType="done"
-              inputRef={passwordRef}
-            />
-            <View style={styles.bottomContainer}>
-              <Text style={styles.dontHaveAcc}>
-                {AppStrings.alreadyHaveAccount}
-                <Text style={styles.signUp} onPress={navigateToSignIn}>
-                  {AppStrings.loginSignUp}
-                </Text>
-              </Text>
-              <ShowButton />
-            </View>
+                <AppTextInput
+                  icon={AppSVGs.lock}
+                  secureTextEntry
+                  placeHolder={AppStrings.loginPasswordPlaceholder}
+                  onChangeText={signUpStore.setPassword}
+                  returnKeyType="done"
+                  inputRef={passwordRef}
+                />
+                <View style={styles.bottomContainer}>
+                  <Text style={styles.dontHaveAcc}>
+                    {AppStrings.alreadyHaveAccount}
+                    <Text style={styles.signUp} onPress={navigateToSignIn}>
+                      {AppStrings.loginSignUp}
+                    </Text>
+                  </Text>
+                  <ShowButton />
+                </View>
+              </Pressable>
+            </ScrollView>
           </View>
 
           <DateTimePickerModal
@@ -169,58 +172,3 @@ const SignUpScreen = () => {
 };
 
 export default SignUpScreen;
-
-const loginStyles = (isKeyboardVisible: boolean) => {
-  return StyleSheet.create({
-    container: {
-      backgroundColor: colors.palette.primary,
-    },
-    headerContainer: {
-      flex: isKeyboardVisible ? 0.4 : 0.4,
-      justifyContent: 'center',
-    },
-    logoContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    logo: {
-      alignSelf: 'center',
-      marginTop: 10,
-    },
-    signInHeaderContainer: {
-      flex: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 40,
-    },
-    signIn: {
-      ...typography.bold(24, colors.black),
-    },
-    signInDesc: {
-      ...typography.medium(15),
-    },
-    textInputContainer: {
-      flex: 1,
-      marginTop: 20,
-      backgroundColor: 'white',
-      borderTopRightRadius: 40,
-      borderTopLeftRadius: 40,
-      paddingHorizontal: 30,
-      paddingTop: 30,
-      alignItems: 'center',
-    },
-    bottomContainer: {
-      width: '100%',
-      position: 'absolute',
-      bottom: 20,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    dontHaveAcc: {
-      ...typography.medium(14),
-      marginBottom: 20,
-    },
-    signUp: {
-      color: colors.palette.primary,
-    },
-  });
-};

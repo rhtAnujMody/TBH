@@ -11,11 +11,21 @@ export default {
   verifyOTP: '/v1/accounts/verify-otp/',
   generateReports: '/v1/accounts/report/',
 
-  calculateFields: (name: string, dob: string, contact: string): string => {
-    return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}`;
+  calculateFields: (
+    name: string,
+    dob: string,
+    contact: string,
+    agent_id: number,
+  ): string => {
+    return `v1/accounts/view-calculated-fields/?name=${name}&dob=${dob}&contact=${contact}&agent_id=${agent_id}`;
   },
   generateFields: '/v1/accounts/view-calculated-fields/',
   doctorObservation: '/v1/accounts/doctor-observation/',
+
+  manageUsers: (agent_id: number): string =>
+    `/v1/accounts/admin-actions/?agent_id=${agent_id}`,
+
+  deleteUsers: '/v1/accounts/admin-actions/',
 
   fromCalculate: 'calculated_fields',
   fromDoctor: 'doctors_observation',

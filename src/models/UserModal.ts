@@ -8,6 +8,7 @@ export interface UserData {
   health_camp_beneficiary: HealthCampBeneficiary[];
   education_details: EducationDetails[];
   doctor_observation: DoctorObservation;
+  role: string;
 }
 
 export type DoctorObservationInner = {

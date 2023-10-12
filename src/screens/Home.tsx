@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, View} from 'react-native';
-import authStore from '../stores/authStore';
+import {authStore} from '../stores';
 
 type Props = {};
 

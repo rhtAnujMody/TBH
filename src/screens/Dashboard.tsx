@@ -1,10 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+} from 'react-native';
+
 import {AppSVGs} from '../assets';
-import {HomeCard} from '../components';
-import AppContainer from '../components/common/AppContainer';
-import ObservableChild from '../components/common/ObservableChild';
+import {
+  HomeCard,
+  AppContainer,
+  ObservableChild,
+  AppUserDelete,
+} from '../components';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
@@ -123,6 +134,9 @@ const Dashboard = () => {
           id: 'monitoring_report',
         });
         break;
+      case 12:
+        navigation.navigate('ManageUsers');
+        break;
     }
   };
   const auth = authStore;
@@ -183,20 +197,35 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(4)}
               />
             </View>
-            <Text style={styles.title}>{AppStrings.generateReportLabel}</Text>
-            <View style={styles.cardsContainer}>
-              {genrateReportsCards.map((data, index) => {
-                return (
+
+            {auth.userData.role === 'A' && (
+              <>
+                <Text style={styles.title}>
+                  {AppStrings.generateReportLabel}
+                </Text>
+                <View style={styles.cardsContainer}>
+                  {genrateReportsCards.map((data, index) => {
+                    return (
+                      <HomeCard
+                        title={data.title}
+                        icon={data.icon}
+                        key={data.title}
+                        onPress={() => navigateToCard(index + 5)}
+                        marginRight={index === 0 ? 10 : 0}
+                      />
+                    );
+                  })}
+                </View>
+                <Text style={styles.title}>Manage Users</Text>
+                <View style={styles.cardsContainer}>
                   <HomeCard
-                    title={data.title}
-                    icon={data.icon}
-                    key={data.title}
-                    onPress={() => navigateToCard(index + 5)}
-                    marginRight={index === 0 ? 10 : 0}
+                    title={'Manage Users'}
+                    icon={AppSVGs.user}
+                    onPress={() => navigateToCard(12)}
                   />
-                );
-              })}
-            </View>
+                </View>
+              </>
+            )}
           </Pressable>
         </ScrollView>
       </View>

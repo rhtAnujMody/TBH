@@ -2,7 +2,7 @@ import {useLocalObservable} from 'mobx-react-lite';
 import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
-import {ProgramModal} from '../models/ProgramModal';
+import {ProgramModal} from '../models';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import authStore from './authStore';
@@ -481,6 +481,7 @@ const useProgramStore = () => {
       });
       try {
         const formData = new FormData(); //existingPartnerID
+        formData.append('agent_id', authStore.userData.id);
         formData.append('type', proStore.partnerTypeID);
         formData.append('partner', proStore.existingPartnerID);
         formData.append('date', proStore.dov);
@@ -557,7 +558,6 @@ const useProgramStore = () => {
             name: proStore.selectedImages[i].path.split('/').pop(),
           });
         }
-
         const responseJson = await request<ProgramModal>(
           'post',
           AppStrings.programMonitor,

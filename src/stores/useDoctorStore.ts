@@ -29,6 +29,7 @@ const useDoctorStore = () => {
     ],
     setAction(value: string) {
       doctorStore.action = value;
+      doctorStore.validateSubmit();
     },
     setOthers(value: string) {
       doctorStore.others = value;
@@ -48,6 +49,12 @@ const useDoctorStore = () => {
 
       if (doctorStore.hospital === '') {
         return;
+      }
+
+      if (doctorStore.hospital === 'Yes') {
+        if (doctorStore.action === '') {
+          return;
+        }
       }
 
       doctorStore.enableSubmit = true;
@@ -77,6 +84,7 @@ const useDoctorStore = () => {
             is_referred_to_hospital: doctorStore.hospital === 'Yes',
             action_suggested:
               doctorStore.hospital === 'Yes' ? doctorStore.action : null,
+            agent_id: authStore.userData.id,
           },
         );
 

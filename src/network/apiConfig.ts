@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ApiResponse} from './useAPIService';
+import {authStore} from '../stores';
 
 const apiInstance = axios.create({
   baseURL: 'http://16.171.139.29/api/',
@@ -14,6 +15,9 @@ apiInstance.interceptors.response.use(
     return response;
   },
   error => {
+    if (error.response.status === 404) {
+      authStore.setIsLogin(false);
+    }
     const apiError: ApiResponse<null> = {
       data: null,
       status: error.response?.status || 0,

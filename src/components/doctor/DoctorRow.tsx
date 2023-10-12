@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TextInputProps, View, ViewStyle} from 'react-native';
-import {typography} from '../theme';
-import {AppCheckBox} from './common';
-import {DoctorObservationInner} from '../models/UserModal';
-import Utility from '../utils/Utility';
+import {typography} from '../../theme';
+import {AppCheckBox} from '../common';
+import {DoctorObservationInner} from '../../models/UserModal';
+import Utility from '../../utils/Utility';
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;

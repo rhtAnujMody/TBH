@@ -4,13 +4,35 @@ import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
-import {HealthModal} from '../models/HealthModal';
+import {HealthModal} from '../models';
 import authStore from './authStore';
 import {useNavigation} from '@react-navigation/native';
+import {useAsyncStorage} from '../custom_hooks';
 
 const useHealthStore = () => {
   const {request} = useApiService();
   const navigation = useNavigation();
+  const {setData, getData} = useAsyncStorage();
+
+  const keys = [
+    'partner',
+    'partnerID',
+    'newPartnerName',
+    'newLocation',
+    'newBlock',
+    'newDistrict',
+    'newState',
+    'existPartnerName',
+    'existLocation',
+    'existBlock',
+    'existDistrict',
+    'existState',
+    'partnerType',
+    'partnerTypeID',
+    'dohc',
+    'numberHC',
+  ];
+
   const healthStore = useLocalObservable(() => ({
     index: 1,
     openBottomSheet: false,
@@ -105,10 +127,68 @@ const useHealthStore = () => {
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
 
+    async getItem() {
+      keys.map(item => {
+        getData(item, '').then(res => healthStore.setValues(item, res ?? ''));
+      });
+    },
+
+    setValues(key: string, value: string) {
+      switch (key) {
+        case 'partner':
+          healthStore.partner = value;
+          break;
+        case 'partnerID':
+          healthStore.partnerID = value;
+          break;
+        case 'newPartnerName':
+          healthStore.setNewPartnerName(value);
+          break;
+        case 'newLocation':
+          healthStore.setNewLocation(value);
+          break;
+        case 'newBlock':
+          healthStore.setNewBlock(value);
+          break;
+        case 'newDistrict':
+          healthStore.setNewDistrict(value);
+          break;
+        case 'newState':
+          healthStore.setNewState(value);
+          break;
+        case 'existPartnerName':
+          healthStore.existPartnerName = value;
+          break;
+        case 'existLocation':
+          healthStore.existLocation = value;
+          break;
+        case 'existBlock':
+          healthStore.existBlock = value;
+          break;
+        case 'existDistrict':
+          healthStore.existDistrict = value;
+          break;
+        case 'existState':
+          healthStore.existState = value;
+          break;
+        case 'partnerType':
+          healthStore.partnerType = value;
+          break;
+        case 'partnerTypeID':
+          healthStore.partnerTypeID = value;
+          break;
+        case 'dohc':
+          healthStore.setDOHC(value);
+          break;
+        case 'numberHC':
+          healthStore.setNumberHC(value);
+          break;
+      }
+    },
+
     toogleCalender() {
       healthStore.showCalender = !healthStore.showCalender;
     },
-
     setCalenderID(value: string) {
       healthStore.calenderID = value;
     },
@@ -273,6 +353,9 @@ const useHealthStore = () => {
         if (healthStore.existPartnerName === '') {
           return;
         }
+      }
+      if (healthStore.partnerType === '') {
+        return;
       }
 
       if (healthStore.dohc === '') {
@@ -520,7 +603,8 @@ const useHealthStore = () => {
       });
       try {
         const formData = new FormData();
-        if (this.partner === AppStrings.new) {
+        formData.append('agent_id', authStore.userData.id);
+        if (this.partner === 'New') {
           formData.append(
             AppStrings.HEALTH_CAMP_SCREEN.partner_details,
             JSON.stringify({
@@ -618,6 +702,7 @@ const useHealthStore = () => {
         } else {
           formData.append(AppStrings.HEALTH_CAMP_SCREEN.ifa_small, false);
         }
+
         const responseJson = await request<HealthModal>(
           'post',
           AppStrings.healthCamp,

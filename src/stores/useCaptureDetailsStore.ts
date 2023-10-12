@@ -2,7 +2,7 @@ import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {Image} from 'react-native-image-crop-picker';
 import {AppSVGs} from '../assets';
-import {CaptureModal} from '../models/CaptureModal';
+import {CaptureModal} from '../models';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
@@ -317,6 +317,7 @@ const useCaptureDetailsStore = () => {
       try {
         const formData = new FormData();
 
+        formData.append('agent_id', authStore.userData.id);
         if (this.partner === 'New') {
           formData.append(
             'partner_details',
@@ -353,7 +354,6 @@ const useCaptureDetailsStore = () => {
             name: cdStore.selectedImages[i].path.split('/').pop(),
           });
         }
-
         const responseJson = await request<CaptureModal>(
           'post',
           AppStrings.captureDetails,
