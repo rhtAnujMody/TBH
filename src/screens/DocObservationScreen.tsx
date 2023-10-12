@@ -21,6 +21,7 @@ import Header from '../components/common/Header';
 import {DoctorScreenRouteProp} from '../navigation/DoctorStack';
 import useDoctorStore from '../stores/useDoctorStore';
 import {colors, typography} from '../theme';
+import AppStrings from '../utils/AppStrings';
 type Props = {};
 
 const DocObservationScreen = ({}: Props) => {
@@ -39,7 +40,7 @@ const DocObservationScreen = ({}: Props) => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Health Camp'} />
+            <Header title={AppStrings.healthCampLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardStyle}>
@@ -48,7 +49,7 @@ const DocObservationScreen = ({}: Props) => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable style={styles.container}>
                     <Text style={styles.headingText}>
-                      Doctor's Observation Entry
+                      {AppStrings.HOME_CARDS.observationEntry}
                     </Text>
 
                     {Object.keys(doctorStore.doctorObservation).map(
@@ -65,8 +66,8 @@ const DocObservationScreen = ({}: Props) => {
                     <AppTextInput
                       value={doctorStore.others}
                       parentStyle={styles.textInputStyle}
-                      textHeader="OTHERS"
-                      placeHolder="Others"
+                      textHeader={AppStrings.othersCaps}
+                      placeHolder={AppStrings.others}
                       onChangeText={doctorStore.setOthers}
                     />
 
@@ -76,23 +77,23 @@ const DocObservationScreen = ({}: Props) => {
                       }}
                       parentStyle={styles.textInputStyle}
                       value={doctorStore.hospital}
-                      textHeader="Referred to Hospital/ Medical Care"
-                      placeHolder="Referred to Hospital/ Medical Care"
+                      textHeader={AppStrings.referredHospital}
+                      placeHolder={AppStrings.referredHospital}
                       rightIcon={AppSVGs.dropdown}
                     />
-                    {doctorStore.hospital === 'Yes' && (
+                    {doctorStore.hospital === AppStrings.yes && (
                       <AppTextInput
                         value={doctorStore.action}
                         parentStyle={styles.textInputStyle}
-                        textHeader="Action Suggested"
-                        placeHolder="Action Suggested"
+                        textHeader={AppStrings.actionSuggested}
+                        placeHolder={AppStrings.actionSuggested}
                         onChangeText={doctorStore.setAction}
                       />
                     )}
                   </Pressable>
                 </ScrollView>
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={doctorStore.isLoading}

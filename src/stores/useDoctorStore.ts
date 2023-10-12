@@ -24,8 +24,8 @@ const useDoctorStore = () => {
     enableSubmit: false,
     doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
-      {name: 'Yes', id: '1'},
-      {name: 'No', id: '2'},
+      {name: AppStrings.yes, id: '1'},
+      {name: AppStrings.no, id: '2'},
     ],
     setAction(value: string) {
       doctorStore.action = value;
@@ -35,7 +35,7 @@ const useDoctorStore = () => {
     },
     toggleBottomSheet() {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
-      doctorStore.bottomSheetHeader = 'Referred to Hospital/ Medical Care';
+      doctorStore.bottomSheetHeader = AppStrings.referredHospital;
       doctorStore.bottomSheetArray = doctorStore.hospitalOptions;
     },
     setValue(from: string, value: string, id: string) {
@@ -87,7 +87,7 @@ const useDoctorStore = () => {
         }
         navigation.goBack();
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         Object.keys(doctorStore.doctorObservation).map(itemId => {
           doctorStore.doctorObservation[itemId].map(item => {

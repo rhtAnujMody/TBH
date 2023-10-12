@@ -55,12 +55,7 @@ const useCaptureDetailsStore = () => {
       {name: 'Existing', id: 'existing'},
     ],
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
-    locationList: [
-      {
-        name: 'Ramabai',
-        id: '0',
-      },
-    ],
+
     photoOptions: [
       {name: 'Take a Photo', id: 'camera'},
       {name: 'Upload from Library', id: 'gallery'},
@@ -115,11 +110,6 @@ const useCaptureDetailsStore = () => {
           cdStore.bottomSheetHeader = 'Name of the Partner';
           cdStore.bottomSheetArray = cdStore.partnerNameList;
           break;
-
-        case 'location':
-          cdStore.bottomSheetHeader = 'Location';
-          cdStore.bottomSheetArray = cdStore.locationList;
-          break;
         case 'beneficiaries':
           cdStore.bottomSheetHeader = 'Target beneficiaries';
           cdStore.bottomSheetArray = cdStore.beneficiarisOptions;
@@ -132,14 +122,6 @@ const useCaptureDetailsStore = () => {
           cdStore.bottomSheetHeader = 'Select minute';
           cdStore.bottomSheetArray = cdStore.minuteOptions;
       }
-    },
-
-    toggleLoader() {
-      cdStore.isLoading = !cdStore.isLoading;
-      setTimeout(() => {
-        cdStore.isLoading = !cdStore.isLoading;
-        Utility.showToast('Form submitted successfully.');
-      }, 5000);
     },
 
     togglePhotoBottomSheet() {

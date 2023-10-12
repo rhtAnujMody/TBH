@@ -70,19 +70,15 @@ const useProgramStore = () => {
     showCalender: false,
     selectedImages: [] as Image[],
     partnerTypeOptions: [
-      {name: 'TBR', id: 'T'},
-      {name: 'Bright Start', id: 'B'},
-      {name: 'Anaemia Mukt Bharat', id: 'A'},
+      {name: AppStrings.tbr, id: 'T'},
+      {name: AppStrings.brightStart, id: 'B'},
+      {name: AppStrings.anaemiaMuktBharat, id: 'A'},
     ],
     existingPartnerOptions: Utility.partnerNameLocation(authStore.userData),
-    locationOptions: [
-      {name: 'Hyderabad', id: '1'},
-      {name: 'Bengaluru', id: '2'},
-      {name: 'Mumbai', id: '3'},
-    ],
+
     selectionOptions: [
-      {name: 'Yes', id: true},
-      {name: 'No', id: false},
+      {name: AppStrings.yes, id: true},
+      {name: AppStrings.no, id: false},
     ],
     hourOptions: Array.from({length: 24}, (_, index) => ({
       name: index.toString(),
@@ -93,9 +89,9 @@ const useProgramStore = () => {
       id: index.toString(),
     })),
     breakfastOptions: [
-      {name: 'Morning', id: 'M'},
-      {name: 'Afternoon', id: 'A'},
-      {name: 'Evening', id: 'E'},
+      {name: AppStrings.morning, id: 'M'},
+      {name: AppStrings.afternoon, id: 'A'},
+      {name: AppStrings.evening, id: 'E'},
     ],
 
     toogleCalender() {
@@ -249,55 +245,53 @@ const useProgramStore = () => {
       proStore.openBottomSheet = !proStore.openBottomSheet;
       switch (from) {
         case 'partnerType':
-          proStore.bottomSheetHeader = 'Partner Type';
+          proStore.bottomSheetHeader = AppStrings.partnerTypePlaceHolder;
           proStore.bottomSheetArray = proStore.partnerTypeOptions;
           break;
         case 'existingPartner':
-          proStore.bottomSheetHeader = 'Name and Location of Existing Partner';
+          proStore.bottomSheetHeader =
+            AppStrings.PROGRAM_MONITORING_SCREEN.nameLocExistPartnerPlaceHolder;
           proStore.bottomSheetArray = proStore.existingPartnerOptions;
           break;
-        case 'location':
-          proStore.bottomSheetHeader = 'Location';
-          proStore.bottomSheetArray = proStore.locationOptions;
-          break;
         case 'hour':
-          proStore.bottomSheetHeader = 'Select hour';
+          proStore.bottomSheetHeader = AppStrings.selectHour;
           proStore.bottomSheetArray = proStore.hourOptions;
           break;
         case 'minute':
-          proStore.bottomSheetHeader = 'Select minute';
+          proStore.bottomSheetHeader = AppStrings.selectMinute;
           proStore.bottomSheetArray = proStore.minuteOptions;
           break;
         case 'activitySheet':
           proStore.bottomSheetHeader =
-            'Have the children completed the activity sheet for this month?';
+            AppStrings.PROGRAM_MONITORING_SCREEN.activitySheetCompleted;
           proStore.bottomSheetArray = proStore.selectionOptions;
           break;
         case 'poshanCalendar':
           proStore.bottomSheetHeader =
-            'Are the teachers/social workers completing the Poshan Calendar properly?';
+            AppStrings.PROGRAM_MONITORING_SCREEN.poshanCalendarCompleted;
           proStore.bottomSheetArray = proStore.selectionOptions;
           break;
         case 'storedFoodSafely':
           proStore.bottomSheetHeader =
-            'Has the partner stored the food safely?';
+            AppStrings.PROGRAM_MONITORING_SCREEN.storedFoodSafely;
           proStore.bottomSheetArray = proStore.selectionOptions;
           break;
         case 'breakfastServedDaily':
-          proStore.bottomSheetHeader = 'Is the breakfast being served daily?';
+          proStore.bottomSheetHeader =
+            AppStrings.PROGRAM_MONITORING_SCREEN.breakfastServed;
           proStore.bottomSheetArray = proStore.selectionOptions;
           break;
         case 'whenBreakfast':
           proStore.bottomSheetHeader =
-            'When is breakfast usually served? (observed by Decimal staff)';
+            AppStrings.PROGRAM_MONITORING_SCREEN.whenBreakfastServed;
           proStore.bottomSheetArray = proStore.breakfastOptions;
           break;
         case 'volunteerHour':
-          proStore.bottomSheetHeader = 'Select hour:';
+          proStore.bottomSheetHeader = AppStrings.selectHourCol;
           proStore.bottomSheetArray = proStore.hourOptions;
           break;
         case 'volunteerMinute':
-          proStore.bottomSheetHeader = 'Select minute:';
+          proStore.bottomSheetHeader = AppStrings.selectMinuteCol;
           proStore.bottomSheetArray = proStore.minuteOptions;
           break;
       }
@@ -305,12 +299,13 @@ const useProgramStore = () => {
     setValue(from: string, value: string, id: string) {
       proStore.openBottomSheet = !proStore.openBottomSheet;
       switch (from) {
-        case 'Partner Type':
+        case AppStrings.partnerTypePlaceHolder:
           proStore.partnerType = value;
           proStore.partnerTypeID = id;
           proStore.validateSubmit();
           break;
-        case 'Name and Location of Existing Partner':
+        case AppStrings.PROGRAM_MONITORING_SCREEN
+          .nameLocExistPartnerPlaceHolder:
           const res = value.split(',');
           proStore.existingPartner = res[0];
           proStore.existLocation = res[1];
@@ -320,44 +315,44 @@ const useProgramStore = () => {
           proStore.existingPartnerID = id;
           proStore.validateSubmit();
           break;
-        case 'Select hour':
+        case AppStrings.selectHour:
           proStore.hour = value;
           proStore.validateSubmit();
           break;
-        case 'Select minute':
+        case AppStrings.selectMinute:
           proStore.minute = value;
           proStore.validateSubmit();
           break;
-        case 'Have the children completed the activity sheet for this month?':
+        case AppStrings.PROGRAM_MONITORING_SCREEN.activitySheetCompleted:
           proStore.activitySheetCompleted = value;
           proStore.activitySheetCompletedID = id;
           proStore.validateSubmit();
           break;
-        case 'Are the teachers/social workers completing the Poshan Calendar properly?':
+        case AppStrings.PROGRAM_MONITORING_SCREEN.poshanCalendarCompleted:
           proStore.poshanCalenderCompleted = value;
           proStore.poshanCalenderCompletedID = id;
           proStore.validateSubmit();
           break;
-        case 'Has the partner stored the food safely?':
+        case AppStrings.PROGRAM_MONITORING_SCREEN.storedFoodSafely:
           proStore.storedFoodSafely = value;
           proStore.storedFoodSafelyID = id;
           proStore.validateSubmit();
           break;
-        case 'Is the breakfast being served daily?':
+        case AppStrings.PROGRAM_MONITORING_SCREEN.breakfastServed:
           proStore.breakfastServedDaily = value;
           proStore.breakfastServedDailyID = id;
           proStore.validateSubmit();
           break;
-        case 'When is breakfast usually served? (observed by Decimal staff)':
+        case AppStrings.PROGRAM_MONITORING_SCREEN.whenBreakfastServed:
           proStore.whenBreakfast = value;
           proStore.whenBreakfastID = id;
           proStore.validateSubmit();
           break;
-        case 'Select hour:':
+        case AppStrings.selectHourCol:
           proStore.volunteerHour = value;
           proStore.validateSubmit();
           break;
-        case 'Select minute:':
+        case AppStrings.selectMinuteCol:
           proStore.volunteerMinute = value;
           proStore.validateSubmit();
           break;
@@ -579,7 +574,7 @@ const useProgramStore = () => {
         }
         navigation.goBack();
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
           proStore.isLoading = false;

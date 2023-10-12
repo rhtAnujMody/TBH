@@ -103,7 +103,7 @@ const useSignUpStore = () => {
             auth.setUserData(response.data);
           }
           auth.setIsLogin(true, () => {
-            Utility.showToast('SignUp Success');
+            Utility.showToast(AppStrings.signUpSuccess);
           });
         } else {
           Utility.showToast(response.msg ?? AppStrings.somethingWentWrong);

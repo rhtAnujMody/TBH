@@ -90,7 +90,7 @@ const useGenerateStore = () => {
           }
         }
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {});
       }

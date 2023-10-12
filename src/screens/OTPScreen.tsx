@@ -42,7 +42,7 @@ const OTPScreen = () => {
 
       <View style={styles.textInputContainer}>
         <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>Enter OTP</Text>
+          <Text style={styles.signIn}>{AppStrings.enterOTP}</Text>
           <Text style={styles.signInDesc}>{AppStrings.codeSent + data}</Text>
         </View>
 

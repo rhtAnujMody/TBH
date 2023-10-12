@@ -62,7 +62,7 @@ const useLoginStore = () => {
             auth.setUserData(response.data);
           }
           auth.setIsLogin(true, () => {
-            Utility.showToast('Login Success');
+            Utility.showToast(AppStrings.loginSuccess);
           });
         } else {
           Utility.showToast(response.msg);

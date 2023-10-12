@@ -20,6 +20,7 @@ import {HomeCard} from '../components';
 import {AppSVGs} from '../assets';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CustomReportsStackRootParamList} from '../navigation/CustomReportsStack';
+import AppStrings from '../utils/AppStrings';
 const CustomReportsScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<CustomReportsStackRootParamList>>();
@@ -71,7 +72,7 @@ const CustomReportsScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Generate Report'} />
+            <Header title={AppStrings.generateReportLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwaidStyle}>
@@ -80,7 +81,9 @@ const CustomReportsScreen = () => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable>
                     <View style={styles.container}>
-                      <Text style={styles.headingText}>Custom Reports</Text>
+                      <Text style={styles.headingText}>
+                        {AppStrings.customReports}
+                      </Text>
                       <View style={styles.cardsContainer}>
                         {Utility.customReportsCards.map((data, index) => {
                           return (

@@ -48,11 +48,25 @@ export default {
   logout: 'Logout',
   welcome: 'Welcome',
   reset: 'Reset',
+  loginSuccess: 'Login Success',
+  success: 'Success',
+  signUpSuccess: 'SignUp Success',
 
   resetPassword: 'Reset Password',
   enterNewPassword: 'Please Enter Your New Password',
   newPassword: 'New Password',
   confirmPassword: 'Confirm Password',
+
+  enterOTP: 'Enter OTP',
+  sendOTP: 'Send OTP',
+
+  excelDownloaded: 'Excel File downloaded',
+  selectPartnerLocation: 'Select Partner Name, Location',
+
+  forgotPassword: 'Forgot Password?',
+  resetPasswordEmail:
+    'Please Enter Your Email ID/ Phone Number to Reset Password',
+  emailPhone: 'Email / Phone Number',
 
   SCREENS: {
     calculate: 'Calculate',
@@ -116,6 +130,7 @@ export default {
   male: 'Male',
   female: 'Female',
   others: 'Others',
+  othersCaps: 'OTHERS',
 
   partner: 'partner',
   type: 'type',
@@ -123,6 +138,10 @@ export default {
   maleID: 'M',
   femaleID: 'F',
   othersID: 'O',
+
+  referredHospital: 'Referred to Hospital/ Medical Care',
+
+  customReports: 'Custom Reports',
 
   HEALTH_CAMP_SCREEN: {
     healthCampTitle: 'Enter details related to the Health Camp event',
@@ -237,4 +256,72 @@ export default {
   heightDevelopment: 'Height development / Stunting',
   overallDevelopment: 'Overall Development / Malnutrition Grades',
   weightGain: 'Weight Gain',
+
+  partnerInfo: 'Partner Info',
+  pleaseSelect: 'Please Select',
+  pleaseEnterDetails: 'Please Enter the details',
+
+  yes: 'Yes',
+  no: 'No',
+  morning: 'Morning',
+  afternoon: 'Afternoon',
+  evening: 'Evening',
+  selectHour: 'Select hour',
+  selectMinute: 'Select minute',
+  selectHourCol: 'Select hour:',
+  selectMinuteCol: 'Select minute:',
+
+  actionSuggested: 'Action Suggested',
+
+  PROGRAM_MONITORING_SCREEN: {
+    programTitle: 'Enter details related to the Program Monitoring event',
+    nameLocExistPartner: 'NAME AND LOCATION OF EXISTING PARTNER',
+    nameLocExistPartnerPlaceHolder: 'Name and Location of Existing Partner',
+    dateOfVisitMonitor: 'Date Of Visit for Monitoring',
+    visitingTeamSize: 'Visiting team size (staff/volunteers)',
+    nameDecimalStaffLiaison: 'Name of Decimal Staff liaison for visit',
+    desigDecimalStaffLiaison: 'Designation of Decimal Staff  liaison for visit',
+    namePartnerStaffLiaison: "Name of Partner's Staff liaison for visit",
+    desigPartnerStaffLiaison:
+      "Designation of Partner's Staff liaison for visit",
+    programCompliance: 'Program Compliance',
+    numChildPresent: 'Number of children present on the day of visit',
+    avgAttendance: 'Avg. class/school attendance  for the month',
+    numNewChildEnroll: 'Number of new children enrolled into the program',
+    numChildDroppedOut:
+      'Number of children who have dropped out of the program',
+    numChildSick: 'Number of children who are sick around the day of visit.',
+    whatIllness: 'What is the illness?',
+    numActivitySheetReceived:
+      'Which numbered activity sheet was received this month?',
+    activitySheetCompleted:
+      'Have the children completed the activity sheet for this month?',
+    poshanCalendarCompleted:
+      'Are the teachers/social workers completing the Poshan Calendar properly?',
+    foodSupplyDate: "Date when the month's food supply was received",
+    mealsCarryForward:
+      'Number of meals carried forward from the previous month',
+    numMealsReceived: 'Number of meals received this month',
+    storedFoodSafely: 'Has the partner stored the food safely?',
+    breakfastServed: 'Is the breakfast being served daily?',
+    whenBreakfastServed:
+      'When is breakfast usually served? (observed by Decimal staff)',
+    additionalPoints: 'Additional observations or points discussed',
+    beneficiaryFollowUp: 'Beneficiary Follow Up',
+    feedbackTeacher:
+      'Feedback from a teacher/social worker about highlighted children, program issues, positive feedback',
+    feedbackParents: 'Feedback from parents (if available)',
+    feedbackChildren:
+      'Feedback from the children (food tastes, thoughts, activity sheets etc)',
+    volunteersInfo: 'Volunteers Info',
+    companyName: 'Company name',
+    nameOfVolunteers: 'Name of volunteer(s)',
+    volunteerSessionDuration: 'Duration of the volunteer session',
+    volunteerReason:
+      'Reason/objective for the volunteering session with Decimal',
+    majorLearnings: 'Any major learning(s)  and/or observations ',
+    otherFeedback: 'Any other feedback',
+    durationOfVisit: 'Duration of Visit for',
+    monitoringPhotos: 'Photos for Monitoring',
+  },
 };

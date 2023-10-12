@@ -25,6 +25,7 @@ import useProgramStore from '../stores/useProgramStore';
 import {colors, typography} from '../theme';
 import Utility from '../utils/Utility';
 import AppImageUploadInput from '../components/common/AppImageUploadInput';
+import AppStrings from '../utils/AppStrings';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -75,7 +76,7 @@ const ProgramMonitorScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Program Monitoring'} />
+            <Header title={AppStrings.programMonitoringLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAvoidStyle}>
@@ -84,10 +85,10 @@ const ProgramMonitorScreen = () => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable style={styles.container}>
                     <Text style={styles.headingText}>
-                      Enter details related to the Program Monitoring event
+                      {AppStrings.PROGRAM_MONITORING_SCREEN.programTitle}
                     </Text>
                     <AppToggle
-                      title={'Partner Info'}
+                      title={AppStrings.partnerInfo}
                       children={
                         <>
                           <AppInput
@@ -97,8 +98,8 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.partnerType}
-                            textHeader="PARTNER TYPE"
-                            placeHolder="Please Select"
+                            textHeader={AppStrings.partnerType}
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -109,8 +110,11 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.existingPartner}
-                            textHeader="NAME AND LOCATION OF EXISTING PARTNER"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .nameLocExistPartner
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -118,8 +122,8 @@ const ProgramMonitorScreen = () => {
                             <>
                               <AppTextInput
                                 parentStyle={styles.textInputStyle}
-                                textHeader="LOCATION"
-                                placeHolder="Location"
+                                textHeader={AppStrings.location}
+                                placeHolder={AppStrings.locationPlaceHolder}
                                 value={proStore.existLocation}
                                 //onChangeText={cdStore.setLocation}
                                 editable={false}
@@ -127,24 +131,24 @@ const ProgramMonitorScreen = () => {
 
                               <AppTextInput
                                 parentStyle={styles.textInputStyle}
-                                textHeader="BLOCK"
-                                placeHolder="Block"
+                                textHeader={AppStrings.block}
+                                placeHolder={AppStrings.blockPlaceHolder}
                                 value={proStore.existBlock}
                                 editable={false}
                               />
 
                               <AppTextInput
                                 parentStyle={styles.textInputStyle}
-                                textHeader="District"
-                                placeHolder="District"
+                                textHeader={AppStrings.district}
+                                placeHolder={AppStrings.districtPlaceHolder}
                                 value={proStore.existDistrict}
                                 editable={false}
                               />
 
                               <AppTextInput
                                 parentStyle={styles.textInputStyle}
-                                textHeader="STATE"
-                                placeHolder="State"
+                                textHeader={AppStrings.state}
+                                placeHolder={AppStrings.statePlaceHolder}
                                 value={proStore.existState}
                                 editable={false}
                               />
@@ -153,9 +157,12 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
-                            textHeader="Date Of Visit for Monitoring"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .dateOfVisitMonitor
+                            }
                             rightIcon={AppSVGs.dob}
-                            placeHolder="Please Select"
+                            placeHolder={AppStrings.pleaseSelect}
                             hideInput={true}
                             onPress={() => {
                               showDatePicker('1');
@@ -165,40 +172,55 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Visiting team size (staff/volunteers)"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .visitingTeamSize
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVVTeamSize}
                             value={proStore.vvTeamSize}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Name of Decimal Staff Partner liaison for the visit"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .nameDecimalStaffLiaison
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             value={proStore.liaDNameStaff}
                             onChangeText={proStore.setLiaDNameStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Designation of Decimal Staff Partner liaison for the visit"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .desigDecimalStaffLiaison
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaDDesigStaff}
                             value={proStore.liaDDesigStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Name of Partner's Staff Partner liaison for the visit"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .namePartnerStaffLiaison
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaPNameStaff}
                             value={proStore.liaPNameStaff}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Designation of Partner's Staff Partner liaison for the visit"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .desigPartnerStaffLiaison
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaPDesigStaff}
                             value={proStore.liaPDesigStaff}
                           />
@@ -211,13 +233,18 @@ const ProgramMonitorScreen = () => {
                       dashColor={colors.gray}
                     />
                     <AppToggle
-                      title={'Program Compliance'}
+                      title={
+                        AppStrings.PROGRAM_MONITORING_SCREEN.programCompliance
+                      }
                       children={
                         <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of children present on the day of visit"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .numChildPresent
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNumberOfChildrenDOV}
                             keyboardType="numeric"
                             value={proStore.numberOfChildrenDOV}
@@ -225,8 +252,10 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Avg. class/school attendance  for the month"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN.avgAttendance
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setAvgAttendMonth}
                             keyboardType="numeric"
                             value={proStore.averageAttendMonth}
@@ -234,8 +263,11 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of new children enrolled into the program"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .numNewChildEnroll
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNumNewChildEnroll}
                             keyboardType="numeric"
                             value={proStore.numNewChildEnroll}
@@ -243,8 +275,11 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of children who have dropped out of the program"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .numChildDroppedOut
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNumChildDropped}
                             keyboardType="numeric"
                             value={proStore.numChildDropped}
@@ -252,8 +287,10 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of children who are sick around the day of visit."
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN.numChildSick
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             value={proStore.numChildSick}
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
@@ -261,16 +298,21 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="What is the illness?"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN.whatIllness
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setIllness}
                             value={proStore.illness}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Which numbered activity sheet was received this month?"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .numActivitySheetReceived
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNumberedActivitySheet}
                             value={proStore.numberedActivitySheet}
                           />
@@ -282,8 +324,11 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.activitySheetCompleted}
-                            textHeader="Have the children completed the activity sheet for this month?"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .activitySheetCompleted
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -294,16 +339,22 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.poshanCalenderCompleted}
-                            textHeader="Are the teachers/social workers completing the Poshan Calendar properly?"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .poshanCalendarCompleted
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
                           <AppTextInput
                             parentStyle={styles.dovInputStyle}
-                            textHeader="Date when the month's food supply was received"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .foodSupplyDate
+                            }
                             rightIcon={AppSVGs.dob}
-                            placeHolder="Please Enter the details"
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             hideInput={true}
                             onPress={() => {
                               showDatePicker('2');
@@ -313,8 +364,11 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of meals carried forward from the previous month"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .mealsCarryForward
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNoOfMealsCF}
                             keyboardType="numeric"
                             value={proStore.noOfMealsCF}
@@ -322,8 +376,11 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Number of meals received this month"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .numMealsReceived
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNoOfMealsReceive}
                             keyboardType="numeric"
                             value={proStore.noOfMealsReceive}
@@ -336,8 +393,11 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.storedFoodSafely}
-                            textHeader="Has the partner stored the food safely?"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .storedFoodSafely
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -348,8 +408,11 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.breakfastServedDaily}
-                            textHeader="Is the breakfast being served daily?"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .breakfastServed
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
@@ -360,15 +423,21 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.whenBreakfast}
-                            textHeader="When is breakfast usually served? (observed by Decimal staff)"
-                            placeHolder="Please Select"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .whenBreakfastServed
+                            }
+                            placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Additional observations or points discussed"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .additionalPoints
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setAddObservations}
                             value={proStore.addObservations}
                           />
@@ -381,29 +450,40 @@ const ProgramMonitorScreen = () => {
                       dashColor={colors.gray}
                     />
                     <AppToggle
-                      title={'Beneficiary Follow Up'}
+                      title={
+                        AppStrings.PROGRAM_MONITORING_SCREEN.beneficiaryFollowUp
+                      }
                       children={
                         <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Feedback from a teacher/social worker about highlighted children, program issues, positive feedback"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .feedbackTeacher
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setTeacherFeedback}
                             value={proStore.teacherFeedback}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Feedback from parents (if available)"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .feedbackParents
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setParentFeedback}
                             value={proStore.parentFeedback}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Feedback from the children (food tastes, thoughts, activity sheets etc)"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .feedbackChildren
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setChildFeedback}
                             value={proStore.childFeedback}
                           />
@@ -417,21 +497,28 @@ const ProgramMonitorScreen = () => {
                     />
 
                     <AppToggle
-                      title={'Volunteers Info'}
+                      title={
+                        AppStrings.PROGRAM_MONITORING_SCREEN.volunteersInfo
+                      }
                       children={
                         <>
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Company name"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN.companyName
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setCompanyName}
                             value={proStore.companyName}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Name of volunteer(s)"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .nameOfVolunteers
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
                           />
@@ -439,8 +526,11 @@ const ProgramMonitorScreen = () => {
                           <View style={styles.hourMinContainer}>
                             <View style={styles.hourMinStyle}>
                               <AppInput
-                                textHeader="Duration of the volunteer session"
-                                placeHolder="Hour"
+                                textHeader={
+                                  AppStrings.PROGRAM_MONITORING_SCREEN
+                                    .volunteerSessionDuration
+                                }
+                                placeHolder={AppStrings.hourPlaceHolder}
                                 value={proStore.volunteerHour}
                                 parentStyle={styles.textInputStyle}
                                 onPress={() => {
@@ -453,7 +543,7 @@ const ProgramMonitorScreen = () => {
                             <View style={styles.hourMinStyle}>
                               <AppInput
                                 textHeader={'\n'}
-                                placeHolder="Minute"
+                                placeHolder={AppStrings.minutePlaceHolder}
                                 value={proStore.volunteerMinute}
                                 parentStyle={styles.textInputStyle}
                                 onPress={() => {
@@ -467,24 +557,32 @@ const ProgramMonitorScreen = () => {
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Reason/objective for the volunteering session with Decimal"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .volunteerReason
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVolunteerReason}
                             value={proStore.volunteerReason}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Any major learning(s)  and/or observations "
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN
+                                .majorLearnings
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLearnAndObserve}
                             value={proStore.learnAndObserve}
                           />
 
                           <AppTextInput
                             parentStyle={styles.textInputStyle}
-                            textHeader="Any other feedback"
-                            placeHolder="Please Enter the details"
+                            textHeader={
+                              AppStrings.PROGRAM_MONITORING_SCREEN.otherFeedback
+                            }
+                            placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setOtherFeedback}
                             value={proStore.otherFeedback}
                           />
@@ -500,8 +598,10 @@ const ProgramMonitorScreen = () => {
                     <View style={styles.hourMinContainer}>
                       <View style={styles.hourMinStyle}>
                         <AppInput
-                          textHeader="Duration of Visit for"
-                          placeHolder="Hour"
+                          textHeader={
+                            AppStrings.PROGRAM_MONITORING_SCREEN.durationOfVisit
+                          }
+                          placeHolder={AppStrings.hourPlaceHolder}
                           value={proStore.hour}
                           parentStyle={styles.textInputStyle}
                           onPress={() => {
@@ -514,7 +614,7 @@ const ProgramMonitorScreen = () => {
                       <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader=" "
-                          placeHolder="Minute"
+                          placeHolder={AppStrings.minutePlaceHolder}
                           value={proStore.minute}
                           parentStyle={styles.textInputStyle}
                           onPress={() => {
@@ -532,7 +632,9 @@ const ProgramMonitorScreen = () => {
                     />
 
                     <AppImageUploadInput
-                      title={'Photos for Monitoring'}
+                      title={
+                        AppStrings.PROGRAM_MONITORING_SCREEN.monitoringPhotos
+                      }
                       selectedImages={selectedImages}
                       onPress={proStore.togglePhotoBottomSheet}
                       removeImage={removeImage}
@@ -541,7 +643,7 @@ const ProgramMonitorScreen = () => {
                 </ScrollView>
 
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={proStore.isLoading}
@@ -587,7 +689,7 @@ const ProgramMonitorScreen = () => {
             ref={bottomSheetRef}>
             <View>
               <View style={styles.headerContainer}>
-                <Text style={styles.headerStyle}>Upload Photo</Text>
+                <Text style={styles.headerStyle}>{AppStrings.uploadPhoto}</Text>
                 <TouchableOpacity onPress={proStore.togglePhotoBottomSheet}>
                   <AppSVGs.close />
                 </TouchableOpacity>
@@ -597,14 +699,14 @@ const ProgramMonitorScreen = () => {
                 onPress={() => {
                   handleImagePicker(1);
                 }}>
-                <Text>Take a Photo</Text>
+                <Text>{AppStrings.takePhoto}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
                 onPress={() => {
                   handleImagePicker(2);
                 }}>
-                <Text>Upload from Library</Text>
+                <Text>{AppStrings.uploadLibrary}</Text>
               </TouchableOpacity>
             </View>
           </AppBottomSheet>

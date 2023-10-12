@@ -7,6 +7,7 @@ import {useKeyboard} from '../custom_hooks';
 import {colors, typography} from '../theme';
 import {useForgotPasswordStore} from '../stores';
 import React = require('react');
+import AppStrings from '../utils/AppStrings';
 
 const ForgotPassword = () => {
   const emailRef = useRef<TextInput>(null);
@@ -18,7 +19,7 @@ const ForgotPassword = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Send OTP"
+        title={AppStrings.sendOTP}
         isLoading={forgotStore.isLoading}
         onPress={forgotStore.handleSubmit}
         enabled={forgotStore.isButtonEnabled}
@@ -37,14 +38,12 @@ const ForgotPassword = () => {
 
       <View style={styles.textInputContainer}>
         <View style={styles.signInHeaderContainer}>
-          <Text style={styles.signIn}>Forgot Password?</Text>
-          <Text style={styles.signInDesc}>
-            Please Enter Your Email ID/ Phone Number to Reset Password
-          </Text>
+          <Text style={styles.signIn}>{AppStrings.forgotPassword}</Text>
+          <Text style={styles.signInDesc}>{AppStrings.resetPasswordEmail}</Text>
         </View>
         <AppTextInput
           icon={AppSVGs.name}
-          placeHolder="Email / Phone Number"
+          placeHolder={AppStrings.emailPhone}
           returnKeyType="next"
           inputRef={emailRef}
           onChangeText={forgotStore.setPhoneNumber}
