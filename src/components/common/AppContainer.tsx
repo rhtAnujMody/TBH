@@ -2,11 +2,13 @@ import React from 'react';
 import {
   Keyboard,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
+import {colors} from '../../theme';
 
 type Props = {
   children: React.ReactNode;
@@ -19,6 +21,7 @@ const AppContainer = ({children, style}: Props) => {
   };
   return (
     <SafeAreaView style={[styles.container, style]}>
+      <StatusBar backgroundColor={colors.palette.primary} />
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.container}>{children}</View>
       </TouchableWithoutFeedback>
