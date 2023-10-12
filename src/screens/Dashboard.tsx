@@ -1,21 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 import {AppSVGs} from '../assets';
-import {
-  HomeCard,
-  AppContainer,
-  ObservableChild,
-  AppUserDelete,
-} from '../components';
+import {AppContainer, HomeCard, ObservableChild} from '../components';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
@@ -216,10 +204,10 @@ const Dashboard = () => {
                     );
                   })}
                 </View>
-                <Text style={styles.title}>Manage Users</Text>
+                <Text style={styles.title}>{AppStrings.manageUsersLabel}</Text>
                 <View style={styles.cardsContainer}>
                   <HomeCard
-                    title={'Manage Users'}
+                    title={AppStrings.manageUsersLabel}
                     icon={AppSVGs.user}
                     onPress={() => navigateToCard(12)}
                   />

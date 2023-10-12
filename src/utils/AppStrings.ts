@@ -47,6 +47,7 @@ export default {
   loginSignUp: 'Sign Up',
   loginAccountLabel: "Don't have an account yet?",
   loginTitle: 'Provide your Login Credentials to Sign In to the Application',
+
   signUpTitle:
     'New to Decimal Foundation! Please Provide Details to Register Yourself',
   signUpRegister: 'Register',
@@ -56,6 +57,7 @@ export default {
   alreadyHaveAccount: 'Already have account?',
   signIn: 'Sign In',
   logout: 'Logout',
+
   welcome: 'Welcome',
   reset: 'Reset',
   loginSuccess: 'Login Success',
@@ -66,21 +68,14 @@ export default {
   enterNewPassword: 'Please Enter Your New Password',
   newPassword: 'New Password',
   confirmPassword: 'Confirm Password',
-
   enterOTP: 'Enter OTP',
   sendOTP: 'Send OTP',
-
-  excelDownloaded: 'Excel File downloaded',
-  selectPartnerLocation: 'Select Partner Name, Location',
-
   forgotPassword: 'Forgot Password?',
   resetPasswordEmail:
     'Please Enter Your Email ID/ Phone Number to Reset Password',
   emailPhone: 'Email / Phone Number',
-
-  SCREENS: {
-    calculate: 'Calculate',
-  },
+  welcomeDecimal: 'Welcome to \nDecimal Foundation',
+  codeSent: 'A 4 digit code has been sent to\n',
 
   HOME_CARDS: {
     dataCapture: 'Proceed For Data Capture',
@@ -96,15 +91,44 @@ export default {
     nutritionEducation: 'Nutrition Education Report',
     monitoring: 'Monitoring Report',
   },
+
+  childName: 'Name of the Child',
+  dob: 'Date of Birth',
+  contact: 'Contact Number',
+
   healthCampLabel: 'Health Camp',
   nutritionEducationLabel: 'Nutrition Education',
   programMonitoringLabel: 'Program Monitoring',
   generateReportLabel: 'Generate Report',
+  manageUsersLabel: 'Manage Users',
+
+  doctorsObservation: "Doctor's Observation Entry",
+  calculatedValues: 'Calculated Field Values',
+  customReports: 'Custom Reports',
+
+  male: 'Male',
+  female: 'Female',
+  others: 'Others',
+  othersCaps: 'OTHERS',
+
+  referredHospital: 'Referred to Hospital/ Medical Care',
+
+  submit: 'Submit',
+  uploadPhoto: 'Upload Photo',
+  takePhoto: 'Take a Photo',
+  uploadLibrary: 'Upload from Library',
+  uploadPhotoCaps: 'UPLOAD PHOTO',
+
+  yes: 'Yes',
+  no: 'No',
+  new: 'New',
+  newID: 'new',
+  existing: 'Existing',
+  existingID: 'existing',
 
   newExistingPartner: 'IS THIS A NEW / EXISTING PARTNER',
   newExistingPartnerPlaceHolder: 'Is this a New / Existing Partner',
-  new: 'New',
-  newID: 'new',
+
   partnerName: 'NAME OF THE PARTNER',
   partnerNamePlaceHolder: 'Name of the partner',
   location: 'LOCATION',
@@ -116,42 +140,21 @@ export default {
   state: 'STATE',
   statePlaceHolder: 'State',
 
-  existing: 'Existing',
-  existingID: 'existing',
-
   decimalFoundation: 'Decimal Foundation',
   government: 'Government',
-
-  D: 'D',
-  G: 'G',
 
   tbr: 'TBR',
   brightStart: 'Bright Start',
   anaemiaMuktBharat: 'Anaemia Mukt Bharat',
 
-  submit: 'Submit',
-  uploadPhoto: 'Upload Photo',
-  takePhoto: 'Take a Photo',
-  uploadLibrary: 'Upload from Library',
-
   partnerType: 'PARTNER TYPE',
   partnerTypePlaceHolder: 'Partner Type',
 
-  male: 'Male',
-  female: 'Female',
-  others: 'Others',
-  othersCaps: 'OTHERS',
+  excelDownloaded: 'Excel File downloaded',
+  selectPartnerLocation: 'Select Partner Name, Location',
 
   partner: 'partner',
   type: 'type',
-
-  maleID: 'M',
-  femaleID: 'F',
-  othersID: 'O',
-
-  referredHospital: 'Referred to Hospital/ Medical Care',
-
-  customReports: 'Custom Reports',
 
   HEALTH_CAMP_SCREEN: {
     healthCampTitle: 'Enter details related to the Health Camp event',
@@ -162,8 +165,6 @@ export default {
     childDetails: "Child's Details",
     childsName: "Child's Name",
     childsPhoto: "Child's Photo",
-    contactNumber: 'Contact Number',
-    dob: 'Date of Birth',
     age: 'Age (IN MONTHS)',
     gender: 'Gender',
     height: 'Height',
@@ -183,17 +184,6 @@ export default {
     ifa: 'IFA',
     targetBeneficiary: 'Target Beneficiary',
     educationalDetails: 'Educational Details',
-
-    partner_details: 'partner_details',
-    health_camp_date: 'health_camp_date',
-    serial_no: 'serial_no',
-    child_info: 'child_info',
-    child_details: 'child_details',
-    vitamin_A_details: 'vitamin_A_details',
-    deworming_details: 'deworming_details',
-    ifa_details: 'ifa_details',
-    ifa_small: 'ifa',
-    vitamin_A: 'vitamin_A',
 
     bottomSheet: {
       partner: 'partner',
@@ -215,16 +205,9 @@ export default {
     },
   },
 
-  doctorsObservation: "Doctor's Observation Entry",
-  calculatedValues: 'Calculated Field Values',
-  childName: 'NAME OF THE CHILD',
-  childNamePlaceHolder: 'Name of the child',
-  contact: 'CONTACT NUMBER',
   selectChild: 'Select Child',
   hourPlaceHolder: 'Hour',
   minutePlaceHolder: 'Minute',
-
-  uploadPhotoCaps: 'UPLOAD PHOTO',
 
   NUTRITION_EDUCATION_SCREEN: {
     nutritionTitle: 'Enter details related to the Nutrition Education event',
@@ -253,10 +236,6 @@ export default {
   partnerNameLocation: 'Partner Name, Location',
   minDate: '2014-01-01',
 
-  welcomeDecimal: 'Welcome to \nDecimal Foundation',
-
-  codeSent: 'A 4 digit code has been sent to\n',
-
   receivedVitaminA: 'Received Vitamin A Dose?',
   receivedDeworming: 'Received De-worming Dose?',
   receivedIFA: 'Received IFA Dose?',
@@ -271,8 +250,6 @@ export default {
   pleaseSelect: 'Please Select',
   pleaseEnterDetails: 'Please Enter the details',
 
-  yes: 'Yes',
-  no: 'No',
   morning: 'Morning',
   afternoon: 'Afternoon',
   evening: 'Evening',

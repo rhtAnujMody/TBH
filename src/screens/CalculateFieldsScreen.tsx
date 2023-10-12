@@ -65,15 +65,15 @@ const CalculateFieldsScreen = ({}: Props) => {
                       value={calStore.childName}
                       parentStyle={styles.textInputStyle}
                       textHeader={AppStrings.childName}
-                      placeHolder={AppStrings.childNamePlaceHolder}
+                      placeHolder={AppStrings.childName}
                       onChangeText={calStore.setChildame}
                     />
 
                     <AppTextInput
                       parentStyle={styles.dovInputStyle}
-                      textHeader={AppStrings.HEALTH_CAMP_SCREEN.dob}
+                      textHeader={AppStrings.dob}
                       rightIcon={AppSVGs.dob}
-                      placeHolder={AppStrings.HEALTH_CAMP_SCREEN.dob}
+                      placeHolder={AppStrings.dob}
                       hideInput={true}
                       onPress={toogleDatePicker}
                       otherText={calStore.dob}
@@ -83,7 +83,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                       value={calStore.contact}
                       parentStyle={styles.textInputStyle}
                       textHeader={AppStrings.contact}
-                      placeHolder={AppStrings.HEALTH_CAMP_SCREEN.contactNumber}
+                      placeHolder={AppStrings.contact}
                       onChangeText={calStore.setContact}
                       keyboardType="numeric"
                       maxLength={10}

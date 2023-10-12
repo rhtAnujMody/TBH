@@ -11,22 +11,21 @@ import {
   View,
 } from 'react-native';
 import {
-  AppButton,
-  AppContainer,
-  AppTextInput,
-  DoctorRow,
   AppBottomSheet,
   AppBottomSheetDropdown,
+  AppButton,
+  AppContainer,
   AppInput,
+  AppTextInput,
+  DoctorRow,
   Header,
 } from '../components';
 
 import {AppSVGs} from '../assets';
 import {DoctorScreenRouteProp} from '../navigation/DoctorStack';
-import {colors, typography} from '../theme';
-import AppStrings from '../utils/AppStrings';
 import {useDoctorStore} from '../stores';
 import {styles} from '../styles/formStyles';
+import AppStrings from '../utils/AppStrings';
 type Props = {};
 
 const DocObservationScreen = ({}: Props) => {
