@@ -14,6 +14,7 @@ import otp from './otp';
 import dustbin from './dustbin';
 import user from './user';
 import search from './search';
+import phone from './phone';
 
 export default {
   logo,
@@ -30,6 +31,7 @@ export default {
   dustbin,
   user,
   search,
+  phone,
   ...login,
   ...home,
 };
