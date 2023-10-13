@@ -9,6 +9,7 @@ import {
 import {AppSVGs} from '../../assets';
 import {FlatList} from 'react-native-gesture-handler';
 import {colors, typography} from '../../theme';
+import AppStrings from '../../utils/AppStrings';
 
 type Array = {
   name: string;
@@ -41,17 +42,21 @@ const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
         style={styles.itemContainer}>
         <>
           <View style={styles.cellStyle}>
-            <Text style={styles.textHeading}>{'Name'}</Text>
+            <Text style={styles.textHeading}>
+              {AppStrings.signUpNamePlaceholder}
+            </Text>
             <Text>:</Text>
             <Text style={styles.textResult}>{item.name}</Text>
           </View>
           <View style={styles.cellStyle}>
-            <Text style={styles.textHeading}>{'DOB'}</Text>
+            <Text style={styles.textHeading}>{AppStrings.dobCaps}</Text>
             <Text>:</Text>
             <Text style={styles.textResult}>{item.dob}</Text>
           </View>
           <View style={styles.cellStyle}>
-            <Text style={styles.textHeading}>{'Gender'}</Text>
+            <Text style={styles.textHeading}>
+              {AppStrings.HEALTH_CAMP_SCREEN.gender}
+            </Text>
             <Text>:</Text>
             <Text style={styles.textResult}>{item.gender}</Text>
           </View>

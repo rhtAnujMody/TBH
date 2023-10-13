@@ -40,6 +40,14 @@ export default {
   allFieldsMandatory: 'All fields are mandatory',
   invalidPassword: 'Password should be minimum 6 characters long',
   somethingWentWrong: 'Something Went Wrong',
+  asyncRetrieveError: 'Error retrieving data from AsyncStorage:',
+  asyncSaveError: 'Error saving data to AsyncStorage:',
+  selectImagesError: 'Error selecting images:',
+  maxImagesError: 'You cannot select more than 5 images',
+  canUseCamera: 'You can use the camera',
+  cameraPermission: 'Camera permission denied',
+  permissionError: 'permission error',
+  errorOccured: 'An error occurred',
 
   loginEmailPlaceholder: 'Email Id',
   loginPasswordPlaceholder: 'Password',
@@ -92,9 +100,19 @@ export default {
     monitoring: 'Monitoring Report',
   },
 
+  CUSTOM_REPORTS_CARDS: {
+    historicalData: 'Historical Data Report',
+    malnutritionReport: 'Recovered From Malnutrition Report',
+    vitaminAReport: 'Received Vitamin A Report',
+    dewormingReport: 'Received Deworming Report',
+    ifaReport: 'Received IFA Report',
+    mealsReport: 'Meals Received for Program Monitoring Report',
+  },
+
   childName: 'Name of the Child',
   dob: 'Date of Birth',
   contact: 'Contact Number',
+  dobCaps: 'DOB',
 
   healthCampLabel: 'Health Camp',
   nutritionEducationLabel: 'Nutrition Education',
@@ -118,6 +136,11 @@ export default {
   takePhoto: 'Take a Photo',
   uploadLibrary: 'Upload from Library',
   uploadPhotoCaps: 'UPLOAD PHOTO',
+  maxPhotos:
+    '(User can upload up to maximum 5 photos and in .jpg / .jpeg / .png formats)',
+
+  delete: 'Delete',
+  sureDelete: 'Are you sure you want to delete this user?',
 
   yes: 'Yes',
   no: 'No',

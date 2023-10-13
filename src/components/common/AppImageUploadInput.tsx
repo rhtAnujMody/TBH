@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../../assets';
 import {colors, typography} from '../../theme';
+import AppStrings from '../../utils/AppStrings';
 
 type ImageProps = {
   path: string;
@@ -25,15 +26,12 @@ const AppImageUploadInput = ({
   return (
     <View style={styles.container}>
       <Text style={styles.textHeader}>{title}</Text>
-      <Text style={styles.textHeader}>
-        (User can upload up to maximum 5 photos and in .jpg / .jpeg / .png
-        formats)
-      </Text>
+      <Text style={styles.textHeader}>{AppStrings.maxPhotos}</Text>
       {showUploadInput && (
         <View style={styles.inputContainer}>
           <Pressable style={styles.innerContainer} onPress={onPress}>
             <AppSVGs.uploadImage style={styles.icon} />
-            <Text style={styles.iconText}>Upload Photo</Text>
+            <Text style={styles.iconText}>{AppStrings.uploadPhoto}</Text>
           </Pressable>
         </View>
       )}
