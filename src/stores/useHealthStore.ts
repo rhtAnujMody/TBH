@@ -470,61 +470,61 @@ const useHealthStore = () => {
     toggleBottomSheet(from?: string) {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
       switch (from) {
-        case AppStrings.partner:
+        case 'partner':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader;
           healthStore.bottomSheetArray = healthStore.partnerOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerName:
+        case 'partnerName':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerNameHeader;
           healthStore.bottomSheetArray = healthStore.partnerNameList;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerType:
+        case 'partnerType':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerTypeHeader;
           healthStore.bottomSheetArray = healthStore.partnerTypeOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.vitaminA:
+        case 'vitaminA':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.vitaminA;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneBy:
+        case 'doneBy':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.doneByWhom;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByWorm:
+        case 'doneByWorm':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByWormHeader;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByIFA:
+        case 'doneByIFA':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByIFAHeader;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.deworming:
+        case 'deworming':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.deworming;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.targetBeneficiary:
+        case 'targetBeneficiary':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.educationalDetails:
+        case 'educationalDetails':
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.educationalDetails;
           healthStore.bottomSheetArray = healthStore.educationalDetailsOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.ifa:
+        case 'IFA':
           healthStore.bottomSheetHeader = AppStrings.HEALTH_CAMP_SCREEN.ifa;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
-        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.gender:
+        case 'gender':
           healthStore.bottomSheetHeader = AppStrings.HEALTH_CAMP_SCREEN.gender;
           healthStore.bottomSheetArray = healthStore.genderOptions;
           break;
