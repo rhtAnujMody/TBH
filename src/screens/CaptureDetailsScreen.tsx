@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import {AppSVGs} from '../assets';
@@ -25,6 +24,7 @@ import {
   AppInput,
   AppToggle,
   Header,
+  AppDashedLine,
 } from '../components';
 import {useCamera} from '../custom_hooks';
 import {authStore} from '../stores';
@@ -214,11 +214,7 @@ const CaptureDetailsScreen = () => {
                         }
                       />
 
-                      <DashedLine
-                        dashLength={5}
-                        dashThickness={0.7}
-                        dashColor={colors.gray}
-                      />
+                      <AppDashedLine />
 
                       <AppToggle
                         title={'Program Details'}

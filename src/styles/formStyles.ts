@@ -77,4 +77,10 @@ export const styles = StyleSheet.create({
   },
   adminMarginBotton: {marginBottom: 100},
   adminSearch: {backgroundColor: '#eeeeee'},
+  dashedLineMargin: {marginVertical: 10},
+  volunteerTitle: {
+    ...typography.medium(12),
+    marginBottom: -15,
+  },
+  hourMinContainer: {marginRight: 5, flex: 1},
 });

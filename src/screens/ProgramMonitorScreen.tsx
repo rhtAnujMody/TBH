@@ -11,26 +11,26 @@ import {
   View,
 } from 'react-native';
 import {
-  AppButton,
-  AppContainer,
-  AppTextInput,
   AppBottomSheet,
   AppBottomSheetDropdown,
+  AppButton,
+  AppContainer,
+  AppDashedLine,
+  AppImageUploadInput,
   AppInput,
+  AppTextInput,
   AppToggle,
   Header,
-  AppImageUploadInput,
 } from '../components';
 
-import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import {AppSVGs} from '../assets';
 import {useCamera} from '../custom_hooks';
 import useProgramStore from '../stores/useProgramStore';
-import {colors} from '../theme';
-import Utility from '../utils/Utility';
-import {AppSVGs} from '../assets';
 import {styles} from '../styles/formStyles';
+import {typography} from '../theme';
+import Utility from '../utils/Utility';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -211,11 +211,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
                     <AppToggle
                       title={'Program Compliance'}
                       children={
@@ -381,11 +377,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
                     <AppToggle
                       title={'Beneficiary Follow Up'}
                       children={
@@ -416,11 +408,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
 
                     <AppToggle
                       title={'Volunteers Info'}
@@ -441,11 +429,12 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
                           />
-
+                          <Text style={styles.volunteerTitle}>
+                            Duration of the volunteer session
+                          </Text>
                           <View style={styles.hourContainer}>
-                            <View style={styles.hourMinStyle}>
+                            <View style={styles.hourMinContainer}>
                               <AppInput
-                                textHeader="Duration of the volunteer session"
                                 placeHolder="Hour"
                                 value={proStore.volunteerHour}
                                 parentStyle={styles.textInputStyle}
@@ -456,19 +445,16 @@ const ProgramMonitorScreen = () => {
                                 rightIcon={AppSVGs.dropdown}
                               />
                             </View>
-                            <View style={styles.hourMinStyle}>
-                              <AppInput
-                                textHeader={'\n'}
-                                placeHolder="Minute"
-                                value={proStore.volunteerMinute}
-                                parentStyle={styles.textInputStyle}
-                                onPress={() => {
-                                  handleBottomSheetClick('volunteerMinute');
-                                  handleIndex(3);
-                                }}
-                                rightIcon={AppSVGs.dropdown}
-                              />
-                            </View>
+                            <AppInput
+                              placeHolder="Minute"
+                              value={proStore.volunteerMinute}
+                              parentStyle={styles.textInputStyle}
+                              onPress={() => {
+                                handleBottomSheetClick('volunteerMinute');
+                                handleIndex(3);
+                              }}
+                              rightIcon={AppSVGs.dropdown}
+                            />
                           </View>
 
                           <AppTextInput
@@ -497,13 +483,10 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
 
-                    <View style={styles.hourContainer}>
+                    <View
+                      style={[styles.hourContainer, styles.dashedLineMargin]}>
                       <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader="Duration of Visit for"
@@ -531,17 +514,13 @@ const ProgramMonitorScreen = () => {
                         />
                       </View>
                     </View>
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
-
+                    <AppDashedLine />
                     <AppImageUploadInput
                       title={'Photos for Monitoring'}
                       selectedImages={selectedImages}
                       onPress={proStore.togglePhotoBottomSheet}
                       removeImage={removeImage}
+                      style={styles.dashedLineMargin}
                     />
                   </Pressable>
                 </ScrollView>
