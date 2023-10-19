@@ -1,5 +1,12 @@
 import React from 'react';
-import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {AppSVGs} from '../../assets';
 import {colors, typography} from '../../theme';
 import AppStrings from '../../utils/AppStrings';
@@ -13,6 +20,7 @@ type Props = {
   onPress: () => void;
   removeImage: (index: number) => void;
   title: string;
+  style?: ViewStyle;
 };
 
 const AppImageUploadInput = ({
@@ -20,11 +28,12 @@ const AppImageUploadInput = ({
   onPress,
   selectedImages,
   removeImage,
+  style,
 }: Props) => {
   const showUploadInput = selectedImages.length < 5;
   //UPLOAD PHOTO
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Text style={styles.textHeader}>{title}</Text>
       <Text style={styles.textHeader}>{AppStrings.maxPhotos}</Text>
       {showUploadInput && (

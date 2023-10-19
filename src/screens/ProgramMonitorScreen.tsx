@@ -11,27 +11,26 @@ import {
   View,
 } from 'react-native';
 import {
-  AppButton,
-  AppContainer,
-  AppTextInput,
   AppBottomSheet,
   AppBottomSheetDropdown,
+  AppButton,
+  AppContainer,
+  AppDashedLine,
+  AppImageUploadInput,
   AppInput,
+  AppTextInput,
   AppToggle,
   Header,
-  AppImageUploadInput,
 } from '../components';
 
-import DashedLine from 'react-native-dashed-line';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import {useCamera} from '../custom_hooks';
-import useProgramStore from '../stores/useProgramStore';
-import {colors} from '../theme';
-import Utility from '../utils/Utility';
-import AppStrings from '../utils/AppStrings';
 import {AppSVGs} from '../assets';
+import {useCamera} from '../custom_hooks';
+import {useProgramStore} from '../stores';
 import {styles} from '../styles/formStyles';
+import AppStrings from '../utils/AppStrings';
+import Utility from '../utils/Utility';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
@@ -233,11 +232,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
                     <AppToggle
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.programCompliance
@@ -450,11 +445,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
                     <AppToggle
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.beneficiaryFollowUp
@@ -496,11 +487,7 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
 
                     <AppToggle
                       title={
@@ -528,15 +515,13 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
                           />
-
+                          <Text style={styles.volunteerTitle}>
+                            Duration of the volunteer session
+                          </Text>
                           <View style={styles.hourContainer}>
-                            <View style={styles.hourMinStyle}>
+                            <View style={styles.hourMinContainer}>
                               <AppInput
-                                textHeader={
-                                  AppStrings.PROGRAM_MONITORING_SCREEN
-                                    .volunteerSessionDuration
-                                }
-                                placeHolder={AppStrings.hourPlaceHolder}
+                                placeHolder="Hour"
                                 value={proStore.volunteerHour}
                                 parentStyle={styles.textInputStyle}
                                 onPress={() => {
@@ -546,19 +531,16 @@ const ProgramMonitorScreen = () => {
                                 rightIcon={AppSVGs.dropdown}
                               />
                             </View>
-                            <View style={styles.hourMinStyle}>
-                              <AppInput
-                                textHeader={'\n'}
-                                placeHolder={AppStrings.minutePlaceHolder}
-                                value={proStore.volunteerMinute}
-                                parentStyle={styles.textInputStyle}
-                                onPress={() => {
-                                  handleBottomSheetClick('volunteerMinute');
-                                  handleIndex(3);
-                                }}
-                                rightIcon={AppSVGs.dropdown}
-                              />
-                            </View>
+                            <AppInput
+                              placeHolder="Minute"
+                              value={proStore.volunteerMinute}
+                              parentStyle={styles.textInputStyle}
+                              onPress={() => {
+                                handleBottomSheetClick('volunteerMinute');
+                                handleIndex(3);
+                              }}
+                              rightIcon={AppSVGs.dropdown}
+                            />
                           </View>
 
                           <AppTextInput
@@ -595,13 +577,10 @@ const ProgramMonitorScreen = () => {
                         </>
                       }
                     />
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
+                    <AppDashedLine />
 
-                    <View style={styles.hourContainer}>
+                    <View
+                      style={[styles.hourContainer, styles.dashedLineMargin]}>
                       <View style={styles.hourMinStyle}>
                         <AppInput
                           textHeader={
@@ -631,12 +610,7 @@ const ProgramMonitorScreen = () => {
                         />
                       </View>
                     </View>
-                    <DashedLine
-                      dashLength={5}
-                      dashThickness={0.7}
-                      dashColor={colors.gray}
-                    />
-
+                    <AppDashedLine />
                     <AppImageUploadInput
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.monitoringPhotos
@@ -644,6 +618,7 @@ const ProgramMonitorScreen = () => {
                       selectedImages={selectedImages}
                       onPress={proStore.togglePhotoBottomSheet}
                       removeImage={removeImage}
+                      style={styles.dashedLineMargin}
                     />
                   </Pressable>
                 </ScrollView>
