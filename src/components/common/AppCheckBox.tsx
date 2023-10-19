@@ -24,6 +24,12 @@ const AppCheckBox = ({textHeader, onCheckChange}: Props) => {
         value={toggleCheckBox}
         onValueChange={onSelect}
         tintColors={{true: colors.palette.primary, false: colors.gray}}
+        boxType="square"
+        tintColor={colors.palette.primary}
+        onTintColor={colors.palette.primary}
+        animationDuration={0.2}
+        onCheckColor={colors.gray}
+        style={styles.checkBox}
       />
     </View>
   );
@@ -44,4 +50,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
+  checkBox: {marginVertical: 5},
 });

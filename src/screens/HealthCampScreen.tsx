@@ -21,9 +21,9 @@ import {
   Header,
   AppBottomSheetDropdown,
   AppBottomSheet,
+  AppDashedLine,
 } from '../components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import DashedLine from 'react-native-dashed-line';
 
 import Utility from '../utils/Utility';
 import {colors} from '../theme';
@@ -229,11 +229,7 @@ const HealthCampScreen = () => {
                         }
                       />
 
-                      <DashedLine
-                        dashLength={5}
-                        dashThickness={0.7}
-                        dashColor={colors.gray}
-                      />
+                      <AppDashedLine />
 
                       <AppToggle
                         title={'Health Camp Details'}
@@ -262,11 +258,7 @@ const HealthCampScreen = () => {
                         }
                       />
 
-                      <DashedLine
-                        dashLength={5}
-                        dashThickness={0.7}
-                        dashColor={colors.gray}
-                      />
+                      <AppDashedLine />
 
                       <AppToggle
                         title={"Child's Details"}
