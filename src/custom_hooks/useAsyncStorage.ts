@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppStrings from '../utils/AppStrings';
 
 type DataType<T> = T | null;
 
@@ -12,7 +13,7 @@ const useAsyncStorage = () => {
       const jsonValue = await AsyncStorage.getItem(key);
       return jsonValue !== null ? JSON.parse(jsonValue) : initialValue;
     } catch (error) {
-      console.error('Error retrieving data from AsyncStorage:', error);
+      console.error(AppStrings.asyncRetrieveError, error);
       return initialValue;
     }
   };
@@ -22,7 +23,7 @@ const useAsyncStorage = () => {
       const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem(key, jsonValue);
     } catch (error) {
-      console.error('Error saving data to AsyncStorage:', error);
+      console.error(AppStrings.asyncSaveError, error);
     }
   };
 

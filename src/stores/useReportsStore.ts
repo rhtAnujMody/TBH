@@ -49,7 +49,7 @@ const useReportsStore = () => {
     },
     toggleBottomSheet() {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;
-      reportsStore.bottomSheetHeader = 'Select Partner Name, Location';
+      reportsStore.bottomSheetHeader = AppStrings.selectPartnerLocation;
       reportsStore.bottomSheetArray = reportsStore.partnerNameList;
     },
     setValue(from: string, value: string, id: string) {
@@ -95,8 +95,8 @@ const useReportsStore = () => {
 
       writeFile(file, output(wbout), 'ascii')
         .then((r: any) => {
-          Utility.showToast('Excel File downloaded');
-          Utility.logData('Success');
+          Utility.showToast(AppStrings.excelDownloaded);
+          Utility.logData(AppStrings.success);
         })
         .catch((e: any) => {
           Utility.logData(`Error: ${e}`);

@@ -10,6 +10,7 @@ import {loginStyles} from '../styles/loginStyles';
 
 import {useOTPStore} from '../stores';
 import {AuthStackParamList} from '../navigation/AuthStack';
+import AppStrings from '../utils/AppStrings';
 
 const OTPScreen = () => {
   const keyboard = useKeyboard();
@@ -21,7 +22,7 @@ const OTPScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Submit"
+        title={AppStrings.submit}
         isLoading={otpStore.isLoading}
         onPress={() => {
           otpStore.handleSubmit(id);
@@ -42,9 +43,9 @@ const OTPScreen = () => {
 
       <View style={styles.otpTextInputContainer}>
         <View style={styles.forgotHeaderContainer}>
-          <Text style={styles.forgotSignIn}>Enter OTP</Text>
+          <Text style={styles.forgotSignIn}>{AppStrings.enterOTP}</Text>
           <Text style={styles.forgotSignInDesc}>
-            {'A 4 digit code has been sent to\n' + data}
+            {AppStrings.codeSent + data}
           </Text>
         </View>
 

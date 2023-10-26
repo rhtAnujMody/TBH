@@ -24,6 +24,7 @@ import {
   AppDashedLine,
 } from '../components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import AppStrings from '../utils/AppStrings';
 
 import Utility from '../utils/Utility';
 import {colors} from '../theme';
@@ -97,7 +98,7 @@ const HealthCampScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Health Camp'} />
+            <Header title={AppStrings.healthCampLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
@@ -107,11 +108,11 @@ const HealthCampScreen = () => {
                   <Pressable>
                     <View style={styles.container}>
                       <Text style={styles.headingText}>
-                        Enter details related to the Health Camp event
+                        {AppStrings.HEALTH_CAMP_SCREEN.healthCampTitle}
                       </Text>
 
                       <AppToggle
-                        title={'Partner Details'}
+                        title={AppStrings.partnerDetails}
                         children={
                           <>
                             <AppInput
@@ -120,53 +121,57 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.partner}
-                              textHeader="IS THIS A NEW / EXISTING PARTNER"
-                              placeHolder="Is this a New / Existing Partner"
+                              textHeader={AppStrings.newExistingPartner}
+                              placeHolder={
+                                AppStrings.newExistingPartnerPlaceHolder
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
-                            {healthStore.partner === 'New' ? (
+                            {healthStore.partner === AppStrings.new ? (
                               <>
                                 <AppTextInput
                                   value={healthStore.newPartnerName}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="NAME OF THE PARTNER"
-                                  placeHolder="Name of the partner"
+                                  textHeader={AppStrings.partnerName}
+                                  placeHolder={
+                                    AppStrings.partnerNamePlaceHolder
+                                  }
                                   onChangeText={healthStore.setNewPartnerName}
                                 />
 
                                 <AppTextInput
                                   value={healthStore.newLocation}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="LOCATION"
-                                  placeHolder="Location"
+                                  textHeader={AppStrings.location}
+                                  placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={healthStore.setNewLocation}
                                 />
 
                                 <AppTextInput
                                   value={healthStore.newBlock}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="BLOCK"
-                                  placeHolder="Block"
+                                  textHeader={AppStrings.block}
+                                  placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={healthStore.setNewBlock}
                                 />
 
                                 <AppTextInput
                                   value={healthStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="DISTRICT"
-                                  placeHolder="District"
+                                  textHeader={AppStrings.district}
+                                  placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={healthStore.setNewDistrict}
                                 />
 
                                 <AppTextInput
                                   value={healthStore.newState}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="STATE"
-                                  placeHolder="State"
+                                  textHeader={AppStrings.state}
+                                  placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={healthStore.setNewState}
                                 />
                               </>
-                            ) : healthStore.partner === 'Existing' ? (
+                            ) : healthStore.partner === AppStrings.existing ? (
                               <>
                                 <AppInput
                                   onPress={() => {
@@ -175,15 +180,17 @@ const HealthCampScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={healthStore.existPartnerName}
-                                  textHeader="NAME OF THE PARTNER"
-                                  placeHolder="Name of the partner"
+                                  textHeader={AppStrings.partnerName}
+                                  placeHolder={
+                                    AppStrings.partnerNamePlaceHolder
+                                  }
                                   rightIcon={AppSVGs.dropdown}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="LOCATION"
-                                  placeHolder="Location"
+                                  textHeader={AppStrings.location}
+                                  placeHolder={AppStrings.locationPlaceHolder}
                                   value={healthStore.existLocation}
                                   //onChangeText={cdStore.setLocation}
                                   editable={false}
@@ -191,24 +198,24 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="BLOCK"
-                                  placeHolder="Block"
+                                  textHeader={AppStrings.block}
+                                  placeHolder={AppStrings.blockPlaceHolder}
                                   value={healthStore.existBlock}
                                   editable={false}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="DISTRICT"
-                                  placeHolder="District"
+                                  textHeader={AppStrings.district}
+                                  placeHolder={AppStrings.districtPlaceHolder}
                                   value={healthStore.existDistrict}
                                   editable={false}
                                 />
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader="STATE"
-                                  placeHolder="State"
+                                  textHeader={AppStrings.state}
+                                  placeHolder={AppStrings.statePlaceHolder}
                                   value={healthStore.existState}
                                   editable={false}
                                 />
@@ -221,8 +228,8 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.partnerType}
-                              textHeader="PARTNER TYPE"
-                              placeHolder="Partner Type"
+                              textHeader={AppStrings.partnerType}
+                              placeHolder={AppStrings.partnerTypePlaceHolder}
                               rightIcon={AppSVGs.dropdown}
                             />
                           </>
@@ -232,14 +239,18 @@ const HealthCampScreen = () => {
                       <AppDashedLine />
 
                       <AppToggle
-                        title={'Health Camp Details'}
+                        title={AppStrings.HEALTH_CAMP_SCREEN.healthCampDetails}
                         children={
                           <>
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
-                              textHeader="Date of Health Camp"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.healthCampDate
+                              }
                               rightIcon={AppSVGs.dob}
-                              placeHolder="Date of Health Camp"
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.healthCampDate
+                              }
                               hideInput={true}
                               onPress={() => {
                                 showDatePicker('1');
@@ -249,8 +260,12 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Number of Health Camp"
-                              placeHolder="Number of Health Camp"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.healthCampNumber
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.healthCampNumber
+                              }
                               value={healthStore.numberHC}
                               onChangeText={healthStore.setNumberHC}
                             />
@@ -261,19 +276,23 @@ const HealthCampScreen = () => {
                       <AppDashedLine />
 
                       <AppToggle
-                        title={"Child's Details"}
+                        title={AppStrings.HEALTH_CAMP_SCREEN.childDetails}
                         children={
                           <>
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Child's Name"
-                              placeHolder="Child's Name"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.childsName
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.childsName
+                              }
                               value={healthStore.childName}
                               onChangeText={healthStore.setChildName}
                             />
 
                             <AppImageUploadInput
-                              title={"Child's Photo"}
+                              title={AppStrings.HEALTH_CAMP_SCREEN.childsPhoto}
                               selectedImages={selectedImages}
                               onPress={healthStore.togglePhotoBottomSheet}
                               removeImage={removeImage}
@@ -281,8 +300,8 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Contact Number"
-                              placeHolder="Contact Number"
+                              textHeader={AppStrings.contact}
+                              placeHolder={AppStrings.contact}
                               value={healthStore.contact}
                               onChangeText={healthStore.setContact}
                               maxLength={10}
@@ -290,9 +309,9 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.dovInputStyle}
-                              textHeader="Date of Birth"
+                              textHeader={AppStrings.dob}
                               rightIcon={AppSVGs.dob}
-                              placeHolder="Date of Birth"
+                              placeHolder={AppStrings.dob}
                               hideInput={true}
                               onPress={() => {
                                 showDatePicker('2');
@@ -302,8 +321,8 @@ const HealthCampScreen = () => {
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Age (In Months)"
-                              placeHolder="Age (In Months)"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.age}
+                              placeHolder={AppStrings.HEALTH_CAMP_SCREEN.age}
                               value={healthStore.age}
                               editable={false}
                             />
@@ -314,31 +333,37 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.gender}
-                              textHeader="Gender"
-                              placeHolder="Gender"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.gender}
+                              placeHolder={AppStrings.HEALTH_CAMP_SCREEN.gender}
                               rightIcon={AppSVGs.dropdown}
                             />
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Height"
-                              placeHolder="Height(CM)"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.height}
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.heightPlaceHolder
+                              }
                               value={healthStore.height}
                               onChangeText={healthStore.setHeight}
                             />
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="Weight"
-                              placeHolder="Weight(KG)"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.weight}
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.weightPlaceHolder
+                              }
                               value={healthStore.weight}
                               onChangeText={healthStore.setWeight}
                             />
 
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
-                              textHeader="MUAC"
-                              placeHolder="MUAC(CM)"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.muac}
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.muacPlaceHolder
+                              }
                               value={healthStore.muac}
                               onChangeText={healthStore.setMUAC}
                             />
@@ -349,12 +374,17 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.vitaminA}
-                              textHeader="Vitamin A"
-                              placeHolder="Vitamin A"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.vitaminA
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.vitaminA
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
-                            {healthStore.vitaminA === 'Done' && (
+                            {healthStore.vitaminA ===
+                              AppStrings.HEALTH_CAMP_SCREEN.done && (
                               <>
                                 <AppInput
                                   onPress={() => {
@@ -362,17 +392,25 @@ const HealthCampScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={healthStore.doneBy}
-                                  textHeader="Done By Whom"
-                                  placeHolder="Done By Whom"
+                                  textHeader={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
+                                  placeHolder={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
                                   rightIcon={AppSVGs.dropdown}
                                 />
                                 {healthStore.doneBy && (
                                   <>
                                     <AppTextInput
                                       parentStyle={styles.dovInputStyle}
-                                      textHeader="Date of the Dose"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       rightIcon={AppSVGs.dob}
-                                      placeHolder="Date of the Dose"
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       hideInput={true}
                                       onPress={() => {
                                         showDatePicker('3');
@@ -382,8 +420,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Duration of Course?"
-                                      placeHolder="Duration of Course?"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
                                       value={healthStore.durationOfCourse}
                                       onChangeText={
                                         healthStore.setDurationOfCourse
@@ -392,8 +436,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Location of Dose Taken"
-                                      placeHolder="Location of Dose Taken"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
                                       value={healthStore.locationOfDose}
                                       onChangeText={
                                         healthStore.setLocationOfDose
@@ -410,12 +460,17 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.deworming}
-                              textHeader="Deworming"
-                              placeHolder="Deworming"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.deworming
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.deworming
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
-                            {healthStore.deworming === 'Done' && (
+                            {healthStore.deworming ===
+                              AppStrings.HEALTH_CAMP_SCREEN.done && (
                               <>
                                 <AppInput
                                   onPress={() => {
@@ -423,8 +478,12 @@ const HealthCampScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={healthStore.doneByWorm}
-                                  textHeader="Done By Whom"
-                                  placeHolder="Done By Whom"
+                                  textHeader={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
+                                  placeHolder={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
                                   rightIcon={AppSVGs.dropdown}
                                 />
 
@@ -432,9 +491,13 @@ const HealthCampScreen = () => {
                                   <>
                                     <AppTextInput
                                       parentStyle={styles.dovInputStyle}
-                                      textHeader="Date of the Dose"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       rightIcon={AppSVGs.dob}
-                                      placeHolder="Date of the Dose"
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       hideInput={true}
                                       onPress={() => {
                                         showDatePicker('4');
@@ -444,8 +507,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Duration of Course"
-                                      placeHolder="Duration of Course"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
                                       value={healthStore.durationOfCourseWorm}
                                       onChangeText={
                                         healthStore.setDurationOfCourseWorm
@@ -454,8 +523,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Location of Dose Taken"
-                                      placeHolder="Location of Dose Taken"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
                                       value={healthStore.locationOfDoseWorm}
                                       onChangeText={
                                         healthStore.setLocationOfDoseWorm
@@ -472,12 +547,13 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.ifa}
-                              textHeader="IFA"
-                              placeHolder="IFA"
+                              textHeader={AppStrings.HEALTH_CAMP_SCREEN.ifa}
+                              placeHolder={AppStrings.HEALTH_CAMP_SCREEN.ifa}
                               rightIcon={AppSVGs.dropdown}
                             />
 
-                            {healthStore.ifa === 'Done' && (
+                            {healthStore.ifa ===
+                              AppStrings.HEALTH_CAMP_SCREEN.done && (
                               <>
                                 <AppInput
                                   onPress={() => {
@@ -485,8 +561,12 @@ const HealthCampScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={healthStore.doneByIFA}
-                                  textHeader="Done By Whom"
-                                  placeHolder="Done By Whom"
+                                  textHeader={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
+                                  placeHolder={
+                                    AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
+                                  }
                                   rightIcon={AppSVGs.dropdown}
                                 />
 
@@ -494,9 +574,13 @@ const HealthCampScreen = () => {
                                   <>
                                     <AppTextInput
                                       parentStyle={styles.dovInputStyle}
-                                      textHeader="Date of the Dose"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       rightIcon={AppSVGs.dob}
-                                      placeHolder="Date of the Dose"
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN.dateOfDose
+                                      }
                                       hideInput={true}
                                       onPress={() => {
                                         showDatePicker('5');
@@ -506,8 +590,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Duration of Course"
-                                      placeHolder="Duration of Course"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .durationOfCourse
+                                      }
                                       value={healthStore.durationOfCourseIFA}
                                       onChangeText={
                                         healthStore.setDurationOfCourseIFA
@@ -516,8 +606,14 @@ const HealthCampScreen = () => {
 
                                     <AppTextInput
                                       parentStyle={styles.textInputStyle}
-                                      textHeader="Location of Dose Taken"
-                                      placeHolder="Location of Dose Taken"
+                                      textHeader={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
+                                      placeHolder={
+                                        AppStrings.HEALTH_CAMP_SCREEN
+                                          .locationOfDose
+                                      }
                                       value={healthStore.locationOfDoseIFA}
                                       onChangeText={
                                         healthStore.setLocationOfDoseIFA
@@ -534,8 +630,12 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.targetBeneficiary}
-                              textHeader="Target Beneficiary"
-                              placeHolder="Target Beneficiary"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
 
@@ -545,8 +645,12 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.educationalDetails}
-                              textHeader="Educational Details"
-                              placeHolder="Educational Details"
+                              textHeader={
+                                AppStrings.HEALTH_CAMP_SCREEN.educationalDetails
+                              }
+                              placeHolder={
+                                AppStrings.HEALTH_CAMP_SCREEN.educationalDetails
+                              }
                               rightIcon={AppSVGs.dropdown}
                             />
                           </>
@@ -557,7 +661,7 @@ const HealthCampScreen = () => {
                 </ScrollView>
 
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={healthStore.isLoading}
@@ -603,7 +707,7 @@ const HealthCampScreen = () => {
             ref={bottomSheetRef}>
             <View>
               <View style={styles.headerContainer}>
-                <Text style={styles.headerStyle}>Upload Photo</Text>
+                <Text style={styles.headerStyle}>{AppStrings.uploadPhoto}</Text>
                 <TouchableOpacity onPress={healthStore.togglePhotoBottomSheet}>
                   <AppSVGs.close />
                 </TouchableOpacity>
@@ -613,14 +717,14 @@ const HealthCampScreen = () => {
                 onPress={() => {
                   handleImagePicker(1);
                 }}>
-                <Text>Take a Photo</Text>
+                <Text>{AppStrings.takePhoto}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.photoContainerStyle}
                 onPress={() => {
                   handleImagePicker(2);
                 }}>
-                <Text>Upload from Library</Text>
+                <Text>{AppStrings.uploadLibrary}</Text>
               </TouchableOpacity>
             </View>
           </AppBottomSheet>

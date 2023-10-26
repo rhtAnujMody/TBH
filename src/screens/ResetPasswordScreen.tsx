@@ -10,6 +10,7 @@ import {useKeyboard} from '../custom_hooks';
 import {useResetStore} from '../stores';
 import {AuthStackParamList} from '../navigation/AuthStack';
 import {loginStyles} from '../styles/loginStyles';
+import AppStrings from '../utils/AppStrings';
 
 const ResetPasswordScreen = () => {
   const emailRef = useRef<TextInput>(null);
@@ -23,7 +24,7 @@ const ResetPasswordScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Reset"
+        title={AppStrings.reset}
         isLoading={resetStore.isLoading}
         onPress={() => {
           resetStore.handleSubmit(id);
@@ -44,15 +45,15 @@ const ResetPasswordScreen = () => {
 
           <View style={styles.otpTextInputContainer}>
             <View style={styles.forgotHeaderContainer}>
-              <Text style={styles.resetSignIn}>Reset Password</Text>
+              <Text style={styles.resetSignIn}>{AppStrings.resetPassword}</Text>
               <Text style={styles.forgotSignInDesc}>
-                Please Enter Your New Password
+                {AppStrings.enterNewPassword}
               </Text>
             </View>
 
             <AppTextInput
               icon={AppSVGs.lock}
-              placeHolder="New Password"
+              placeHolder={AppStrings.newPassword}
               returnKeyType="done"
               inputRef={emailRef}
               secureTextEntry
@@ -60,7 +61,7 @@ const ResetPasswordScreen = () => {
             />
             <AppTextInput
               icon={AppSVGs.lock}
-              placeHolder="Confirm Password"
+              placeHolder={AppStrings.confirmPassword}
               returnKeyType="done"
               inputRef={passwordRef}
               secureTextEntry

@@ -16,6 +16,7 @@ import {AuthStackProps} from '../navigation/AppNavigation';
 import {useSignUpStore} from '../stores';
 import {loginStyles} from '../styles/loginStyles';
 import Utility from '../utils/Utility';
+import AppStrings from '../utils/AppStrings';
 
 const SignUpScreen = () => {
   const keyboard = useKeyboard();
@@ -72,7 +73,7 @@ const SignUpScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title="Sign Up"
+        title={AppStrings.loginSignUp}
         isLoading={signUpStore.isLoading}
         onPress={signUpStore.signUp}
         enabled={signUpStore.isButtonEnabled}
@@ -90,11 +91,8 @@ const SignUpScreen = () => {
               <AppSVGs.logo style={styles.logo} />
             </View>
             <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>Register</Text>
-              <Text style={styles.signInDesc}>
-                New to Decimal Foundation! Please Provide Details to Register
-                Yourself
-              </Text>
+              <Text style={styles.signIn}>{AppStrings.signUpRegister}</Text>
+              <Text style={styles.signInDesc}>{AppStrings.signUpTitle}</Text>
             </View>
           </View>
 
@@ -103,7 +101,7 @@ const SignUpScreen = () => {
               <Pressable>
                 <AppTextInput
                   icon={AppSVGs.name}
-                  placeHolder="Name"
+                  placeHolder={AppStrings.signUpNamePlaceholder}
                   returnKeyType="next"
                   value={signUpStore.name}
                   onChangeText={signUpStore.setName}
@@ -111,7 +109,7 @@ const SignUpScreen = () => {
                 />
                 <AppTextInput
                   icon={AppSVGs.email}
-                  placeHolder="Email"
+                  placeHolder={AppStrings.loginEmailPlaceholder}
                   returnKeyType="next"
                   value={signUpStore.userEmail}
                   onChangeText={signUpStore.setEmail}
@@ -122,7 +120,7 @@ const SignUpScreen = () => {
                 <Observer>
                   {() => (
                     <AppTextInput
-                      placeHolder="Phone Number"
+                      placeHolder={AppStrings.signUpPhoneNoPlaceholder}
                       returnKeyType="next"
                       keyboardType="phone-pad"
                       maxLength={10}
@@ -137,7 +135,7 @@ const SignUpScreen = () => {
 
                 <AppTextInput
                   icon={AppSVGs.dob}
-                  placeHolder="Date Of Birth"
+                  placeHolder={AppStrings.signUpDOBPlaceholder}
                   hideInput={true}
                   onPress={onDOBPress}
                   otherText={dob}
@@ -146,16 +144,16 @@ const SignUpScreen = () => {
                 <AppTextInput
                   icon={AppSVGs.lock}
                   secureTextEntry
-                  placeHolder="Password"
+                  placeHolder={AppStrings.loginPasswordPlaceholder}
                   onChangeText={signUpStore.setPassword}
                   returnKeyType="done"
                   inputRef={passwordRef}
                 />
                 <View style={styles.signUpBottomContainer}>
                   <Text style={styles.signUpDontHaveAcc}>
-                    Already have an account?
+                    {AppStrings.alreadyHaveAccount}
                     <Text style={styles.signUp} onPress={navigateToSignIn}>
-                      {' Sign In'}
+                      {AppStrings.signIn}
                     </Text>
                   </Text>
                   <ShowButton />

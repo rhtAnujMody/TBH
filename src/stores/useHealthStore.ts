@@ -93,36 +93,36 @@ const useHealthStore = () => {
     locationOfDoseIFA: '',
     selectedImages: [] as Image[],
     partnerOptions: [
-      {name: 'New', id: 'new'},
-      {name: 'Existing', id: 'existing'},
+      {name: AppStrings.new, id: AppStrings.newID},
+      {name: AppStrings.existing, id: AppStrings.existingID},
     ],
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
     partnerTypeOptions: [
       {
-        name: 'TBR',
+        name: AppStrings.tbr,
         id: 1,
       },
       {
-        name: 'Bright Start',
+        name: AppStrings.brightStart,
         id: 2,
       },
       {
-        name: 'Anaemia Mukt Bharat',
+        name: AppStrings.anaemiaMuktBharat,
         id: 3,
       },
     ],
     vitaminAOptions: [
-      {name: 'Done', id: 1},
-      {name: 'Not Done', id: 2},
+      {name: AppStrings.HEALTH_CAMP_SCREEN.done, id: 1},
+      {name: AppStrings.HEALTH_CAMP_SCREEN.notDone, id: 2},
     ],
     genderOptions: [
-      {name: 'Male', id: 'M'},
-      {name: 'Female', id: 'F'},
-      {name: 'Others', id: 'O'},
+      {name: AppStrings.male, id: 'M'},
+      {name: AppStrings.female, id: 'F'},
+      {name: AppStrings.others, id: 'O'},
     ],
     doneByOptions: [
-      {name: 'Decimal Foundation', id: 'D'},
-      {name: 'Government', id: 'G'},
+      {name: AppStrings.decimalFoundation, id: 'D'},
+      {name: AppStrings.government, id: 'G'},
     ],
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
@@ -339,7 +339,7 @@ const useHealthStore = () => {
       if (healthStore.partner === '') {
         return;
       }
-      if (healthStore.partner === 'New') {
+      if (healthStore.partner === AppStrings.new) {
         if (
           !Utility.validateAlphaNumericSpecial(healthStore.newPartnerName) ||
           !Utility.validateAlphaNumericSpecial(healthStore.newLocation) ||
@@ -395,7 +395,7 @@ const useHealthStore = () => {
       if (healthStore.vitaminA === '') {
         return;
       } else {
-        if (healthStore.vitaminA === 'Done') {
+        if (healthStore.vitaminA === AppStrings.HEALTH_CAMP_SCREEN.done) {
           if (healthStore.doneBy === '') {
             return;
           } else {
@@ -417,7 +417,7 @@ const useHealthStore = () => {
       if (healthStore.deworming === '') {
         return;
       } else {
-        if (healthStore.deworming === 'Done') {
+        if (healthStore.deworming === AppStrings.HEALTH_CAMP_SCREEN.done) {
           if (healthStore.doneByWorm === '') {
             return;
           } else {
@@ -442,7 +442,7 @@ const useHealthStore = () => {
       if (healthStore.ifa === '') {
         return;
       } else {
-        if (healthStore.ifa === 'Done') {
+        if (healthStore.ifa === AppStrings.HEALTH_CAMP_SCREEN.done) {
           if (healthStore.doneByIFA === '') {
             return;
           } else {
@@ -471,51 +471,61 @@ const useHealthStore = () => {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
       switch (from) {
         case 'partner':
-          healthStore.bottomSheetHeader = 'Is this a new/existing partner';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader;
           healthStore.bottomSheetArray = healthStore.partnerOptions;
           break;
         case 'partnerName':
-          healthStore.bottomSheetHeader = 'Name of the Partner';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerNameHeader;
           healthStore.bottomSheetArray = healthStore.partnerNameList;
           break;
         case 'partnerType':
-          healthStore.bottomSheetHeader = 'Partner Type';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerTypeHeader;
           healthStore.bottomSheetArray = healthStore.partnerTypeOptions;
           break;
         case 'vitaminA':
-          healthStore.bottomSheetHeader = 'Vitamin A';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.vitaminA;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
         case 'doneBy':
-          healthStore.bottomSheetHeader = 'Done By Whom';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.doneByWhom;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
         case 'doneByWorm':
-          healthStore.bottomSheetHeader = 'Done By Whom ';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByWormHeader;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
         case 'doneByIFA':
-          healthStore.bottomSheetHeader = 'Done By Whom  ';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByIFAHeader;
           healthStore.bottomSheetArray = healthStore.doneByOptions;
           break;
         case 'deworming':
-          healthStore.bottomSheetHeader = 'Deworming';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.deworming;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
         case 'targetBeneficiary':
-          healthStore.bottomSheetHeader = 'Target Beneficiary';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
           break;
         case 'educationalDetails':
-          healthStore.bottomSheetHeader = 'Educational Details';
+          healthStore.bottomSheetHeader =
+            AppStrings.HEALTH_CAMP_SCREEN.educationalDetails;
           healthStore.bottomSheetArray = healthStore.educationalDetailsOptions;
           break;
         case 'IFA':
-          healthStore.bottomSheetHeader = 'IFA';
+          healthStore.bottomSheetHeader = AppStrings.HEALTH_CAMP_SCREEN.ifa;
           healthStore.bottomSheetArray = healthStore.vitaminAOptions;
           break;
         case 'gender':
-          healthStore.bottomSheetHeader = 'Gender';
+          healthStore.bottomSheetHeader = AppStrings.HEALTH_CAMP_SCREEN.gender;
           healthStore.bottomSheetArray = healthStore.genderOptions;
           break;
       }
@@ -524,11 +534,11 @@ const useHealthStore = () => {
     setValue(from: string, value: string, id: string) {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
       switch (from) {
-        case 'Is this a new/existing partner':
+        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader:
           healthStore.partner = value;
           healthStore.validateSubmit();
           break;
-        case 'Name of the Partner':
+        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerNameHeader:
           const res = value.split(',');
           healthStore.existPartnerName = res[0];
           healthStore.existLocation = res[1];
@@ -538,49 +548,49 @@ const useHealthStore = () => {
           healthStore.partnerID = id;
           healthStore.validateSubmit();
           break;
-        case 'Partner Type':
+        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerTypeHeader:
           healthStore.partnerType = value;
           healthStore.partnerTypeID = id;
           healthStore.validateSubmit();
           break;
-        case 'Vitamin A':
+        case AppStrings.HEALTH_CAMP_SCREEN.vitaminA:
           healthStore.vitaminA = value;
           healthStore.validateSubmit();
           break;
-        case 'Done By Whom':
+        case AppStrings.HEALTH_CAMP_SCREEN.doneByWhom:
           healthStore.doneBy = value;
           healthStore.doneByID = id;
           healthStore.validateSubmit();
           break;
-        case 'Done By Whom ':
+        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByWormHeader:
           healthStore.doneByWorm = value;
           healthStore.doneByWormID = id;
           healthStore.validateSubmit();
           break;
-        case 'Done By Whom  ':
+        case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.doneByIFAHeader:
           healthStore.doneByIFA = value;
           healthStore.doneByIFAID = id;
           healthStore.validateSubmit();
           break;
-        case 'IFA':
+        case AppStrings.HEALTH_CAMP_SCREEN.ifa:
           healthStore.ifa = value;
           healthStore.validateSubmit();
           break;
-        case 'Deworming':
+        case AppStrings.HEALTH_CAMP_SCREEN.deworming:
           healthStore.deworming = value;
           healthStore.validateSubmit();
           break;
-        case 'Target Beneficiary':
+        case AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary:
           healthStore.targetBeneficiary = value;
           healthStore.beneficiaryID = id;
           healthStore.validateSubmit();
           break;
-        case 'Educational Details':
+        case AppStrings.HEALTH_CAMP_SCREEN.educationalDetails:
           healthStore.educationalDetails = value;
           healthStore.educationalDetailsID = id;
           healthStore.validateSubmit();
           break;
-        case 'Gender':
+        case AppStrings.HEALTH_CAMP_SCREEN.gender:
           healthStore.gender = value;
           healthStore.genderID = id;
           healthStore.validateSubmit();
@@ -725,7 +735,6 @@ const useHealthStore = () => {
       }
     },
   }));
-
   return healthStore;
 };
 

@@ -12,6 +12,7 @@ import {AppSVGs} from '../assets';
 import {AppContainer, AppTextInput, AppUserDelete, Header} from '../components';
 import {UserDetails} from '../models';
 import {useManageUsersStore} from '../stores';
+import AppStrings from '../utils/AppStrings';
 import {styles} from '../styles/formStyles';
 
 type Props = {};
@@ -59,13 +60,16 @@ const ManageUserScreen = ({}: Props) => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Manage Users'} />
+            <Header title={AppStrings.manageUsersLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
               <View style={styles.backgroundStyle}>
                 <View style={[styles.container, styles.adminMarginBotton]}>
-                  <Text style={styles.headingText}>List of Users</Text>
+                  <Text style={styles.headingText}>
+                    {' '}
+                    {AppStrings.listOfUsers}
+                  </Text>
                   <AppTextInput
                     parentStyle={styles.adminSearch}
                     icon={AppSVGs.search}

@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {PermissionsAndroid} from 'react-native';
 import ImageCropPicker, {Image} from 'react-native-image-crop-picker';
 import Utility from '../utils/Utility';
+import AppStrings from '../utils/AppStrings';
 
 const useCamera = () => {
   const [selectedImages, setSelectedImages] = useState<Image[]>([]);
@@ -19,12 +20,12 @@ const useCamera = () => {
         granted['android.permission.CAMERA'] &&
         granted['android.permission.READ_MEDIA_IMAGES']
       ) {
-        console.log('You can use the camera');
+        console.log(AppStrings.canUseCamera);
       } else {
-        console.log('Camera permission denied');
+        console.log(AppStrings.cameraPermission);
       }
     } catch (error) {
-      console.log('permission error', error);
+      console.log(AppStrings.permissionError, error);
     }
   };
 
@@ -36,7 +37,7 @@ const useCamera = () => {
     })
       .then(images => {
         if (selectedImages.length + images.length > 5) {
-          Utility.showToast('You cannot select more than 5 images');
+          Utility.showToast(AppStrings.maxImagesError);
           return;
         }
         setSelectedImages(prevSelectedImages =>
@@ -44,7 +45,7 @@ const useCamera = () => {
         );
       })
       .catch(error => {
-        console.log('Error selecting images:', error);
+        console.log(AppStrings.selectImagesError, error);
       });
   };
 

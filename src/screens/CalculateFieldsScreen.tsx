@@ -48,7 +48,7 @@ const CalculateFieldsScreen = ({}: Props) => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Health Camp'} />
+            <Header title={AppStrings.healthCampLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
@@ -58,22 +58,22 @@ const CalculateFieldsScreen = ({}: Props) => {
                   <View style={styles.container}>
                     <Text style={styles.headingText}>
                       {from === AppStrings.fromDoctor
-                        ? "Doctor's Observation Entry"
-                        : 'Calculated Field Values'}
+                        ? AppStrings.doctorsObservation
+                        : AppStrings.calculatedValues}
                     </Text>
                     <AppTextInput
                       value={calStore.childName}
                       parentStyle={styles.textInputStyle}
-                      textHeader="Name of the Child"
-                      placeHolder="Name of the child"
+                      textHeader={AppStrings.childName}
+                      placeHolder={AppStrings.childName}
                       onChangeText={calStore.setChildame}
                     />
 
                     <AppTextInput
                       parentStyle={styles.dovInputStyle}
-                      textHeader="Date of Birth"
+                      textHeader={AppStrings.dob}
                       rightIcon={AppSVGs.dob}
-                      placeHolder="Date of Birth"
+                      placeHolder={AppStrings.dob}
                       hideInput={true}
                       onPress={toogleDatePicker}
                       otherText={calStore.dob}
@@ -82,8 +82,8 @@ const CalculateFieldsScreen = ({}: Props) => {
                     <AppTextInput
                       value={calStore.contact}
                       parentStyle={styles.textInputStyle}
-                      textHeader="Contact Number"
-                      placeHolder="Contact Number"
+                      textHeader={AppStrings.contact}
+                      placeHolder={AppStrings.contact}
                       onChangeText={calStore.setContact}
                       keyboardType="numeric"
                       maxLength={10}
@@ -91,7 +91,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                   </View>
                 </ScrollView>
                 <AppButton
-                  title="Submit"
+                  title={AppStrings.submit}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={calStore.isLoading}

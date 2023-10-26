@@ -1,21 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-} from 'react-native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 
 import {AppSVGs} from '../assets';
-import {
-  HomeCard,
-  AppContainer,
-  ObservableChild,
-  AppUserDelete,
-} from '../components';
+import {AppContainer, HomeCard, ObservableChild} from '../components';
 import {DashboardStackProps} from '../navigation/AppNavigation';
 import {authStore} from '../stores';
 import {colors, typography} from '../theme';
@@ -26,46 +14,46 @@ const Dashboard = () => {
 
   const homeCards = [
     {
-      title: 'Proceed For Data Capture',
+      title: AppStrings.HOME_CARDS.dataCapture,
       icon: AppSVGs.capture_details,
     },
     {
-      title: 'View Calculated Field Values',
+      title: AppStrings.HOME_CARDS.calculatedFieldValues,
       icon: AppSVGs.report,
     },
     {
-      title: "Doctor's Observation Entry",
+      title: AppStrings.HOME_CARDS.observationEntry,
       icon: AppSVGs.report,
     },
   ];
 
   const genrateReportsCards = [
     {
-      title: 'Malnutrition Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.malnutrition,
       icon: AppSVGs.report,
     },
     {
-      title: 'Wasting Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.wasting,
       icon: AppSVGs.report,
     },
     {
-      title: 'Stunting Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.stunting,
       icon: AppSVGs.report,
     },
     {
-      title: 'Custom Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.custom,
       icon: AppSVGs.report,
     },
     {
-      title: "Doctor's Observation Report",
+      title: AppStrings.GENERATE_REPORT_CARDS.doctorsObservation,
       icon: AppSVGs.report,
     },
     {
-      title: 'Nutrition Education Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.nutritionEducation,
       icon: AppSVGs.report,
     },
     {
-      title: 'Monitoring Report',
+      title: AppStrings.GENERATE_REPORT_CARDS.monitoring,
       icon: AppSVGs.report,
     },
   ];
@@ -95,19 +83,19 @@ const Dashboard = () => {
         break;
       case 5:
         navigation.navigate('Reports', {
-          data: 'Malnutrition Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.malnutrition,
           id: 'malnutrition_report',
         });
         break;
       case 6:
         navigation.navigate('Reports', {
-          data: 'Wasting Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.wasting,
           id: 'wasting_report',
         });
         break;
       case 7:
         navigation.navigate('Reports', {
-          data: 'Stunting Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.stunting,
           id: 'stunting_report',
         });
         break;
@@ -118,19 +106,19 @@ const Dashboard = () => {
         break;
       case 9:
         navigation.navigate('Reports', {
-          data: "Doctor's Observation Report",
+          data: AppStrings.GENERATE_REPORT_CARDS.doctorsObservation,
           id: 'doctor_observation_report',
         });
         break;
       case 10:
         navigation.navigate('Reports', {
-          data: 'Nutrition Education Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.nutritionEducation,
           id: 'nutrition_education_report',
         });
         break;
       case 11:
         navigation.navigate('Reports', {
-          data: 'Monitoring Report',
+          data: AppStrings.GENERATE_REPORT_CARDS.monitoring,
           id: 'monitoring_report',
         });
         break;
@@ -146,12 +134,12 @@ const Dashboard = () => {
       <View style={styles.topContainer}>
         <AppSVGs.logo style={styles.logo} />
         <Text style={styles.loginText} onPress={auth.logout}>
-          Logout
+          {AppStrings.logout}
         </Text>
         <View style={styles.profileContainer}>
           <AppSVGs.profile style={styles.userLogo} />
           <View style={styles.welcomeContainer}>
-            <Text style={styles.welcome}>Welcome,</Text>
+            <Text style={styles.welcome}>{AppStrings.welcome},</Text>
             <ObservableChild>
               <Text style={styles.userName}>{authStore.userData.name}</Text>
             </ObservableChild>
@@ -161,7 +149,7 @@ const Dashboard = () => {
       <View style={styles.bottomContainer}>
         <ScrollView contentContainerStyle={styles.bodyScroll}>
           <Pressable>
-            <Text style={styles.title}>Health Camp</Text>
+            <Text style={styles.title}>{AppStrings.healthCampLabel}</Text>
             <View style={styles.cardsContainer}>
               {homeCards.map((data, index) => {
                 return (
@@ -175,7 +163,9 @@ const Dashboard = () => {
                 );
               })}
             </View>
-            <Text style={styles.title}>Nutrition Education</Text>
+            <Text style={styles.title}>
+              {AppStrings.nutritionEducationLabel}
+            </Text>
             <View style={styles.cardsContainer}>
               <HomeCard
                 title={homeCards[0].title}
@@ -184,7 +174,9 @@ const Dashboard = () => {
                 onPress={() => navigateToCard(3)}
               />
             </View>
-            <Text style={styles.title}>Program Monitoring</Text>
+            <Text style={styles.title}>
+              {AppStrings.programMonitoringLabel}
+            </Text>
             <View style={styles.cardsContainer}>
               <HomeCard
                 title={homeCards[0].title}
@@ -196,7 +188,9 @@ const Dashboard = () => {
 
             {auth.userData.role === 'A' && (
               <>
-                <Text style={styles.title}>Generate Report</Text>
+                <Text style={styles.title}>
+                  {AppStrings.generateReportLabel}
+                </Text>
                 <View style={styles.cardsContainer}>
                   {genrateReportsCards.map((data, index) => {
                     return (
@@ -210,10 +204,10 @@ const Dashboard = () => {
                     );
                   })}
                 </View>
-                <Text style={styles.title}>Manage Users</Text>
+                <Text style={styles.title}>{AppStrings.manageUsersLabel}</Text>
                 <View style={styles.cardsContainer}>
                   <HomeCard
-                    title={'Manage Users'}
+                    title={AppStrings.manageUsersLabel}
                     icon={AppSVGs.user}
                     onPress={() => navigateToCard(12)}
                   />

@@ -11,6 +11,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CustomReportsStackRootParamList} from '../navigation/CustomReportsStack';
+import AppStrings from '../utils/AppStrings';
 
 import {AppContainer, Header, HomeCard} from '../components';
 import {authStore} from '../stores';
@@ -26,37 +27,37 @@ const CustomReportsScreen = () => {
     switch (index) {
       case 0:
         navigation.navigate('Reports', {
-          data: 'Historical Data Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.historicalData,
           id: 'historical_data_report',
         });
         break;
       case 1:
         navigation.navigate('Reports', {
-          data: 'Recovered From Malnutrition Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.malnutritionReport,
           id: 'recovered_from_malnutrition_report',
         });
         break;
       case 2:
         navigation.navigate('Reports', {
-          data: 'Received Vitamin A Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.vitaminAReport,
           id: 'received_vitamin_a_report',
         });
         break;
       case 3:
         navigation.navigate('Reports', {
-          data: 'Received Deworming Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.dewormingReport,
           id: 'received_deworming_report',
         });
         break;
       case 4:
         navigation.navigate('Reports', {
-          data: 'Received IFA Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.ifaReport,
           id: 'received_ifa_report',
         });
         break;
       case 5:
         navigation.navigate('Reports', {
-          data: 'Meals Received for Program Monitoring Report',
+          data: AppStrings.CUSTOM_REPORTS_CARDS.mealsReport,
           id: 'meals_report',
         });
         break;
@@ -68,7 +69,7 @@ const CustomReportsScreen = () => {
       {() => (
         <>
           <AppContainer>
-            <Header title={'Generate Report'} />
+            <Header title={AppStrings.generateReportLabel} />
             <KeyboardAvoidingView
               behavior={Platform.select({ios: 'padding'})}
               style={styles.keyboardAwoidStyle}>
@@ -77,7 +78,9 @@ const CustomReportsScreen = () => {
                   contentContainerStyle={styles.contentContainerStyle}>
                   <Pressable>
                     <View style={styles.container}>
-                      <Text style={styles.headingText}>Custom Reports</Text>
+                      <Text style={styles.headingText}>
+                        {AppStrings.customReports}
+                      </Text>
                       <View style={styles.cardsContainer}>
                         {Utility.customReportsCards.map((data, index) => {
                           return (

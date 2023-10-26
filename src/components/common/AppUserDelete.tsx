@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {AppSVGs} from '../../assets';
 import {typography} from '../../theme';
+import AppStrings from '../../utils/AppStrings';
 
 type Props = {
   name: string;
@@ -28,13 +29,13 @@ const ITEM_HEIGHT = 100;
 
 const AppUserDelete = ({name, phone, email, onPress}: Props) => {
   const showAlert = () => {
-    Alert.alert('Delete', 'Are you sure you want to delete this user?', [
+    Alert.alert(AppStrings.delete, AppStrings.sureDelete, [
       {
-        text: 'Yes',
+        text: AppStrings.yes,
         onPress: onPress,
         style: 'cancel',
       },
-      {text: 'No', onPress: () => {}},
+      {text: AppStrings.no, onPress: () => {}},
     ]);
   };
 

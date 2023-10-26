@@ -55,12 +55,7 @@ const useCaptureDetailsStore = () => {
       {name: 'Existing', id: 'existing'},
     ],
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
-    locationList: [
-      {
-        name: 'Ramabai',
-        id: '0',
-      },
-    ],
+
     photoOptions: [
       {name: 'Take a Photo', id: 'camera'},
       {name: 'Upload from Library', id: 'gallery'},
@@ -104,42 +99,33 @@ const useCaptureDetailsStore = () => {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
       switch (from) {
         case 'age':
-          cdStore.bottomSheetHeader = 'Select Age';
+          cdStore.bottomSheetHeader =
+            AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.selectAge;
           cdStore.bottomSheetArray = cdStore.ageOptions;
           break;
         case 'partner':
-          cdStore.bottomSheetHeader = 'Is this a new/existing partner';
+          cdStore.bottomSheetHeader =
+            AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.newExisting;
           cdStore.bottomSheetArray = cdStore.partnerOptions;
           break;
         case 'partnerName':
-          cdStore.bottomSheetHeader = 'Name of the Partner';
+          cdStore.bottomSheetHeader =
+            AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.partnerName;
           cdStore.bottomSheetArray = cdStore.partnerNameList;
           break;
-
-        case 'location':
-          cdStore.bottomSheetHeader = 'Location';
-          cdStore.bottomSheetArray = cdStore.locationList;
-          break;
         case 'beneficiaries':
-          cdStore.bottomSheetHeader = 'Target beneficiaries';
+          cdStore.bottomSheetHeader =
+            AppStrings.NUTRITION_EDUCATION_SCREEN.targetBeneficiariesPlaceHolder;
           cdStore.bottomSheetArray = cdStore.beneficiarisOptions;
           break;
         case 'hour':
-          cdStore.bottomSheetHeader = 'Select hour';
+          cdStore.bottomSheetHeader = AppStrings.selectHour;
           cdStore.bottomSheetArray = cdStore.hourOptions;
           break;
         case 'minute':
-          cdStore.bottomSheetHeader = 'Select minute';
+          cdStore.bottomSheetHeader = AppStrings.selectMinute;
           cdStore.bottomSheetArray = cdStore.minuteOptions;
       }
-    },
-
-    toggleLoader() {
-      cdStore.isLoading = !cdStore.isLoading;
-      setTimeout(() => {
-        cdStore.isLoading = !cdStore.isLoading;
-        Utility.showToast('Form submitted successfully.');
-      }, 5000);
     },
 
     togglePhotoBottomSheet() {
@@ -169,16 +155,16 @@ const useCaptureDetailsStore = () => {
     setValue(from: string, value: string, id: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
       switch (from) {
-        case 'Select Age':
+        case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.selectAge:
           cdStore.age = value;
           cdStore.ageID = id;
           cdStore.validateSubmit();
           break;
-        case 'Is this a new/existing partner':
+        case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.newExisting:
           cdStore.partner = value;
           cdStore.validateSubmit();
           break;
-        case 'Name of the Partner':
+        case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.partnerName:
           const res = value.split(',');
           cdStore.existPartnerName = res[0];
           cdStore.existLocation = res[1];
@@ -189,16 +175,17 @@ const useCaptureDetailsStore = () => {
           cdStore.validateSubmit();
           break;
 
-        case 'Target beneficiaries':
+        case AppStrings.NUTRITION_EDUCATION_SCREEN
+          .targetBeneficiariesPlaceHolder:
           cdStore.targetBeneficiaries = value;
           cdStore.beneficiarieID = id;
           cdStore.validateSubmit();
           break;
-        case 'Select hour':
+        case AppStrings.selectHour:
           cdStore.hour = value;
           cdStore.validateSubmit();
           break;
-        case 'Select minute':
+        case AppStrings.selectMinute:
           cdStore.minute = value;
           cdStore.validateSubmit();
       }
@@ -331,12 +318,11 @@ const useCaptureDetailsStore = () => {
       runInAction(() => {
         cdStore.isLoading = true;
       });
-      cdStore.isLoading = true;
       try {
         const formData = new FormData();
 
         formData.append('agent_id', authStore.userData.id);
-        if (this.partner === 'New') {
+        if (cdStore.partner === 'New') {
           formData.append(
             'partner_details',
             JSON.stringify({
@@ -388,7 +374,7 @@ const useCaptureDetailsStore = () => {
         }
         navigation.goBack();
       } catch (err) {
-        Utility.showToast('Something went wrong');
+        Utility.showToast(AppStrings.somethingWentWrong);
       } finally {
         runInAction(() => {
           cdStore.isLoading = false;
