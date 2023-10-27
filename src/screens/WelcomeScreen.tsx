@@ -20,7 +20,7 @@ const WelcomeScreen = () => {
   return (
     <AppContainer style={styles.container}>
       <View style={styles.logoContainer}>
-        <AppSVGs.logo />
+        <AppSVGs.tbrlogo />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.welcomeText}>{AppStrings.welcomeDecimal}</Text>

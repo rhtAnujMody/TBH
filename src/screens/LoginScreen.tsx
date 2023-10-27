@@ -50,7 +50,7 @@ const LoginScreen = () => {
           <AppBack />
           <View style={styles.headerContainer}>
             <View style={styles.logoContainer}>
-              <AppSVGs.logo style={styles.logo} />
+              <AppSVGs.tbrlogo style={styles.logo} height={150} width={200} />
             </View>
             <View style={styles.signInHeaderContainer}>
               <Text style={styles.signIn}>{AppStrings.loginSignUp}</Text>
