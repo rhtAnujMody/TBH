@@ -88,7 +88,7 @@ const SignUpScreen = () => {
           <AppBack />
           <View style={styles.signUpHeaderContainer}>
             <View style={styles.logoContainer}>
-              <AppSVGs.logo style={styles.logo} />
+              <AppSVGs.tbrlogo style={styles.logo} height={150} width={200} />
             </View>
             <View style={styles.signInHeaderContainer}>
               <Text style={styles.signIn}>{AppStrings.signUpRegister}</Text>

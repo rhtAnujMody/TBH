@@ -15,6 +15,7 @@ import dustbin from './dustbin';
 import user from './user';
 import search from './search';
 import phone from './phone';
+import tbrlogo from './tbrlogo';
 
 export default {
   logo,
@@ -32,6 +33,7 @@ export default {
   user,
   search,
   phone,
+  tbrlogo,
   ...login,
   ...home,
 };

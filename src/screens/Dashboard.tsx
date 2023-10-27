@@ -132,7 +132,7 @@ const Dashboard = () => {
   return (
     <AppContainer style={styles.container}>
       <View style={styles.topContainer}>
-        <AppSVGs.logo style={styles.logo} />
+        <AppSVGs.tbrlogo height={100} width={110} style={styles.logo} />
         <Text style={styles.loginText} onPress={auth.logout}>
           {AppStrings.logout}
         </Text>
@@ -230,9 +230,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   logo: {
-    transform: [{scale: 0.6}],
     alignSelf: 'center',
-    marginTop: 5,
+    marginTop: -10,
   },
   topContainer: {
     flex: 0.8,

@@ -16,7 +16,7 @@ export const loginStyles = (isKeyboardVisible: boolean) => {
     },
     logo: {
       alignSelf: 'center',
-      marginTop: 10,
+      marginBottom: -20,
     },
     signInHeaderContainer: {
       flex: 1,

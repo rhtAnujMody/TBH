@@ -35,7 +35,7 @@ const LoginScreen = () => {
   const ShowButton = observer(() => {
     return (
       <AppButton
-        title={AppStrings.loginSignUp}
+        title={AppStrings.signIn}
         isLoading={loginStore.isLoading}
         onPress={loginStore.login}
         enabled={loginStore.isButtonEnabled}
@@ -50,10 +50,10 @@ const LoginScreen = () => {
           <AppBack />
           <View style={styles.headerContainer}>
             <View style={styles.logoContainer}>
-              <AppSVGs.logo style={styles.logo} />
+              <AppSVGs.tbrlogo style={styles.logo} height={150} width={200} />
             </View>
             <View style={styles.signInHeaderContainer}>
-              <Text style={styles.signIn}>{AppStrings.loginSignUp}</Text>
+              <Text style={styles.signIn}>{AppStrings.signIn}</Text>
               <Text style={styles.signInDesc}>{AppStrings.loginTitle}</Text>
             </View>
           </View>
