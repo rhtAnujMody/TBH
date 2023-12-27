@@ -186,11 +186,9 @@ const Dashboard = () => {
               />
             </View>
 
-            {auth.userData.role === 'A' && (
+            <Text style={styles.title}>{AppStrings.generateReportLabel}</Text>
+            {auth.userData.role === 'A' ? (
               <>
-                <Text style={styles.title}>
-                  {AppStrings.generateReportLabel}
-                </Text>
                 <View style={styles.cardsContainer}>
                   {genrateReportsCards.map((data, index) => {
                     return (
@@ -213,6 +211,15 @@ const Dashboard = () => {
                   />
                 </View>
               </>
+            ) : (
+              <View style={styles.cardsContainer}>
+                <HomeCard
+                  title={genrateReportsCards[4].title}
+                  icon={genrateReportsCards[4].icon}
+                  key={genrateReportsCards[4].title}
+                  onPress={() => navigateToCard(9)}
+                />
+              </View>
             )}
           </Pressable>
         </ScrollView>
