@@ -681,6 +681,7 @@ const HealthCampScreen = () => {
             index={healthStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search
               header={healthStore.bottomSheetHeader}
               data={healthStore.bottomSheetArray}
               onClose={() => {
