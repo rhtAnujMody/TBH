@@ -79,7 +79,7 @@ const HealthCampScreen = () => {
         healthStore.setAge(
           Utility.calculateAgeInMonths(Utility.formatDate(date)).toString(),
         );
-        healthStore.ageIsEditable = false;
+        healthStore.disableAgeEdit();
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));

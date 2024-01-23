@@ -338,6 +338,10 @@ const useHealthStore = () => {
       healthStore.openPhotoBottomSheet = !healthStore.openPhotoBottomSheet;
     },
 
+    disableAgeEdit() {
+      healthStore.ageIsEditable = false;
+    },
+
     validateSubmit() {
       healthStore.enableSubmit = false;
 
