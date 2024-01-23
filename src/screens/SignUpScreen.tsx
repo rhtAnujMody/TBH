@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Observer, observer} from 'mobx-react-lite';
 import React, {useRef, useState} from 'react';
 import {Pressable, ScrollView, Text, TextInput, View} from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 
 import {AppSVGs} from '../assets';
 import {
@@ -162,9 +162,11 @@ const SignUpScreen = () => {
             </ScrollView>
           </View>
 
-          <DateTimePickerModal
-            isVisible={openDatePicker}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={openDatePicker}
             onConfirm={onConfirmDate}
             onCancel={onCancelDate}
             maximumDate={new Date()}

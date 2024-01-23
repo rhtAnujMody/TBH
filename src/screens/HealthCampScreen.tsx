@@ -23,7 +23,7 @@ import {
   AppBottomSheet,
   AppDashedLine,
 } from '../components';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 import AppStrings from '../utils/AppStrings';
 
 import Utility from '../utils/Utility';
@@ -692,9 +692,11 @@ const HealthCampScreen = () => {
             />
           </AppBottomSheet>
 
-          <DateTimePickerModal
-            isVisible={healthStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={healthStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             maximumDate={new Date()}
