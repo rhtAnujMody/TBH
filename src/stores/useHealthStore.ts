@@ -127,6 +127,8 @@ const useHealthStore = () => {
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
 
+    ageIsEditable: true,
+
     async getItem() {
       keys.map(item => {
         getData(item, '').then(res => healthStore.setValues(item, res ?? ''));
@@ -227,8 +229,11 @@ const useHealthStore = () => {
       healthStore.dob = value;
       healthStore.validateSubmit();
     },
-    setAge(value: number) {
-      healthStore.age = value.toString();
+    setAge(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
+      healthStore.age = value;
     },
     setHeight(value: string) {
       if (!(value.trim() === '') && !Utility.validateFloat(value)) {

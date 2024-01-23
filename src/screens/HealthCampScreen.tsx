@@ -77,8 +77,9 @@ const HealthCampScreen = () => {
       case '2':
         healthStore.setDOB(Utility.formatDate(date));
         healthStore.setAge(
-          Utility.calculateAgeInMonths(Utility.formatDate(date)),
+          Utility.calculateAgeInMonths(Utility.formatDate(date)).toString(),
         );
+        healthStore.ageIsEditable = false;
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
@@ -324,7 +325,8 @@ const HealthCampScreen = () => {
                               textHeader={AppStrings.HEALTH_CAMP_SCREEN.age}
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.age}
                               value={healthStore.age}
-                              editable={false}
+                              editable={healthStore.ageIsEditable}
+                              onChangeText={healthStore.setAge}
                             />
 
                             <AppInput
