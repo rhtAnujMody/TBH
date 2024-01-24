@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -10,13 +10,15 @@ import {AppSVGs} from '../../assets';
 import {FlatList} from 'react-native-gesture-handler';
 import {colors, typography} from '../../theme';
 import AppStrings from '../../utils/AppStrings';
+import AppTextInput from './AppTextInput';
+import Utility from '../../utils/Utility';
 
 type Array = {
   name: string;
   id: string;
 };
 
-type BottomSheetCard = {
+export type BottomSheetChildCard = {
   id: string;
   name: string;
   dob: string;
@@ -25,14 +27,15 @@ type BottomSheetCard = {
 
 type Props = {
   header: string;
-  data: Array[];
+  data: BottomSheetChildCard[];
   onPress?: () => void;
   onClose: () => void;
   onItemSelect: (header: string, value: string, id: string) => void;
 };
 
 const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
-  const renderItem = ({item}: {item: BottomSheetCard}) => {
+  const [childList, setChildList] = useState(data);
+  const renderItem = ({item}: {item: BottomSheetChildCard}) => {
     return (
       <TouchableHighlight
         underlayColor="#eee"
@@ -73,8 +76,20 @@ const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
           <AppSVGs.close />
         </TouchableOpacity>
       </View>
+
+      <View style={styles.searchContainer}>
+        <AppTextInput
+          parentStyle={styles.searchBar}
+          icon={AppSVGs.search}
+          placeHolder="Search"
+          onChangeText={query => {
+            setChildList(Utility.searchChild(data, query));
+          }}
+        />
+      </View>
+
       <FlatList
-        data={data}
+        data={childList}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contentContainerStyle}
         renderItem={renderItem}
@@ -118,4 +133,6 @@ const styles = StyleSheet.create({
     ...typography.regular(14, colors.black),
   },
   cellStyle: {flexDirection: 'row', alignItems: 'center'},
+  searchContainer: {marginHorizontal: 20},
+  searchBar: {backgroundColor: '#eeeeee'},
 });
