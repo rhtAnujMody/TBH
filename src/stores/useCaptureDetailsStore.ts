@@ -157,6 +157,7 @@ const useCaptureDetailsStore = () => {
 
     setValue(from: string, value: string, id: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
+      cdStore.setShowSearchBar(false);
       switch (from) {
         case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.selectAge:
           cdStore.age = value;

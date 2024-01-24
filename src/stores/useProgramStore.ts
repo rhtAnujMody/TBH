@@ -303,6 +303,7 @@ const useProgramStore = () => {
       }
     },
     setValue(from: string, value: string, id: string) {
+      proStore.setShowSearchBar(false);
       proStore.openBottomSheet = !proStore.openBottomSheet;
       switch (from) {
         case AppStrings.partnerTypePlaceHolder:

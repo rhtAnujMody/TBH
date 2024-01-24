@@ -662,7 +662,10 @@ const ProgramMonitorScreen = () => {
                 proStore.setShowSearchBar(false);
               }}
               onItemSelect={proStore.setValue}
-              onPress={proStore.toggleBottomSheet}
+              onPress={() => {
+                proStore.toggleBottomSheet();
+                proStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 

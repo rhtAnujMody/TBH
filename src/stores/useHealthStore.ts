@@ -540,6 +540,7 @@ const useHealthStore = () => {
 
     setValue(from: string, value: string, id: string) {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
+      healthStore.setShowSearchBar(false);
       switch (from) {
         case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader:
           healthStore.partner = value;

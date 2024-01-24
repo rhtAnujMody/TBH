@@ -406,7 +406,10 @@ const CaptureDetailsScreen = () => {
                 cdStore.setShowSearchBar(false);
               }}
               onItemSelect={cdStore.setValue}
-              onPress={cdStore.toggleBottomSheet}
+              onPress={() => {
+                cdStore.toggleBottomSheet();
+                cdStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 

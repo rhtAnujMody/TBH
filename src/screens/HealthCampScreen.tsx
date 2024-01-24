@@ -691,7 +691,10 @@ const HealthCampScreen = () => {
                 healthStore.setShowSearchBar(false);
               }}
               onItemSelect={healthStore.setValue}
-              onPress={healthStore.toggleBottomSheet}
+              onPress={() => {
+                healthStore.toggleBottomSheet();
+                healthStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 
