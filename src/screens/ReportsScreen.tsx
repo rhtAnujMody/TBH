@@ -36,6 +36,7 @@ const ReportsScreen = () => {
 
   const hideBottomSheet = () => {
     reportsStore.toggleBottomSheet();
+    reportsStore.setShowSearchBar(false);
   };
   const showDatePicker = (id: string) => {
     reportsStore.setCalenderID(id);
@@ -131,11 +132,13 @@ const ReportsScreen = () => {
             index={reportsStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={reportsStore.showSearchBar}
               header={reportsStore.bottomSheetHeader}
               data={reportsStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 reportsStore.toggleBottomSheet();
+                reportsStore.setShowSearchBar(false);
               }}
               onItemSelect={reportsStore.setValue}
               onPress={reportsStore.toggleBottomSheet}

@@ -68,6 +68,7 @@ const useProgramStore = () => {
     openPhotoBottomSheet: false,
     calenderID: '',
     showCalender: false,
+    showSearchBar: false,
     selectedImages: [] as Image[],
     partnerTypeOptions: [
       {name: AppStrings.tbr, id: 'T'},
@@ -241,6 +242,10 @@ const useProgramStore = () => {
       proStore.openPhotoBottomSheet = !proStore.openPhotoBottomSheet;
     },
 
+    setShowSearchBar(value: boolean) {
+      proStore.showSearchBar = value;
+    },
+
     toggleBottomSheet(from?: string) {
       proStore.openBottomSheet = !proStore.openBottomSheet;
       switch (from) {
@@ -252,6 +257,7 @@ const useProgramStore = () => {
           proStore.bottomSheetHeader =
             AppStrings.PROGRAM_MONITORING_SCREEN.nameLocExistPartnerPlaceHolder;
           proStore.bottomSheetArray = proStore.existingPartnerOptions;
+          proStore.setShowSearchBar(true);
           break;
         case 'hour':
           proStore.bottomSheetHeader = AppStrings.selectHour;

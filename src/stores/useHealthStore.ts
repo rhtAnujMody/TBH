@@ -126,6 +126,7 @@ const useHealthStore = () => {
     ],
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
+    showSearchBar: false,
 
     async getItem() {
       keys.map(item => {
@@ -329,6 +330,10 @@ const useHealthStore = () => {
       healthStore.selectedImages = selectedImage;
     },
 
+    setShowSearchBar(value: boolean) {
+      healthStore.showSearchBar = value;
+    },
+
     togglePhotoBottomSheet() {
       healthStore.openPhotoBottomSheet = !healthStore.openPhotoBottomSheet;
     },
@@ -479,6 +484,7 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerNameHeader;
           healthStore.bottomSheetArray = healthStore.partnerNameList;
+          healthStore.setShowSearchBar(true);
           break;
         case 'partnerType':
           healthStore.bottomSheetHeader =
@@ -514,6 +520,7 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
+          healthStore.setShowSearchBar(true);
           break;
         case 'educationalDetails':
           healthStore.bottomSheetHeader =
