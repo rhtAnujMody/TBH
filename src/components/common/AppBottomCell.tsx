@@ -21,6 +21,7 @@ type BottomSheetCard = {
   name: string;
   dob: string;
   gender: string;
+  doctor_observation: [];
 };
 
 type Props = {
@@ -28,7 +29,12 @@ type Props = {
   data: Array[];
   onPress?: () => void;
   onClose: () => void;
-  onItemSelect: (header: string, value: string, id: string) => void;
+  onItemSelect: (
+    header: string,
+    value: string,
+    id: string,
+    doctor_observation: [],
+  ) => void;
 };
 
 const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
@@ -37,7 +43,7 @@ const AppBottomCell = ({data, header, onPress, onItemSelect}: Props) => {
       <TouchableHighlight
         underlayColor="#eee"
         onPress={() => {
-          onItemSelect(header, item.name, item.id);
+          onItemSelect(header, item.name, item.id, item.doctor_observation);
         }}
         style={styles.itemContainer}>
         <>

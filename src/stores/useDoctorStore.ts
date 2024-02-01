@@ -22,6 +22,8 @@ const useDoctorStore = () => {
     others: '',
     isLoading: false,
     enableSubmit: false,
+    isAdmin: authStore.userData.role === 'A',
+    isEditable: true,
     doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
       {name: AppStrings.yes, id: '1'},
@@ -39,10 +41,16 @@ const useDoctorStore = () => {
       doctorStore.bottomSheetHeader = AppStrings.referredHospital;
       doctorStore.bottomSheetArray = doctorStore.hospitalOptions;
     },
+    setHospital(value: string) {
+      doctorStore.hospital = value;
+    },
     setValue(from: string, value: string, id: string) {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
       doctorStore.hospital = value;
       doctorStore.validateSubmit();
+    },
+    setIsEditable(value: boolean) {
+      doctorStore.isEditable = value;
     },
     validateSubmit() {
       doctorStore.enableSubmit = false;
@@ -100,6 +108,7 @@ const useDoctorStore = () => {
         Object.keys(doctorStore.doctorObservation).map(itemId => {
           doctorStore.doctorObservation[itemId].map(item => {
             item.isSelected = false;
+            item.isDisable = false;
           });
         });
         runInAction(() => {

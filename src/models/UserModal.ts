@@ -15,6 +15,7 @@ export type DoctorObservationInner = {
   id: number;
   observation: string;
   isSelected: boolean;
+  isDisable: boolean;
 };
 export interface DoctorObservation {
   [key: string]: DoctorObservationInner[];

@@ -28,6 +28,8 @@ const DoctorRow = ({parentStyle, textHeader, data}: Props) => {
             onCheckChange={value => {
               onCheckChange(value, item);
             }}
+            isChecked={item.isSelected}
+            isDisable={item.isDisable}
           />
         );
       })}

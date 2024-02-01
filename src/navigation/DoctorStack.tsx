@@ -6,7 +6,7 @@ import CalculateFieldsScreen from '../screens/CalculateFieldsScreen';
 
 export type DoctorStackRootParamList = {
   Calculate: {from: string};
-  Doctor: {id: string};
+  Doctor: {id: string; doctor_observation: []};
 };
 
 export type DoctorScreenRouteProp = RouteProp<
