@@ -16,3 +16,5 @@ export {default as Header} from './Header';
 export {default as ObservableChild} from './ObservableChild';
 export {default as AppUserDelete} from './AppUserDelete';
 export {default as AppDashedLine} from './AppDashedLine';
+export {default as AppPartnerDelete} from './AppPartnerDelete';
+export {default as AppChildDelete} from './AppChildDelete';

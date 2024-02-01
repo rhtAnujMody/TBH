@@ -10,6 +10,7 @@ import {
   BeneficiaryList,
   HealthCampBeneficiary,
   PartnerList,
+  ChildList,
 } from './UserModal';
 export type {
   CaptureModal,
@@ -23,4 +24,5 @@ export type {
   HealthCampBeneficiary,
   PartnerList,
   UserDetails,
+  ChildList,
 };

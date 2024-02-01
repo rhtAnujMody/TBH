@@ -43,3 +43,12 @@ export interface PartnerList {
   district: string;
   state: string;
 }
+
+export interface ChildList {
+  id: number;
+  name: string;
+  dob: string;
+  contact: string;
+  gender: string;
+  is_active: string;
+}
