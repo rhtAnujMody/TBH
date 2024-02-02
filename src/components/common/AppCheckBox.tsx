@@ -57,5 +57,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flex: 1,
   },
-  checkBox: {marginVertical: 5},
+  checkBox: {marginVertical: 2},
 });

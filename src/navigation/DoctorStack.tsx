@@ -4,9 +4,18 @@ import {RouteProp} from '@react-navigation/native';
 import DocObservationScreen from '../screens/DocObservationScreen';
 import CalculateFieldsScreen from '../screens/CalculateFieldsScreen';
 
+type doctor_observation = {
+  action_suggested: string;
+  child: number;
+  id: number;
+  is_referred_to_hospital: boolean;
+  observation: number[];
+  others: string;
+};
+
 export type DoctorStackRootParamList = {
   Calculate: {from: string};
-  Doctor: {id: string; doctor_observation: []};
+  Doctor: {id: string; doctor_observation: doctor_observation[]};
 };
 
 export type DoctorScreenRouteProp = RouteProp<

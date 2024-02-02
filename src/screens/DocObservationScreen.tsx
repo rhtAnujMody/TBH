@@ -41,19 +41,18 @@ const DocObservationScreen = ({}: Props) => {
   };
 
   useEffect(() => {
-    console.log(doctor_observation);
-    console.log(doctor_observation && doctor_observation[0].observation);
-    doctorStore.setOthers(doctor_observation && doctor_observation[0].others);
-    doctor_observation && doctor_observation[0].is_referred_to_hospital
-      ? doctorStore.setHospital('Yes')
-      : doctorStore.setHospital('No');
-
-    doctorStore.setAction(
-      doctor_observation && doctor_observation[0].action_suggested,
-    );
-
     if (doctor_observation !== null) {
+      let doctor_length = doctor_observation.length;
+      doctorStore.setOthers(doctor_observation[doctor_length - 1].others);
+      doctor_observation[doctor_length - 1].is_referred_to_hospital
+        ? doctorStore.setHospital(AppStrings.yes)
+        : doctorStore.setHospital(AppStrings.no);
+      doctorStore.setAction(
+        doctor_observation[doctor_length - 1].action_suggested,
+      );
+
       doctorStore.setIsEditable(false);
+      doctorStore.setSubmitEditButton(AppStrings.edit);
     }
 
     if (doctorStore.isAdmin) {
@@ -95,20 +94,22 @@ const DocObservationScreen = ({}: Props) => {
                         doctorStore.doctorObservation[bodyPart].map(obj => {
                           if (
                             doctor_observation &&
-                            doctor_observation[0]['observation'].includes(
-                              obj.id,
-                            )
+                            doctor_observation[doctor_observation.length - 1][
+                              'observation'
+                            ].includes(obj.id)
                           ) {
                             obj.isSelected = true;
                           }
 
-                          if (!doctorStore.isAdmin) {
-                            obj.isDisable = true;
-                          }
+                          obj.isDisable = !doctorStore.isEditable;
 
-                          if (doctorStore.isEditable) {
-                            obj.isDisable = false;
-                          }
+                          // if (!doctorStore.isAdmin) {
+                          //   obj.isDisable = true;
+                          // }
+
+                          // if (doctorStore.isEditable) {
+                          //   obj.isDisable = false;
+                          // }
                         });
                         return (
                           <DoctorRow
@@ -155,7 +156,7 @@ const DocObservationScreen = ({}: Props) => {
                   </Pressable>
                 </ScrollView>
                 <AppButton
-                  title={AppStrings.submit}
+                  title={doctorStore.submitEditButon}
                   style={styles.buttonStyle}
                   width={'90%'}
                   isLoading={doctorStore.isLoading}

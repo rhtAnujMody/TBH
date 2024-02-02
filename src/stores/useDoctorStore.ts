@@ -24,6 +24,7 @@ const useDoctorStore = () => {
     enableSubmit: false,
     isAdmin: authStore.userData.role === 'A',
     isEditable: true,
+    submitEditButon: AppStrings.submit,
     doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
       {name: AppStrings.yes, id: '1'},
@@ -51,6 +52,9 @@ const useDoctorStore = () => {
     },
     setIsEditable(value: boolean) {
       doctorStore.isEditable = value;
+    },
+    setSubmitEditButton(value: string) {
+      doctorStore.submitEditButon = value;
     },
     validateSubmit() {
       doctorStore.enableSubmit = false;
