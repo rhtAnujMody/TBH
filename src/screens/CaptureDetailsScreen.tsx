@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 
 import {AppSVGs} from '../assets';
 import {
@@ -407,9 +407,11 @@ const CaptureDetailsScreen = () => {
             />
           </AppBottomSheet>
 
-          <DateTimePickerModal
-            isVisible={cdStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={cdStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             maximumDate={new Date()}

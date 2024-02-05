@@ -23,7 +23,7 @@ import {
   Header,
 } from '../components';
 
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 
 import {AppSVGs} from '../assets';
 import {useCamera} from '../custom_hooks';
@@ -638,9 +638,11 @@ const ProgramMonitorScreen = () => {
             </KeyboardAvoidingView>
           </AppContainer>
 
-          <DateTimePickerModal
-            isVisible={proStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={proStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={proStore.toogleCalender}
             maximumDate={new Date()}
