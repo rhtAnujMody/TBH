@@ -23,7 +23,7 @@ import {
   AppBottomSheet,
   AppDashedLine,
 } from '../components';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 import AppStrings from '../utils/AppStrings';
 
 import Utility from '../utils/Utility';
@@ -45,6 +45,7 @@ const HealthCampScreen = () => {
 
   const hideBottomSheet = () => {
     healthStore.toggleBottomSheet();
+    healthStore.setShowSearchBar(false);
   };
 
   const handleImagePicker = (from: number) => {
@@ -77,8 +78,9 @@ const HealthCampScreen = () => {
       case '2':
         healthStore.setDOB(Utility.formatDate(date));
         healthStore.setAge(
-          Utility.calculateAgeInMonths(Utility.formatDate(date)),
+          Utility.calculateAgeInMonths(Utility.formatDate(date)).toString(),
         );
+        healthStore.disableAgeEdit();
         break;
       case '3':
         healthStore.setDateOfDoseVitamin(Utility.formatDate(date));
@@ -324,7 +326,8 @@ const HealthCampScreen = () => {
                               textHeader={AppStrings.HEALTH_CAMP_SCREEN.age}
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.age}
                               value={healthStore.age}
-                              editable={false}
+                              editable={healthStore.ageIsEditable}
+                              onChangeText={healthStore.setAge}
                             />
 
                             <AppInput
@@ -681,20 +684,27 @@ const HealthCampScreen = () => {
             index={healthStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={healthStore.showSearchBar}
               header={healthStore.bottomSheetHeader}
               data={healthStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 healthStore.toggleBottomSheet();
+                healthStore.setShowSearchBar(false);
               }}
               onItemSelect={healthStore.setValue}
-              onPress={healthStore.toggleBottomSheet}
+              onPress={() => {
+                healthStore.toggleBottomSheet();
+                healthStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 
-          <DateTimePickerModal
-            isVisible={healthStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={healthStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             maximumDate={new Date()}

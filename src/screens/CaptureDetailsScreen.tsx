@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 
 import {AppSVGs} from '../assets';
 import {
@@ -53,6 +53,7 @@ const CaptureDetailsScreen = () => {
 
   const hideBottomSheet = () => {
     cdStore.toggleBottomSheet();
+    cdStore.setShowSearchBar(false);
   };
 
   const handleIndex = (value: number) => {
@@ -396,20 +397,27 @@ const CaptureDetailsScreen = () => {
             index={cdStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={cdStore.showSearchBar}
               header={cdStore.bottomSheetHeader}
               data={cdStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 cdStore.toggleBottomSheet();
+                cdStore.setShowSearchBar(false);
               }}
               onItemSelect={cdStore.setValue}
-              onPress={cdStore.toggleBottomSheet}
+              onPress={() => {
+                cdStore.toggleBottomSheet();
+                cdStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 
-          <DateTimePickerModal
-            isVisible={cdStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={cdStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             maximumDate={new Date()}

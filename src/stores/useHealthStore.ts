@@ -126,6 +126,9 @@ const useHealthStore = () => {
     ],
     targetBenefitOptions: authStore.userData.health_camp_beneficiary,
     educationalDetailsOptions: authStore.userData.education_details,
+    showSearchBar: false,
+
+    ageIsEditable: true,
 
     async getItem() {
       keys.map(item => {
@@ -227,8 +230,11 @@ const useHealthStore = () => {
       healthStore.dob = value;
       healthStore.validateSubmit();
     },
-    setAge(value: number) {
-      healthStore.age = value.toString();
+    setAge(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
+      healthStore.age = value;
     },
     setHeight(value: string) {
       if (!(value.trim() === '') && !Utility.validateFloat(value)) {
@@ -329,8 +335,16 @@ const useHealthStore = () => {
       healthStore.selectedImages = selectedImage;
     },
 
+    setShowSearchBar(value: boolean) {
+      healthStore.showSearchBar = value;
+    },
+
     togglePhotoBottomSheet() {
       healthStore.openPhotoBottomSheet = !healthStore.openPhotoBottomSheet;
+    },
+
+    disableAgeEdit() {
+      healthStore.ageIsEditable = false;
     },
 
     validateSubmit() {
@@ -479,6 +493,7 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerNameHeader;
           healthStore.bottomSheetArray = healthStore.partnerNameList;
+          healthStore.setShowSearchBar(true);
           break;
         case 'partnerType':
           healthStore.bottomSheetHeader =
@@ -514,6 +529,7 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
+          healthStore.setShowSearchBar(true);
           break;
         case 'educationalDetails':
           healthStore.bottomSheetHeader =
@@ -533,6 +549,7 @@ const useHealthStore = () => {
 
     setValue(from: string, value: string, id: string) {
       healthStore.openBottomSheet = !healthStore.openBottomSheet;
+      healthStore.setShowSearchBar(false);
       switch (from) {
         case AppStrings.HEALTH_CAMP_SCREEN.bottomSheet.partnerHeader:
           healthStore.partner = value;
