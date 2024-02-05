@@ -55,6 +55,7 @@ const useCaptureDetailsStore = () => {
       {name: 'Existing', id: 'existing'},
     ],
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
+    showSearchBar: false,
 
     photoOptions: [
       {name: 'Take a Photo', id: 'camera'},
@@ -112,11 +113,13 @@ const useCaptureDetailsStore = () => {
           cdStore.bottomSheetHeader =
             AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.partnerName;
           cdStore.bottomSheetArray = cdStore.partnerNameList;
+          cdStore.setShowSearchBar(true);
           break;
         case 'beneficiaries':
           cdStore.bottomSheetHeader =
             AppStrings.NUTRITION_EDUCATION_SCREEN.targetBeneficiariesPlaceHolder;
           cdStore.bottomSheetArray = cdStore.beneficiarisOptions;
+          cdStore.setShowSearchBar(true);
           break;
         case 'hour':
           cdStore.bottomSheetHeader = AppStrings.selectHour;
@@ -154,6 +157,7 @@ const useCaptureDetailsStore = () => {
 
     setValue(from: string, value: string, id: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
+      cdStore.setShowSearchBar(false);
       switch (from) {
         case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.selectAge:
           cdStore.age = value;
@@ -250,6 +254,10 @@ const useCaptureDetailsStore = () => {
 
     setSelectedImages(selectedImage: Image[]) {
       cdStore.selectedImages = selectedImage;
+    },
+
+    setShowSearchBar(value: boolean) {
+      cdStore.showSearchBar = value;
     },
 
     validateSubmit() {

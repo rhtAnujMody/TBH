@@ -54,6 +54,7 @@ const ProgramMonitorScreen = () => {
   };
   const hideBottomSheet = () => {
     proStore.toggleBottomSheet();
+    proStore.setShowSearchBar(false);
   };
   const handleIndex = (value: number) => {
     proStore.setIndex(value);
@@ -654,14 +655,19 @@ const ProgramMonitorScreen = () => {
             index={proStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={proStore.showSearchBar}
               header={proStore.bottomSheetHeader}
               data={proStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 proStore.toggleBottomSheet();
+                proStore.setShowSearchBar(false);
               }}
               onItemSelect={proStore.setValue}
-              onPress={proStore.toggleBottomSheet}
+              onPress={() => {
+                proStore.toggleBottomSheet();
+                proStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 

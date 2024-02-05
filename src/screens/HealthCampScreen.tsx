@@ -45,6 +45,7 @@ const HealthCampScreen = () => {
 
   const hideBottomSheet = () => {
     healthStore.toggleBottomSheet();
+    healthStore.setShowSearchBar(false);
   };
 
   const handleImagePicker = (from: number) => {
@@ -683,14 +684,19 @@ const HealthCampScreen = () => {
             index={healthStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={healthStore.showSearchBar}
               header={healthStore.bottomSheetHeader}
               data={healthStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 healthStore.toggleBottomSheet();
+                healthStore.setShowSearchBar(false);
               }}
               onItemSelect={healthStore.setValue}
-              onPress={healthStore.toggleBottomSheet}
+              onPress={() => {
+                healthStore.toggleBottomSheet();
+                healthStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 

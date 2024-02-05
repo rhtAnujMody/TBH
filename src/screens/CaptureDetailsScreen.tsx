@@ -53,6 +53,7 @@ const CaptureDetailsScreen = () => {
 
   const hideBottomSheet = () => {
     cdStore.toggleBottomSheet();
+    cdStore.setShowSearchBar(false);
   };
 
   const handleIndex = (value: number) => {
@@ -396,14 +397,19 @@ const CaptureDetailsScreen = () => {
             index={cdStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={cdStore.showSearchBar}
               header={cdStore.bottomSheetHeader}
               data={cdStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 cdStore.toggleBottomSheet();
+                cdStore.setShowSearchBar(false);
               }}
               onItemSelect={cdStore.setValue}
-              onPress={cdStore.toggleBottomSheet}
+              onPress={() => {
+                cdStore.toggleBottomSheet();
+                cdStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 
