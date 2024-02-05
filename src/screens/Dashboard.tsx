@@ -58,6 +58,21 @@ const Dashboard = () => {
     },
   ];
 
+  const adminManage = [
+    {
+      title: AppStrings.ADMIN_MANAGE.manageUsers,
+      icon: AppSVGs.user,
+    },
+    {
+      title: AppStrings.ADMIN_MANAGE.managePartners,
+      icon: AppSVGs.user,
+    },
+    {
+      title: AppStrings.ADMIN_MANAGE.manageChildren,
+      icon: AppSVGs.user,
+    },
+  ];
+
   const navigateToCard = (index: number) => {
     switch (index) {
       case 0:
@@ -123,7 +138,19 @@ const Dashboard = () => {
         });
         break;
       case 12:
-        navigation.navigate('ManageUsers');
+        navigation.navigate('ManageUsers', {
+          id: 1,
+        });
+        break;
+      case 13:
+        navigation.navigate('ManageUsers', {
+          id: 2,
+        });
+        break;
+      case 14:
+        navigation.navigate('ManageUsers', {
+          id: 3,
+        });
         break;
     }
   };
@@ -204,11 +231,17 @@ const Dashboard = () => {
                 </View>
                 <Text style={styles.title}>{AppStrings.manageUsersLabel}</Text>
                 <View style={styles.cardsContainer}>
-                  <HomeCard
-                    title={AppStrings.manageUsersLabel}
-                    icon={AppSVGs.user}
-                    onPress={() => navigateToCard(12)}
-                  />
+                  {adminManage.map((data, index) => {
+                    return (
+                      <HomeCard
+                        title={data.title}
+                        icon={data.icon}
+                        key={data.title}
+                        onPress={() => navigateToCard(index + 12)}
+                        marginRight={index === 0 ? 10 : 0}
+                      />
+                    );
+                  })}
                 </View>
               </>
             ) : (

@@ -25,6 +25,8 @@ export default {
   manageUsers: (agent_id: number): string =>
     `/v1/accounts/admin-actions/?agent_id=${agent_id}`,
 
+  manageChild: '/v1/accounts/child/',
+  managePartner: '/v1/accounts/partner/',
   deleteUsers: '/v1/accounts/admin-actions/',
 
   fromCalculate: 'calculated_fields',
@@ -98,6 +100,11 @@ export default {
     doctorsObservation: "Doctor's Observation Report",
     nutritionEducation: 'Nutrition Education Report',
     monitoring: 'Monitoring Report',
+  },
+  ADMIN_MANAGE: {
+    manageUsers: 'Manage Users',
+    managePartners: 'Manage Partners',
+    manageChildren: 'Manage Children',
   },
 
   CUSTOM_REPORTS_CARDS: {
@@ -185,6 +192,8 @@ export default {
   minDate: '2014-01-01',
 
   listOfUsers: 'List of Users',
+  listOfPartners: 'List of Partners',
+  listOfChildren: 'List of Children',
   noData: 'No Data to show',
 
   partner: 'partner',

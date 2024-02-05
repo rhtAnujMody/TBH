@@ -5,7 +5,7 @@ import useApiService from '../network/useAPIService';
 import Utility from '../utils/Utility';
 import AppStrings from '../utils/AppStrings';
 import authStore from './authStore';
-import {UserDetails} from '../models';
+import {UserDetails, PartnerList, ChildList} from '../models';
 
 const useManageUsersStore = () => {
   const {request} = useApiService();
@@ -13,6 +13,10 @@ const useManageUsersStore = () => {
   const manageStore = useLocalObservable(() => ({
     usersList: [] as UserDetails[],
     searchList: [] as UserDetails[],
+    partnerNameList: [] as PartnerList[],
+    partnerSearchList: [] as PartnerList[],
+    childDetailsList: [] as ChildList[],
+    childSearchDetailsList: [] as ChildList[],
 
     async getUsersList() {
       runInAction(() => {});
@@ -34,41 +38,59 @@ const useManageUsersStore = () => {
       }
     },
 
-    handleSearch(query: string) {
-      const formattedQuery = query.toLowerCase();
-      const filteredData = manageStore.customFilter(
-        manageStore.usersList,
-        (user: UserDetails) => {
-          return manageStore.contains(user, formattedQuery);
-        },
-      );
-      manageStore.searchList = filteredData;
-    },
-
-    //Our own custom Filter function instead of lodash filter
-    customFilter(
-      collection: UserDetails[],
-      predicate: (user: UserDetails) => {},
-    ) {
-      const filteredArray = [];
-      for (let i = 0; i < collection.length; i++) {
-        if (predicate(collection[i])) {
-          filteredArray.push(collection[i]);
+    async getPartnerList() {
+      runInAction(() => {});
+      try {
+        const response: any = await request('get', AppStrings.managePartner);
+        if (response.success) {
+          runInAction(() => {
+            manageStore.partnerNameList = response.data;
+            manageStore.partnerSearchList = response.data;
+          });
         }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } finally {
+        runInAction(() => {});
       }
-
-      return filteredArray;
     },
 
-    contains({name, email, contact}: any, query: string) {
-      if (
-        name.includes(query) ||
-        email.includes(query) ||
-        contact.includes(query)
-      ) {
-        return true;
+    async getChildNameList() {
+      runInAction(() => {});
+      try {
+        const response: any = await request('get', AppStrings.manageChild);
+        if (response.success) {
+          runInAction(() => {
+            manageStore.childDetailsList = response.data;
+            manageStore.childSearchDetailsList = response.data;
+          });
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } finally {
+        runInAction(() => {});
       }
-      return false;
+    },
+
+    handlePartnerSearch(query: string) {
+      manageStore.partnerSearchList = Utility.searchQuery(
+        query,
+        manageStore.partnerNameList,
+      );
+    },
+
+    handleChildSearch(query: string) {
+      manageStore.childSearchDetailsList = Utility.searchQuery(
+        query,
+        manageStore.childDetailsList,
+      );
+    },
+
+    handleSearch(query: string) {
+      manageStore.searchList = Utility.searchQuery(
+        query,
+        manageStore.usersList,
+      );
     },
 
     async deleteUser(id: number) {
@@ -76,6 +98,38 @@ const useManageUsersStore = () => {
         const response: any = await request('post', AppStrings.deleteUsers, {
           user_id: id,
           agent_id: authStore.userData.id,
+        });
+
+        if (response.success) {
+          Utility.showToast(response.msg);
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } finally {
+        navigation.goBack();
+      }
+    },
+
+    async deleteChild(id: number) {
+      try {
+        const response: any = await request('post', AppStrings.manageChild, {
+          child_id: id,
+        });
+
+        if (response.success) {
+          Utility.showToast(response.msg);
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } finally {
+        navigation.goBack();
+      }
+    },
+
+    async deletePartner(id: number) {
+      try {
+        const response: any = await request('post', AppStrings.managePartner, {
+          partner: id,
         });
 
         if (response.success) {

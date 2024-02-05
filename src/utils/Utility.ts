@@ -153,6 +153,20 @@ class Utility {
     return pattern.test(text);
   };
 
+  static searchQuery = (valueToFilter: string, searchData: any[]) => {
+    const lowerCaseValue = valueToFilter.toLowerCase();
+    return searchData.filter(item => {
+      for (const key in item) {
+        if (
+          item.hasOwnProperty(key) &&
+          String(item[key]).toLowerCase().includes(lowerCaseValue)
+        ) {
+          return true;
+        }
+      }
+      return false;
+    });
+  };
   static searchChild = (
     partnerList: BottomSheetChildCard[],
     searchName: string,
