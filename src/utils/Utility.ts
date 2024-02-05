@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {UserData} from '../models/UserModal';
 import {AppSVGs} from '../assets';
+import {BottomSheetCard} from '../components/common/AppBottomSheetDropdown';
 
 const {width: deviceWidth, height: deviceHeight} = Dimensions.get('window');
 
@@ -164,6 +165,15 @@ class Utility {
       }
       return false;
     });
+  };
+  static searchPartner = (
+    partnerList: BottomSheetCard[],
+    searchName: string,
+  ) => {
+    const matchingNames = partnerList.filter(item =>
+      item.name.toLowerCase().includes(searchName.toLowerCase()),
+    );
+    return matchingNames;
   };
 }
 export default Utility;

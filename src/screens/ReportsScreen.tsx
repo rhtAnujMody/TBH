@@ -18,7 +18,7 @@ import {
   AppInput,
   Header,
 } from '../components';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
 import {AppSVGs} from '../assets';
@@ -36,6 +36,7 @@ const ReportsScreen = () => {
 
   const hideBottomSheet = () => {
     reportsStore.toggleBottomSheet();
+    reportsStore.setShowSearchBar(false);
   };
   const showDatePicker = (id: string) => {
     reportsStore.setCalenderID(id);
@@ -131,19 +132,24 @@ const ReportsScreen = () => {
             index={reportsStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={reportsStore.showSearchBar}
               header={reportsStore.bottomSheetHeader}
               data={reportsStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 reportsStore.toggleBottomSheet();
+                reportsStore.setShowSearchBar(false);
               }}
               onItemSelect={reportsStore.setValue}
               onPress={reportsStore.toggleBottomSheet}
             />
           </AppBottomSheet>
-          <DateTimePickerModal
-            isVisible={reportsStore.showCalender}
+
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={reportsStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={hideDatePicker}
             minimumDate={new Date(AppStrings.minDate)}

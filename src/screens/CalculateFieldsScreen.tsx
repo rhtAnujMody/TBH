@@ -21,8 +21,7 @@ import {useCalculateStore} from '../stores';
 import Utility from '../utils/Utility';
 import AppStrings from '../utils/AppStrings';
 import {styles} from '../styles/formStyles';
-
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 import {CalculateScreenRouteProp} from '../navigation/ReportsStack';
 import {useRoute} from '@react-navigation/native';
 type Props = {};
@@ -101,9 +100,12 @@ const CalculateFieldsScreen = ({}: Props) => {
               </View>
             </KeyboardAvoidingView>
           </AppContainer>
-          <DateTimePickerModal
-            isVisible={calStore.showCalender}
+
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={calStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={toogleDatePicker}
             maximumDate={new Date()}

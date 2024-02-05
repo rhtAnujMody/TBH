@@ -30,6 +30,7 @@ const useReportsStore = () => {
     partnerID: '',
     calenderID: '',
     showCalender: false,
+    showSearchBar: false,
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
 
     toogleCalender() {
@@ -47,10 +48,14 @@ const useReportsStore = () => {
       reportsStore.toDate = value;
       reportsStore.validateSubmit();
     },
+    setShowSearchBar(value: boolean) {
+      reportsStore.showSearchBar = value;
+    },
     toggleBottomSheet() {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;
       reportsStore.bottomSheetHeader = AppStrings.selectPartnerLocation;
       reportsStore.bottomSheetArray = reportsStore.partnerNameList;
+      reportsStore.setShowSearchBar(true);
     },
     setValue(from: string, value: string, id: string) {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,13 +8,15 @@ import {
 } from 'react-native';
 import {AppSVGs} from '../../assets';
 import {FlatList} from 'react-native-gesture-handler';
+import AppTextInput from './AppTextInput';
+import Utility from '../../utils/Utility';
 
 type Array = {
   name: string;
   id: string;
 };
 
-type BottomSheetCard = {
+export type BottomSheetCard = {
   id: string;
   name: string;
 };
@@ -25,6 +27,7 @@ type Props = {
   onPress?: () => void;
   onClose: () => void;
   onItemSelect: (header: string, value: string, id: string) => void;
+  search?: boolean;
 };
 
 const AppBottomSheetDropdown = ({
@@ -32,7 +35,9 @@ const AppBottomSheetDropdown = ({
   header,
   onPress,
   onItemSelect,
+  search,
 }: Props) => {
+  const [showList, setShowList] = useState(data);
   const renderItem = ({item}: {item: BottomSheetCard}) => {
     return (
       <TouchableHighlight
@@ -54,8 +59,21 @@ const AppBottomSheetDropdown = ({
           <AppSVGs.close />
         </TouchableOpacity>
       </View>
+
+      {search && (
+        <View style={styles.searchContainer}>
+          <AppTextInput
+            parentStyle={styles.searchBar}
+            icon={AppSVGs.search}
+            placeHolder="Search"
+            onChangeText={query => {
+              setShowList(Utility.searchPartner(data, query));
+            }}
+          />
+        </View>
+      )}
       <FlatList
-        data={data}
+        data={showList}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contentContainerStyle}
         renderItem={renderItem}
@@ -90,4 +108,7 @@ const styles = StyleSheet.create({
   headerStyle: {
     fontWeight: 'bold',
   },
+
+  searchContainer: {marginHorizontal: 20},
+  searchBar: {backgroundColor: '#eeeeee'},
 });

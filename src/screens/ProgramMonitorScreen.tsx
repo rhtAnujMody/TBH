@@ -23,7 +23,7 @@ import {
   Header,
 } from '../components';
 
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePicker from 'react-native-date-picker';
 
 import {AppSVGs} from '../assets';
 import {useCamera} from '../custom_hooks';
@@ -54,6 +54,7 @@ const ProgramMonitorScreen = () => {
   };
   const hideBottomSheet = () => {
     proStore.toggleBottomSheet();
+    proStore.setShowSearchBar(false);
   };
   const handleIndex = (value: number) => {
     proStore.setIndex(value);
@@ -638,9 +639,11 @@ const ProgramMonitorScreen = () => {
             </KeyboardAvoidingView>
           </AppContainer>
 
-          <DateTimePickerModal
-            isVisible={proStore.showCalender}
+          <DatePicker
+            modal
             mode="date"
+            date={new Date()}
+            open={proStore.showCalender}
             onConfirm={handleConfirm}
             onCancel={proStore.toogleCalender}
             maximumDate={new Date()}
@@ -652,14 +655,19 @@ const ProgramMonitorScreen = () => {
             index={proStore.index}
             ref={bottomSheetRef}>
             <AppBottomSheetDropdown
+              search={proStore.showSearchBar}
               header={proStore.bottomSheetHeader}
               data={proStore.bottomSheetArray}
               onClose={() => {
                 bottomSheetRef?.current?.close();
                 proStore.toggleBottomSheet();
+                proStore.setShowSearchBar(false);
               }}
               onItemSelect={proStore.setValue}
-              onPress={proStore.toggleBottomSheet}
+              onPress={() => {
+                proStore.toggleBottomSheet();
+                proStore.setShowSearchBar(false);
+              }}
             />
           </AppBottomSheet>
 
