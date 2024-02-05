@@ -35,10 +35,13 @@ const useCalculateStore = () => {
       calStore.openBottomSheet = !calStore.openBottomSheet;
     },
 
-    setValue(from: string, value: string, id: string) {
+    setValue(from: string, value: string, id: string, doctor_observation: []) {
       calStore.openBottomSheet = !calStore.openBottomSheet;
       if (calStore.screen === AppStrings.fromDoctor) {
-        navigation2.navigate('Doctor', {id: id});
+        navigation2.navigate('Doctor', {
+          id: id,
+          doctor_observation: doctor_observation,
+        });
       } else {
         navigation.navigate('Generate', {id: id});
       }
@@ -88,6 +91,7 @@ const useCalculateStore = () => {
         dob: Utility.formatDate(item.dob),
         gender: item.gender,
         id: item.id.toString(),
+        doctor_observation: item.doctor_observation,
       }));
     },
 
@@ -110,7 +114,10 @@ const useCalculateStore = () => {
         if (responseJson.success) {
           if (responseJson.data.length === 1) {
             if (from === AppStrings.fromDoctor) {
-              navigation2.navigate('Doctor', {id: responseJson.data[0].id});
+              navigation2.navigate('Doctor', {
+                id: responseJson.data[0].id,
+                doctor_observation: responseJson.data[0].doctor_observation,
+              });
             } else {
               navigation.navigate('Generate', {id: responseJson.data[0].id});
             }

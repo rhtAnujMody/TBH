@@ -139,6 +139,7 @@ export default {
   referredHospital: 'Referred to Hospital/ Medical Care',
 
   submit: 'Submit',
+  edit: 'Edit',
   uploadPhoto: 'Upload Photo',
   takePhoto: 'Take a Photo',
   uploadLibrary: 'Upload from Library',
