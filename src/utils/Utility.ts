@@ -3,6 +3,7 @@ import {Dimensions} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import {UserData} from '../models/UserModal';
 import {AppSVGs} from '../assets';
+import {BottomSheetChildCard} from '../components/common/AppBottomCell';
 import {BottomSheetCard} from '../components/common/AppBottomSheetDropdown';
 
 const {width: deviceWidth, height: deviceHeight} = Dimensions.get('window');
@@ -152,6 +153,20 @@ class Utility {
     return pattern.test(text);
   };
 
+  static searchChild = (
+    partnerList: BottomSheetChildCard[],
+    searchName: string,
+  ) => {
+    const filteredData = partnerList.filter(item => {
+      return (
+        item.dob.toLowerCase().includes(searchName.toLowerCase()) ||
+        item.gender.toLowerCase().includes(searchName.toLowerCase()) ||
+        item.name.toLowerCase().includes(searchName.toLowerCase())
+      );
+    });
+
+    return filteredData;
+  };
   static searchPartner = (
     partnerList: BottomSheetCard[],
     searchName: string,
