@@ -97,7 +97,8 @@ const CaptureDetailsScreen = () => {
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
                         textHeader={
-                          AppStrings.NUTRITION_EDUCATION_SCREEN.dateOfVisit
+                          AppStrings.NUTRITION_EDUCATION_SCREEN
+                            .dateOfVisitPlaceHolder
                         }
                         rightIcon={AppSVGs.dob}
                         placeHolder={
@@ -120,7 +121,9 @@ const CaptureDetailsScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={cdStore.partner}
-                              textHeader={AppStrings.newExistingPartner}
+                              textHeader={
+                                AppStrings.newExistingPartnerPlaceHolder
+                              }
                               placeHolder={
                                 AppStrings.newExistingPartnerPlaceHolder
                               }
@@ -132,7 +135,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newPartnerName}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.partnerName}
+                                  textHeader={AppStrings.partnerNamePlaceHolder}
                                   placeHolder={
                                     AppStrings.partnerNamePlaceHolder
                                   }
@@ -142,7 +145,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newLocation}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.location}
+                                  textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={cdStore.setNewLocation}
                                 />
@@ -150,7 +153,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newBlock}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.block}
+                                  textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={cdStore.setNewBlock}
                                 />
@@ -158,7 +161,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.district}
+                                  textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={cdStore.setNewDistrict}
                                 />
@@ -166,7 +169,7 @@ const CaptureDetailsScreen = () => {
                                 <AppTextInput
                                   value={cdStore.newState}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.state}
+                                  textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={cdStore.setNewState}
                                 />
@@ -180,7 +183,7 @@ const CaptureDetailsScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={cdStore.existPartnerName}
-                                  textHeader={AppStrings.partnerName}
+                                  textHeader={AppStrings.partnerNamePlaceHolder}
                                   placeHolder={
                                     AppStrings.partnerNamePlaceHolder
                                   }
@@ -189,7 +192,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.location}
+                                  textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   value={cdStore.existLocation}
                                   //onChangeText={cdStore.setLocation}
@@ -198,7 +201,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.block}
+                                  textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   value={cdStore.existBlock}
                                   editable={false}
@@ -206,7 +209,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.district}
+                                  textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   value={cdStore.existDistrict}
                                   editable={false}
@@ -214,7 +217,7 @@ const CaptureDetailsScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.state}
+                                  textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   value={cdStore.existState}
                                   editable={false}
@@ -237,7 +240,7 @@ const CaptureDetailsScreen = () => {
                               parentStyle={styles.textInputStyle}
                               textHeader={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
-                                  .totalParticipants
+                                  .totalParticipantsPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -257,7 +260,7 @@ const CaptureDetailsScreen = () => {
                               value={cdStore.targetBeneficiaries}
                               textHeader={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
-                                  .targetBeneficiaries
+                                  .targetBeneficiariesPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -274,7 +277,8 @@ const CaptureDetailsScreen = () => {
                               parentStyle={styles.textInputStyle}
                               value={cdStore.age}
                               textHeader={
-                                AppStrings.NUTRITION_EDUCATION_SCREEN.age
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .agePlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -317,7 +321,8 @@ const CaptureDetailsScreen = () => {
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
                               textHeader={
-                                AppStrings.NUTRITION_EDUCATION_SCREEN.methodUsed
+                                AppStrings.NUTRITION_EDUCATION_SCREEN
+                                  .methodUsedPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -329,7 +334,7 @@ const CaptureDetailsScreen = () => {
                               parentStyle={styles.textInputStyle}
                               textHeader={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
-                                  .topicsCovered
+                                  .topicsCoveredPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -342,7 +347,7 @@ const CaptureDetailsScreen = () => {
                               parentStyle={styles.textInputStyle}
                               textHeader={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
-                                  .sessionConducted
+                                  .sessionConductedPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -354,7 +359,7 @@ const CaptureDetailsScreen = () => {
                               parentStyle={styles.textInputStyle}
                               textHeader={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
-                                  .feedbackParticipants
+                                  .feedbackParticipantsPlaceHolder
                               }
                               placeHolder={
                                 AppStrings.NUTRITION_EDUCATION_SCREEN
@@ -364,7 +369,7 @@ const CaptureDetailsScreen = () => {
                             />
 
                             <AppImageUploadInput
-                              title={AppStrings.uploadPhotoCaps}
+                              title={AppStrings.uploadPhoto}
                               selectedImages={selectedImages}
                               onPress={cdStore.togglePhotoBottomSheet}
                               removeImage={removeImage}
