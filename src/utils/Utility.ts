@@ -111,6 +111,15 @@ class Utility {
     });
   };
 
+  static replaceSpacesAndTrim = (str: string) => {
+    str = str.replace(/[\s\n]+/g, '_');
+
+    // Trim first and last underscores
+    str = str.replace(/^_+|_+$/g, '');
+
+    return str;
+  };
+
   static customReportsCards = [
     {
       title: 'Historical Data Report',

@@ -36,7 +36,7 @@ function SplashScreen() {
       <View style={styles.circle1} />
       <View style={styles.circle2} />
       <View style={styles.logoContainer}>
-        <AppSVGs.logo />
+        <AppSVGs.tbrlogo />
       </View>
     </AppContainer>
   );

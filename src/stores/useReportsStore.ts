@@ -9,6 +9,7 @@ import {CustomReportsStackRootParamList} from '../navigation/CustomReportsStack'
 import {useNavigation} from '@react-navigation/native';
 import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
+import FileViewer from 'react-native-file-viewer';
 
 const useReportsStore = () => {
   const navigation =
@@ -29,6 +30,8 @@ const useReportsStore = () => {
     partner: '',
     partnerID: '',
     calenderID: '',
+    partnerLocation: '',
+    partnerBlock: '',
     showCalender: false,
     showSearchBar: false,
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
@@ -62,6 +65,8 @@ const useReportsStore = () => {
       const res = value.split(',');
       reportsStore.partner = res[0];
       reportsStore.partnerID = id;
+      reportsStore.partnerLocation = res[1];
+      reportsStore.partnerBlock = res[2];
       reportsStore.validateSubmit();
     },
 
@@ -96,12 +101,32 @@ const useReportsStore = () => {
       let wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Users');
       const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});
-      const file = DDP + id + Date.now() + '.xlsx';
+
+      const file =
+        DDP +
+        Utility.formatDate(new Date()) +
+        '_' +
+        id +
+        '_' +
+        Utility.replaceSpacesAndTrim(reportsStore.partnerLocation) +
+        '_' +
+        Utility.replaceSpacesAndTrim(reportsStore.partnerBlock) +
+        '_' +
+        Date.now() +
+        '.xlsx';
 
       writeFile(file, output(wbout), 'ascii')
         .then((r: any) => {
           Utility.showToast(AppStrings.excelDownloaded);
           Utility.logData(AppStrings.success);
+          FileViewer.open(file, {showAppsSuggestions: true})
+            .then(() => {})
+            .catch(e => {
+              console.log(e);
+              Utility.showToast(
+                'Please download an app that can open excel files',
+              );
+            });
         })
         .catch((e: any) => {
           Utility.logData(`Error: ${e}`);

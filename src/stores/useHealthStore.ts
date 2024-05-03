@@ -381,10 +381,12 @@ const useHealthStore = () => {
       if (!Utility.validateAlpha(healthStore.childName)) {
         return;
       }
-      if (!Utility.validatePhoneNumber(healthStore.contact)) {
-        return;
+      if (healthStore.contact !== '') {
+        if (!Utility.validatePhoneNumber(healthStore.contact)) {
+          return;
+        }
       }
-      if (healthStore.dob === '') {
+      if (healthStore.age === '') {
         return;
       }
       if (healthStore.gender === '') {
@@ -529,7 +531,6 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
-          healthStore.setShowSearchBar(true);
           break;
         case 'educationalDetails':
           healthStore.bottomSheetHeader =
@@ -658,20 +659,36 @@ const useHealthStore = () => {
         setData('newDistrict', healthStore.newDistrict.toString());
         setData('newState', healthStore.newState.toString());
 
-        formData.append(
-          'child_info',
-          JSON.stringify({
-            name: healthStore.childName,
-            dob: healthStore.dob,
-            contact: healthStore.contact,
-            gender: healthStore.genderID,
-            beneficiary_id: healthStore.beneficiaryID,
-            image:
-              healthStore.selectedImages.length > 0
-                ? healthStore.selectedImages[0].path
-                : null,
-          }),
-        );
+        if (this.ageIsEditable === true) {
+          formData.append(
+            'child_info',
+            JSON.stringify({
+              name: healthStore.childName,
+              contact: healthStore.contact,
+              gender: healthStore.genderID,
+              beneficiary_id: healthStore.beneficiaryID,
+              image:
+                healthStore.selectedImages.length > 0
+                  ? healthStore.selectedImages[0].path
+                  : null,
+            }),
+          );
+        } else {
+          formData.append(
+            'child_info',
+            JSON.stringify({
+              name: healthStore.childName,
+              dob: healthStore.dob,
+              contact: healthStore.contact,
+              gender: healthStore.genderID,
+              beneficiary_id: healthStore.beneficiaryID,
+              image:
+                healthStore.selectedImages.length > 0
+                  ? healthStore.selectedImages[0].path
+                  : null,
+            }),
+          );
+        }
         formData.append(
           'child_details',
           JSON.stringify({

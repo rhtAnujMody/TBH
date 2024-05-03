@@ -123,7 +123,9 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.partner}
-                              textHeader={AppStrings.newExistingPartner}
+                              textHeader={
+                                AppStrings.newExistingPartnerPlaceHolder
+                              }
                               placeHolder={
                                 AppStrings.newExistingPartnerPlaceHolder
                               }
@@ -134,7 +136,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newPartnerName}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.partnerName}
+                                  textHeader={AppStrings.partnerNamePlaceHolder}
                                   placeHolder={
                                     AppStrings.partnerNamePlaceHolder
                                   }
@@ -144,7 +146,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newLocation}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.location}
+                                  textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={healthStore.setNewLocation}
                                 />
@@ -152,7 +154,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newBlock}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.block}
+                                  textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={healthStore.setNewBlock}
                                 />
@@ -160,7 +162,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newDistrict}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.district}
+                                  textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={healthStore.setNewDistrict}
                                 />
@@ -168,7 +170,7 @@ const HealthCampScreen = () => {
                                 <AppTextInput
                                   value={healthStore.newState}
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.state}
+                                  textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={healthStore.setNewState}
                                 />
@@ -182,7 +184,7 @@ const HealthCampScreen = () => {
                                   }}
                                   parentStyle={styles.textInputStyle}
                                   value={healthStore.existPartnerName}
-                                  textHeader={AppStrings.partnerName}
+                                  textHeader={AppStrings.partnerNamePlaceHolder}
                                   placeHolder={
                                     AppStrings.partnerNamePlaceHolder
                                   }
@@ -191,7 +193,7 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.location}
+                                  textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   value={healthStore.existLocation}
                                   //onChangeText={cdStore.setLocation}
@@ -200,7 +202,7 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.block}
+                                  textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   value={healthStore.existBlock}
                                   editable={false}
@@ -208,7 +210,7 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.district}
+                                  textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   value={healthStore.existDistrict}
                                   editable={false}
@@ -216,7 +218,7 @@ const HealthCampScreen = () => {
 
                                 <AppTextInput
                                   parentStyle={styles.textInputStyle}
-                                  textHeader={AppStrings.state}
+                                  textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   value={healthStore.existState}
                                   editable={false}
@@ -230,7 +232,7 @@ const HealthCampScreen = () => {
                               }}
                               parentStyle={styles.textInputStyle}
                               value={healthStore.partnerType}
-                              textHeader={AppStrings.partnerType}
+                              textHeader={AppStrings.partnerTypePlaceHolder}
                               placeHolder={AppStrings.partnerTypePlaceHolder}
                               rightIcon={AppSVGs.dropdown}
                             />
