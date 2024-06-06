@@ -199,5 +199,19 @@ class Utility {
     );
     return matchingNames;
   };
+
+  static checkInterNet = async () => {
+    try {
+      let req = await fetch('http://www.google.com');
+      let hasConnection = req.status === 200;
+      if (hasConnection) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.log(e, 'no Internet');
+    }
+  };
 }
 export default Utility;

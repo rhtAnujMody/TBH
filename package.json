@@ -34,6 +34,7 @@
     "react-native-screens": "^3.22.0",
     "react-native-simple-toast": "^3.0.0",
     "react-native-svg": "^13.9.0",
+    "realm": "^12.9.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
