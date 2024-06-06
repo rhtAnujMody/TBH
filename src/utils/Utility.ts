@@ -111,6 +111,15 @@ class Utility {
     });
   };
 
+  static replaceSpacesAndTrim = (str: string) => {
+    str = str.replace(/[\s\n]+/g, '_');
+
+    // Trim first and last underscores
+    str = str.replace(/^_+|_+$/g, '');
+
+    return str;
+  };
+
   static customReportsCards = [
     {
       title: 'Historical Data Report',
@@ -189,6 +198,20 @@ class Utility {
       item.name.toLowerCase().includes(searchName.toLowerCase()),
     );
     return matchingNames;
+  };
+
+  static checkInterNet = async () => {
+    try {
+      let req = await fetch('http://www.google.com');
+      let hasConnection = req.status === 200;
+      if (hasConnection) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      console.log(e, 'no Internet');
+    }
   };
 }
 export default Utility;

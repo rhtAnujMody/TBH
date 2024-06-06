@@ -104,7 +104,7 @@ const ProgramMonitorScreen = () => {
                             }}
                             parentStyle={styles.textInputStyle}
                             value={proStore.partnerType}
-                            textHeader={AppStrings.partnerType}
+                            textHeader={AppStrings.partnerTypePlaceHolder}
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                           />
@@ -118,7 +118,7 @@ const ProgramMonitorScreen = () => {
                             value={proStore.existingPartner}
                             textHeader={
                               AppStrings.PROGRAM_MONITORING_SCREEN
-                                .nameLocExistPartner
+                                .nameLocExistPartnerPlaceHolder
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
@@ -517,7 +517,7 @@ const ProgramMonitorScreen = () => {
                             value={proStore.volunteerName}
                           />
                           <Text style={styles.volunteerTitle}>
-                            Duration of the volunteer session
+                            Duration of the Volunteer Session
                           </Text>
                           <View style={styles.hourContainer}>
                             <View style={styles.hourMinContainer}>

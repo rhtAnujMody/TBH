@@ -322,11 +322,57 @@ const useCaptureDetailsStore = () => {
       cdStore.enableSubmit = true;
     },
 
+    async writeToRealm() {
+      try {
+        authStore.realm.write(() => {
+          const savedRecord = authStore.realm.create('NutritionEductaion', {
+            _id: Date.now(),
+            agent_id: authStore.userData.id,
+            dov: cdStore.dov,
+            isNew: cdStore.partner === 'New',
+            name: cdStore.newPartnerName,
+            location: cdStore.newLocation,
+            block: cdStore.newBlock,
+            district: cdStore.newDistrict,
+            state: cdStore.newState,
+            partnerID:
+              typeof cdStore.partnerID === 'string' ? 0 : cdStore.partnerID,
+            totalNoOfParticipants: cdStore.totalNoOfParticipants,
+            beneficiarieID: cdStore.beneficiarieID,
+            ageID: cdStore.ageID,
+            duration: parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute),
+            methodUsed: cdStore.methodUsed,
+            topicsCovered: cdStore.topicsCovered,
+            sessionConductedBy: cdStore.sessionConductedBy,
+            feedbackFromParticipants: cdStore.feedbackFromParticipants,
+          });
+
+          for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
+            savedRecord.images.push(
+              authStore.realm.create('ImagesSchema', {
+                _id: Date.now() + 1,
+                uri: cdStore.selectedImages[i].path,
+                type: cdStore.selectedImages[i].mime,
+                name: cdStore.selectedImages[i].path.split('/').pop(),
+              }),
+            );
+          }
+
+          Utility.showToast('Record Saved Successfully to Local Database');
+        });
+      } catch (e) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+        console.log('error saving data', e);
+      }
+    },
+
     async saveData() {
       runInAction(() => {
         cdStore.isLoading = true;
       });
       try {
+        const checkInternet = await Utility.checkInterNet();
+
         const formData = new FormData();
 
         formData.append('agent_id', authStore.userData.id);
@@ -366,19 +412,23 @@ const useCaptureDetailsStore = () => {
             name: cdStore.selectedImages[i].path.split('/').pop(),
           });
         }
-        const responseJson = await request<CaptureModal>(
-          'post',
-          AppStrings.captureDetails,
-          formData,
-          {
-            'Content-Type': 'multipart/form-data;',
-          },
-        );
+        if (checkInternet) {
+          const responseJson = await request<CaptureModal>(
+            'post',
+            AppStrings.captureDetails,
+            formData,
+            {
+              'Content-Type': 'multipart/form-data;',
+            },
+          );
 
-        if (responseJson.success) {
-          Utility.showToast(responseJson.msg);
+          if (responseJson.success) {
+            Utility.showToast(responseJson.msg);
+          } else {
+            Utility.showToast(responseJson.msg);
+          }
         } else {
-          Utility.showToast(responseJson.msg);
+          cdStore.writeToRealm();
         }
         navigation.goBack();
       } catch (err) {

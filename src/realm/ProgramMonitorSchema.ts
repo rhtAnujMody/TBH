@@ -1,0 +1,47 @@
+// schema for database objects
+export const ProgramMonitorSchema = {
+  name: 'ProgramMonitor',
+  properties: {
+    _id: 'int',
+    agent_id: 'int',
+    type: 'string',
+    partner: 'int',
+    date: 'string',
+    visiting_team_size: 'string',
+    liaDNameStaff: 'string',
+    liaDDesigStaff: 'string',
+    liaPNameStaff: 'string',
+    liaPDesigStaff: 'string',
+    children_participated: 'string',
+    avg_attendance: 'string',
+    enrollers_count: 'string',
+    dropouts_count: 'string',
+    sick_count: 'string',
+    illness: 'string',
+    activity_sheet_no: 'string',
+    is_activity_completed: 'bool',
+    is_poshan_calendar_maintained: 'bool',
+    food_received_timestamp: 'string',
+    meals_carry_forward: 'string',
+    meals_received: 'string',
+    is_food_safely_stored: 'bool',
+    is_breakfast_served_daily: 'bool',
+    breakfast_served_at: 'string',
+    additional_info: 'string',
+    teacher_or_social_worker_feedback: 'string',
+    parents_feedback: 'string',
+    children_feedback: 'string',
+    visit_duration: 'int',
+    volunteerName: 'string',
+    companyName: 'string',
+    session_duration: 'int', //check
+    volunteerReason: 'string',
+    learnAndObserve: 'string',
+    otherFeedback: 'string',
+    images: {
+      type: 'list', // Realm List type for storing an array of objects
+      objectType: 'ImagesSchema', // Reference the schema for image data
+    },
+  },
+  primaryKey: '_id',
+};

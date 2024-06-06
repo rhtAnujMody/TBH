@@ -381,10 +381,12 @@ const useHealthStore = () => {
       if (!Utility.validateAlpha(healthStore.childName)) {
         return;
       }
-      if (!Utility.validatePhoneNumber(healthStore.contact)) {
-        return;
+      if (healthStore.contact !== '') {
+        if (!Utility.validatePhoneNumber(healthStore.contact)) {
+          return;
+        }
       }
-      if (healthStore.dob === '') {
+      if (healthStore.age === '') {
         return;
       }
       if (healthStore.gender === '') {
@@ -529,7 +531,6 @@ const useHealthStore = () => {
           healthStore.bottomSheetHeader =
             AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary;
           healthStore.bottomSheetArray = healthStore.targetBenefitOptions;
-          healthStore.setShowSearchBar(true);
           break;
         case 'educationalDetails':
           healthStore.bottomSheetHeader =
@@ -614,12 +615,83 @@ const useHealthStore = () => {
           break;
       }
     },
+    async writeToRealm() {
+      try {
+        console.tron.log(typeof this.partnerID, this.partnerID);
+        authStore.realm.write(() => {
+          const savedRecord = authStore.realm.create('HealthCamp', {
+            _id: Date.now(),
+            agent_id: authStore.userData.id,
+            isNew: healthStore.partner === 'New',
+            name: healthStore.newPartnerName,
+            location: healthStore.newLocation,
+            block: healthStore.newBlock,
+            district: healthStore.newDistrict,
+            state: healthStore.newState,
+            partnerID:
+              healthStore.partnerID === ''
+                ? 0
+                : parseInt(healthStore.partnerID),
+            type: parseInt(healthStore.partnerTypeID),
+            health_camp_date: healthStore.dohc,
+            serial_no: healthStore.numberHC,
+            childName: healthStore.childName,
+            contact: healthStore.contact,
+            gender: healthStore.genderID,
+            beneficiaryID: healthStore.beneficiaryID,
+            age_editable: healthStore.ageIsEditable,
+            dob: healthStore.dob,
+            age: healthStore.age,
+            height: healthStore.height,
+            weight: healthStore.weight,
+            muac: healthStore.muac,
+            education: healthStore.educationalDetailsID,
+            vitamin_A: this.vitaminA === 'Done',
+            vitamin_A_done_by: healthStore.doneByID,
+            vitamin_A_duration: healthStore.durationOfCourse,
+            vitamin_A_location: healthStore.locationOfDose,
+            vitamin_A_dose_date: healthStore.dateOfDoseVitamin,
+            deworming: this.deworming === 'Done',
+            deworming_done_by: healthStore.doneByWormID,
+            deworming_duration: healthStore.durationOfCourseWorm,
+            deworming_location: healthStore.locationOfDoseWorm,
+            deworming_dose_date: healthStore.dateOfDoseDeworm,
+            ifa: this.ifa === 'Done',
+            ifa_done_by: healthStore.doneByIFAID,
+            ifa_duration: healthStore.durationOfCourseIFA,
+            ifa_location: healthStore.locationOfDoseIFA,
+            ifa_dose_date: healthStore.dateOfDoseIFA,
+          });
+
+          for (
+            let i = 0;
+            i < Math.min(healthStore.selectedImages.length, 5);
+            i++
+          ) {
+            savedRecord.images.push(
+              authStore.realm.create('ImagesSchema', {
+                _id: Date.now() + i,
+                uri: healthStore.selectedImages[i].path,
+                type: healthStore.selectedImages[i].mime,
+                name: healthStore.selectedImages[i].path.split('/').pop(),
+              }),
+            );
+          }
+          Utility.showToast('Record Saved Successfully to Local Database');
+        });
+      } catch (e) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+        console.log('error saving data', e);
+      }
+    },
+
     async handleSubmit() {
       runInAction(() => {
         healthStore.isLoading = true;
       });
       try {
         const formData = new FormData();
+        const checkInternet = await Utility.checkInterNet();
         formData.append('agent_id', authStore.userData.id);
         if (this.partner === 'New') {
           formData.append(
@@ -658,20 +730,36 @@ const useHealthStore = () => {
         setData('newDistrict', healthStore.newDistrict.toString());
         setData('newState', healthStore.newState.toString());
 
-        formData.append(
-          'child_info',
-          JSON.stringify({
-            name: healthStore.childName,
-            dob: healthStore.dob,
-            contact: healthStore.contact,
-            gender: healthStore.genderID,
-            beneficiary_id: healthStore.beneficiaryID,
-            image:
-              healthStore.selectedImages.length > 0
-                ? healthStore.selectedImages[0].path
-                : null,
-          }),
-        );
+        if (this.ageIsEditable === true) {
+          formData.append(
+            'child_info',
+            JSON.stringify({
+              name: healthStore.childName,
+              contact: healthStore.contact,
+              gender: healthStore.genderID,
+              beneficiary_id: healthStore.beneficiaryID,
+              image:
+                healthStore.selectedImages.length > 0
+                  ? healthStore.selectedImages[0].path
+                  : null,
+            }),
+          );
+        } else {
+          formData.append(
+            'child_info',
+            JSON.stringify({
+              name: healthStore.childName,
+              dob: healthStore.dob,
+              contact: healthStore.contact,
+              gender: healthStore.genderID,
+              beneficiary_id: healthStore.beneficiaryID,
+              image:
+                healthStore.selectedImages.length > 0
+                  ? healthStore.selectedImages[0].path
+                  : null,
+            }),
+          );
+        }
         formData.append(
           'child_details',
           JSON.stringify({
@@ -727,22 +815,25 @@ const useHealthStore = () => {
           formData.append('ifa', false);
         }
 
-        const responseJson = await request<HealthModal>(
-          'post',
-          AppStrings.healthCamp,
-          formData,
-          {
-            'Content-Type': 'multipart/form-data;',
-          },
-        );
+        if (checkInternet) {
+          const responseJson = await request<HealthModal>(
+            'post',
+            AppStrings.healthCamp,
+            formData,
+            {
+              'Content-Type': 'multipart/form-data;',
+            },
+          );
 
-        if (responseJson.success) {
-          Utility.showToast(responseJson.msg);
-          navigation.goBack();
+          if (responseJson.success) {
+            Utility.showToast(responseJson.msg);
+          } else {
+            Utility.showToast(responseJson.msg);
+          }
         } else {
-          Utility.showToast(responseJson.msg);
-          navigation.goBack();
+          healthStore.writeToRealm();
         }
+        navigation.goBack();
       } catch (err) {
         Utility.showToast('Something went wrong');
       } finally {

@@ -482,11 +482,79 @@ const useProgramStore = () => {
       }
       proStore.enableSubmit = true;
     },
+    async writeToRealm() {
+      try {
+        authStore.realm.write(() => {
+          const savedRecord = authStore.realm.create('ProgramMonitor', {
+            _id: Date.now(),
+            agent_id: authStore.userData.id,
+            type: proStore.partnerTypeID,
+            partner: proStore.existingPartnerID,
+            date: proStore.dov,
+            visiting_team_size: proStore.vvTeamSize,
+            liaDNameStaff: proStore.liaDNameStaff,
+            liaDDesigStaff: proStore.liaDDesigStaff,
+            liaPNameStaff: proStore.liaPNameStaff,
+            liaPDesigStaff: proStore.liaPDesigStaff,
+            children_participated: proStore.numberOfChildrenDOV,
+            avg_attendance: proStore.averageAttendMonth,
+            enrollers_count: proStore.numNewChildEnroll,
+            dropouts_count: proStore.numChildDropped,
+            sick_count: proStore.numChildSick,
+            illness: proStore.illness,
+            activity_sheet_no: proStore.numberedActivitySheet,
+            is_activity_completed: proStore.activitySheetCompletedID,
+            is_poshan_calendar_maintained: proStore.activitySheetCompletedID,
+            food_received_timestamp: proStore.foodSupplyDate,
+            meals_carry_forward: proStore.noOfMealsCF,
+            meals_received: proStore.noOfMealsReceive,
+            is_food_safely_stored: proStore.storedFoodSafelyID,
+            is_breakfast_served_daily: proStore.breakfastServedDailyID,
+            breakfast_served_at: proStore.whenBreakfastID,
+            additional_info: proStore.addObservations,
+            teacher_or_social_worker_feedback: proStore.teacherFeedback,
+            parents_feedback: proStore.parentFeedback,
+            children_feedback: proStore.childFeedback,
+            visit_duration:
+              parseInt(proStore.hour) * 60 + parseInt(proStore.minute),
+            volunteerName: proStore.volunteerName,
+            companyName: proStore.companyName,
+            session_duration:
+              parseInt(proStore.volunteerHour) * 60 +
+              parseInt(proStore.volunteerMinute), //check
+            volunteerReason: proStore.volunteerReason,
+            learnAndObserve: proStore.learnAndObserve,
+            otherFeedback: proStore.otherFeedback,
+          });
+
+          for (
+            let i = 0;
+            i < Math.min(proStore.selectedImages.length, 5);
+            i++
+          ) {
+            savedRecord.images.push(
+              authStore.realm.create('ImagesSchema', {
+                _id: Date.now() + i,
+                uri: proStore.selectedImages[i].path,
+                type: proStore.selectedImages[i].mime,
+                name: proStore.selectedImages[i].path.split('/').pop(),
+              }),
+            );
+          }
+
+          Utility.showToast('Record Saved Successfully to Local Database');
+        });
+      } catch (e) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+        console.log('error saving data', e);
+      }
+    },
     async sendData() {
       runInAction(() => {
         proStore.isLoading = true;
       });
       try {
+        const checkInternet = await Utility.checkInterNet();
         const formData = new FormData(); //existingPartnerID
         formData.append('agent_id', authStore.userData.id);
         formData.append('type', proStore.partnerTypeID);
@@ -565,19 +633,23 @@ const useProgramStore = () => {
             name: proStore.selectedImages[i].path.split('/').pop(),
           });
         }
-        const responseJson = await request<ProgramModal>(
-          'post',
-          AppStrings.programMonitor,
-          formData,
-          {
-            'Content-Type': 'multipart/form-data;',
-          },
-        );
+        if (checkInternet) {
+          const responseJson = await request<ProgramModal>(
+            'post',
+            AppStrings.programMonitor,
+            formData,
+            {
+              'Content-Type': 'multipart/form-data;',
+            },
+          );
 
-        if (responseJson.success) {
-          Utility.showToast(responseJson.msg);
+          if (responseJson.success) {
+            Utility.showToast(responseJson.msg);
+          } else {
+            Utility.showToast(responseJson.msg);
+          }
         } else {
-          Utility.showToast(responseJson.msg);
+          proStore.writeToRealm();
         }
         navigation.goBack();
       } catch (err) {
