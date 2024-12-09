@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {AppSVGs} from '../assets';
 import {AppContainer} from '../components';
@@ -34,16 +34,22 @@ function SplashScreen() {
   }, []);
 
   const realmFunctions = async () => {
-    await auth.initializeRealm();
-    const data = await auth.readFromRealm();
-    if (data > 0) {
-      auth.setShowLoader(true);
-      auth.sendRealmToServer().then(() => {
+    try {
+      await auth.initializeRealm();
+      const data = await auth.readFromRealm();
+      if (data > 0) {
+        auth.setShowLoader(true);
+        auth.sendRealmToServer().then(() => {
+          checkUserAuth();
+          auth.setShowLoader(false);
+        });
+      } else {
         checkUserAuth();
-        auth.setShowLoader(false);
-      });
+      }
+    } catch (e) {
+      checkUserAuth();
+      console.log('e', e);
     }
-    checkUserAuth();
   };
 
   return (

@@ -211,6 +211,7 @@ class Utility {
       }
     } catch (e) {
       console.log(e, 'no Internet');
+      return false;
     }
   };
 }

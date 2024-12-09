@@ -1,6 +1,7 @@
 import {Observer} from 'mobx-react-lite';
 import React, {useCallback, useEffect} from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   KeyboardAvoidingView,
   Platform,
@@ -21,6 +22,7 @@ import {
 import {useManageUsersStore} from '../stores';
 import AppStrings from '../utils/AppStrings';
 import {styles} from '../styles/formStyles';
+import {colors} from '../theme';
 
 type Props = {};
 const ManageUserScreen = ({}: Props) => {
@@ -124,6 +126,20 @@ const ManageUserScreen = ({}: Props) => {
     }
   };
 
+  const ListEmptyComponent = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          height: 500,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+        <ActivityIndicator color={colors.palette.primary} size={'large'} />
+      </View>
+    );
+  };
+
   return (
     <Observer>
       {() => (
@@ -147,6 +163,7 @@ const ManageUserScreen = ({}: Props) => {
                     keyExtractor={keyExtractor}
                     renderItem={renderItem}
                     scrollEnabled
+                    ListEmptyComponent={ListEmptyComponent}
                   />
                 </View>
               </View>

@@ -46,15 +46,19 @@ const authStore = {
   },
 
   async readFromRealm() {
-    authStore.totalRecords =
-      authStore.realm.objects('NutritionEductaion').length +
-      authStore.realm.objects('ProgramMonitor').length +
-      authStore.realm.objects('HealthCamp').length;
-    return authStore.totalRecords;
+    try {
+      authStore.totalRecords =
+        authStore.realm.objects('NutritionEductaion').length +
+        authStore.realm.objects('ProgramMonitor').length +
+        authStore.realm.objects('HealthCamp').length;
+      return authStore.totalRecords;
+    } catch (e) {
+      console.log(e, 'read from realm exception');
+    }
   },
 
   async sendRealmToServer() {
-    this.sendDataToServer();
+    await this.sendDataToServer();
   },
 
   async sendDataToServer() {
@@ -63,21 +67,9 @@ const authStore = {
       const programData = authStore.realm.objects('ProgramMonitor');
       const healthData = authStore.realm.objects('HealthCamp');
 
-      console.tron.log(nutritionData, 'nutritionData');
-      console.tron.log(programData, 'programData');
-      console.tron.log(healthData, 'healthData');
-
-      nutritionData.forEach(async item => {
-        await this.sendNutritionEducationToServer(item);
-      });
-
-      programData.forEach(async item => {
-        await this.sendProgramMonitorDataToServer(item);
-      });
-
-      healthData.forEach(async item => {
-        await this.sendHealthMonitorDataToServer(item);
-      });
+      await this.sendHealthData(healthData);
+      await this.sendNutritionData(nutritionData);
+      await this.sendProgramData(programData);
 
       if (authStore.sentRecords === authStore.totalRecords) {
         Utility.showToast('All Records sent to Server Successfully');
@@ -87,18 +79,39 @@ const authStore = {
     }
   },
 
+  async sendNutritionData(nutritionData) {
+    for (const item of nutritionData) {
+      await this.sendNutritionEducationToServer(item);
+    }
+  },
+
+  async sendHealthData(healthData) {
+    for (const item of healthData) {
+      await this.sendHealthMonitorDataToServer(item);
+    }
+  },
+
+  async sendProgramData(programData) {
+    for (const item of programData) {
+      await this.sendProgramMonitorDataToServer(item);
+    }
+  },
+
   async initializeRealm() {
-    console.tron.log('inside initialize realm');
-    const realm = await Realm.open({
-      path: 'myrealm',
-      schema: [
-        ProgramMonitorSchema,
-        NutritionEducationSchema,
-        ImagesSchema,
-        HealthCampSchema,
-      ],
-    });
-    authStore.realm = realm;
+    try {
+      const realm = await Realm.open({
+        path: 'myrealm',
+        schema: [
+          ProgramMonitorSchema,
+          NutritionEducationSchema,
+          ImagesSchema,
+          HealthCampSchema,
+        ],
+      });
+      authStore.realm = realm;
+    } catch (e) {
+      console.log('exception in  initialize realm', e);
+    }
   },
 
   async sendNutritionEducationToServer(data: any) {
@@ -158,7 +171,7 @@ const authStore = {
         Utility.showToast('Error in sending Nutrition Education Data');
       }
     } catch (e) {
-      // console.tron.log(e, 'error in sending sendNutritionEducationToServer');
+      console.log(e, 'error in sending sendNutritionEducationToServer');
     }
   },
   async sendProgramMonitorDataToServer(data: any) {
@@ -257,7 +270,7 @@ const authStore = {
         }
       }
     } catch (e) {
-      console.tron.log(e, 'error in sending sendProgramMonitorDataToServer');
+      console.log(e, 'error in sending sendProgramMonitorDataToServer');
     }
   },
   async sendHealthMonitorDataToServer(data: any) {
@@ -386,11 +399,9 @@ const authStore = {
         }
       }
     } catch (e) {
-      console.tron.log(e, 'error in sending sendHealthMonitorDataToServer');
+      console.log(e, 'error in sending sendHealthMonitorDataToServer');
     }
   },
 };
 
-makeAutoObservable(authStore);
-
-export default authStore;
+export default makeAutoObservable(authStore);

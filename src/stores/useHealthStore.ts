@@ -617,7 +617,6 @@ const useHealthStore = () => {
     },
     async writeToRealm() {
       try {
-        console.tron.log(typeof this.partnerID, this.partnerID);
         authStore.realm.write(() => {
           const savedRecord = authStore.realm.create('HealthCamp', {
             _id: Date.now(),

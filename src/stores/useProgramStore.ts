@@ -189,6 +189,9 @@ const useProgramStore = () => {
       proStore.validateSubmit();
     },
     setNumberedActivitySheet(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       proStore.numberedActivitySheet = value;
       proStore.validateSubmit();
     },
@@ -409,9 +412,7 @@ const useProgramStore = () => {
       if (!Utility.validateAlphaNumericSpecial(proStore.illness)) {
         return;
       }
-      if (
-        !Utility.validateAlphaNumericSpecial(proStore.numberedActivitySheet)
-      ) {
+      if (!Utility.validateNumeric(proStore.numberedActivitySheet)) {
         return;
       }
       if (

@@ -317,6 +317,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setNumberedActivitySheet}
                             value={proStore.numberedActivitySheet}
+                            keyboardType="numeric"
                           />
 
                           <AppInput
