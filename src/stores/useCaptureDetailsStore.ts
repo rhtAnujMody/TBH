@@ -47,7 +47,6 @@ const useCaptureDetailsStore = () => {
     index: 2,
     sessionConductedBy: '',
     feedbackFromParticipants: '',
-    enableSubmit: false,
     selectedImages: [] as Image[],
     beneficiarisOptions: authStore.userData.beneficiary_list ?? [],
     partnerOptions: [
@@ -96,6 +95,27 @@ const useCaptureDetailsStore = () => {
       },
     ],
 
+    errorMessages: {
+      dov: '',
+      partner: '',
+      newPartnerName: '',
+      newLocation: '',
+      newBlock: '',
+      newDistrict: '',
+      newState: '',
+      partnerID: '',
+      totalNoOfParticipants: '',
+      beneficiarieID: '',
+      ageID: '',
+      hour: '',
+      minute: '',
+      methodUsed: '',
+      topicsCovered: '',
+      sessionConductedBy: '',
+      feedbackFromParticipants: '',
+      selectedImages: '',
+    },
+
     toggleBottomSheet(from?: string) {
       cdStore.openBottomSheet = !cdStore.openBottomSheet;
       switch (from) {
@@ -141,10 +161,7 @@ const useCaptureDetailsStore = () => {
 
     setDOV(value: string) {
       cdStore.dov = value;
-    },
-
-    setImage1(value: any) {
-      cdStore.age = value;
+      cdStore.errorMessages.dov = '';
     },
 
     setIndex(value: number) {
@@ -162,11 +179,11 @@ const useCaptureDetailsStore = () => {
         case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.selectAge:
           cdStore.age = value;
           cdStore.ageID = id;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.ageID = '';
           break;
         case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.newExisting:
           cdStore.partner = value;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.partner = '';
           break;
         case AppStrings.NUTRITION_EDUCATION_SCREEN.bottomSheet.partnerName:
           const res = value.split(',');
@@ -176,28 +193,23 @@ const useCaptureDetailsStore = () => {
           cdStore.existDistrict = res[3];
           cdStore.existState = res[4];
           cdStore.partnerID = id;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.partnerID = '';
           break;
 
         case AppStrings.NUTRITION_EDUCATION_SCREEN
           .targetBeneficiariesPlaceHolder:
           cdStore.targetBeneficiaries = value;
           cdStore.beneficiarieID = id;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.beneficiarieID = '';
           break;
         case AppStrings.selectHour:
           cdStore.hour = value;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.hour = '';
           break;
         case AppStrings.selectMinute:
           cdStore.minute = value;
-          cdStore.validateSubmit();
+          cdStore.errorMessages.minute = '';
       }
-    },
-
-    setAge(value: string) {
-      cdStore.age = value;
-      cdStore.validateSubmit();
     },
 
     setTotalNoOfParticipants(value: string) {
@@ -205,7 +217,7 @@ const useCaptureDetailsStore = () => {
         return;
       }
       cdStore.totalNoOfParticipants = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.totalNoOfParticipants = '';
     },
 
     setNewPartnerName(value: string) {
@@ -213,43 +225,43 @@ const useCaptureDetailsStore = () => {
         return;
       }
       cdStore.newPartnerName = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.newPartnerName = '';
     },
     setNewLocation(value: string) {
       cdStore.newLocation = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.newLocation = '';
     },
     setNewBlock(value: string) {
       cdStore.newBlock = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.newBlock = '';
     },
     setNewDistrict(value: string) {
       cdStore.newDistrict = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.newDistrict = '';
     },
     setNewState(value: string) {
       cdStore.newState = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.newState = '';
     },
 
     setMethodUsed(value: string) {
       cdStore.methodUsed = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.methodUsed = '';
     },
 
     setTopicsCovered(value: string) {
       cdStore.topicsCovered = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.topicsCovered = '';
     },
 
     setSessionCoveredBy(value: string) {
       cdStore.sessionConductedBy = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.sessionConductedBy = '';
     },
 
     setFeedbackFromParticipants(value: string) {
       cdStore.feedbackFromParticipants = value;
-      cdStore.validateSubmit();
+      cdStore.errorMessages.feedbackFromParticipants = '';
     },
 
     setSelectedImages(selectedImage: Image[]) {
@@ -261,65 +273,88 @@ const useCaptureDetailsStore = () => {
     },
 
     validateSubmit() {
-      cdStore.enableSubmit = false;
+      let isValid = true;
       if (cdStore.dov === '') {
-        return;
+        cdStore.errorMessages.dov = 'This Field is Required';
+        isValid = false;
       }
 
       if (cdStore.partner === '') {
-        return;
+        cdStore.errorMessages.partner = 'This Field is Required';
+        isValid = false;
       } else {
         if (cdStore.partner === 'New') {
-          if (
-            !Utility.validateAlpha(cdStore.newPartnerName) ||
-            !Utility.validateAlphaNumericSpecial(cdStore.newLocation) ||
-            !Utility.validateAlphaNumericSpecial(cdStore.newBlock) ||
-            !Utility.validateAlphaNumericSpecial(cdStore.newDistrict) ||
-            !Utility.validateAlphaNumericSpecial(cdStore.newState)
-          ) {
-            return;
+          if (cdStore.newPartnerName === '') {
+            cdStore.errorMessages.newPartnerName = 'This Field is Required';
+            isValid = false;
+          }
+          if (cdStore.newLocation === '') {
+            cdStore.errorMessages.newLocation = 'This Field is Required';
+            isValid = false;
+          }
+          if (cdStore.newBlock === '') {
+            cdStore.errorMessages.newBlock = 'This Field is Required';
+            isValid = false;
+          }
+          if (cdStore.newDistrict === '') {
+            cdStore.errorMessages.newDistrict = 'This Field is Required';
+            isValid = false;
+          }
+          if (cdStore.newState === '') {
+            cdStore.errorMessages.newState = 'This Field is Required';
+            isValid = false;
           }
         } else {
           if (cdStore.existPartnerName === '') {
-            return;
+            cdStore.errorMessages.partnerID = 'This Field is Required';
+            isValid = false;
           }
         }
       }
-      if (cdStore.age === '') {
-        return;
-      }
-      if (!Utility.validateNumeric(cdStore.totalNoOfParticipants)) {
-        return;
+
+      if (cdStore.totalNoOfParticipants === '') {
+        cdStore.errorMessages.totalNoOfParticipants = 'This Field is Required';
+        isValid = false;
       }
       if (cdStore.targetBeneficiaries === '') {
-        return;
+        cdStore.errorMessages.beneficiarieID = 'This Field is Required';
+        isValid = false;
+      }
+      if (cdStore.age === '') {
+        cdStore.errorMessages.ageID = 'This Field is Required';
+        isValid = false;
       }
       if (cdStore.hour === '') {
-        return;
+        cdStore.errorMessages.hour = 'This Field is Required';
+        isValid = false;
       }
       if (cdStore.minute === '') {
-        return;
+        cdStore.errorMessages.minute = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(cdStore.methodUsed)) {
-        return;
+      if (cdStore.methodUsed === '') {
+        cdStore.errorMessages.methodUsed = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(cdStore.topicsCovered)) {
-        return;
+      if (cdStore.topicsCovered === '') {
+        cdStore.errorMessages.topicsCovered = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(cdStore.sessionConductedBy)) {
-        return;
+      if (cdStore.sessionConductedBy === '') {
+        cdStore.errorMessages.sessionConductedBy = 'This Field is Required';
+        isValid = false;
       }
-      if (
-        !Utility.validateAlphaNumericSpecial(cdStore.feedbackFromParticipants)
-      ) {
-        return;
+      if (cdStore.feedbackFromParticipants === '') {
+        cdStore.errorMessages.feedbackFromParticipants =
+          'This Field is Required';
+          isValid = false;
       }
       //  if(selectedImages.length==0){
       //   return;
       //  }
       //cdStore.selectedImages.length == 0
 
-      cdStore.enableSubmit = true;
+      return isValid;
     },
 
     async writeToRealm() {
@@ -371,66 +406,68 @@ const useCaptureDetailsStore = () => {
         cdStore.isLoading = true;
       });
       try {
-        const checkInternet = await Utility.checkInterNet();
+        if (cdStore.validateSubmit()) {
+          const checkInternet = await Utility.checkInterNet();
+          const formData = new FormData();
 
-        const formData = new FormData();
-
-        formData.append('agent_id', authStore.userData.id);
-        if (cdStore.partner === 'New') {
-          formData.append(
-            'partner_details',
-            JSON.stringify({
-              name: cdStore.newPartnerName,
-              location: cdStore.newLocation,
-              block: cdStore.newBlock,
-              district: cdStore.newDistrict,
-              state: cdStore.newState,
-            }),
-          );
-          formData.append('partner', '');
-        } else {
-          formData.append('partner', cdStore.partnerID);
-        }
-
-        formData.append('age_group', cdStore.ageID);
-        formData.append(
-          'duration',
-          parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute),
-        );
-        formData.append('topics', cdStore.topicsCovered);
-        formData.append('participants_count', cdStore.totalNoOfParticipants);
-        formData.append('method_used', cdStore.methodUsed);
-        formData.append('conducted_by', cdStore.sessionConductedBy);
-        formData.append('feedback', cdStore.feedbackFromParticipants);
-        formData.append('beneficiary', cdStore.beneficiarieID);
-        formData.append('visit_date', cdStore.dov);
-
-        for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
-          formData.append(`image_${i + 1}`, {
-            uri: cdStore.selectedImages[i].path,
-            type: cdStore.selectedImages[i].mime,
-            name: cdStore.selectedImages[i].path.split('/').pop(),
-          });
-        }
-        if (checkInternet) {
-          const responseJson = await request<CaptureModal>(
-            'post',
-            AppStrings.captureDetails,
-            formData,
-            {
-              'Content-Type': 'multipart/form-data;',
-            },
-          );
-
-          if (responseJson.success) {
-            Utility.showToast(responseJson.msg);
+          formData.append('agent_id', authStore.userData.id);
+          if (cdStore.partner === 'New') {
+            formData.append(
+              'partner_details',
+              JSON.stringify({
+                name: cdStore.newPartnerName,
+                location: cdStore.newLocation,
+                block: cdStore.newBlock,
+                district: cdStore.newDistrict,
+                state: cdStore.newState,
+              }),
+            );
+            formData.append('partner', '');
           } else {
-            Utility.showToast(responseJson.msg);
+            formData.append('partner', cdStore.partnerID);
           }
-        } else {
-          cdStore.writeToRealm();
+
+          formData.append('age_group', cdStore.ageID);
+          formData.append(
+            'duration',
+            parseInt(cdStore.hour) * 60 + parseInt(cdStore.minute),
+          );
+          formData.append('topics', cdStore.topicsCovered);
+          formData.append('participants_count', cdStore.totalNoOfParticipants);
+          formData.append('method_used', cdStore.methodUsed);
+          formData.append('conducted_by', cdStore.sessionConductedBy);
+          formData.append('feedback', cdStore.feedbackFromParticipants);
+          formData.append('beneficiary', cdStore.beneficiarieID);
+          formData.append('visit_date', cdStore.dov);
+
+          for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
+            formData.append(`image_${i + 1}`, {
+              uri: cdStore.selectedImages[i].path,
+              type: cdStore.selectedImages[i].mime,
+              name: cdStore.selectedImages[i].path.split('/').pop(),
+            });
+          }
+          if (checkInternet) {
+            const responseJson = await request<CaptureModal>(
+              'post',
+              AppStrings.captureDetails,
+              formData,
+              {
+                'Content-Type': 'multipart/form-data;',
+              },
+            );
+
+            if (responseJson.success) {
+              Utility.showToast(responseJson.msg);
+              authStore.setNewPartnerList(responseJson.partner_list);
+            } else {
+              Utility.showToast(responseJson.msg);
+            }
+          } else {
+            cdStore.writeToRealm();
+          }
+          navigation.goBack();
         }
-        navigation.goBack();
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
       } finally {

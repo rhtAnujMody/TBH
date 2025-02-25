@@ -25,7 +25,50 @@ const useDoctorStore = () => {
     isAdmin: authStore.userData.role === 'A',
     isEditable: true,
     submitEditButon: AppStrings.submit,
-    doctorObservation: authStore.userData.doctor_observation,
+    doctorObservation: authStore.userData.doctor_observation || {
+      Head: [
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is there any Pain?',
+        },
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is it Round?',
+        },
+      ],
+      Nose: [
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is there any Pain?',
+        },
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is it Strong?',
+        },
+      ],
+      Shoulder: [
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is there any Pain?',
+        },
+        {
+          id: 1,
+          isSelected: false,
+          isDisabled: false,
+          observation: 'Is it Strong?',
+        },
+      ],
+    },
     hospitalOptions: [
       {name: AppStrings.yes, id: '1'},
       {name: AppStrings.no, id: '2'},

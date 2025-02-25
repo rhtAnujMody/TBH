@@ -70,7 +70,6 @@ const CaptureDetailsScreen = () => {
 
   const handleConfirm = (date: Date) => {
     cdStore.setDOV(Utility.formatDate(date));
-    cdStore.validateSubmit();
     hideDatePicker();
   };
 
@@ -108,6 +107,7 @@ const CaptureDetailsScreen = () => {
                         hideInput={true}
                         onPress={showDatePicker}
                         otherText={cdStore.dov}
+                        errorMessage={cdStore.errorMessages.dov}
                       />
 
                       <AppToggle
@@ -128,6 +128,7 @@ const CaptureDetailsScreen = () => {
                                 AppStrings.newExistingPartnerPlaceHolder
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={cdStore.errorMessages.partner}
                             />
 
                             {cdStore.partner === 'New' ? (
@@ -140,6 +141,9 @@ const CaptureDetailsScreen = () => {
                                     AppStrings.partnerNamePlaceHolder
                                   }
                                   onChangeText={cdStore.setNewPartnerName}
+                                  errorMessage={
+                                    cdStore.errorMessages.newPartnerName
+                                  }
                                 />
 
                                 <AppTextInput
@@ -148,6 +152,9 @@ const CaptureDetailsScreen = () => {
                                   textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={cdStore.setNewLocation}
+                                  errorMessage={
+                                    cdStore.errorMessages.newLocation
+                                  }
                                 />
 
                                 <AppTextInput
@@ -156,6 +163,7 @@ const CaptureDetailsScreen = () => {
                                   textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={cdStore.setNewBlock}
+                                  errorMessage={cdStore.errorMessages.newBlock}
                                 />
 
                                 <AppTextInput
@@ -164,6 +172,9 @@ const CaptureDetailsScreen = () => {
                                   textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={cdStore.setNewDistrict}
+                                  errorMessage={
+                                    cdStore.errorMessages.newDistrict
+                                  }
                                 />
 
                                 <AppTextInput
@@ -172,6 +183,7 @@ const CaptureDetailsScreen = () => {
                                   textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={cdStore.setNewState}
+                                  errorMessage={cdStore.errorMessages.newState}
                                 />
                               </>
                             ) : cdStore.partner === 'Existing' ? (
@@ -188,6 +200,7 @@ const CaptureDetailsScreen = () => {
                                     AppStrings.partnerNamePlaceHolder
                                   }
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={cdStore.errorMessages.partnerID}
                                 />
 
                                 <AppTextInput
@@ -249,6 +262,9 @@ const CaptureDetailsScreen = () => {
                               onChangeText={cdStore.setTotalNoOfParticipants}
                               value={cdStore.totalNoOfParticipants}
                               keyboardType={'numeric'}
+                              errorMessage={
+                                cdStore.errorMessages.totalNoOfParticipants
+                              }
                             />
 
                             <AppInput
@@ -267,6 +283,9 @@ const CaptureDetailsScreen = () => {
                                   .targetBeneficiariesPlaceHolder
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={
+                                cdStore.errorMessages.beneficiarieID
+                              }
                             />
 
                             <AppInput
@@ -285,6 +304,7 @@ const CaptureDetailsScreen = () => {
                                   .agePlaceHolder
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={cdStore.errorMessages.ageID}
                             />
 
                             <View style={styles.hourContainer}>
@@ -302,6 +322,7 @@ const CaptureDetailsScreen = () => {
                                     handleIndex(3);
                                   }}
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={cdStore.errorMessages.hour}
                                 />
                               </View>
                               <View style={styles.hourMinute}>
@@ -315,6 +336,7 @@ const CaptureDetailsScreen = () => {
                                     handleIndex(3);
                                   }}
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={cdStore.errorMessages.minute}
                                 />
                               </View>
                             </View>
@@ -329,6 +351,7 @@ const CaptureDetailsScreen = () => {
                                   .methodUsedPlaceHolder
                               }
                               onChangeText={cdStore.setMethodUsed}
+                              errorMessage={cdStore.errorMessages.methodUsed}
                             />
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
@@ -341,6 +364,7 @@ const CaptureDetailsScreen = () => {
                                   .topicsCoveredPlaceHolder
                               }
                               onChangeText={cdStore.setTopicsCovered}
+                              errorMessage={cdStore.errorMessages.topicsCovered}
                             />
 
                             <AppTextInput
@@ -354,6 +378,9 @@ const CaptureDetailsScreen = () => {
                                   .sessionConductedPlaceHolder
                               }
                               onChangeText={cdStore.setSessionCoveredBy}
+                              errorMessage={
+                                cdStore.errorMessages.sessionConductedBy
+                              }
                             />
                             <AppTextInput
                               parentStyle={styles.textInputStyle}
@@ -366,6 +393,9 @@ const CaptureDetailsScreen = () => {
                                   .feedbackParticipantsPlaceHolder
                               }
                               onChangeText={cdStore.setFeedbackFromParticipants}
+                              errorMessage={
+                                cdStore.errorMessages.feedbackFromParticipants
+                              }
                             />
 
                             <AppImageUploadInput
@@ -373,6 +403,9 @@ const CaptureDetailsScreen = () => {
                               selectedImages={selectedImages}
                               onPress={cdStore.togglePhotoBottomSheet}
                               removeImage={removeImage}
+                              errorMessage={
+                                cdStore.errorMessages.selectedImages
+                              }
                             />
                           </>
                         }
@@ -390,7 +423,7 @@ const CaptureDetailsScreen = () => {
                     cdStore.setSelectedImages(selectedImages);
                     cdStore.saveData();
                   }}
-                  enabled={cdStore.enableSubmit}
+                  enabled={true}
                 />
               </View>
             </KeyboardAvoidingView>

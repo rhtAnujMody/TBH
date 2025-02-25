@@ -1,6 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {makeAutoObservable} from 'mobx';
-import {CaptureModal, HealthModal, ProgramModal, UserData} from '../models';
+import {
+  BeneficiaryList,
+  CaptureModal,
+  HealthCampBeneficiary,
+  HealthModal,
+  PartnerList,
+  ProgramModal,
+  UserData,
+} from '../models';
 import Utility from '../utils/Utility';
 import Realm from 'realm';
 import {
@@ -11,8 +19,11 @@ import {
 } from '../realm';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
+import {useAsyncStorage} from '../custom_hooks';
 
 const {request} = useApiService();
+const {setData} = useAsyncStorage();
+
 const authStore = {
   isLoggedIn: false,
   showSplash: true,
@@ -36,6 +47,14 @@ const authStore = {
     Utility.logData(data);
     authStore.userData = data;
   },
+
+  setNewPartnerList(value: PartnerList[]) {
+    if (authStore.userData) {
+      authStore.userData.partner_list = value;
+      setData(AppStrings.userData, authStore.userData);
+    }
+  },
+
   toggleSplash(value: boolean) {
     authStore.showSplash = value;
   },

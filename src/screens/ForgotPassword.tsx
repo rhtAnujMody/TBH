@@ -1,4 +1,4 @@
-import {observer} from 'mobx-react-lite';
+import {Observer, observer} from 'mobx-react-lite';
 import {useRef} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import {AppSVGs} from '../assets';
@@ -28,35 +28,44 @@ const ForgotPassword = () => {
   });
 
   return (
-    <AppContainer style={styles.container}>
-      <AppBack />
-      <View style={styles.headerContainer}>
-        <View style={styles.logoContainer}>
-          <AppSVGs.forgot style={styles.logo} />
-        </View>
-      </View>
+    <Observer>
+      {() => (
+        <>
+          <AppContainer style={styles.container}>
+            <AppBack />
+            <View style={styles.headerContainer}>
+              <View style={styles.logoContainer}>
+                <AppSVGs.forgot style={styles.logo} />
+              </View>
+            </View>
 
-      <View style={styles.textInputContainer}>
-        <View style={styles.forgotHeaderContainer}>
-          <Text style={styles.forgotSignIn}>{AppStrings.forgotPassword}</Text>
-          <Text style={styles.forgotSignInDesc}>
-            {AppStrings.resetPasswordEmail}
-          </Text>
-        </View>
-        <AppTextInput
-          icon={AppSVGs.name}
-          placeHolder={AppStrings.emailPhone}
-          returnKeyType="next"
-          inputRef={emailRef}
-          onChangeText={forgotStore.setPhoneNumber}
-          onSubmitEditing={handleOnSubmitEditing}
-        />
+            <View style={styles.textInputContainer}>
+              <View style={styles.forgotHeaderContainer}>
+                <Text style={styles.forgotSignIn}>
+                  {AppStrings.forgotPassword}
+                </Text>
+                <Text style={styles.forgotSignInDesc}>
+                  {AppStrings.resetPasswordEmail}
+                </Text>
+              </View>
+              <AppTextInput
+                icon={AppSVGs.name}
+                placeHolder={AppStrings.emailPhone}
+                returnKeyType="next"
+                inputRef={emailRef}
+                onChangeText={forgotStore.setPhoneNumber}
+                onSubmitEditing={handleOnSubmitEditing}
+                errorMessage={forgotStore.errorMessage}
+              />
 
-        <View style={styles.bottomContainer}>
-          <ShowButton />
-        </View>
-      </View>
-    </AppContainer>
+              <View style={styles.bottomContainer}>
+                <ShowButton />
+              </View>
+            </View>
+          </AppContainer>
+        </>
+      )}
+    </Observer>
   );
 };
 

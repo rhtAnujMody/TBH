@@ -21,6 +21,7 @@ type Props = {
   removeImage: (index: number) => void;
   title: string;
   style?: ViewStyle;
+  errorMessage?: string;
 };
 
 const AppImageUploadInput = ({
@@ -29,6 +30,7 @@ const AppImageUploadInput = ({
   selectedImages,
   removeImage,
   style,
+  errorMessage,
 }: Props) => {
   const showUploadInput = selectedImages.length < 5;
   //UPLOAD PHOTO
@@ -57,6 +59,9 @@ const AppImageUploadInput = ({
             </View>
           ))}
         </View>
+      )}
+      {errorMessage && (
+        <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
       )}
     </View>
   );
@@ -133,5 +138,11 @@ const styles = StyleSheet.create({
   textHeader: {
     ...typography.medium(12),
     marginBottom: 6,
+  },
+  errorMessageStyle: {
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    marginTop: -5,
+    ...typography.regular(10, 'red'),
   },
 });

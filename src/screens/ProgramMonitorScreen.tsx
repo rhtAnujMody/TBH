@@ -107,6 +107,7 @@ const ProgramMonitorScreen = () => {
                             textHeader={AppStrings.partnerTypePlaceHolder}
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={proStore.errorMessages.partnerType}
                           />
 
                           <AppInput
@@ -122,6 +123,9 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={
+                              proStore.errorMessages.existingPartner
+                            }
                           />
 
                           {proStore.existingPartner && (
@@ -174,6 +178,7 @@ const ProgramMonitorScreen = () => {
                               showDatePicker('1');
                             }}
                             otherText={proStore.dov}
+                            errorMessage={proStore.errorMessages.dov}
                           />
 
                           <AppTextInput
@@ -185,6 +190,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVVTeamSize}
                             value={proStore.vvTeamSize}
+                            errorMessage={proStore.errorMessages.vvTeamSize}
                           />
 
                           <AppTextInput
@@ -196,6 +202,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             value={proStore.liaDNameStaff}
                             onChangeText={proStore.setLiaDNameStaff}
+                            errorMessage={proStore.errorMessages.liaDNameStaff}
                           />
 
                           <AppTextInput
@@ -207,6 +214,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaDDesigStaff}
                             value={proStore.liaDDesigStaff}
+                            errorMessage={proStore.errorMessages.liaDDesigStaff}
                           />
 
                           <AppTextInput
@@ -218,6 +226,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaPNameStaff}
                             value={proStore.liaPNameStaff}
+                            errorMessage={proStore.errorMessages.liaPNameStaff}
                           />
 
                           <AppTextInput
@@ -229,6 +238,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLiaPDesigStaff}
                             value={proStore.liaPDesigStaff}
+                            errorMessage={proStore.errorMessages.liaPDesigStaff}
                           />
                         </>
                       }
@@ -250,6 +260,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNumberOfChildrenDOV}
                             keyboardType="numeric"
                             value={proStore.numberOfChildrenDOV}
+                            errorMessage={
+                              proStore.errorMessages.numberOfChildrenDOV
+                            }
                           />
 
                           <AppTextInput
@@ -261,6 +274,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setAvgAttendMonth}
                             keyboardType="numeric"
                             value={proStore.averageAttendMonth}
+                            errorMessage={
+                              proStore.errorMessages.averageAttendMonth
+                            }
                           />
 
                           <AppTextInput
@@ -273,6 +289,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNumNewChildEnroll}
                             keyboardType="numeric"
                             value={proStore.numNewChildEnroll}
+                            errorMessage={
+                              proStore.errorMessages.numNewChildEnroll
+                            }
                           />
 
                           <AppTextInput
@@ -285,6 +304,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNumChildDropped}
                             keyboardType="numeric"
                             value={proStore.numChildDropped}
+                            errorMessage={
+                              proStore.errorMessages.numChildDropped
+                            }
                           />
 
                           <AppTextInput
@@ -296,6 +318,7 @@ const ProgramMonitorScreen = () => {
                             value={proStore.numChildSick}
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
+                            errorMessage={proStore.errorMessages.numChildSick}
                           />
 
                           <AppTextInput
@@ -306,6 +329,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setIllness}
                             value={proStore.illness}
+                            errorMessage={proStore.errorMessages.illness}
                           />
 
                           <AppTextInput
@@ -318,6 +342,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNumberedActivitySheet}
                             value={proStore.numberedActivitySheet}
                             keyboardType="numeric"
+                            errorMessage={
+                              proStore.errorMessages.numberedActivitySheet
+                            }
                           />
 
                           <AppInput
@@ -333,6 +360,9 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={
+                              proStore.errorMessages.activitySheetCompleted
+                            }
                           />
 
                           <AppInput
@@ -348,6 +378,9 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={
+                              proStore.errorMessages.poshanCalenderCompleted
+                            }
                           />
 
                           <AppTextInput
@@ -363,6 +396,7 @@ const ProgramMonitorScreen = () => {
                               showDatePicker('2');
                             }}
                             otherText={proStore.foodSupplyDate}
+                            errorMessage={proStore.errorMessages.foodSupplyDate}
                           />
 
                           <AppTextInput
@@ -375,6 +409,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNoOfMealsCF}
                             keyboardType="numeric"
                             value={proStore.noOfMealsCF}
+                            errorMessage={proStore.errorMessages.noOfMealsCF}
                           />
 
                           <AppTextInput
@@ -387,6 +422,9 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNoOfMealsReceive}
                             keyboardType="numeric"
                             value={proStore.noOfMealsReceive}
+                            errorMessage={
+                              proStore.errorMessages.noOfMealsReceive
+                            }
                           />
 
                           <AppInput
@@ -402,6 +440,9 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={
+                              proStore.errorMessages.storedFoodSafely
+                            }
                           />
 
                           <AppInput
@@ -417,6 +458,9 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={
+                              proStore.errorMessages.breakfastServedDaily
+                            }
                           />
 
                           <AppInput
@@ -432,6 +476,7 @@ const ProgramMonitorScreen = () => {
                             }
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
+                            errorMessage={proStore.errorMessages.whenBreakfast}
                           />
 
                           <AppTextInput
@@ -443,6 +488,9 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setAddObservations}
                             value={proStore.addObservations}
+                            errorMessage={
+                              proStore.errorMessages.addObservations
+                            }
                           />
                         </>
                       }
@@ -463,6 +511,9 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setTeacherFeedback}
                             value={proStore.teacherFeedback}
+                            errorMessage={
+                              proStore.errorMessages.teacherFeedback
+                            }
                           />
 
                           <AppTextInput
@@ -474,6 +525,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setParentFeedback}
                             value={proStore.parentFeedback}
+                            errorMessage={proStore.errorMessages.parentFeedback}
                           />
 
                           <AppTextInput
@@ -485,6 +537,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setChildFeedback}
                             value={proStore.childFeedback}
+                            errorMessage={proStore.errorMessages.childFeedback}
                           />
                         </>
                       }
@@ -505,6 +558,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setCompanyName}
                             value={proStore.companyName}
+                            errorMessage={proStore.errorMessages.companyName}
                           />
 
                           <AppTextInput
@@ -516,6 +570,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
+                            errorMessage={proStore.errorMessages.volunteerName}
                           />
                           <Text style={styles.volunteerTitle}>
                             Duration of the Volunteer Session
@@ -531,6 +586,9 @@ const ProgramMonitorScreen = () => {
                                   handleIndex(3);
                                 }}
                                 rightIcon={AppSVGs.dropdown}
+                                errorMessage={
+                                  proStore.errorMessages.volunteerHour
+                                }
                               />
                             </View>
                             <AppInput
@@ -542,6 +600,9 @@ const ProgramMonitorScreen = () => {
                                 handleIndex(3);
                               }}
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={
+                                proStore.errorMessages.volunteerMinute
+                              }
                             />
                           </View>
 
@@ -554,6 +615,9 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setVolunteerReason}
                             value={proStore.volunteerReason}
+                            errorMessage={
+                              proStore.errorMessages.volunteerReason
+                            }
                           />
 
                           <AppTextInput
@@ -565,6 +629,9 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setLearnAndObserve}
                             value={proStore.learnAndObserve}
+                            errorMessage={
+                              proStore.errorMessages.learnAndObserve
+                            }
                           />
 
                           <AppTextInput
@@ -575,6 +642,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseEnterDetails}
                             onChangeText={proStore.setOtherFeedback}
                             value={proStore.otherFeedback}
+                            errorMessage={proStore.errorMessages.otherFeedback}
                           />
                         </>
                       }
@@ -596,6 +664,7 @@ const ProgramMonitorScreen = () => {
                             handleIndex(3);
                           }}
                           rightIcon={AppSVGs.dropdown}
+                          errorMessage={proStore.errorMessages.hour}
                         />
                       </View>
                       <View style={styles.hourMinStyle}>
@@ -609,6 +678,7 @@ const ProgramMonitorScreen = () => {
                             handleIndex(3);
                           }}
                           rightIcon={AppSVGs.dropdown}
+                          errorMessage={proStore.errorMessages.minute}
                         />
                       </View>
                     </View>
@@ -621,6 +691,7 @@ const ProgramMonitorScreen = () => {
                       onPress={proStore.togglePhotoBottomSheet}
                       removeImage={removeImage}
                       style={styles.dashedLineMargin}
+                      errorMessage={proStore.errorMessages.selectedImages}
                     />
                   </Pressable>
                 </ScrollView>
@@ -634,7 +705,7 @@ const ProgramMonitorScreen = () => {
                     proStore.setSelectedImages(selectedImages);
                     proStore.sendData();
                   }}
-                  enabled={proStore.enableSubmit}
+                  enabled={true}
                 />
               </View>
             </KeyboardAvoidingView>

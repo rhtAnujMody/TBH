@@ -13,20 +13,27 @@ const useForgotPasswordStore = () => {
     isLoading: false,
     isButtonEnabled: false,
     phoneNumber: '',
+    errorMessage: '',
+
+    setErrorMessage(value: string) {
+      forgotStore.errorMessage = value;
+    },
 
     setPhoneNumber(value: string) {
       forgotStore.phoneNumber = value;
       forgotStore.validateSubmit();
     },
     validateSubmit() {
-      forgotStore.isButtonEnabled = false;
       if (
-        Utility.validatePhoneNumber(forgotStore.phoneNumber) ||
-        Utility.validateEmail(forgotStore.phoneNumber)
+        !!Utility.validatePhoneNumber(forgotStore.phoneNumber) ||
+        !!Utility.validateEmail(forgotStore.phoneNumber)
       ) {
+        forgotStore.setErrorMessage('');
         forgotStore.isButtonEnabled = true;
+        return;
       }
-      return;
+      forgotStore.isButtonEnabled = false;
+      forgotStore.setErrorMessage(AppStrings.invalidPhoneEmail);
     },
 
     async handleSubmit() {

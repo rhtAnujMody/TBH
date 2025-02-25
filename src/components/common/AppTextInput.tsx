@@ -1,5 +1,6 @@
 import React, {RefObject, useState} from 'react';
 import {
+  Image,
   KeyboardType,
   Pressable,
   StyleSheet,
@@ -7,11 +8,28 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
+  TouchableOpacity,
   TouchableWithoutFeedback,
   View,
   ViewStyle,
 } from 'react-native';
 import {colors, typography} from '../../theme';
+
+const EyeIcon = ({isVisible}: {isVisible: boolean}) => {
+  return (
+    <Image
+      source={
+        isVisible
+          ? require('../../assets/hide.png')
+          : require('../../assets/view.png')
+      }
+      style={{
+        height: 22,
+        width: 22,
+      }}
+    />
+  );
+};
 
 interface Props extends TextInputProps {
   parentStyle?: ViewStyle;
@@ -25,6 +43,8 @@ interface Props extends TextInputProps {
   textHeader?: string;
   leftText?: string;
   onPress?: () => void;
+  isPassword?: boolean;
+  errorMessage?: string;
 }
 
 const AppTextInput = ({
@@ -39,9 +59,12 @@ const AppTextInput = ({
   otherText,
   onPress,
   leftText,
+  isPassword,
+  errorMessage,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const customOnFocus = () => {
     props?.onFocus;
@@ -50,6 +73,10 @@ const AppTextInput = ({
   const customOnBlur = () => {
     props?.onBlur;
     setBorder(colors.gray);
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(prev => !prev);
   };
 
   return textHeader ? (
@@ -75,55 +102,91 @@ const AppTextInput = ({
             </Text>
           </Pressable>
         ) : (
-          <TextInput
-            ref={inputRef}
-            placeholderTextColor={'#B1B1B1'}
-            selectionColor={colors.palette.primary}
-            placeholder={placeHolder}
-            style={[
-              styles.textInput,
-              styles.leftIconStyle(LeftIcon ? true : false),
-            ]}
-            keyboardType={keyboardType}
-            onFocus={customOnFocus}
-            onBlur={customOnBlur}
-            {...props}
-          />
+          <>
+            <TextInput
+              ref={inputRef}
+              placeholderTextColor={'#B1B1B1'}
+              selectionColor={colors.palette.primary}
+              placeholder={placeHolder}
+              style={[
+                styles.textInput,
+                styles.leftIconStyle(LeftIcon ? true : false),
+                isPassword && styles.passwordInput,
+              ]}
+              secureTextEntry={isPassword && !isPasswordVisible}
+              keyboardType={keyboardType}
+              onFocus={customOnFocus}
+              onBlur={customOnBlur}
+              {...props}
+            />
+            {isPassword && (
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                style={styles.eyeIcon}>
+                <EyeIcon isVisible={isPasswordVisible} />
+              </TouchableOpacity>
+            )}
+          </>
         )}
-        {RightIcon && (
+        {RightIcon && !isPassword && (
           <TouchableWithoutFeedback onPress={onPress}>
             <RightIcon />
           </TouchableWithoutFeedback>
         )}
       </View>
-    </View>
-  ) : (
-    <View style={[styles.container, parentStyle]}>
-      {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
-      {LeftIcon && <LeftIcon />}
-      {hideInput ? (
-        <Pressable
-          style={styles.textContainer}
-          onPress={() => {
-            if (onPress) {
-              onPress();
-            }
-          }}>
-          <Text style={styles.otherTextValue(otherText ? false : true)}>
-            {otherText ? otherText : placeHolder}
-          </Text>
-        </Pressable>
-      ) : (
-        <TextInput
-          ref={inputRef}
-          placeholderTextColor={'#B1B1B1'}
-          selectionColor={colors.palette.primary}
-          placeholder={placeHolder}
-          style={styles.textInput}
-          {...props}
-        />
+      {errorMessage && (
+        <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
       )}
     </View>
+  ) : (
+    <>
+      <View style={[styles.container, parentStyle]}>
+        {leftText && <Text style={{...typography.medium(12)}}>{leftText}</Text>}
+        {LeftIcon && <LeftIcon />}
+        {hideInput ? (
+          <Pressable
+            style={styles.textContainer}
+            onPress={() => {
+              if (onPress) {
+                onPress();
+              }
+            }}>
+            <Text style={styles.otherTextValue(otherText ? false : true)}>
+              {otherText ? otherText : placeHolder}
+            </Text>
+          </Pressable>
+        ) : (
+          <>
+            <TextInput
+              ref={inputRef}
+              placeholderTextColor={'#B1B1B1'}
+              selectionColor={colors.palette.primary}
+              placeholder={placeHolder}
+              style={[
+                styles.textInput,
+                styles.leftIconStyle(LeftIcon ? true : false),
+                isPassword && styles.passwordInput,
+              ]}
+              secureTextEntry={isPassword && !isPasswordVisible}
+              keyboardType={keyboardType}
+              onFocus={customOnFocus}
+              onBlur={customOnBlur}
+              {...props}
+            />
+            {isPassword && (
+              <TouchableOpacity
+                onPress={togglePasswordVisibility}
+                style={styles.eyeIcon}>
+                <EyeIcon isVisible={isPasswordVisible} />
+              </TouchableOpacity>
+            )}
+          </>
+        )}
+      </View>
+      {errorMessage && (
+        <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
+      )}
+    </>
   );
 };
 
@@ -165,4 +228,20 @@ const styles = StyleSheet.create({
     ...typography.regular(14),
     color: isPlaceHolder ? '#B1B1B1' : colors.palette.textColor,
   }),
+  passwordInput: {
+    paddingRight: 50,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 20,
+    height: '100%',
+    justifyContent: 'center',
+  },
+  errorMessageStyle: {
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    marginTop: -5,
+    marginBottom: 5,
+    ...typography.regular(10, 'red'),
+  },
 });

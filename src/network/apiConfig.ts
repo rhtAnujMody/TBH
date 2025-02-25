@@ -4,7 +4,7 @@ import {authStore} from '../stores';
 import AppStrings from '../utils/AppStrings';
 
 const apiInstance = axios.create({
-  baseURL: 'http://16.171.139.29/api/',
+  baseURL: 'https://49f3-125-21-77-42.ngrok-free.app/api/',
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },

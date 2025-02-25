@@ -25,6 +25,7 @@ interface Props extends TextInputProps {
   textHeader?: string;
   value?: string;
   onPress?: () => void;
+  errorMessage?: string;
 }
 
 const AppInput = ({
@@ -39,6 +40,7 @@ const AppInput = ({
   otherText,
   value,
   onPress,
+  errorMessage,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -99,6 +101,9 @@ const AppInput = ({
           </TouchableWithoutFeedback>
         )}
       </View>
+      {errorMessage && (
+        <Text style={styles.errorMessageStyle}>{errorMessage}</Text>
+      )}
     </View>
   );
 };
@@ -135,6 +140,13 @@ const styles = StyleSheet.create({
   },
   touchableInputContainer: {
     flex: 1,
+  },
+  errorMessageStyle: {
+    alignSelf: 'flex-start',
+    marginLeft: 10,
+    marginTop: -5,
+    marginBottom: 10,
+    ...typography.regular(10, 'red'),
   },
   leftIconStyle: (isLeftIcon: boolean) => ({
     marginLeft: isLeftIcon ? 20 : 0,

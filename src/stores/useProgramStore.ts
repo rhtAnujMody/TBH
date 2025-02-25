@@ -64,7 +64,6 @@ const useProgramStore = () => {
     volunteerHour: '',
     volunteerMinute: '',
     isLoading: false,
-    enableSubmit: false,
     openPhotoBottomSheet: false,
     calenderID: '',
     showCalender: false,
@@ -95,6 +94,46 @@ const useProgramStore = () => {
       {name: AppStrings.evening, id: 'E'},
     ],
 
+    errorMessages: {
+      partnerType: '',
+      existingPartner: '',
+      dov: '',
+      vvTeamSize: '',
+      liaDNameStaff: '',
+      liaDDesigStaff: '',
+      liaPNameStaff: '',
+      liaPDesigStaff: '',
+      numberOfChildrenDOV: '',
+      averageAttendMonth: '',
+      numNewChildEnroll: '',
+      numChildDropped: '',
+      numChildSick: '',
+      illness: '',
+      numberedActivitySheet: '',
+      activitySheetCompleted: '',
+      poshanCalenderCompleted: '',
+      foodSupplyDate: '',
+      noOfMealsCF: '',
+      noOfMealsReceive: '',
+      storedFoodSafely: '',
+      breakfastServedDaily: '',
+      whenBreakfast: '',
+      addObservations: '',
+      teacherFeedback: '',
+      parentFeedback: '',
+      childFeedback: '',
+      companyName: '',
+      volunteerName: '',
+      volunteerHour: '',
+      volunteerMinute: '',
+      volunteerReason: '',
+      learnAndObserve: '',
+      otherFeedback: '',
+      hour: '',
+      minute: '',
+      selectedImages: '',
+    },
+
     toogleCalender() {
       proStore.showCalender = !proStore.showCalender;
     },
@@ -106,136 +145,136 @@ const useProgramStore = () => {
     },
     setDOV(value: string) {
       proStore.dov = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.dov = '';
     },
     setVVTeamSize(value: string) {
       proStore.vvTeamSize = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.vvTeamSize = '';
     },
     setLiaDNameStaff(value: string) {
       if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
         return;
       }
       proStore.liaDNameStaff = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.liaDNameStaff = '';
     },
     setLiaDDesigStaff(value: string) {
       if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
         return;
       }
       proStore.liaDDesigStaff = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.liaDDesigStaff = '';
     },
     setLiaPNameStaff(value: string) {
       if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
         return;
       }
       proStore.liaPNameStaff = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.liaPNameStaff = '';
     },
     setLiaPDesigStaff(value: string) {
       if (!(value.trim() === '') && !Utility.validateAlphaSpecial(value)) {
         return;
       }
       proStore.liaPDesigStaff = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.liaPDesigStaff = '';
     },
     setTeacherFeedback(value: string) {
       proStore.teacherFeedback = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.teacherFeedback = '';
     },
     setChildFeedback(value: string) {
       proStore.childFeedback = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.childFeedback = '';
     },
     setParentFeedback(value: string) {
       proStore.parentFeedback = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.parentFeedback = '';
     },
     setNumberOfChildrenDOV(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
       }
       proStore.numberOfChildrenDOV = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.numberOfChildrenDOV = '';
     },
     setAvgAttendMonth(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
         return;
       }
       proStore.averageAttendMonth = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.averageAttendMonth = '';
     },
     setNumNewChildEnroll(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
         return;
       }
       proStore.numNewChildEnroll = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.numNewChildEnroll = '';
     },
     setNumChildDropped(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
         return;
       }
       proStore.numChildDropped = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.numChildDropped = '';
     },
     setNumChildSick(value: string) {
       proStore.numChildSick = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.numChildSick = '';
     },
     setIllness(value: string) {
       proStore.illness = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.illness = '';
     },
     setNumberedActivitySheet(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
       }
       proStore.numberedActivitySheet = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.numberedActivitySheet = '';
     },
     setFoodSupplyDate(value: string) {
       proStore.foodSupplyDate = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.foodSupplyDate = '';
     },
     setNoOfMealsCF(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
         return;
       }
       proStore.noOfMealsCF = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.noOfMealsCF = '';
     },
     setNoOfMealsReceive(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumberSpecial(value)) {
         return;
       }
       proStore.noOfMealsReceive = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.noOfMealsReceive = '';
     },
     setAddObservations(value: string) {
       proStore.addObservations = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.addObservations = '';
     },
     setCompanyName(value: string) {
       proStore.companyName = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.companyName = '';
     },
     setVolunteerName(value: string) {
       proStore.volunteerName = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.volunteerName = '';
     },
     setVolunteerReason(value: string) {
       proStore.volunteerReason = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.volunteerReason = '';
     },
     setLearnAndObserve(value: string) {
       proStore.learnAndObserve = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.learnAndObserve = '';
     },
     setOtherFeedback(value: string) {
       proStore.otherFeedback = value;
-      proStore.validateSubmit();
+      proStore.errorMessages.otherFeedback = '';
     },
     setSelectedImages(selectedImages: Image[]) {
       proStore.selectedImages = selectedImages;
@@ -312,7 +351,7 @@ const useProgramStore = () => {
         case AppStrings.partnerTypePlaceHolder:
           proStore.partnerType = value;
           proStore.partnerTypeID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.partnerType = '';
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN
           .nameLocExistPartnerPlaceHolder:
@@ -323,165 +362,211 @@ const useProgramStore = () => {
           proStore.existDistrict = res[3];
           proStore.existState = res[4];
           proStore.existingPartnerID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.existingPartner = '';
           break;
         case AppStrings.selectHour:
           proStore.hour = value;
-          proStore.validateSubmit();
+          proStore.errorMessages.hour = '';
+
           break;
         case AppStrings.selectMinute:
           proStore.minute = value;
-          proStore.validateSubmit();
+          proStore.errorMessages.minute = '';
+
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN.activitySheetCompleted:
           proStore.activitySheetCompleted = value;
           proStore.activitySheetCompletedID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.activitySheetCompleted = '';
+
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN.poshanCalendarCompleted:
           proStore.poshanCalenderCompleted = value;
           proStore.poshanCalenderCompletedID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.poshanCalenderCompleted = '';
+
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN.storedFoodSafely:
           proStore.storedFoodSafely = value;
           proStore.storedFoodSafelyID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.storedFoodSafely = '';
+
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN.breakfastServed:
           proStore.breakfastServedDaily = value;
           proStore.breakfastServedDailyID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.breakfastServedDaily = '';
+
           break;
         case AppStrings.PROGRAM_MONITORING_SCREEN.whenBreakfastServed:
           proStore.whenBreakfast = value;
           proStore.whenBreakfastID = id;
-          proStore.validateSubmit();
+          proStore.errorMessages.whenBreakfast = '';
+
           break;
         case AppStrings.selectHourCol:
           proStore.volunteerHour = value;
-          proStore.validateSubmit();
+          proStore.errorMessages.volunteerHour = '';
+
           break;
         case AppStrings.selectMinuteCol:
           proStore.volunteerMinute = value;
-          proStore.validateSubmit();
+          proStore.errorMessages.volunteerMinute = '';
+
           break;
       }
     },
     validateSubmit() {
-      proStore.enableSubmit = false;
+      let isValid = true;
       if (proStore.partnerType === '') {
-        return;
+        proStore.errorMessages.partnerType = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.existingPartner === '') {
-        return;
+        proStore.errorMessages.existingPartner = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.dov === '') {
-        return;
+        proStore.errorMessages.dov = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.vvTeamSize)) {
-        return;
+      if (proStore.vvTeamSize === '') {
+        proStore.errorMessages.vvTeamSize = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaSpecial(proStore.liaDNameStaff)) {
-        return;
+      if (proStore.liaDNameStaff === '') {
+        proStore.errorMessages.liaDNameStaff = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaSpecial(proStore.liaDDesigStaff)) {
-        return;
+      if (proStore.liaDDesigStaff === '') {
+        proStore.errorMessages.liaDDesigStaff = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaSpecial(proStore.liaPNameStaff)) {
-        return;
+      if (proStore.liaPNameStaff === '') {
+        proStore.errorMessages.liaPNameStaff = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaSpecial(proStore.liaPDesigStaff)) {
-        return;
+      if (proStore.liaPDesigStaff === '') {
+        proStore.errorMessages.liaPDesigStaff = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumeric(proStore.numberOfChildrenDOV)) {
-        return;
+      if (proStore.numberOfChildrenDOV === '') {
+        proStore.errorMessages.numberOfChildrenDOV = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumberSpecial(proStore.averageAttendMonth)) {
-        return;
+      if (proStore.averageAttendMonth === '') {
+        proStore.errorMessages.averageAttendMonth = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumberSpecial(proStore.numNewChildEnroll)) {
-        return;
+      if (proStore.numNewChildEnroll === '') {
+        proStore.errorMessages.numNewChildEnroll = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumberSpecial(proStore.numChildDropped)) {
-        return;
+      if (proStore.numChildDropped === '') {
+        proStore.errorMessages.numChildDropped = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.numChildSick)) {
-        return;
+      if (proStore.numChildSick === '') {
+        proStore.errorMessages.numChildSick = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.illness)) {
-        return;
+      if (proStore.illness === '') {
+        proStore.errorMessages.illness = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumeric(proStore.numberedActivitySheet)) {
-        return;
+      if (proStore.numberedActivitySheet === '') {
+        proStore.errorMessages.numberedActivitySheet = 'This Field is Required';
+        isValid = false;
       }
-      if (
-        !Utility.validateAlphaNumericSpecial(proStore.activitySheetCompleted)
-      ) {
-        return;
+      if (proStore.activitySheetCompleted === '') {
+        proStore.errorMessages.activitySheetCompleted =
+          'This Field is Required';
+          isValid = false;
       }
       if (proStore.poshanCalenderCompleted === '') {
-        return;
+        proStore.errorMessages.poshanCalenderCompleted =
+          'This Field is Required';
+          isValid = false;
       }
       if (proStore.foodSupplyDate === '') {
-        return;
+        proStore.errorMessages.foodSupplyDate = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumberSpecial(proStore.noOfMealsCF)) {
-        return;
+      if (proStore.noOfMealsCF === '') {
+        proStore.errorMessages.noOfMealsCF = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateNumberSpecial(proStore.noOfMealsReceive)) {
-        return;
+      if (proStore.noOfMealsReceive === '') {
+        proStore.errorMessages.noOfMealsReceive = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.storedFoodSafely === '') {
-        return;
+        proStore.errorMessages.storedFoodSafely = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.breakfastServedDaily === '') {
-        return;
+        proStore.errorMessages.breakfastServedDaily = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.whenBreakfast === '') {
-        return;
+        proStore.errorMessages.whenBreakfast = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.addObservations)) {
-        return;
+      if (proStore.addObservations === '') {
+        proStore.errorMessages.addObservations = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.teacherFeedback)) {
-        return;
+      if (proStore.teacherFeedback === '') {
+        proStore.errorMessages.teacherFeedback = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.parentFeedback)) {
-        return;
+      if (proStore.parentFeedback === '') {
+        proStore.errorMessages.parentFeedback = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.childFeedback)) {
-        return;
+      if (proStore.childFeedback === '') {
+        proStore.errorMessages.childFeedback = 'This Field is Required';
+        isValid = false;
       }
 
-      if (!Utility.validateAlphaNumericSpecial(proStore.companyName)) {
-        return;
+      if (proStore.companyName === '') {
+        proStore.errorMessages.companyName = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.volunteerName)) {
-        return;
+      if (proStore.volunteerName === '') {
+        proStore.errorMessages.volunteerName = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.volunteerHour === '') {
-        return;
+        proStore.errorMessages.volunteerHour = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.volunteerMinute === '') {
-        return;
+        proStore.errorMessages.volunteerMinute = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.volunteerReason)) {
-        return;
+      if (proStore.volunteerReason === '') {
+        proStore.errorMessages.volunteerReason = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.learnAndObserve)) {
-        return;
+      if (proStore.learnAndObserve === '') {
+        proStore.errorMessages.learnAndObserve = 'This Field is Required';
+        isValid = false;
       }
-      if (!Utility.validateAlphaNumericSpecial(proStore.otherFeedback)) {
-        return;
+      if (proStore.otherFeedback === '') {
+        proStore.errorMessages.otherFeedback = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.hour === '') {
-        return;
+        proStore.errorMessages.hour = 'This Field is Required';
+        isValid = false;
       }
       if (proStore.minute === '') {
-        return;
+        proStore.errorMessages.minute = 'This Field is Required';
+        isValid = false;
       }
-      proStore.enableSubmit = true;
+
+      return isValid;
     },
     async writeToRealm() {
       try {
@@ -555,104 +640,113 @@ const useProgramStore = () => {
         proStore.isLoading = true;
       });
       try {
-        const checkInternet = await Utility.checkInterNet();
-        const formData = new FormData(); //existingPartnerID
-        formData.append('agent_id', authStore.userData.id);
-        formData.append('type', proStore.partnerTypeID);
-        formData.append('partner', proStore.existingPartnerID);
-        formData.append('date', proStore.dov);
-        formData.append('visiting_team_size', proStore.vvTeamSize);
-        formData.append(
-          'liaison',
-          JSON.stringify({
-            decimal: {
-              name: proStore.liaDNameStaff,
-              designation: proStore.liaDDesigStaff,
-            },
-            partner: {
-              name: proStore.liaPNameStaff,
-              designation: proStore.liaPDesigStaff,
-            },
-          }),
-        );
-
-        formData.append('children_participated', proStore.numberOfChildrenDOV);
-        formData.append('avg_attendance', proStore.averageAttendMonth);
-        formData.append('enrollers_count', proStore.numNewChildEnroll);
-        formData.append('dropouts_count', proStore.numChildDropped);
-        formData.append('sick_count', proStore.numChildSick);
-        formData.append('illness', proStore.illness);
-        formData.append('activity_sheet_no', proStore.numberedActivitySheet);
-        formData.append(
-          'is_activity_completed',
-          proStore.activitySheetCompletedID,
-        );
-        formData.append(
-          'is_poshan_calendar_maintained',
-          proStore.activitySheetCompletedID,
-        );
-        formData.append('food_received_timestamp', proStore.foodSupplyDate);
-        formData.append('meals_carry_forward', proStore.noOfMealsCF);
-        formData.append('meals_received', proStore.noOfMealsReceive);
-        formData.append('is_food_safely_stored', proStore.storedFoodSafelyID);
-        formData.append(
-          'is_breakfast_served_daily',
-          proStore.breakfastServedDailyID,
-        );
-        formData.append('breakfast_served_at', proStore.whenBreakfastID);
-        formData.append('additional_info', proStore.addObservations);
-
-        formData.append(
-          'teacher_or_social_worker_feedback',
-          proStore.teacherFeedback,
-        );
-        formData.append('parents_feedback', proStore.parentFeedback);
-        formData.append('children_feedback', proStore.childFeedback);
-
-        formData.append(
-          'volunteer_details',
-          JSON.stringify({
-            name: proStore.volunteerName,
-            partner: proStore.companyName,
-            session_duration:
-              parseInt(proStore.volunteerHour) * 60 +
-              parseInt(proStore.volunteerMinute),
-            objective: proStore.volunteerReason,
-            learnings: proStore.learnAndObserve,
-            feedback: proStore.otherFeedback,
-          }),
-        );
-
-        formData.append(
-          'visit_duration',
-          parseInt(proStore.hour) * 60 + parseInt(proStore.minute),
-        );
-        for (let i = 0; i < Math.min(proStore.selectedImages.length, 5); i++) {
-          formData.append(`image_${i + 1}`, {
-            uri: proStore.selectedImages[i].path,
-            type: proStore.selectedImages[i].mime,
-            name: proStore.selectedImages[i].path.split('/').pop(),
-          });
-        }
-        if (checkInternet) {
-          const responseJson = await request<ProgramModal>(
-            'post',
-            AppStrings.programMonitor,
-            formData,
-            {
-              'Content-Type': 'multipart/form-data;',
-            },
+        if (proStore.validateSubmit()) {
+          const checkInternet = await Utility.checkInterNet();
+          const formData = new FormData(); //existingPartnerID
+          formData.append('agent_id', authStore.userData.id);
+          formData.append('type', proStore.partnerTypeID);
+          formData.append('partner', proStore.existingPartnerID);
+          formData.append('date', proStore.dov);
+          formData.append('visiting_team_size', proStore.vvTeamSize);
+          formData.append(
+            'liaison',
+            JSON.stringify({
+              decimal: {
+                name: proStore.liaDNameStaff,
+                designation: proStore.liaDDesigStaff,
+              },
+              partner: {
+                name: proStore.liaPNameStaff,
+                designation: proStore.liaPDesigStaff,
+              },
+            }),
           );
 
-          if (responseJson.success) {
-            Utility.showToast(responseJson.msg);
-          } else {
-            Utility.showToast(responseJson.msg);
+          formData.append(
+            'children_participated',
+            proStore.numberOfChildrenDOV,
+          );
+          formData.append('avg_attendance', proStore.averageAttendMonth);
+          formData.append('enrollers_count', proStore.numNewChildEnroll);
+          formData.append('dropouts_count', proStore.numChildDropped);
+          formData.append('sick_count', proStore.numChildSick);
+          formData.append('illness', proStore.illness);
+          formData.append('activity_sheet_no', proStore.numberedActivitySheet);
+          formData.append(
+            'is_activity_completed',
+            proStore.activitySheetCompletedID,
+          );
+          formData.append(
+            'is_poshan_calendar_maintained',
+            proStore.activitySheetCompletedID,
+          );
+          formData.append('food_received_timestamp', proStore.foodSupplyDate);
+          formData.append('meals_carry_forward', proStore.noOfMealsCF);
+          formData.append('meals_received', proStore.noOfMealsReceive);
+          formData.append('is_food_safely_stored', proStore.storedFoodSafelyID);
+          formData.append(
+            'is_breakfast_served_daily',
+            proStore.breakfastServedDailyID,
+          );
+          formData.append('breakfast_served_at', proStore.whenBreakfastID);
+          formData.append('additional_info', proStore.addObservations);
+
+          formData.append(
+            'teacher_or_social_worker_feedback',
+            proStore.teacherFeedback,
+          );
+          formData.append('parents_feedback', proStore.parentFeedback);
+          formData.append('children_feedback', proStore.childFeedback);
+
+          formData.append(
+            'volunteer_details',
+            JSON.stringify({
+              name: proStore.volunteerName,
+              partner: proStore.companyName,
+              session_duration:
+                parseInt(proStore.volunteerHour) * 60 +
+                parseInt(proStore.volunteerMinute),
+              objective: proStore.volunteerReason,
+              learnings: proStore.learnAndObserve,
+              feedback: proStore.otherFeedback,
+            }),
+          );
+
+          formData.append(
+            'visit_duration',
+            parseInt(proStore.hour) * 60 + parseInt(proStore.minute),
+          );
+          for (
+            let i = 0;
+            i < Math.min(proStore.selectedImages.length, 5);
+            i++
+          ) {
+            formData.append(`image_${i + 1}`, {
+              uri: proStore.selectedImages[i].path,
+              type: proStore.selectedImages[i].mime,
+              name: proStore.selectedImages[i].path.split('/').pop(),
+            });
           }
-        } else {
-          proStore.writeToRealm();
+          if (checkInternet) {
+            const responseJson = await request<ProgramModal>(
+              'post',
+              AppStrings.programMonitor,
+              formData,
+              {
+                'Content-Type': 'multipart/form-data;',
+              },
+            );
+
+            if (responseJson.success) {
+              Utility.showToast(responseJson.msg);
+            } else {
+              Utility.showToast(responseJson.msg);
+            }
+          } else {
+            proStore.writeToRealm();
+          }
+          navigation.goBack();
         }
-        navigation.goBack();
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
       } finally {

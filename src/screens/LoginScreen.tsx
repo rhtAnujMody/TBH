@@ -73,7 +73,7 @@ const LoginScreen = () => {
               placeHolder={AppStrings.loginPasswordPlaceholder}
               returnKeyType="done"
               inputRef={passwordRef}
-              secureTextEntry
+              isPassword={true}
               onChangeText={loginStore.setPassword}
             />
             <Text

@@ -50,6 +50,7 @@ export default {
   cameraPermission: 'Camera permission denied',
   permissionError: 'permission error',
   errorOccured: 'An error occurred',
+  invalidPhoneEmail: 'Enter a valid email or phone number',
 
   loginEmailPlaceholder: 'Email Id',
   loginPasswordPlaceholder: 'Password',

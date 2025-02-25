@@ -130,6 +130,7 @@ const HealthCampScreen = () => {
                                 AppStrings.newExistingPartnerPlaceHolder
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={healthStore.errorMessages.partner}
                             />
                             {healthStore.partner === AppStrings.new ? (
                               <>
@@ -141,6 +142,9 @@ const HealthCampScreen = () => {
                                     AppStrings.partnerNamePlaceHolder
                                   }
                                   onChangeText={healthStore.setNewPartnerName}
+                                  errorMessage={
+                                    healthStore.errorMessages.newPartnerName
+                                  }
                                 />
 
                                 <AppTextInput
@@ -149,6 +153,9 @@ const HealthCampScreen = () => {
                                   textHeader={AppStrings.locationPlaceHolder}
                                   placeHolder={AppStrings.locationPlaceHolder}
                                   onChangeText={healthStore.setNewLocation}
+                                  errorMessage={
+                                    healthStore.errorMessages.newLocation
+                                  }
                                 />
 
                                 <AppTextInput
@@ -157,6 +164,9 @@ const HealthCampScreen = () => {
                                   textHeader={AppStrings.blockPlaceHolder}
                                   placeHolder={AppStrings.blockPlaceHolder}
                                   onChangeText={healthStore.setNewBlock}
+                                  errorMessage={
+                                    healthStore.errorMessages.newBlock
+                                  }
                                 />
 
                                 <AppTextInput
@@ -165,6 +175,9 @@ const HealthCampScreen = () => {
                                   textHeader={AppStrings.districtPlaceHolder}
                                   placeHolder={AppStrings.districtPlaceHolder}
                                   onChangeText={healthStore.setNewDistrict}
+                                  errorMessage={
+                                    healthStore.errorMessages.newDistrict
+                                  }
                                 />
 
                                 <AppTextInput
@@ -173,6 +186,9 @@ const HealthCampScreen = () => {
                                   textHeader={AppStrings.statePlaceHolder}
                                   placeHolder={AppStrings.statePlaceHolder}
                                   onChangeText={healthStore.setNewState}
+                                  errorMessage={
+                                    healthStore.errorMessages.newState
+                                  }
                                 />
                               </>
                             ) : healthStore.partner === AppStrings.existing ? (
@@ -189,6 +205,9 @@ const HealthCampScreen = () => {
                                     AppStrings.partnerNamePlaceHolder
                                   }
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={
+                                    healthStore.errorMessages.existPartnerName
+                                  }
                                 />
 
                                 <AppTextInput
@@ -235,6 +254,9 @@ const HealthCampScreen = () => {
                               textHeader={AppStrings.partnerTypePlaceHolder}
                               placeHolder={AppStrings.partnerTypePlaceHolder}
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={
+                                healthStore.errorMessages.partnerType
+                              }
                             />
                           </>
                         }
@@ -260,6 +282,7 @@ const HealthCampScreen = () => {
                                 showDatePicker('1');
                               }}
                               otherText={healthStore.dohc}
+                              errorMessage={healthStore.errorMessages.dohc}
                             />
 
                             <AppTextInput
@@ -272,6 +295,7 @@ const HealthCampScreen = () => {
                               }
                               value={healthStore.numberHC}
                               onChangeText={healthStore.setNumberHC}
+                              errorMessage={healthStore.errorMessages.numberHC}
                             />
                           </>
                         }
@@ -293,6 +317,7 @@ const HealthCampScreen = () => {
                               }
                               value={healthStore.childName}
                               onChangeText={healthStore.setChildName}
+                              errorMessage={healthStore.errorMessages.childName}
                             />
 
                             <AppImageUploadInput
@@ -309,6 +334,7 @@ const HealthCampScreen = () => {
                               value={healthStore.contact}
                               onChangeText={healthStore.setContact}
                               maxLength={10}
+                              errorMessage={healthStore.errorMessages.contact}
                             />
 
                             <AppTextInput
@@ -321,6 +347,7 @@ const HealthCampScreen = () => {
                                 showDatePicker('2');
                               }}
                               otherText={healthStore.dob}
+                              errorMessage={healthStore.errorMessages.dob}
                             />
 
                             <AppTextInput
@@ -330,6 +357,7 @@ const HealthCampScreen = () => {
                               value={healthStore.age}
                               editable={healthStore.ageIsEditable}
                               onChangeText={healthStore.setAge}
+                              errorMessage={healthStore.errorMessages.age}
                             />
 
                             <AppInput
@@ -341,6 +369,7 @@ const HealthCampScreen = () => {
                               textHeader={AppStrings.HEALTH_CAMP_SCREEN.gender}
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.gender}
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={healthStore.errorMessages.gender}
                             />
 
                             <AppTextInput
@@ -351,6 +380,7 @@ const HealthCampScreen = () => {
                               }
                               value={healthStore.height}
                               onChangeText={healthStore.setHeight}
+                              errorMessage={healthStore.errorMessages.height}
                             />
 
                             <AppTextInput
@@ -361,6 +391,7 @@ const HealthCampScreen = () => {
                               }
                               value={healthStore.weight}
                               onChangeText={healthStore.setWeight}
+                              errorMessage={healthStore.errorMessages.weight}
                             />
 
                             <AppTextInput
@@ -371,6 +402,7 @@ const HealthCampScreen = () => {
                               }
                               value={healthStore.muac}
                               onChangeText={healthStore.setMUAC}
+                              errorMessage={healthStore.errorMessages.muac}
                             />
 
                             <AppInput
@@ -386,6 +418,7 @@ const HealthCampScreen = () => {
                                 AppStrings.HEALTH_CAMP_SCREEN.vitaminA
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={healthStore.errorMessages.vitaminA}
                             />
 
                             {healthStore.vitaminA ===
@@ -404,6 +437,9 @@ const HealthCampScreen = () => {
                                     AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
                                   }
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={
+                                    healthStore.errorMessages.doneBy
+                                  }
                                 />
                                 {healthStore.doneBy && (
                                   <>
@@ -421,6 +457,10 @@ const HealthCampScreen = () => {
                                         showDatePicker('3');
                                       }}
                                       otherText={healthStore.dateOfDoseVitamin}
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .dateOfDoseVitamin
+                                      }
                                     />
 
                                     <AppTextInput
@@ -437,6 +477,10 @@ const HealthCampScreen = () => {
                                       onChangeText={
                                         healthStore.setDurationOfCourse
                                       }
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .durationOfCourse
+                                      }
                                     />
 
                                     <AppTextInput
@@ -452,6 +496,9 @@ const HealthCampScreen = () => {
                                       value={healthStore.locationOfDose}
                                       onChangeText={
                                         healthStore.setLocationOfDose
+                                      }
+                                      errorMessage={
+                                        healthStore.errorMessages.locationOfDose
                                       }
                                     />
                                   </>
@@ -472,6 +519,7 @@ const HealthCampScreen = () => {
                                 AppStrings.HEALTH_CAMP_SCREEN.deworming
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={healthStore.errorMessages.deworming}
                             />
 
                             {healthStore.deworming ===
@@ -490,6 +538,9 @@ const HealthCampScreen = () => {
                                     AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
                                   }
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={
+                                    healthStore.errorMessages.doneByWorm
+                                  }
                                 />
 
                                 {healthStore.doneByWorm && (
@@ -508,6 +559,10 @@ const HealthCampScreen = () => {
                                         showDatePicker('4');
                                       }}
                                       otherText={healthStore.dateOfDoseDeworm}
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .dateOfDoseDeworm
+                                      }
                                     />
 
                                     <AppTextInput
@@ -523,6 +578,10 @@ const HealthCampScreen = () => {
                                       value={healthStore.durationOfCourseWorm}
                                       onChangeText={
                                         healthStore.setDurationOfCourseWorm
+                                      }
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .durationOfCourseWorm
                                       }
                                     />
 
@@ -540,6 +599,10 @@ const HealthCampScreen = () => {
                                       onChangeText={
                                         healthStore.setLocationOfDoseWorm
                                       }
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .locationOfDoseWorm
+                                      }
                                     />
                                   </>
                                 )}
@@ -555,6 +618,7 @@ const HealthCampScreen = () => {
                               textHeader={AppStrings.HEALTH_CAMP_SCREEN.ifa}
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.ifa}
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={healthStore.errorMessages.ifa}
                             />
 
                             {healthStore.ifa ===
@@ -573,6 +637,9 @@ const HealthCampScreen = () => {
                                     AppStrings.HEALTH_CAMP_SCREEN.doneByWhom
                                   }
                                   rightIcon={AppSVGs.dropdown}
+                                  errorMessage={
+                                    healthStore.errorMessages.doneByIFA
+                                  }
                                 />
 
                                 {healthStore.doneByIFA && (
@@ -591,6 +658,9 @@ const HealthCampScreen = () => {
                                         showDatePicker('5');
                                       }}
                                       otherText={healthStore.dateOfDoseIFA}
+                                      errorMessage={
+                                        healthStore.errorMessages.dateOfDoseIFA
+                                      }
                                     />
 
                                     <AppTextInput
@@ -607,6 +677,10 @@ const HealthCampScreen = () => {
                                       onChangeText={
                                         healthStore.setDurationOfCourseIFA
                                       }
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .durationOfCourseIFA
+                                      }
                                     />
 
                                     <AppTextInput
@@ -622,6 +696,10 @@ const HealthCampScreen = () => {
                                       value={healthStore.locationOfDoseIFA}
                                       onChangeText={
                                         healthStore.setLocationOfDoseIFA
+                                      }
+                                      errorMessage={
+                                        healthStore.errorMessages
+                                          .locationOfDoseIFA
                                       }
                                     />
                                   </>
@@ -642,6 +720,9 @@ const HealthCampScreen = () => {
                                 AppStrings.HEALTH_CAMP_SCREEN.targetBeneficiary
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={
+                                healthStore.errorMessages.targetBeneficiary
+                              }
                             />
 
                             <AppInput
@@ -657,6 +738,9 @@ const HealthCampScreen = () => {
                                 AppStrings.HEALTH_CAMP_SCREEN.educationalDetails
                               }
                               rightIcon={AppSVGs.dropdown}
+                              errorMessage={
+                                healthStore.errorMessages.educationalDetails
+                              }
                             />
                           </>
                         }
@@ -674,7 +758,7 @@ const HealthCampScreen = () => {
                     healthStore.setSelectedImages(selectedImages);
                     healthStore.handleSubmit();
                   }}
-                  enabled={healthStore.enableSubmit}
+                  enabled={true}
                 />
               </View>
             </KeyboardAvoidingView>
