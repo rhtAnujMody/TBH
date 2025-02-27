@@ -26,6 +26,7 @@ interface Props extends TextInputProps {
   value?: string;
   onPress?: () => void;
   errorMessage?: string;
+  isMandatory?: boolean;
 }
 
 const AppInput = ({
@@ -41,6 +42,7 @@ const AppInput = ({
   value,
   onPress,
   errorMessage,
+  isMandatory,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -55,7 +57,10 @@ const AppInput = ({
   };
   return (
     <View style={styles.touchableInputContainer}>
-      <Text style={styles.textHeader}>{textHeader}</Text>
+      <Text style={styles.textHeader}>
+        {' '}
+        {textHeader} {isMandatory && <Text style={{color: 'red'}}>*</Text>}
+      </Text>
       <View style={[styles.container, parentStyle, {borderColor: border}]}>
         {LeftIcon && <LeftIcon />}
         {hideInput ? (

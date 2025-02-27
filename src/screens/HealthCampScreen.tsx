@@ -131,6 +131,7 @@ const HealthCampScreen = () => {
                               }
                               rightIcon={AppSVGs.dropdown}
                               errorMessage={healthStore.errorMessages.partner}
+                              isMandatory
                             />
                             {healthStore.partner === AppStrings.new ? (
                               <>
@@ -145,6 +146,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.newPartnerName
                                   }
+                                  isMandatory
                                 />
 
                                 <AppTextInput
@@ -156,6 +158,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.newLocation
                                   }
+                                  isMandatory
                                 />
 
                                 <AppTextInput
@@ -167,6 +170,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.newBlock
                                   }
+                                  isMandatory
                                 />
 
                                 <AppTextInput
@@ -178,6 +182,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.newDistrict
                                   }
+                                  isMandatory
                                 />
 
                                 <AppTextInput
@@ -189,6 +194,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.newState
                                   }
+                                  isMandatory
                                 />
                               </>
                             ) : healthStore.partner === AppStrings.existing ? (
@@ -208,6 +214,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.existPartnerName
                                   }
+                                  isMandatory
                                 />
 
                                 <AppTextInput
@@ -257,6 +264,7 @@ const HealthCampScreen = () => {
                               errorMessage={
                                 healthStore.errorMessages.partnerType
                               }
+                              isMandatory
                             />
                           </>
                         }
@@ -283,6 +291,7 @@ const HealthCampScreen = () => {
                               }}
                               otherText={healthStore.dohc}
                               errorMessage={healthStore.errorMessages.dohc}
+                              isMandatory
                             />
 
                             <AppTextInput
@@ -296,6 +305,7 @@ const HealthCampScreen = () => {
                               value={healthStore.numberHC}
                               onChangeText={healthStore.setNumberHC}
                               errorMessage={healthStore.errorMessages.numberHC}
+                              isMandatory
                             />
                           </>
                         }
@@ -318,6 +328,7 @@ const HealthCampScreen = () => {
                               value={healthStore.childName}
                               onChangeText={healthStore.setChildName}
                               errorMessage={healthStore.errorMessages.childName}
+                              isMandatory
                             />
 
                             <AppImageUploadInput
@@ -335,6 +346,7 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setContact}
                               maxLength={10}
                               errorMessage={healthStore.errorMessages.contact}
+                              isMandatory
                             />
 
                             <AppTextInput
@@ -358,6 +370,7 @@ const HealthCampScreen = () => {
                               editable={healthStore.ageIsEditable}
                               onChangeText={healthStore.setAge}
                               errorMessage={healthStore.errorMessages.age}
+                              isMandatory
                             />
 
                             <AppInput
@@ -370,6 +383,7 @@ const HealthCampScreen = () => {
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.gender}
                               rightIcon={AppSVGs.dropdown}
                               errorMessage={healthStore.errorMessages.gender}
+                              isMandatory
                             />
 
                             <AppTextInput
@@ -381,6 +395,7 @@ const HealthCampScreen = () => {
                               value={healthStore.height}
                               onChangeText={healthStore.setHeight}
                               errorMessage={healthStore.errorMessages.height}
+                              isMandatory
                             />
 
                             <AppTextInput
@@ -392,6 +407,7 @@ const HealthCampScreen = () => {
                               value={healthStore.weight}
                               onChangeText={healthStore.setWeight}
                               errorMessage={healthStore.errorMessages.weight}
+                              isMandatory
                             />
 
                             <AppTextInput
@@ -403,6 +419,7 @@ const HealthCampScreen = () => {
                               value={healthStore.muac}
                               onChangeText={healthStore.setMUAC}
                               errorMessage={healthStore.errorMessages.muac}
+                              isMandatory
                             />
 
                             <AppInput
@@ -419,6 +436,7 @@ const HealthCampScreen = () => {
                               }
                               rightIcon={AppSVGs.dropdown}
                               errorMessage={healthStore.errorMessages.vitaminA}
+                              isMandatory
                             />
 
                             {healthStore.vitaminA ===
@@ -440,6 +458,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.doneBy
                                   }
+                                  isMandatory
                                 />
                                 {healthStore.doneBy && (
                                   <>
@@ -461,6 +480,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .dateOfDoseVitamin
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -481,6 +501,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .durationOfCourse
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -500,6 +521,7 @@ const HealthCampScreen = () => {
                                       errorMessage={
                                         healthStore.errorMessages.locationOfDose
                                       }
+                                      isMandatory
                                     />
                                   </>
                                 )}
@@ -520,6 +542,7 @@ const HealthCampScreen = () => {
                               }
                               rightIcon={AppSVGs.dropdown}
                               errorMessage={healthStore.errorMessages.deworming}
+                              isMandatory
                             />
 
                             {healthStore.deworming ===
@@ -541,6 +564,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.doneByWorm
                                   }
+                                  isMandatory
                                 />
 
                                 {healthStore.doneByWorm && (
@@ -563,6 +587,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .dateOfDoseDeworm
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -583,6 +608,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .durationOfCourseWorm
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -603,6 +629,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .locationOfDoseWorm
                                       }
+                                      isMandatory
                                     />
                                   </>
                                 )}
@@ -619,6 +646,7 @@ const HealthCampScreen = () => {
                               placeHolder={AppStrings.HEALTH_CAMP_SCREEN.ifa}
                               rightIcon={AppSVGs.dropdown}
                               errorMessage={healthStore.errorMessages.ifa}
+                              isMandatory
                             />
 
                             {healthStore.ifa ===
@@ -640,6 +668,7 @@ const HealthCampScreen = () => {
                                   errorMessage={
                                     healthStore.errorMessages.doneByIFA
                                   }
+                                  isMandatory
                                 />
 
                                 {healthStore.doneByIFA && (
@@ -661,6 +690,7 @@ const HealthCampScreen = () => {
                                       errorMessage={
                                         healthStore.errorMessages.dateOfDoseIFA
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -681,6 +711,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .durationOfCourseIFA
                                       }
+                                      isMandatory
                                     />
 
                                     <AppTextInput
@@ -701,6 +732,7 @@ const HealthCampScreen = () => {
                                         healthStore.errorMessages
                                           .locationOfDoseIFA
                                       }
+                                      isMandatory
                                     />
                                   </>
                                 )}
@@ -723,6 +755,7 @@ const HealthCampScreen = () => {
                               errorMessage={
                                 healthStore.errorMessages.targetBeneficiary
                               }
+                              isMandatory
                             />
 
                             <AppInput
@@ -741,6 +774,7 @@ const HealthCampScreen = () => {
                               errorMessage={
                                 healthStore.errorMessages.educationalDetails
                               }
+                              isMandatory
                             />
                           </>
                         }

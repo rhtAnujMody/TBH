@@ -23,10 +23,13 @@ const useCalculateStore = () => {
     screen: '',
     showCalender: false,
     isLoading: false,
-    enableSubmit: false,
     bottomSheetArray: [] as any[],
     bottomSheetHeader: '',
     openBottomSheet: false,
+
+    errorMessages: {
+      childName: '',
+    },
 
     toogleCalender() {
       calStore.showCalender = !calStore.showCalender;
@@ -51,8 +54,8 @@ const useCalculateStore = () => {
       if (!(value.trim() == '') && !Utility.validateAlpha(value)) {
         return;
       }
+      calStore.errorMessages.childName = '';
       calStore.childName = value;
-      calStore.validateSubmit();
     },
 
     setContact(value: string) {
@@ -60,29 +63,27 @@ const useCalculateStore = () => {
         return;
       }
       calStore.contact = value;
-      calStore.validateSubmit();
     },
 
     setDOB(value: string) {
       calStore.dob = value;
-      calStore.validateSubmit();
     },
 
     validateSubmit() {
-      calStore.enableSubmit = false;
       // if (calStore.dob == '') {
       //   return;
       // }
 
-      if (!Utility.validateAlpha(calStore.childName)) {
-        return;
+      if (calStore.childName === '') {
+        calStore.errorMessages.childName = 'This Field is Required';
+        return false;
       }
+
+      return true;
 
       // if (!Utility.validatePhoneNumber(calStore.contact)) {
       //   return;
       // }
-
-      calStore.enableSubmit = true;
     },
 
     generateName(value: any) {
@@ -101,6 +102,9 @@ const useCalculateStore = () => {
         calStore.isLoading = true;
       });
       try {
+        if (!calStore.validateSubmit()) {
+          return;
+        }
         const responseJson: any = await request(
           'get',
           AppStrings.calculateFields(

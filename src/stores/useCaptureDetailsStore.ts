@@ -347,7 +347,7 @@ const useCaptureDetailsStore = () => {
       if (cdStore.feedbackFromParticipants === '') {
         cdStore.errorMessages.feedbackFromParticipants =
           'This Field is Required';
-          isValid = false;
+        isValid = false;
       }
       //  if(selectedImages.length==0){
       //   return;

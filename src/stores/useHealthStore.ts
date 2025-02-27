@@ -338,14 +338,20 @@ const useHealthStore = () => {
       healthStore.errorMessages.locationOfDose = '';
     },
     setLocationOfDoseWorm(value: string) {
-      if (!(value.trim() === '') && !Utility.validateAlphaNumericSpecial(value)) {
+      if (
+        !(value.trim() === '') &&
+        !Utility.validateAlphaNumericSpecial(value)
+      ) {
         return;
       }
       healthStore.locationOfDoseWorm = value;
       healthStore.errorMessages.locationOfDoseWorm = '';
     },
     setLocationOfDoseIFA(value: string) {
-      if (!(value.trim() === '') && !Utility.validateAlphaNumericSpecial(value)) {
+      if (
+        !(value.trim() === '') &&
+        !Utility.validateAlphaNumericSpecial(value)
+      ) {
         return;
       }
       healthStore.locationOfDoseIFA = value;
@@ -387,7 +393,7 @@ const useHealthStore = () => {
     },
 
     validateSubmit() {
-      let isValid=true;
+      let isValid = true;
       if (healthStore.partner === '') {
         healthStore.errorMessages.partner = 'This Field is Required';
         isValid = false;
@@ -477,17 +483,17 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseVitamin === '') {
               healthStore.errorMessages.dateOfDoseVitamin =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.durationOfCourse === '') {
               healthStore.errorMessages.durationOfCourse =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.locationOfDose === '') {
               healthStore.errorMessages.locationOfDose =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
           }
         }
@@ -505,17 +511,17 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseDeworm === '') {
               healthStore.errorMessages.dateOfDoseDeworm =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.durationOfCourseWorm === '') {
               healthStore.errorMessages.durationOfCourseWorm =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.locationOfDoseWorm === '') {
               healthStore.errorMessages.locationOfDoseWorm =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
           }
         } else {
@@ -534,32 +540,30 @@ const useHealthStore = () => {
             if (healthStore.dateOfDoseIFA === '') {
               healthStore.errorMessages.dateOfDoseIFA =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.durationOfCourseIFA === '') {
               healthStore.errorMessages.durationOfCourseIFA =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
             if (healthStore.locationOfDoseIFA === '') {
               healthStore.errorMessages.locationOfDoseIFA =
                 'This Field is Required';
-                isValid = false;
+              isValid = false;
             }
           }
         } else {
         }
+      }
 
-        if (healthStore.targetBeneficiary === '') {
-          healthStore.errorMessages.targetBeneficiary =
-            'This Field is Required';
-            isValid = false;
-        }
-        if (healthStore.educationalDetails === '') {
-          healthStore.errorMessages.educationalDetails =
-            'This Field is Required';
-            isValid = false;
-        }
+      if (healthStore.targetBeneficiary === '') {
+        healthStore.errorMessages.targetBeneficiary = 'This Field is Required';
+        isValid = false;
+      }
+      if (healthStore.educationalDetails === '') {
+        healthStore.errorMessages.educationalDetails = 'This Field is Required';
+        isValid = false;
       }
 
       return isValid;
@@ -854,16 +858,21 @@ const useHealthStore = () => {
                 //   type:   healthStore.selectedImages[0].mime,
                 //   name:   healthStore.selectedImages[0].path.split('/').pop(),
                 // }
-          
+
                 //     : null,
               }),
             );
           }
-          formData.append('image',  healthStore.selectedImages.length > 0 ?{
-            uri: healthStore.selectedImages[0].path,
-            type: healthStore.selectedImages[0].mime,
-            name:  healthStore.selectedImages[0].path.split('/').pop(),
-          }:null);
+          formData.append(
+            'image',
+            healthStore.selectedImages.length > 0
+              ? {
+                  uri: healthStore.selectedImages[0].path,
+                  type: healthStore.selectedImages[0].mime,
+                  name: healthStore.selectedImages[0].path.split('/').pop(),
+                }
+              : null,
+          );
           formData.append(
             'child_details',
             JSON.stringify({

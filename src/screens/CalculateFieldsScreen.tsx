@@ -66,6 +66,8 @@ const CalculateFieldsScreen = ({}: Props) => {
                       textHeader={AppStrings.childName}
                       placeHolder={AppStrings.childName}
                       onChangeText={calStore.setChildame}
+                      isMandatory
+                      errorMessage={calStore.errorMessages.childName}
                     />
 
                     <AppTextInput
@@ -95,7 +97,7 @@ const CalculateFieldsScreen = ({}: Props) => {
                   width={'90%'}
                   isLoading={calStore.isLoading}
                   onPress={() => calStore.handleSubmit(from)}
-                  enabled={calStore.enableSubmit}
+                  enabled={true}
                 />
               </View>
             </KeyboardAvoidingView>

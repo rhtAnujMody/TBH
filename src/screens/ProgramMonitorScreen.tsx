@@ -108,6 +108,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                             errorMessage={proStore.errorMessages.partnerType}
+                            isMandatory
                           />
 
                           <AppInput
@@ -126,6 +127,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.existingPartner
                             }
+                            isMandatory
                           />
 
                           {proStore.existingPartner && (
@@ -179,6 +181,7 @@ const ProgramMonitorScreen = () => {
                             }}
                             otherText={proStore.dov}
                             errorMessage={proStore.errorMessages.dov}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -191,6 +194,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setVVTeamSize}
                             value={proStore.vvTeamSize}
                             errorMessage={proStore.errorMessages.vvTeamSize}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -203,6 +207,7 @@ const ProgramMonitorScreen = () => {
                             value={proStore.liaDNameStaff}
                             onChangeText={proStore.setLiaDNameStaff}
                             errorMessage={proStore.errorMessages.liaDNameStaff}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -215,6 +220,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setLiaDDesigStaff}
                             value={proStore.liaDDesigStaff}
                             errorMessage={proStore.errorMessages.liaDDesigStaff}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -227,6 +233,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setLiaPNameStaff}
                             value={proStore.liaPNameStaff}
                             errorMessage={proStore.errorMessages.liaPNameStaff}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -239,6 +246,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setLiaPDesigStaff}
                             value={proStore.liaPDesigStaff}
                             errorMessage={proStore.errorMessages.liaPDesigStaff}
+                            isMandatory
                           />
                         </>
                       }
@@ -263,6 +271,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.numberOfChildrenDOV
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -277,6 +286,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.averageAttendMonth
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -292,6 +302,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.numNewChildEnroll
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -307,6 +318,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.numChildDropped
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -319,6 +331,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setNumChildSick}
                             keyboardType="numeric"
                             errorMessage={proStore.errorMessages.numChildSick}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -330,6 +343,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setIllness}
                             value={proStore.illness}
                             errorMessage={proStore.errorMessages.illness}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -345,6 +359,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.numberedActivitySheet
                             }
+                            isMandatory
                           />
 
                           <AppInput
@@ -363,6 +378,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.activitySheetCompleted
                             }
+                            isMandatory
                           />
 
                           <AppInput
@@ -381,6 +397,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.poshanCalenderCompleted
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -397,6 +414,7 @@ const ProgramMonitorScreen = () => {
                             }}
                             otherText={proStore.foodSupplyDate}
                             errorMessage={proStore.errorMessages.foodSupplyDate}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -410,6 +428,7 @@ const ProgramMonitorScreen = () => {
                             keyboardType="numeric"
                             value={proStore.noOfMealsCF}
                             errorMessage={proStore.errorMessages.noOfMealsCF}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -425,6 +444,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.noOfMealsReceive
                             }
+                            isMandatory
                           />
 
                           <AppInput
@@ -443,6 +463,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.storedFoodSafely
                             }
+                            isMandatory
                           />
 
                           <AppInput
@@ -461,6 +482,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.breakfastServedDaily
                             }
+                            isMandatory
                           />
 
                           <AppInput
@@ -477,6 +499,7 @@ const ProgramMonitorScreen = () => {
                             placeHolder={AppStrings.pleaseSelect}
                             rightIcon={AppSVGs.dropdown}
                             errorMessage={proStore.errorMessages.whenBreakfast}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -491,6 +514,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.addObservations
                             }
+                            isMandatory
                           />
                         </>
                       }
@@ -514,6 +538,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.teacherFeedback
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -526,6 +551,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setParentFeedback}
                             value={proStore.parentFeedback}
                             errorMessage={proStore.errorMessages.parentFeedback}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -538,6 +564,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setChildFeedback}
                             value={proStore.childFeedback}
                             errorMessage={proStore.errorMessages.childFeedback}
+                            isMandatory
                           />
                         </>
                       }
@@ -559,6 +586,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setCompanyName}
                             value={proStore.companyName}
                             errorMessage={proStore.errorMessages.companyName}
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -571,9 +599,11 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setVolunteerName}
                             value={proStore.volunteerName}
                             errorMessage={proStore.errorMessages.volunteerName}
+                            isMandatory
                           />
                           <Text style={styles.volunteerTitle}>
-                            Duration of the Volunteer Session
+                            Duration of the Volunteer Session{' '}
+                            <Text style={{color: 'red'}}>*</Text>
                           </Text>
                           <View style={styles.hourContainer}>
                             <View style={styles.hourMinContainer}>
@@ -618,6 +648,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.volunteerReason
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -632,6 +663,7 @@ const ProgramMonitorScreen = () => {
                             errorMessage={
                               proStore.errorMessages.learnAndObserve
                             }
+                            isMandatory
                           />
 
                           <AppTextInput
@@ -643,6 +675,7 @@ const ProgramMonitorScreen = () => {
                             onChangeText={proStore.setOtherFeedback}
                             value={proStore.otherFeedback}
                             errorMessage={proStore.errorMessages.otherFeedback}
+                            isMandatory
                           />
                         </>
                       }
@@ -665,6 +698,7 @@ const ProgramMonitorScreen = () => {
                           }}
                           rightIcon={AppSVGs.dropdown}
                           errorMessage={proStore.errorMessages.hour}
+                          isMandatory
                         />
                       </View>
                       <View style={styles.hourMinStyle}>
