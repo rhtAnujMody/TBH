@@ -21,61 +21,22 @@ const useDoctorStore = () => {
     action: '',
     others: '',
     isLoading: false,
-    enableSubmit: false,
     isAdmin: authStore.userData.role === 'A',
     isEditable: true,
     submitEditButon: AppStrings.submit,
-    doctorObservation: authStore.userData.doctor_observation || {
-      Head: [
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is there any Pain?',
-        },
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is it Round?',
-        },
-      ],
-      Nose: [
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is there any Pain?',
-        },
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is it Strong?',
-        },
-      ],
-      Shoulder: [
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is there any Pain?',
-        },
-        {
-          id: 1,
-          isSelected: false,
-          isDisabled: false,
-          observation: 'Is it Strong?',
-        },
-      ],
-    },
+    doctorObservation: authStore.userData.doctor_observation,
     hospitalOptions: [
       {name: AppStrings.yes, id: '1'},
       {name: AppStrings.no, id: '2'},
     ],
+    errorMessages: {
+      hospital: '',
+      action: '',
+    },
+
     setAction(value: string) {
       doctorStore.action = value;
-      doctorStore.validateSubmit();
+      doctorStore.errorMessages.action = '';
     },
     setOthers(value: string) {
       doctorStore.others = value;
@@ -91,7 +52,7 @@ const useDoctorStore = () => {
     setValue(from: string, value: string, id: string) {
       doctorStore.openBottomSheet = !doctorStore.openBottomSheet;
       doctorStore.hospital = value;
-      doctorStore.validateSubmit();
+      doctorStore.errorMessages.hospital = '';
     },
     setIsEditable(value: boolean) {
       doctorStore.isEditable = value;
@@ -100,67 +61,68 @@ const useDoctorStore = () => {
       doctorStore.submitEditButon = value;
     },
     validateSubmit() {
-      doctorStore.enableSubmit = false;
-
+      let isValid = true;
       if (doctorStore.hospital === '') {
-        return;
+        doctorStore.errorMessages.hospital = 'This Field is Required';
+        isValid = false;
       }
 
       if (doctorStore.hospital === 'Yes') {
         if (doctorStore.action === '') {
-          return;
+          doctorStore.errorMessages.action = 'This Field is Required';
+          isValid = false;
         }
       }
-
-      doctorStore.enableSubmit = true;
+      return isValid;
     },
     async saveData(id: string) {
       let selectedIds: number[] = [];
-      runInAction(() => {
-        doctorStore.isLoading = true;
-      });
-
-      Object.keys(doctorStore.doctorObservation).map(itemId => {
-        doctorStore.doctorObservation[itemId].map(item => {
-          if (item.isSelected) {
-            selectedIds.push(item.id);
-          }
-        });
-      });
-      Utility.logData(selectedIds);
-      try {
-        const responseJson = await request(
-          'post',
-          AppStrings.doctorObservation,
-          {
-            child_id: id,
-            observation: selectedIds,
-            others: doctorStore.others,
-            is_referred_to_hospital: doctorStore.hospital === 'Yes',
-            action_suggested:
-              doctorStore.hospital === 'Yes' ? doctorStore.action : null,
-            agent_id: authStore.userData.id,
-          },
-        );
-
-        if (responseJson.success) {
-          Utility.showToast(responseJson.msg);
-        } else {
-          Utility.showToast(responseJson.msg);
-        }
-        navigation.goBack();
-      } catch (err) {
-        Utility.showToast(AppStrings.somethingWentWrong);
-      } finally {
+      if (doctorStore.validateSubmit()) {
         Object.keys(doctorStore.doctorObservation).map(itemId => {
           doctorStore.doctorObservation[itemId].map(item => {
-            item.isSelected = false;
-            item.isDisable = false;
+            if (item.isSelected) {
+              selectedIds.push(item.id);
+            }
           });
         });
         runInAction(() => {
-          doctorStore.isLoading = false;
+          doctorStore.isLoading = true;
         });
+
+        try {
+          const responseJson = await request(
+            'post',
+            AppStrings.doctorObservation,
+            {
+              child_id: id,
+              observation: selectedIds,
+              others: doctorStore.others,
+              is_referred_to_hospital: doctorStore.hospital === 'Yes',
+              action_suggested:
+                doctorStore.hospital === 'Yes' ? doctorStore.action : null,
+              agent_id: authStore.userData.id,
+            },
+          );
+
+          if (responseJson.success) {
+            Utility.showToast(responseJson.msg);
+          } else {
+            Utility.showToast(responseJson.msg);
+          }
+          navigation.goBack();
+        } catch (err) {
+          Utility.showToast(AppStrings.somethingWentWrong);
+        } finally {
+          Object.keys(doctorStore.doctorObservation).map(itemId => {
+            doctorStore.doctorObservation[itemId].map(item => {
+              item.isSelected = false;
+              item.isDisable = false;
+            });
+          });
+          runInAction(() => {
+            doctorStore.isLoading = false;
+          });
+        }
       }
     },
   }));

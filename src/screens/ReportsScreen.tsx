@@ -90,6 +90,8 @@ const ReportsScreen = () => {
                           showDatePicker('1');
                         }}
                         otherText={reportsStore.fromDate}
+                        isMandatory={true}
+                        errorMessage={reportsStore.errors.fromDate}
                       />
                       <AppTextInput
                         parentStyle={styles.dovInputStyle}
@@ -101,6 +103,8 @@ const ReportsScreen = () => {
                           showDatePicker('2');
                         }}
                         otherText={reportsStore.toDate}
+                        isMandatory={true}
+                        errorMessage={reportsStore.errors.toDate}
                       />
                       <AppInput
                         onPress={() => {
@@ -111,6 +115,8 @@ const ReportsScreen = () => {
                         textHeader={AppStrings.partnerNameLocation}
                         placeHolder={AppStrings.partnerNameLocation}
                         rightIcon={AppSVGs.dropdown}
+                        isMandatory={true}
+                        errorMessage={reportsStore.errors.partnerID}
                       />
                     </View>
                   </Pressable>
@@ -121,7 +127,6 @@ const ReportsScreen = () => {
                   width={'90%'}
                   isLoading={reportsStore.isLoading}
                   onPress={handleSubmit}
-                  enabled={reportsStore.enableSubmit}
                 />
               </View>
             </KeyboardAvoidingView>

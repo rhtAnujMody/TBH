@@ -19,10 +19,7 @@ const useLoginStore = () => {
     password: '',
 
     setEmail(value: string) {
-      if (value.endsWith(' ')) {
-        return;
-      }
-      loginStore.userEmail = value;
+      loginStore.userEmail = value.trim();
       loginStore.validateCredentials();
     },
 
@@ -68,6 +65,10 @@ const useLoginStore = () => {
           Utility.showToast(response.msg);
         }
       } catch (err: unknown) {
+        let internet = await Utility.checkInterNet()
+        if(!internet){
+          Utility.showToast("Please check your internet connection");
+        }else{
         if (typeof err === 'string') {
           err.toUpperCase();
           Utility.showToast(err.toUpperCase()); // works, `e` narrowed to string
@@ -75,6 +76,7 @@ const useLoginStore = () => {
           err.message;
           Utility.showToast(err.message); // works, `e` narrowed to Error
         }
+      }
       } finally {
         runInAction(() => {
           loginStore.isLoading = false;

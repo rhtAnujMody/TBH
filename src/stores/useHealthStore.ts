@@ -782,6 +782,22 @@ const useHealthStore = () => {
       }
     },
 
+    async getPartnerList() {
+      try {
+        const response: any = await request(
+          'get',
+          AppStrings.managePartner(authStore.userData.id),
+        );
+        if (response.success) {
+          runInAction(() => {
+           authStore.setNewPartnerList(response.data);
+          });
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } 
+    },
+
     async handleSubmit() {
       runInAction(() => {
         healthStore.isLoading = true;
@@ -800,6 +816,7 @@ const useHealthStore = () => {
                 block: healthStore.newBlock,
                 district: healthStore.newDistrict,
                 state: healthStore.newState,
+                type:healthStore.partnerTypeID,
               }),
             );
             formData.append('partner', '');
@@ -940,7 +957,6 @@ const useHealthStore = () => {
 
             if (responseJson.success) {
               Utility.showToast(responseJson.msg);
-              authStore.setNewPartnerList(responseJson.partner_list);
             } else {
               Utility.showToast(responseJson.msg);
             }

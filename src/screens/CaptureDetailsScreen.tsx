@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -25,6 +25,7 @@ import {
   Header,
   AppDashedLine,
 } from '../components';
+import {AppToggleRef} from '../components/common/AppToggle';
 import {useCamera} from '../custom_hooks';
 import {authStore, useCaptureDetailsStore} from '../stores';
 import {styles} from '../styles/formStyles';
@@ -35,6 +36,7 @@ import Utility from '../utils/Utility';
 const CaptureDetailsScreen = () => {
   const cdStore = useCaptureDetailsStore();
   const bottomSheetRef = useRef<BottomSheet | null>(null);
+  const toggleRefs = useRef<AppToggleRef[]>([]);
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
 
@@ -73,7 +75,13 @@ const CaptureDetailsScreen = () => {
     hideDatePicker();
   };
 
-  Utility.logData(authStore.userData);
+  const handleSubmit = () => {
+    toggleRefs.current.forEach(ref => ref?.toggle(true));
+  };
+
+  useEffect(() => {
+    cdStore.getPartnerList();
+  }, []);
 
   return (
     <Observer>
@@ -113,6 +121,7 @@ const CaptureDetailsScreen = () => {
 
                       <AppToggle
                         title={AppStrings.partnerDetails}
+                        ref={el => (toggleRefs.current[0] = el!)}
                         children={
                           <>
                             <AppInput
@@ -251,6 +260,7 @@ const CaptureDetailsScreen = () => {
                       <AppDashedLine />
 
                       <AppToggle
+                        ref={el => (toggleRefs.current[1] = el!)}
                         title={
                           AppStrings.NUTRITION_EDUCATION_SCREEN.programDetails
                         }
@@ -435,6 +445,7 @@ const CaptureDetailsScreen = () => {
                   width={'90%'}
                   isLoading={cdStore.isLoading}
                   onPress={() => {
+                    handleSubmit();
                     cdStore.setSelectedImages(selectedImages);
                     cdStore.saveData();
                   }}

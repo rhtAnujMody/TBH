@@ -148,6 +148,9 @@ const useProgramStore = () => {
       proStore.errorMessages.dov = '';
     },
     setVVTeamSize(value: string) {
+      if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
+        return;
+      }
       proStore.vvTeamSize = value;
       proStore.errorMessages.vvTeamSize = '';
     },
@@ -481,12 +484,12 @@ const useProgramStore = () => {
       if (proStore.activitySheetCompleted === '') {
         proStore.errorMessages.activitySheetCompleted =
           'This Field is Required';
-          isValid = false;
+        isValid = false;
       }
       if (proStore.poshanCalenderCompleted === '') {
         proStore.errorMessages.poshanCalenderCompleted =
           'This Field is Required';
-          isValid = false;
+        isValid = false;
       }
       if (proStore.foodSupplyDate === '') {
         proStore.errorMessages.foodSupplyDate = 'This Field is Required';
@@ -635,6 +638,24 @@ const useProgramStore = () => {
         console.log('error saving data', e);
       }
     },
+
+    async getPartnerList() {
+      try {
+        const response: any = await request(
+          'get',
+          AppStrings.managePartner(authStore.userData.id),
+        );
+        if (response.success) {
+          runInAction(() => {
+           authStore.setNewPartnerList(response.data);
+          });
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } 
+    },
+
+    
     async sendData() {
       runInAction(() => {
         proStore.isLoading = true;

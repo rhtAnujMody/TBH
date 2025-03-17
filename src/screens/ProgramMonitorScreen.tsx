@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -31,11 +31,13 @@ import {useProgramStore} from '../stores';
 import {styles} from '../styles/formStyles';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
+import {AppToggleRef} from '../components/common/AppToggle';
 
 const ProgramMonitorScreen = () => {
   const proStore = useProgramStore();
 
   const bottomSheetRef = useRef<BottomSheet | null>(null);
+  const toggleRefs = useRef<AppToggleRef[]>([]);
 
   const {openGallery, takePhotoFromCamera, selectedImages, removeImage} =
     useCamera();
@@ -65,6 +67,10 @@ const ProgramMonitorScreen = () => {
     proStore.toogleCalender();
   };
 
+  const handleSubmit = () => {
+    toggleRefs.current.forEach(ref => ref?.toggle(true));
+  };
+
   const handleConfirm = (date: Date) => {
     switch (proStore.calenderID) {
       case '1':
@@ -76,6 +82,10 @@ const ProgramMonitorScreen = () => {
     }
     proStore.toogleCalender();
   };
+
+    useEffect(() => {
+      proStore.getPartnerList();
+    }, []);
 
   return (
     <Observer>
@@ -95,6 +105,7 @@ const ProgramMonitorScreen = () => {
                     </Text>
                     <AppToggle
                       title={AppStrings.partnerInfo}
+                      ref={el => (toggleRefs.current[0] = el!)}
                       children={
                         <>
                           <AppInput
@@ -256,6 +267,7 @@ const ProgramMonitorScreen = () => {
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.programCompliance
                       }
+                      ref={el => (toggleRefs.current[1] = el!)}
                       children={
                         <>
                           <AppTextInput
@@ -524,6 +536,7 @@ const ProgramMonitorScreen = () => {
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.beneficiaryFollowUp
                       }
+                      ref={el => (toggleRefs.current[2] = el!)}
                       children={
                         <>
                           <AppTextInput
@@ -575,6 +588,7 @@ const ProgramMonitorScreen = () => {
                       title={
                         AppStrings.PROGRAM_MONITORING_SCREEN.volunteersInfo
                       }
+                      ref={el => (toggleRefs.current[3] = el!)}
                       children={
                         <>
                           <AppTextInput
@@ -736,6 +750,7 @@ const ProgramMonitorScreen = () => {
                   width={'90%'}
                   isLoading={proStore.isLoading}
                   onPress={() => {
+                    handleSubmit();
                     proStore.setSelectedImages(selectedImages);
                     proStore.sendData();
                   }}

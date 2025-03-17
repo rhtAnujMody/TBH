@@ -35,6 +35,11 @@ const useReportsStore = () => {
     showCalender: false,
     showSearchBar: false,
     partnerNameList: Utility.partnerNameLocation(authStore.userData),
+    errors: {
+      fromDate: '',
+      toDate: '',
+      partnerID: '',
+    },
 
     toogleCalender() {
       reportsStore.showCalender = !reportsStore.showCalender;
@@ -45,11 +50,11 @@ const useReportsStore = () => {
     },
     setFromDate(value: string) {
       reportsStore.fromDate = value;
-      reportsStore.validateSubmit();
+      reportsStore.errors.fromDate = '';
     },
     setToDate(value: string) {
       reportsStore.toDate = value;
-      reportsStore.validateSubmit();
+      reportsStore.errors.toDate = '';
     },
     setShowSearchBar(value: boolean) {
       reportsStore.showSearchBar = value;
@@ -67,23 +72,26 @@ const useReportsStore = () => {
       reportsStore.partnerID = id;
       reportsStore.partnerLocation = res[1];
       reportsStore.partnerBlock = res[2];
-      reportsStore.validateSubmit();
+      reportsStore.errors.partnerID = '';
     },
 
     validateSubmit() {
-      reportsStore.enableSubmit = false;
+      let isValid = true;
 
       if (reportsStore.fromDate === '') {
-        return;
+        isValid = false;
+        reportsStore.errors.fromDate = 'This Field is Required';
       }
       if (reportsStore.toDate === '') {
-        return;
+        isValid = false;
+        reportsStore.errors.toDate = 'This Field is Required';
       }
       if (reportsStore.partner === '') {
-        return;
+        isValid = false;
+        reportsStore.errors.partnerID = 'This Field is Required';
       }
 
-      reportsStore.enableSubmit = true;
+      return isValid;
     },
 
     async exportDataToExcel(res: string, id: string) {
@@ -138,6 +146,9 @@ const useReportsStore = () => {
         reportsStore.isLoading = true;
       });
       try {
+        if (!reportsStore.validateSubmit()) {
+          return;
+        }
         const response: any = await request(
           'post',
           AppStrings.generateReports,

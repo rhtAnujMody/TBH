@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useImperativeHandle, forwardRef} from 'react';
 import {
   Image,
   StyleSheet,
@@ -16,7 +16,11 @@ type Props = {
   children?: React.ReactNode;
 };
 
-function AppToggle({title, children}: Props) {
+export type AppToggleRef = {
+  toggle: (toggle: boolean) => void;
+};
+
+const AppToggle = forwardRef<AppToggleRef, Props>(({title, children}, ref) => {
   const [toggle, setToggle] = useState(false);
 
   // Enable LayoutAnimation on Android
@@ -27,15 +31,20 @@ function AppToggle({title, children}: Props) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  const toggleView = () => {
-    // Configure the next layout animation
+  const toggleView = (toggle: boolean) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setToggle(prev => !prev);
+    setToggle(toggle);
   };
+
+  useImperativeHandle(ref, () => ({
+    toggle: toggleView,
+  }));
 
   return (
     <>
-      <TouchableOpacity onPress={toggleView} style={styles.container}>
+      <TouchableOpacity
+        onPress={() => toggleView(!toggle)}
+        style={styles.container}>
         <Text style={styles.title}>{title}</Text>
 
         <Image
@@ -51,7 +60,7 @@ function AppToggle({title, children}: Props) {
       {toggle && <View style={styles.childrenContainer}>{children}</View>}
     </>
   );
-}
+});
 
 const styles = StyleSheet.create({
   title: {

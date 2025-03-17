@@ -401,6 +401,22 @@ const useCaptureDetailsStore = () => {
       }
     },
 
+    async getPartnerList() {
+      try {
+        const response: any = await request(
+          'get',
+          AppStrings.managePartner(authStore.userData.id),
+        );
+        if (response.success) {
+          runInAction(() => {
+           authStore.setNewPartnerList(response.data);
+          });
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      } 
+    },
+
     async saveData() {
       runInAction(() => {
         cdStore.isLoading = true;
@@ -459,7 +475,6 @@ const useCaptureDetailsStore = () => {
 
             if (responseJson.success) {
               Utility.showToast(responseJson.msg);
-              authStore.setNewPartnerList(responseJson.partner_list);
             } else {
               Utility.showToast(responseJson.msg);
             }

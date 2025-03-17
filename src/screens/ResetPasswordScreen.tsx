@@ -56,16 +56,16 @@ const ResetPasswordScreen = () => {
               placeHolder={AppStrings.newPassword}
               returnKeyType="done"
               inputRef={emailRef}
-              secureTextEntry
               onChangeText={resetStore.setNewPassword}
+              isPassword={true}
             />
             <AppTextInput
               icon={AppSVGs.lock}
               placeHolder={AppStrings.confirmPassword}
               returnKeyType="done"
               inputRef={passwordRef}
-              secureTextEntry
               onChangeText={resetStore.setConfirmPWD}
+              isPassword={true}
             />
 
             <View style={styles.otpBottomContainer}>

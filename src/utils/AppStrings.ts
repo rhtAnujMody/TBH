@@ -25,8 +25,10 @@ export default {
   manageUsers: (agent_id: number): string =>
     `/v1/accounts/admin-actions/?agent_id=${agent_id}`,
 
-  manageChild: '/v1/accounts/child/',
-  managePartner: '/v1/accounts/partner/',
+  manageChild: (agent_id: number): string =>
+    `/v1/accounts/child/?agent_id=${agent_id}`,
+  managePartner: (agent_id: number): string =>
+    `/v1/accounts/partner/?agent_id=${agent_id}`,
   deleteUsers: '/v1/accounts/admin-actions/',
 
   fromCalculate: 'calculated_fields',

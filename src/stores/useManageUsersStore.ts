@@ -41,7 +41,10 @@ const useManageUsersStore = () => {
     async getPartnerList() {
       runInAction(() => {});
       try {
-        const response: any = await request('get', AppStrings.managePartner);
+        const response: any = await request(
+          'get',
+          AppStrings.managePartner(authStore.userData.id),
+        );
         if (response.success) {
           runInAction(() => {
             manageStore.partnerNameList = response.data;
@@ -58,7 +61,10 @@ const useManageUsersStore = () => {
     async getChildNameList() {
       runInAction(() => {});
       try {
-        const response: any = await request('get', AppStrings.manageChild);
+        const response: any = await request(
+          'get',
+          AppStrings.manageChild(authStore.userData.id),
+        );
         if (response.success) {
           runInAction(() => {
             manageStore.childDetailsList = response.data;
@@ -112,9 +118,14 @@ const useManageUsersStore = () => {
 
     async deleteChild(id: number) {
       try {
-        const response: any = await request('post', AppStrings.manageChild, {
-          child_id: id,
-        });
+        const response: any = await request(
+          'post',
+          AppStrings.manageChild(authStore.userData.id),
+          {
+            child_id: id,
+            agent_id: authStore.userData.id,
+          },
+        );
 
         if (response.success) {
           Utility.showToast(response.msg);
@@ -128,9 +139,14 @@ const useManageUsersStore = () => {
 
     async deletePartner(id: number) {
       try {
-        const response: any = await request('post', AppStrings.managePartner, {
-          partner: id,
-        });
+        const response: any = await request(
+          'post',
+          AppStrings.managePartner(authStore.userData.id),
+          {
+            partner_id: id,
+            agent_id: authStore.userData.id,
+          },
+        );
 
         if (response.success) {
           Utility.showToast(response.msg);

@@ -31,10 +31,12 @@ import {colors} from '../theme';
 import {useHealthStore} from '../stores';
 import {useCamera} from '../custom_hooks';
 import {styles} from '../styles/formStyles';
+import {AppToggleRef} from '../components/common/AppToggle';
 
 const HealthCampScreen = () => {
   const healthStore = useHealthStore();
   const bottomSheetRef = useRef<BottomSheet | null>(null);
+  const toggleRefs = useRef<AppToggleRef[]>([]);
   const {openGallery, removeImage, takePhotoFromCamera, selectedImages} =
     useCamera();
 
@@ -66,8 +68,13 @@ const HealthCampScreen = () => {
     healthStore.toogleCalender();
   };
 
+  const handleSubmit = () => {
+    toggleRefs.current.forEach(ref => ref?.toggle(true));
+  };
+
   useEffect(() => {
     healthStore.getItem();
+    healthStore.getPartnerList();
   }, []);
 
   const handleConfirm = (date: Date) => {
@@ -115,6 +122,7 @@ const HealthCampScreen = () => {
 
                       <AppToggle
                         title={AppStrings.partnerDetails}
+                        ref={el => (toggleRefs.current[0] = el!)}
                         children={
                           <>
                             <AppInput
@@ -274,6 +282,7 @@ const HealthCampScreen = () => {
 
                       <AppToggle
                         title={AppStrings.HEALTH_CAMP_SCREEN.healthCampDetails}
+                        ref={el => (toggleRefs.current[1] = el!)}
                         children={
                           <>
                             <AppTextInput
@@ -315,6 +324,7 @@ const HealthCampScreen = () => {
 
                       <AppToggle
                         title={AppStrings.HEALTH_CAMP_SCREEN.childDetails}
+                        ref={el => (toggleRefs.current[2] = el!)}
                         children={
                           <>
                             <AppTextInput
@@ -789,6 +799,7 @@ const HealthCampScreen = () => {
                   width={'90%'}
                   isLoading={healthStore.isLoading}
                   onPress={() => {
+                    handleSubmit();
                     healthStore.setSelectedImages(selectedImages);
                     healthStore.handleSubmit();
                   }}

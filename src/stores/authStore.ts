@@ -187,7 +187,7 @@ const authStore = {
         });
         console.log('Item deleted successfully!');
       } else {
-        Utility.showToast('Error in sending Nutrition Education Data');
+        Utility.showToast(responseJson.msg);
       }
     } catch (e) {
       console.log(e, 'error in sending sendNutritionEducationToServer');
@@ -306,6 +306,7 @@ const authStore = {
             block: data.block,
             district: data.district,
             state: data.state,
+            type:data.type,
           }),
         );
         formData.append('partner', '');
@@ -324,7 +325,7 @@ const authStore = {
             contact: data.contact,
             gender: data.gender,
             beneficiary_id: data.beneficiaryID,
-            image: data.images.length > 0 ? data.images[0].uri : null,
+            //image: data.images.length > 0 ? data.images[0].uri : null,
           }),
         );
       } else {
@@ -336,10 +337,21 @@ const authStore = {
             contact: data.contact,
             gender: data.gender,
             beneficiary_id: data.beneficiaryID,
-            image: data.images.length > 0 ? data.images[0].uri : null,
+            //image: data.images.length > 0 ? data.images[0].uri : null,
           }),
         );
       }
+
+      formData.append(
+        'image',
+        data.images.length > 0 ?
+           {
+              uri: data.images[0].uri,
+              type: data.images[0].type,
+              name: data.images[0].name,
+            }
+          : null,
+      );
 
       formData.append(
         'child_details',

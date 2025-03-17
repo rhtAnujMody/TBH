@@ -41,7 +41,7 @@ const DocObservationScreen = ({}: Props) => {
   };
 
   useEffect(() => {
-    if (doctor_observation !== null) {
+    if (doctor_observation) {
       let doctor_length = doctor_observation.length;
       doctorStore.setOthers(doctor_observation[doctor_length - 1].others);
       doctor_observation[doctor_length - 1].is_referred_to_hospital
@@ -142,6 +142,8 @@ const DocObservationScreen = ({}: Props) => {
                       textHeader={AppStrings.referredHospital}
                       placeHolder={AppStrings.referredHospital}
                       rightIcon={AppSVGs.dropdown}
+                      errorMessage={doctorStore.errorMessages.hospital}
+                      isMandatory
                     />
                     {doctorStore.hospital === AppStrings.yes && (
                       <AppTextInput
@@ -151,6 +153,8 @@ const DocObservationScreen = ({}: Props) => {
                         placeHolder={AppStrings.actionSuggested}
                         onChangeText={doctorStore.setAction}
                         editable={doctorStore.isEditable}
+                        errorMessage={doctorStore.errorMessages.action}
+                        isMandatory
                       />
                     )}
                   </Pressable>
@@ -163,7 +167,7 @@ const DocObservationScreen = ({}: Props) => {
                   onPress={() => {
                     doctorStore.saveData(id);
                   }}
-                  enabled={doctorStore.enableSubmit && doctorStore.isEditable}
+                  enabled={doctorStore.isEditable}
                 />
               </View>
             </KeyboardAvoidingView>
