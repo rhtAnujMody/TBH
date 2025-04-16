@@ -5,20 +5,16 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
+import {SafeAreaView} from 'react-native';
 import AppNavigation from './src/navigation/AppNavigation';
-import codePush from 'react-native-code-push';
-
-let codePushOptions = {checkFrequency: codePush.CheckFrequency.MANUAL}; //MANUAL
 
 function App(): JSX.Element {
-  useEffect(() => {
-    codePush.sync({
-      updateDialog: true,
-      installMode: codePush.InstallMode.IMMEDIATE,
-    });
-  }, []);
-  return <AppNavigation />;
+  return (
+    <SafeAreaView>
+      <AppNavigation />
+    </SafeAreaView>
+  );
 }
 
-export default codePush(codePushOptions)(App);
+export default App;
