@@ -4,7 +4,7 @@ import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
-import {HealthModal} from '../models';
+import {HealthModal, PartnerList} from '../models';
 import authStore from './authStore';
 import {useNavigation} from '@react-navigation/native';
 import {useAsyncStorage} from '../custom_hooks';
@@ -15,13 +15,8 @@ const useHealthStore = () => {
   const {setData, getData} = useAsyncStorage();
 
   const keys = [
-    'partner',
     'partnerID',
-    'newPartnerName',
-    'newLocation',
-    'newBlock',
-    'newDistrict',
-    'newState',
+    'partner',
     'existPartnerName',
     'existLocation',
     'existBlock',
@@ -390,6 +385,10 @@ const useHealthStore = () => {
 
     disableAgeEdit() {
       healthStore.ageIsEditable = false;
+    },
+
+    setPartnerNameList(res: PartnerList[]) {
+      healthStore.partnerNameList = Utility.partnerNameLocation2(res);
     },
 
     validateSubmit() {
@@ -790,12 +789,12 @@ const useHealthStore = () => {
         );
         if (response.success) {
           runInAction(() => {
-           authStore.setNewPartnerList(response.data);
+            healthStore.setPartnerNameList(response.data);
           });
         }
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
-      } 
+      }
     },
 
     async handleSubmit() {
@@ -816,7 +815,7 @@ const useHealthStore = () => {
                 block: healthStore.newBlock,
                 district: healthStore.newDistrict,
                 state: healthStore.newState,
-                type:healthStore.partnerTypeID,
+                type: healthStore.partnerTypeID,
               }),
             );
             formData.append('partner', '');
@@ -839,11 +838,6 @@ const useHealthStore = () => {
           setData('partnerTypeID', healthStore.partnerTypeID.toString());
           setData('dohc', healthStore.dohc.toString());
           setData('numberHC', healthStore.numberHC.toString());
-          setData('newPartnerName', healthStore.newPartnerName.toString());
-          setData('newLocation', healthStore.newLocation.toString());
-          setData('newBlock', healthStore.newBlock.toString());
-          setData('newDistrict', healthStore.newDistrict.toString());
-          setData('newState', healthStore.newState.toString());
 
           if (this.ageIsEditable === true) {
             formData.append(
@@ -880,16 +874,18 @@ const useHealthStore = () => {
               }),
             );
           }
-          formData.append(
-            'image',
-            healthStore.selectedImages.length > 0
-              ? {
-                  uri: healthStore.selectedImages[0].path,
-                  type: healthStore.selectedImages[0].mime,
-                  name: healthStore.selectedImages[0].path.split('/').pop(),
-                }
-              : null,
-          );
+
+          for (
+            let i = 0;
+            i < Math.min(healthStore.selectedImages.length, 5);
+            i++
+          ) {
+            formData.append(`image_${i + 1}`, {
+              uri: healthStore.selectedImages[i].path,
+              type: healthStore.selectedImages[i].mime,
+              name: healthStore.selectedImages[i].path.split('/').pop(),
+            });
+          }
           formData.append(
             'child_details',
             JSON.stringify({

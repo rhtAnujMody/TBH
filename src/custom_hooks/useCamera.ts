@@ -40,8 +40,25 @@ const useCamera = () => {
           Utility.showToast(AppStrings.maxImagesError);
           return;
         }
+
+        const maxSizeMB = 10;
+
+        // Filter valid images under size limit
+        const validImages = images.filter(image => {
+          const sizeInMB = image.size / (1024 * 1024);
+          if (sizeInMB > maxSizeMB) {
+            Utility.showToast(
+              `Some images exceeded ${maxSizeMB}MB and were skipped.`,
+            );
+            return false;
+          }
+          return true;
+        });
+
+        if (validImages.length === 0) return;
+
         setSelectedImages(prevSelectedImages =>
-          prevSelectedImages.concat(images),
+          prevSelectedImages.concat(validImages),
         );
       })
       .catch(error => {

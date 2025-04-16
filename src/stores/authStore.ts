@@ -306,7 +306,7 @@ const authStore = {
             block: data.block,
             district: data.district,
             state: data.state,
-            type:data.type,
+            type: data.type,
           }),
         );
         formData.append('partner', '');
@@ -342,16 +342,13 @@ const authStore = {
         );
       }
 
-      formData.append(
-        'image',
-        data.images.length > 0 ?
-           {
-              uri: data.images[0].uri,
-              type: data.images[0].type,
-              name: data.images[0].name,
-            }
-          : null,
-      );
+      for (let i = 0; i < Math.min(data.images.length, 5); i++) {
+        formData.append(`image_${i + 1}`, {
+          uri: data.images[i].uri,
+          type: data.images[i].type,
+          name: data.images[i].name,
+        });
+      }
 
       formData.append(
         'child_details',

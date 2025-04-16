@@ -381,6 +381,8 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setAge}
                               errorMessage={healthStore.errorMessages.age}
                               isMandatory
+                              units="months"
+                              keyboardType={'numeric'}
                             />
 
                             <AppInput
@@ -406,6 +408,8 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setHeight}
                               errorMessage={healthStore.errorMessages.height}
                               isMandatory
+                              units="cm"
+                              keyboardType={'numeric'}
                             />
 
                             <AppTextInput
@@ -418,6 +422,8 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setWeight}
                               errorMessage={healthStore.errorMessages.weight}
                               isMandatory
+                              keyboardType={'numeric'}
+                              units="Kgs"
                             />
 
                             <AppTextInput
@@ -430,6 +436,8 @@ const HealthCampScreen = () => {
                               onChangeText={healthStore.setMUAC}
                               errorMessage={healthStore.errorMessages.muac}
                               isMandatory
+                              units="cm"
+                              keyboardType={'numeric'}
                             />
 
                             <AppInput

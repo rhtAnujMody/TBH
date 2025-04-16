@@ -1,6 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet/';
 import {Observer} from 'mobx-react-lite';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -64,6 +64,11 @@ const ReportsScreen = () => {
     }
     reportsStore.toogleCalender();
   };
+
+  useEffect(() => {
+    reportsStore.getPartnerList();
+  }, []);
+
   return (
     <Observer>
       {() => (

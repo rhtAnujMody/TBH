@@ -2,7 +2,7 @@ import {runInAction} from 'mobx';
 import {useLocalObservable} from 'mobx-react-lite';
 import {Image} from 'react-native-image-crop-picker';
 import {AppSVGs} from '../assets';
-import {CaptureModal} from '../models';
+import {CaptureModal, PartnerList} from '../models';
 import useApiService from '../network/useAPIService';
 import AppStrings from '../utils/AppStrings';
 import Utility from '../utils/Utility';
@@ -212,6 +212,10 @@ const useCaptureDetailsStore = () => {
       }
     },
 
+    setPartnerNameList(res:PartnerList[]){
+      cdStore.partnerNameList = Utility.partnerNameLocation2(res);
+    },
+
     setTotalNoOfParticipants(value: string) {
       if (!(value.trim() === '') && !Utility.validateNumeric(value)) {
         return;
@@ -385,7 +389,7 @@ const useCaptureDetailsStore = () => {
           for (let i = 0; i < Math.min(cdStore.selectedImages.length, 5); i++) {
             savedRecord.images.push(
               authStore.realm.create('ImagesSchema', {
-                _id: Date.now() + 1,
+                _id: Date.now() + i ,
                 uri: cdStore.selectedImages[i].path,
                 type: cdStore.selectedImages[i].mime,
                 name: cdStore.selectedImages[i].path.split('/').pop(),
@@ -396,8 +400,7 @@ const useCaptureDetailsStore = () => {
           Utility.showToast('Record Saved Successfully to Local Database');
         });
       } catch (e) {
-        Utility.showToast(AppStrings.somethingWentWrong);
-        console.log('error saving data', e);
+        Utility.showToast('Error in Saving data to Local Database');
       }
     },
 
@@ -409,7 +412,7 @@ const useCaptureDetailsStore = () => {
         );
         if (response.success) {
           runInAction(() => {
-           authStore.setNewPartnerList(response.data);
+           cdStore.setPartnerNameList(response.data);
           });
         }
       } catch (err) {

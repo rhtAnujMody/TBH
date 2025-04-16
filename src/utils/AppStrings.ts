@@ -148,7 +148,7 @@ export default {
   uploadLibrary: 'Upload from Library',
   uploadPhotoCaps: 'UPLOAD PHOTO',
   maxPhotos:
-    '(User can upload up to maximum 5 photos and in .jpg / .jpeg / .png formats)',
+    '(You can upload up to maximum 5 photos and in .jpg / .jpeg / .png formats. Each image must be under 10MB.)',
 
   delete: 'Delete',
   sureDelete: 'Are you sure you want to delete this user?',

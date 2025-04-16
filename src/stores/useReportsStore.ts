@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/native';
 import {writeFile, DownloadDirectoryPath} from 'react-native-fs';
 import XLSX from 'xlsx';
 import FileViewer from 'react-native-file-viewer';
+import {PartnerList} from '../models';
 
 const useReportsStore = () => {
   const navigation =
@@ -59,6 +60,9 @@ const useReportsStore = () => {
     setShowSearchBar(value: boolean) {
       reportsStore.showSearchBar = value;
     },
+    setPartnerNameList(res: PartnerList[]) {
+      reportsStore.partnerNameList = Utility.partnerNameLocation2(res);
+    },
     toggleBottomSheet() {
       reportsStore.openBottomSheet = !reportsStore.openBottomSheet;
       reportsStore.bottomSheetHeader = AppStrings.selectPartnerLocation;
@@ -94,18 +98,53 @@ const useReportsStore = () => {
       return isValid;
     },
 
+    async getPartnerList() {
+      try {
+        const response: any = await request(
+          'get',
+          AppStrings.managePartner(authStore.userData.id),
+        );
+        if (response.success) {
+          runInAction(() => {
+            reportsStore.setPartnerNameList(response.data);
+          });
+        }
+      } catch (err) {
+        Utility.showToast(AppStrings.somethingWentWrong);
+      }
+    },
+
     async exportDataToExcel(res: string, id: string) {
+      const header_keys = [
+        'Image_1',
+        'Image_2',
+        'Image_3',
+        'Image_4',
+        'Image_5',
+      ];
       const test = `${res}`;
       const lines = test.split('\n');
       const headerLine = lines[0].split(',');
-      const data1 = lines.slice(1).map(line => {
-        const values = line.split(',');
-        return headerLine.reduce((obj: any, key, index) => {
-          obj[key] = values[index];
-          return obj;
-        }, {});
-      });
+      const data1 = lines
+        .slice(1)
+        .filter(line => line.trim() && !line.includes('END OF Report'))
+        .map(line => {
+          const values = line.split(',');
+          return headerLine.reduce((obj: any, key, index) => {
+            const value = values[index];
+            if (header_keys.includes(key) && value !== 'No Image') {
+              obj[key] = {t: 's', v: 'Click Here', l: {Target: value}};
+            } else {
+              obj[key] = value;
+            }
+            return obj;
+          }, {});
+        });
+      const endRow: any = {};
+      endRow[headerLine[0]] = 'End of Report';
+      data1.push(endRow);
       let ws = XLSX.utils.json_to_sheet(data1);
+
       let wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Users');
       const wbout = XLSX.write(wb, {type: 'binary', bookType: 'xlsx'});

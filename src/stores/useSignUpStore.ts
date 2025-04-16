@@ -25,7 +25,7 @@ const useSignUpStore = () => {
       if (value.endsWith(' ')) {
         return;
       }
-      signUpStore.userEmail = value;
+      signUpStore.userEmail = value.toLowerCase();
       signUpStore.validateCredentials();
     },
 

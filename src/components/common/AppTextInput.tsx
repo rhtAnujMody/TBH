@@ -46,6 +46,7 @@ interface Props extends TextInputProps {
   isPassword?: boolean;
   errorMessage?: string;
   isMandatory?: boolean;
+  units?: string;
 }
 
 const AppTextInput = ({
@@ -63,6 +64,7 @@ const AppTextInput = ({
   isPassword,
   errorMessage,
   isMandatory,
+  units,
   ...props
 }: Props) => {
   const [border, setBorder] = useState(colors.gray);
@@ -131,6 +133,16 @@ const AppTextInput = ({
               </TouchableOpacity>
             )}
           </>
+        )}
+        {units && (
+          <Text
+            style={{
+              ...typography.regular(14),
+              color: colors.black,
+              marginLeft: 'auto',
+            }}>
+            {units}
+          </Text>
         )}
         {RightIcon && !isPassword && (
           <TouchableWithoutFeedback onPress={onPress}>
@@ -209,11 +221,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textInput: {
-    width: '100%',
-    height: '100%',
     paddingRight: 20,
     marginLeft: 20,
     ...typography.regular(14),
+    width: '100%',
   },
   textHeader: {
     ...typography.medium(12),

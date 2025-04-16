@@ -2,7 +2,7 @@ import {useLocalObservable} from 'mobx-react-lite';
 import Utility from '../utils/Utility';
 import {runInAction} from 'mobx';
 import {Image} from 'react-native-image-crop-picker';
-import {ProgramModal} from '../models';
+import {PartnerList, ProgramModal} from '../models';
 import AppStrings from '../utils/AppStrings';
 import useApiService from '../network/useAPIService';
 import authStore from './authStore';
@@ -289,6 +289,10 @@ const useProgramStore = () => {
 
     setShowSearchBar(value: boolean) {
       proStore.showSearchBar = value;
+    },
+
+    setPartnerNameList(res: PartnerList[]) {
+      proStore.existingPartnerOptions = Utility.partnerNameLocation2(res);
     },
 
     toggleBottomSheet(from?: string) {
@@ -647,15 +651,14 @@ const useProgramStore = () => {
         );
         if (response.success) {
           runInAction(() => {
-           authStore.setNewPartnerList(response.data);
+            proStore.setPartnerNameList(response.data);
           });
         }
       } catch (err) {
         Utility.showToast(AppStrings.somethingWentWrong);
-      } 
+      }
     },
 
-    
     async sendData() {
       runInAction(() => {
         proStore.isLoading = true;

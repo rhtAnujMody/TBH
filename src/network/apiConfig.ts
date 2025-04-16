@@ -4,7 +4,9 @@ import {authStore} from '../stores';
 import AppStrings from '../utils/AppStrings';
 
 const apiInstance = axios.create({
-  baseURL: 'http://13.233.157.55:8000/api/',
+  baseURL: 'http://65.2.81.147:8000/api/',
+  //'http://65.2.81.147:8000/api/',
+  //http://10.0.2.2:8000/api/
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },

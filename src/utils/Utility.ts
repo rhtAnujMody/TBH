@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {Dimensions} from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {UserData} from '../models/UserModal';
+import {PartnerList, UserData} from '../models/UserModal';
 import {AppSVGs} from '../assets';
 import {BottomSheetChildCard} from '../components/common/AppBottomCell';
 import {BottomSheetCard} from '../components/common/AppBottomSheetDropdown';
@@ -94,6 +94,25 @@ class Utility {
 
   static partnerNameLocation = (userData: UserData) => {
     return userData.partner_list.map(item => {
+      return {
+        name:
+          item.name +
+          ',' +
+          '\n' +
+          item.location +
+          ',' +
+          item.block +
+          ',' +
+          item.district +
+          ',' +
+          item.state,
+        id: item.id,
+      };
+    });
+  };
+
+  static partnerNameLocation2 = (partner_list: PartnerList[]) => {
+    return partner_list.map(item => {
       return {
         name:
           item.name +

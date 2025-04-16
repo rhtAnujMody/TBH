@@ -19,7 +19,7 @@ const useLoginStore = () => {
     password: '',
 
     setEmail(value: string) {
-      loginStore.userEmail = value.trim();
+      loginStore.userEmail = value.trim().toLowerCase();
       loginStore.validateCredentials();
     },
 
@@ -65,18 +65,18 @@ const useLoginStore = () => {
           Utility.showToast(response.msg);
         }
       } catch (err: unknown) {
-        let internet = await Utility.checkInterNet()
-        if(!internet){
-          Utility.showToast("Please check your internet connection");
-        }else{
-        if (typeof err === 'string') {
-          err.toUpperCase();
-          Utility.showToast(err.toUpperCase()); // works, `e` narrowed to string
-        } else if (err instanceof Error) {
-          err.message;
-          Utility.showToast(err.message); // works, `e` narrowed to Error
+        let internet = await Utility.checkInterNet();
+        if (!internet) {
+          Utility.showToast('Please check your internet connection');
+        } else {
+          if (typeof err === 'string') {
+            err.toUpperCase();
+            Utility.showToast(err.toUpperCase()); // works, `e` narrowed to string
+          } else if (err instanceof Error) {
+            err.message;
+            Utility.showToast(err.message); // works, `e` narrowed to Error
+          }
         }
-      }
       } finally {
         runInAction(() => {
           loginStore.isLoading = false;
