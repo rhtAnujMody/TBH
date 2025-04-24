@@ -65,6 +65,7 @@ const LoginScreen = () => {
               returnKeyType="next"
               inputRef={emailRef}
               value={loginStore.userEmail}
+              keyboardType={'email-address'}
               onChangeText={loginStore.setEmail}
               onSubmitEditing={handleOnSubmitEditing}
               autoCapitalize="none"

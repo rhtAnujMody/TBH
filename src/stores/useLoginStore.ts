@@ -19,7 +19,10 @@ const useLoginStore = () => {
     password: '',
 
     setEmail(value: string) {
-      loginStore.userEmail = value.trim().toLowerCase();
+      const hasUpperCase = /[A-Z]/.test(value);
+      if (hasUpperCase) return;
+
+      loginStore.userEmail = value;
       loginStore.validateCredentials();
     },
 
